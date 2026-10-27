@@ -1,0 +1,10 @@
+{
+  "importedAt": "2026-10-26T16:57:56.062888+00:00",
+  "version": "0.1.0",
+  "files": [],
+  "gameChanged": false,
+  "gameLaunched": false,
+  "knownIssue": "Boss has both overhead and main health bars; next task not implemented",
+  "scope": "Historical 0.1.0 initial import only; current accepted/candidate source identity is owned by docs/STATUS.md. Paths refer to original monorepo, not this root.",
+  "source": "https://github.com/NikichMods/AsterigosMods/blob/0fb78e76c24306ade338b85f63cb5f2dbfa7f9e7/docs/BASELINE.json"
+}

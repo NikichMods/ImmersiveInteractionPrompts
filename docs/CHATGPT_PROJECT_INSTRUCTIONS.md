@@ -1,17 +1,17 @@
 # ChatGPT Project Instructions — Immersive Interaction Prompts
 
-Project: `Immersive Interaction Prompts`; repository: `NikichMods/AsterigosMods`; target module: `ImmersiveInteractionPrompts/`.
+Project: `Immersive Interaction Prompts`; repository: `NikichMods/ImmersiveInteractionPrompts`; independent repository.
 Runtime: Asterigos: Curse of the Stars (Windows x64, UE4.27). Use the exact verified Steam build and UE4SS environment from the repository, not a presumed universal compatibility claim.
 Purpose: make world-object interaction prompts visually immersive using suitable in-world Aphes lettering above clear localized action text, while preserving the actual controls and game behavior.
 
-For NikichMods work, read current `NikichMods/DevRules/WORKING_RULES.md`, the repository root `AGENTS.md`, and `ImmersiveInteractionPrompts/AGENTS.md`. Follow the DevRules action-based map and read task-relevant technical, Git, runtime, CI, licensing and acceptance rules. For local Codex/checkouts also follow `CODEX_WORKFLOW.md`, inspect the actual worktree and preserve unpublished changes. These pointers do not grant new permissions.
+For NikichMods work, read current `NikichMods/DevRules/WORKING_RULES.md`, the repository root `AGENTS.md`, . Follow the DevRules action-based map and read task-relevant technical, Git, runtime, CI, licensing and acceptance rules. For local Codex/checkouts also follow `CODEX_WORKFLOW.md`, inspect the actual worktree and preserve unpublished changes. These pointers do not grant new permissions.
 
 Canonical recovery:
-- `ImmersiveInteractionPrompts/docs/REQUIREMENTS.md` — adopted UX and preserved behavior.
-- `ImmersiveInteractionPrompts/docs/STATUS.md` — current stage, gates and next work.
-- `ImmersiveInteractionPrompts/docs/VERIFIED_RUNTIME.md` — module-specific runtime evidence and unknowns.
-- `ImmersiveInteractionPrompts/docs/RESEARCH_PLAN.md` — bounded initial UI/glyph investigation, when relevant.
-- `ImmersiveInteractionPrompts/README.md`, `AGENTS.md`, `VERSION` — module identity and version owner.
+- `docs/REQUIREMENTS.md` — adopted UX and preserved behavior.
+- `docs/STATUS.md` — current stage, gates and next work.
+- `docs/VERIFIED_RUNTIME.md` — module-specific runtime evidence and unknowns.
+- `docs/RESEARCH_PLAN.md` — bounded initial UI/glyph investigation, when relevant.
+- `README.md`, `AGENTS.md`, `VERSION` — module identity and version owner.
 - Root `README.md`, `docs/CURRENT_STATE.md` and `docs/WORKFLOW.md` — shared repository context.
 
 Shared game research: `NikichMods/Asterigos-Research/docs/RESEARCH_INDEX.md`. Consult it before new host investigations. Promote only reusable verified game-level findings there; mod-specific requirements, tests, source identities and acceptance remain with this module.

@@ -1,0 +1,50 @@
+{
+  "originalRepository": "NikichMods/AsterigosMods",
+  "originalCommit": "0fb78e76c24306ade338b85f63cb5f2dbfa7f9e7",
+  "originalPrefix": "ImmersiveInteractionPrompts/",
+  "extractedCommit": "eebe0c57136b57de4319fb53bccb8e666933a84b",
+  "extractedTree": "883e8a404dfe12bb1a7f68e95c229d7fb17981d0",
+  "branch": "main",
+  "files": {
+    "AGENTS.md": {
+      "original_path": "ImmersiveInteractionPrompts/AGENTS.md",
+      "original_blob": "d65ef635c2cea90f8f53604ce3e9d21a4ea5142f",
+      "sha256": "7a8c8382cbce3c0d9e1fdc3400e8fe43572d4260b7a44be0d7b6f1d91e39b75b"
+    },
+    "README.md": {
+      "original_path": "ImmersiveInteractionPrompts/README.md",
+      "original_blob": "34c682d277e322010f914dc0e97b05ffd412ebe7",
+      "sha256": "be3f71b8136aa9c3e126349f0ba0580a3149c1b417afa1b5c7ed8f2845a29e1c"
+    },
+    "VERSION": {
+      "original_path": "ImmersiveInteractionPrompts/VERSION",
+      "original_blob": "6e8bf73aa550d4c57f6f35830f1bcdc7a4a62f38",
+      "sha256": "e9dd8507f4bf0c6f42458e41aea833ad0bd3f6127272335eee9bf4d58541ed67"
+    },
+    "docs/CHATGPT_PROJECT_INSTRUCTIONS.md": {
+      "original_path": "ImmersiveInteractionPrompts/docs/CHATGPT_PROJECT_INSTRUCTIONS.md",
+      "original_blob": "0dbe9e2f5d5ea4a8521757f392c2b038dd69ea1e",
+      "sha256": "b283cea1a036b1dd77097313a94dc37e74d322bc7b373dec3cac4f80f55c6f17"
+    },
+    "docs/REQUIREMENTS.md": {
+      "original_path": "ImmersiveInteractionPrompts/docs/REQUIREMENTS.md",
+      "original_blob": "fa12b06754c1eeee93e44cc6e955213fe2185aca",
+      "sha256": "6d2bf638a8673adac304149c588732d803157a171a035702254bc2c1b99193fe"
+    },
+    "docs/RESEARCH_PLAN.md": {
+      "original_path": "ImmersiveInteractionPrompts/docs/RESEARCH_PLAN.md",
+      "original_blob": "5bc7ee7c2ee4abed5eca7ec963271ed935f2addc",
+      "sha256": "f8433710185ac968d3bd6535994f33da5e3cdb99dd969f6a30bc74d058e7cc8c"
+    },
+    "docs/STATUS.md": {
+      "original_path": "ImmersiveInteractionPrompts/docs/STATUS.md",
+      "original_blob": "d82beafc1a4e2b551afe03a2b3cd57ca74468388",
+      "sha256": "c9da2ac4cc10613255d54340278808a2028fc36224f025e60450ebefcf29f848"
+    },
+    "docs/VERIFIED_RUNTIME.md": {
+      "original_path": "ImmersiveInteractionPrompts/docs/VERIFIED_RUNTIME.md",
+      "original_blob": "b318dcfbf228913873fbd3577d1a47d845de4923",
+      "sha256": "71afd97e9874f29a19fc80d36a6f748ac433c88837195b44007910b212c17c59"
+    }
+  }
+}
