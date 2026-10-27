@@ -1,6 +1,6 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: проверка reflection-only Lua capture завершена с точным API-блокером;
+**2026-10-28: штатный UHT-генератор дал точную декларацию SetupTipMessage2;
 production evidence gate BLOCKED.**
 
 - Принята цель двух рядов с сохранением native localized action/input; конкретный
@@ -22,7 +22,7 @@ production evidence gate BLOCKED.**
   семейств, особенно спуска; input/remapping/device→texture; show/hide/lifetime;
   пригодный Aphes font path в UMG и продуктовый смысл верхней строки.
 - [Проверка готовности probe](../research/interaction-prompts-owner/README.md)
-  установила разрыв: нет отражённой native-сигнатуры SetupTipMessage2; выводить
+  ранее установила разрыв: не было отражённой native-сигнатуры SetupTipMessage2; выводить
   Lua ABI из Blueprint-вызова нельзя. По исходнику установленной версии UE4SS
   Blueprint callbacks доступны post-only, результат CanShow аргументом не приходит;
   маршалинг параметров происходит до Lua callback. Исполняемый probe не создан.
@@ -30,12 +30,21 @@ production evidence gate BLOCKED.**
   подтвердила поиск UFunction, GetFunctionFlags, обход свойств, GetInner и
   однократную очередь ExecuteInGameThread по исходнику 83330635. Но FProperty и
   его Lua-базы не предоставляют чтение Parm/OutParm/ReferenceParm/ReturnParm.
-  Полный Lua capture подготовить нельзя; runtime-скрипт не создан.
-- Следующий шаг — отдельная проверка возможности точечного типизированного C++
-  metadata reader либо готовая достоверная native-декларация. Устанавливать
-  неполный Lua capture не предлагается. Оригинальный офлайн Python audit
-  сохранён в research-only части; production и игровой runtime не затронуты.
-- Production, sibling mods, установленные файлы и VERSION не изменены; игра не
-  запускалась/не закрывалась, hot reload не применялся. Нет runtime-приёмки.
+  Полный Lua capture этим API недоступен; ограничение остаётся, но обходить его
+  новым C++-модом для получения декларации больше не требуется.
+- [UHT-результат](../research/interaction-prompts-owner/UHT_SIGNATURE.md):
+  `void SetupTipMessage2(TArray<UTextBlock*>, TArray<UPanelWidget*>, ETipWidgetMode,
+  TArray<FText>, TArray<UTexture2D*>)`; порядок и отсутствие const/ref/out/return
+  подтверждены выводом и правилами генератора 83330635. Полная числовая маска
+  UFunction/параметров и работоспособность hooks не проверены.
+- Выполнен один разрешённый пользовательский запуск игры; лог содержит три
+  последовательные завершённые UHT-генерации, анализируется последняя. Новых модов
+  не установлено. Loader config восстановлен побайтово, старые моды/сохранения/
+  игровые конфиги неизменны по хэшам. Сырая выгрузка и лог остаются локальными.
+- Следующий этап — подготовка одного observation-only observer с проверкой
+  фактического loaded UFunction/FUNC_Native и поддержки wrappers; установка и
+  игровой прогон отдельно. Final writer, live owner/lifecycle и спуск открыты.
+- Production, другие моды и VERSION не изменены; hot reload не применялся.
+  Нет runtime-приёмки будущего мода; получение SDK её не заменяет.
 - Reusable статические факты переносятся в канонический Asterigos-Research;
   владельцем подробных первичных доказательств и gate остаётся этот модуль.

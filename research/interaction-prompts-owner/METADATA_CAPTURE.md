@@ -1,5 +1,11 @@
 # Reflection-only capture readiness — 2026-10-28
 
+**Later result:** [built-in UHT generation](UHT_SIGNATURE.md) obtained the exact
+SetupTipMessage2 declaration in a separately authorized runtime stage. The Lua
+binding limitation below remains true, but a custom C++ reader is no longer the
+next recommended way to obtain this declaration. This document preserves the
+earlier, narrower task's findings and constraints.
+
 **Result: partial read-only API confirmed; complete Lua capture BLOCKED by missing
 FProperty flag access in UE4SS `83330635`. No runtime Lua payload was authored,
 installed or executed.** The missing native signature is still missing. This

@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Current result:** [built-in UHT declaration](UHT_SIGNATURE.md) closes the missing
+SetupTipMessage2 declaration gap. Preparation of one observer is the next step;
+hook activation, final writer and production acceptance remain unproved. The
+initial blocker and proposals below are historical evidence.
+
 **Continuation:** [metadata API review](METADATA_CAPTURE.md) checked the proposed
 next step and found that UE4SS 83330635's Lua FProperty wrapper lacks parameter
 flag readers. The original observer blocker remains; a complete Lua capture is

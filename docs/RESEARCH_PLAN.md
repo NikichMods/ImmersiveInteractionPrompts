@@ -1,14 +1,13 @@
 # План исследования — contextual prompts и письменность
 
-**Текущее состояние, 2026-10-28:** native reflection signature SetupTipMessage2
-по-прежнему отсутствует. [Проверка Lua metadata capture](../research/interaction-prompts-owner/METADATA_CAPTURE.md)
-выявила отсутствие чтения EPropertyFlags в FProperty binding UE4SS 83330635.
-Поиск/обход/типы и one-shot dispatch подтверждены по исходнику, но не заменяют
-флаги параметров. Lua payload не создан и не установлен. Следующая возможная
-работа — отдельно исследовать точечный C++ reader либо получить готовую точную
-native-декларацию; установка и запуск остаются отдельной границей. Затем — один
-observer с подтверждённым контрактом. План ниже зависит от снятия API-блокера,
-не является поручением немедленно устанавливать capture. Подробности первого этапа и хэши —
+**Текущее состояние, 2026-10-28:** [штатный UHT-генератор](../research/interaction-prompts-owner/UHT_SIGNATURE.md)
+дал точную отражённую декларацию SetupTipMessage2, без собственного C++-мода.
+Порядок/типы пяти входов и отсутствие const/ref/out/return установлены; полный
+numeric flags dump и регистрация hooks не выполнены. Предыдущее ограничение
+Lua EPropertyFlags API сохраняется, но больше не требует reader для получения
+этой декларации. Следующий шаг — подготовка одного observer с проверкой
+loaded UFunction/FUNC_Native и marshalled wrappers, без повторной SDK-генерации.
+Установка/прогон observer — отдельная граница. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
 render path ещё не доказаны. Никакого production-кода и runtime-кандидата нет.
@@ -39,7 +38,7 @@ Take/Open/Check, отдельная пока не связанная ветка 
    `TipHUD_C:SetupTipMessage_Proxy`, `ExtendedUserWidget:SetupTipMessage2`,
    `TipHUD_C:CanShow`. При неизвестном ABI сохранить конкретный разрыв;
    не угадывать параметры и не расширять эксперимент глобальными hooks.
-3. После снятия metadata-блокера подготовить минимальный read-only observer только для этих объектов и их
+3. Используя полученную UHT-декларацию, подготовить минимальный read-only observer только для этих объектов и их
    реальных владельцев. Записывать native pre/post, Blueprint post-only и последующее ограниченное
    readback `TextBlock_89`, `RetainerBox_0`, текст/FText, textures, input state,
    visibility/opacity/enabled и identity. Ограничить частоту и длительность;
