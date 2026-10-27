@@ -14,3 +14,7 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 - [Verified runtime and evidence gaps](docs/VERIFIED_RUNTIME.md)
 
 This module will have its own version and independently installable payload if implementation proves feasible.
+
+## Independent repository
+
+[Migration and exact source provenance](docs/MIGRATION.md) · [Shared Asterigos Research](https://github.com/NikichMods/Asterigos-Research/blob/main/docs/RESEARCH_INDEX.md) · [Local external dependencies](docs/LOCAL_DEPENDENCIES.md). Original release URLs and frozen artifacts remain in AsterigosMods.
