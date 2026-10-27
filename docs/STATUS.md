@@ -1,11 +1,29 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-27: проектный модуль создан, этап исследования.**
+**2026-10-27: первый research-only этап завершён; production evidence gate BLOCKED.**
 
-- Название принято: Immersive Interaction Prompts.
-- Принята цель: верхняя внутримировая надпись + нижний понятный локализованный текст действия; разделитель и конкретные размеры пока на проверке.
-- VERSION = 0.1.0 — начальная метка модуля, **не номер уже выданного билда**.
-- **Production evidence gate: BLOCKED.** Не установлены owner/final writer prompt, ресурс глифов и blast radius.
-- Нет production-кода, тестового пакета, установленного payload, runtime-проверки, приёмки или релиза. Существующие модули не изменены.
-- Следующее действие: узкое read-only исследование из [RESEARCH_PLAN.md](RESEARCH_PLAN.md) в локальном Codex, затем обновить доказательства и выбрать механизм.
-- Доказанные общие сведения переносить в Asterigos-Research; особенности и приёмку этого мода хранить здесь.
+- Принята цель двух рядов с сохранением native localized action/input; конкретный
+  layout и способ осмысленной внутримировой надписи ещё не выбраны.
+- VERSION = 0.1.0 — начальная метка, без кандидата/билда/релиза.
+- [Статический отчёт](VERIFIED_RUNTIME.md) установил BaseGameEventObject_BP →
+  ExtendedWidget → TipHUD; proxy → InteractTipToText/StringTable → native
+  SetupTipMessage2. Последний доказанный consumer не равен доказанному final writer.
+- BaseLoot2/сундук/документ имеют Take/Open/Check и RU «Взять/Открыть/Проверить».
+  Ladder_BP идёт через отдельный native BaseClimbObject; общий prompt path и
+  точное действие спуска не установлены.
+- Aphes.ttf существует; 97 cmap entries, латинские буквы/цифры, кириллицы нет.
+  Глифы просмотрены offline. UMG FontObject и перевод действий на язык Афеса
+  не доказаны; транслитерация/декоративная стилизация не приняты автоматически.
+- Предпочтительная исследовательская гипотеза — узкое расширение native TipHUD.
+  Asset override — резерв; overlay пока требует больше недоказанных связей.
+  Это сравнение механизмов, не разрешение на production implementation.
+- Точные блокеры: native final writer/поздние перезаписи; live owner для четырёх
+  семейств, особенно спуска; input/remapping/device→texture; show/hide/lifetime;
+  пригодный Aphes font path в UMG и продуктовый смысл верхней строки.
+- Следующий достаточный шаг — один observation-only runtime probe из раздела 7
+  отчёта, после отдельной разрешённой подготовки. Сейчас есть только спецификация:
+  probe не написан/не установлен/не запускался. Визуальный font/layout тест отдельно.
+- Production, sibling mods, установленные файлы и VERSION не изменены; игра не
+  запускалась/не закрывалась, hot reload не применялся. Нет runtime-приёмки.
+- Reusable статические факты переносятся в канонический Asterigos-Research;
+  владельцем подробных первичных доказательств и gate остаётся этот модуль.
