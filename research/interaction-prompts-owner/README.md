@@ -1,5 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
+**Continuation:** [metadata API review](METADATA_CAPTURE.md) checked the proposed
+next step and found that UE4SS 83330635's Lua FProperty wrapper lacks parameter
+flag readers. The original observer blocker remains; a complete Lua capture is
+also blocked. The procedure below is the historical initial proposal, not a
+currently ready payload or installation instruction.
+
 **Research-only; BLOCKED before hook registration. No executable probe or
 installable payload was created.** This is the explicit technical-blocker outcome
 of the requested offline preparation, not a runtime failure or proof that UE4SS

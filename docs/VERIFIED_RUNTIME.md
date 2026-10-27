@@ -1,6 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
-## Актуальное продолжение, 2026-10-28
+## Актуальный результат проверки metadata API, 2026-10-28
+
+[Проверка исходников UE4SS 83330635](../research/interaction-prompts-owner/METADATA_CAPTURE.md)
+подтвердила частичный reflection-only механизм, но не полный Lua capture:
+FProperty и его фактические Lua-базы не предоставляют флаги свойств.
+Нельзя отделить Parm/ReturnParm от Blueprint locals и установить OutParm/
+ReferenceParm по одному порядку/offset/type. Исполняемый Lua payload не создан;
+оригинальный offline source audit выполнен успешно и сохранён рядом с отчётом.
+Точная native-сигнатура не получена, runtime не проводился. Следующий возможный
+путь — отдельно проверенный типизированный C++ reader либо существующая точная
+декларация, а не установка неполного Lua capture. Production gate **BLOCKED**.
+
+## Предыдущий результат подготовки observer, 2026-10-28
 
 Офлайн-проверка возможности безопасного подключения завершена:
 [точный блокер и источники UE4SS](../research/interaction-prompts-owner/README.md).

@@ -1,6 +1,6 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: офлайн-проверка готовности observer завершена с техническим блокером;
+**2026-10-28: проверка reflection-only Lua capture завершена с точным API-блокером;
 production evidence gate BLOCKED.**
 
 - Принята цель двух рядов с сохранением native localized action/input; конкретный
@@ -26,10 +26,15 @@ production evidence gate BLOCKED.**
   Lua ABI из Blueprint-вызова нельзя. По исходнику установленной версии UE4SS
   Blueprint callbacks доступны post-only, результат CanShow аргументом не приходит;
   маршалинг параметров происходит до Lua callback. Исполняемый probe не создан.
-- Следующий достаточный шаг — узкий reflection-only захват метаданных ровно трёх
-  UFunctions без hooks и вызова этих функций, после отдельной подготовки и
-  разрешённой установки при закрытой игре; либо доступная точная native-декларация.
-  Затем подготовка одного observer. Визуальный font/layout тест остаётся отдельно.
+- [Проверка reflection API](../research/interaction-prompts-owner/METADATA_CAPTURE.md)
+  подтвердила поиск UFunction, GetFunctionFlags, обход свойств, GetInner и
+  однократную очередь ExecuteInGameThread по исходнику 83330635. Но FProperty и
+  его Lua-базы не предоставляют чтение Parm/OutParm/ReferenceParm/ReturnParm.
+  Полный Lua capture подготовить нельзя; runtime-скрипт не создан.
+- Следующий шаг — отдельная проверка возможности точечного типизированного C++
+  metadata reader либо готовая достоверная native-декларация. Устанавливать
+  неполный Lua capture не предлагается. Оригинальный офлайн Python audit
+  сохранён в research-only части; production и игровой runtime не затронуты.
 - Production, sibling mods, установленные файлы и VERSION не изменены; игра не
   запускалась/не закрывалась, hot reload не применялся. Нет runtime-приёмки.
 - Reusable статические факты переносятся в канонический Asterigos-Research;

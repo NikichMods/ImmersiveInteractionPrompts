@@ -1,12 +1,14 @@
 # План исследования — contextual prompts и письменность
 
-**Текущее состояние, 2026-10-28:** первый статический этап закончен; офлайн-проверка
-подготовки probe выявила [конкретный блокер](../research/interaction-prompts-owner/README.md):
-отсутствует native reflection signature SetupTipMessage2. Исполняемый probe
-не создан и не установлен. Сначала нужен точечный reflection-only metadata capture
-без hooks/вызова исследуемых функций либо точная существующая native-декларация;
-подготовка и игровой запуск захвата требуют отдельного этапа. После этого — один
-observer с подтверждённым контрактом. Подробности первого этапа и хэши —
+**Текущее состояние, 2026-10-28:** native reflection signature SetupTipMessage2
+по-прежнему отсутствует. [Проверка Lua metadata capture](../research/interaction-prompts-owner/METADATA_CAPTURE.md)
+выявила отсутствие чтения EPropertyFlags в FProperty binding UE4SS 83330635.
+Поиск/обход/типы и one-shot dispatch подтверждены по исходнику, но не заменяют
+флаги параметров. Lua payload не создан и не установлен. Следующая возможная
+работа — отдельно исследовать точечный C++ reader либо получить готовую точную
+native-декларацию; установка и запуск остаются отдельной границей. Затем — один
+observer с подтверждённым контрактом. План ниже зависит от снятия API-блокера,
+не является поручением немедленно устанавливать capture. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
 render path ещё не доказаны. Никакого production-кода и runtime-кандидата нет.
