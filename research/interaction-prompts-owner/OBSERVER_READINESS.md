@@ -66,6 +66,30 @@ research/tool inputs found no dependency implementation. These results establish
 unavailability through the checked routes, not why access is unavailable or that
 the upstream repository/commit no longer exists. No newer/unpinned fork was used.
 
+### Web access follow-up
+
+The [official UE4SS build instructions](https://docs.ue4ss.com/#build-instructions)
+explicitly require GitHub linked to Epic Games for access to the Unreal pseudo
+code submodule. [Epic's access guide](https://www.unrealengine.com/en-US/ue-on-github)
+describes linking the accounts and accepting the GitHub organization invitation.
+This establishes a documented access prerequisite, not whether the user's account
+already meets it or whether the current tool credentials can access the source.
+There is no verified relocation to another official source URL.
+
+Public repository/commit search found ashandarei/uepseudo-goa (a GoA/KH3 fork),
+but querying the exact required commit returned “No commit found for the ref”.
+The other named candidate, deadkiller13113/https-github.com-Re-UE4SS-UEPseudo,
+is empty. Neither supplies the pinned dependency; no replacement version was used.
+
+The locally preserved release metadata and matching ZIP SHA256 confirm the
+installed loader package was UE4SS_v3.0.1-1181-g83330635.zip from the official
+GitHub release, archive SHA256
+`b9a166a756605b21058a64cde93bcaab1a855dba3553e5c7e6ce0fa8fdfad7b9`.
+That binary archive contains no C++ source. UEPseudo is a source dependency of
+UE4SS, not a separate Nexus gameplay mod; redownloading the loader binary does
+not provide this missing implementation. The next useful action is authorized
+access to the original dependency at the pinned commit, not a loader update.
+
 LuaMod itself reads the parameter addresses and constructs wrappers before the
 Lua callback; the later get()/TArray element read then dereferences them. A Lua
 pcall, a registered type handler, UHT type correctness, or a context-only callback
