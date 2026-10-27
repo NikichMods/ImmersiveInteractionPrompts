@@ -1,5 +1,21 @@
 # Verified Runtime — Interaction Prompts
 
+## Актуальная проверка marshalling observer, 2026-10-28
+
+[Readiness-отчёт](../research/interaction-prompts-owner/OBSERVER_READINESS.md):
+декларация UHT остаётся доказанной, но observer не создан. Проверенный путь
+LuaMod читает native-входы из FFrame::Locals и выдаёт borrowed wrappers;
+не подтверждено формирование/время жизни callee frame на точном Blueprint
+EX_FinalFunction → native array path. Исходник закреплённой зависимости
+UEPseudo `fbb4fdd3fffc59d5b5268b23a643f500f702115e` через проверенные маршруты
+недоступен. Регистрация hook остановлена до исполнения. Это **не** наблюдение
+crash/неработоспособности и не отмена полученной сигнатуры.
+
+Дополнительно исходник показывает AddZeroed даже при индексном Get за границей
+TArray. Ограничение индексов обязательно для будущего read-only probe.
+Сохранены точные исходники/хэши и офлайн-проверка маршрута; runtime этого этапа
+отсутствует. Production gate **BLOCKED**.
+
 ## Актуальный результат UHT, 2026-10-28
 
 [Штатная UHT-генерация](../research/interaction-prompts-owner/UHT_SIGNATURE.md)

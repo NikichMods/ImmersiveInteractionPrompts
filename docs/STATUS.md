@@ -1,6 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: штатный UHT-генератор дал точную декларацию SetupTipMessage2;
+**2026-10-28: декларация SetupTipMessage2 получена; подготовка observer остановлена
+на неподтверждённом native hook-frame contract;
 production evidence gate BLOCKED.**
 
 - Принята цель двух рядов с сохранением native localized action/input; конкретный
@@ -41,9 +42,20 @@ production evidence gate BLOCKED.**
   последовательные завершённые UHT-генерации, анализируется последняя. Новых модов
   не установлено. Loader config восстановлен побайтово, старые моды/сохранения/
   игровые конфиги неизменны по хэшам. Сырая выгрузка и лог остаются локальными.
-- Следующий этап — подготовка одного observation-only observer с проверкой
-  фактического loaded UFunction/FUNC_Native и поддержки wrappers; установка и
-  игровой прогон отдельно. Final writer, live owner/lifecycle и спуск открыты.
+- [Проверка маршрута observer](../research/interaction-prompts-owner/OBSERVER_READINESS.md)
+  установила borrowed-путь native frame → RemoteUnrealParam → TArray → элемент.
+  Не подтверждено происхождение/время жизни callee Locals для Blueprint-вызова
+  этого native consumer: необходимая зависимость UEPseudo на точном gitlink SHA
+  недоступна через проверенные GitHub/Git/local routes. Это пробел доказательств,
+  не установленный сбой UE4SS. Lua observer не создан, hooks не регистрировались.
+- Также подтверждено: индексный Get у TArray может расширить массив при выходе
+  за границу; наличие обработчика типа/IsValid у массива не доказывает безопасное
+  read-only чтение. Все будущие обращения должны быть строго ограничены размером
+  и временем жизни исходной памяти; temporary parameter wrappers не сохраняются.
+- Следующий минимальный шаг — доступ к точной native hook-зависимости либо
+  принятому доказательству этого конкретного маршрута, затем подготовка одного
+  observer. Повторять UHT или устанавливать неполный probe не предлагается.
+  Final writer, live owner/lifecycle и спуск открыты.
 - Production, другие моды и VERSION не изменены; hot reload не применялся.
   Нет runtime-приёмки будущего мода; получение SDK её не заменяет.
 - Reusable статические факты переносятся в канонический Asterigos-Research;

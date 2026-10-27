@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Latest:** [observer route review](OBSERVER_READINESS.md) stops before Lua payload
+creation: the pinned lower native hook-frame implementation is unavailable, so
+callee Locals provenance/lifetime for the actual Blueprint call is not established.
+UHT signature evidence remains valid. No observer is ready to install.
+
 **Current result:** [built-in UHT declaration](UHT_SIGNATURE.md) closes the missing
 SetupTipMessage2 declaration gap. Preparation of one observer is the next step;
 hook activation, final writer and production acceptance remain unproved. The

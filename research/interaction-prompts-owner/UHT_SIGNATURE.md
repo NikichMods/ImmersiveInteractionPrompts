@@ -1,5 +1,10 @@
 # SetupTipMessage2 — built-in UHT declaration, 2026-10-28
 
+**Follow-up:** [observer marshalling review](OBSERVER_READINESS.md) found an
+unverified native frame/lifetime boundary and stopped before creating/registering
+the observer. The declaration below remains established; “sufficient to proceed
+to preparation” did not mean the callback memory contract was already verified.
+
 **Result: exact reflected declaration obtained from the installed UE4SS UHT
 generator. The missing-declaration blocker is closed; production remains BLOCKED.**
 This is a generated declaration of a loaded native class, not original game

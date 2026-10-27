@@ -5,8 +5,11 @@
 Порядок/типы пяти входов и отсутствие const/ref/out/return установлены; полный
 numeric flags dump и регистрация hooks не выполнены. Предыдущее ограничение
 Lua EPropertyFlags API сохраняется, но больше не требует reader для получения
-этой декларации. Следующий шаг — подготовка одного observer с проверкой
-loaded UFunction/FUNC_Native и marshalled wrappers, без повторной SDK-генерации.
+этой декларации. [Проверка marshalling](../research/interaction-prompts-owner/OBSERVER_READINESS.md)
+остановила подготовку observer до регистрации: callee frame/Locals lifetime
+для Blueprint → native arrays не подтверждён, точная UEPseudo-зависимость
+недоступна. Следующий шаг — получить её исходник/точное принятое доказательство,
+затем закончить проверку и подготовить один observer; SDK не повторять.
 Установка/прогон observer — отдельная граница. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
