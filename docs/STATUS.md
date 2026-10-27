@@ -1,6 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-27: первый research-only этап завершён; production evidence gate BLOCKED.**
+**2026-10-28: офлайн-проверка готовности observer завершена с техническим блокером;
+production evidence gate BLOCKED.**
 
 - Принята цель двух рядов с сохранением native localized action/input; конкретный
   layout и способ осмысленной внутримировой надписи ещё не выбраны.
@@ -20,9 +21,15 @@
 - Точные блокеры: native final writer/поздние перезаписи; live owner для четырёх
   семейств, особенно спуска; input/remapping/device→texture; show/hide/lifetime;
   пригодный Aphes font path в UMG и продуктовый смысл верхней строки.
-- Следующий достаточный шаг — один observation-only runtime probe из раздела 7
-  отчёта, после отдельной разрешённой подготовки. Сейчас есть только спецификация:
-  probe не написан/не установлен/не запускался. Визуальный font/layout тест отдельно.
+- [Проверка готовности probe](../research/interaction-prompts-owner/README.md)
+  установила разрыв: нет отражённой native-сигнатуры SetupTipMessage2; выводить
+  Lua ABI из Blueprint-вызова нельзя. По исходнику установленной версии UE4SS
+  Blueprint callbacks доступны post-only, результат CanShow аргументом не приходит;
+  маршалинг параметров происходит до Lua callback. Исполняемый probe не создан.
+- Следующий достаточный шаг — узкий reflection-only захват метаданных ровно трёх
+  UFunctions без hooks и вызова этих функций, после отдельной подготовки и
+  разрешённой установки при закрытой игре; либо доступная точная native-декларация.
+  Затем подготовка одного observer. Визуальный font/layout тест остаётся отдельно.
 - Production, sibling mods, установленные файлы и VERSION не изменены; игра не
   запускалась/не закрывалась, hot reload не применялся. Нет runtime-приёмки.
 - Reusable статические факты переносятся в канонический Asterigos-Research;

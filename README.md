@@ -6,7 +6,7 @@ Contextual world-object prompts will gain a visually prominent upper line in fit
 
 Examples: pick up, open, read, descend; other context actions only when supported by the verified presentation path.
 
-**Status: design and technical investigation. No mod code, installable build or release exists yet.** The exact widget, input/localization path and appropriate glyph assets are still unknown. Invented decorative symbols must not be presented as a genuine fictional language.
+**Status: research; production gate BLOCKED. No installable build or release exists.** Static widget/localization links are established; live final writer, input texture producer and a usable UMG glyph path remain open. Offline observer preparation found a missing native reflection signature; see the [probe readiness report](research/interaction-prompts-owner/README.md). No executable probe was created or installed. Invented decorative symbols must not be presented as a genuine fictional language.
 
 - [Requirements](docs/REQUIREMENTS.md)
 - [Status](docs/STATUS.md)

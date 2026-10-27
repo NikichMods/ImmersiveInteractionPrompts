@@ -1,7 +1,12 @@
 # План исследования — contextual prompts и письменность
 
-**Текущее состояние:** первый статический этап закончен и принят как доказательство
-конкретных asset/Blueprint связей. Подробности и точные хэши —
+**Текущее состояние, 2026-10-28:** первый статический этап закончен; офлайн-проверка
+подготовки probe выявила [конкретный блокер](../research/interaction-prompts-owner/README.md):
+отсутствует native reflection signature SetupTipMessage2. Исполняемый probe
+не создан и не установлен. Сначала нужен точечный reflection-only metadata capture
+без hooks/вызова исследуемых функций либо точная существующая native-декларация;
+подготовка и игровой запуск захвата требуют отдельного этапа. После этого — один
+observer с подтверждённым контрактом. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
 render path ещё не доказаны. Никакого production-кода и runtime-кандидата нет.
@@ -32,8 +37,8 @@ Take/Open/Check, отдельная пока не связанная ветка 
    `TipHUD_C:SetupTipMessage_Proxy`, `ExtendedUserWidget:SetupTipMessage2`,
    `TipHUD_C:CanShow`. При неизвестном ABI сохранить конкретный разрыв;
    не угадывать параметры и не расширять эксперимент глобальными hooks.
-3. Подготовить минимальный read-only observer только для этих объектов и их
-   реальных владельцев. Записывать native pre/post и последующее ограниченное
+3. После снятия metadata-блокера подготовить минимальный read-only observer только для этих объектов и их
+   реальных владельцев. Записывать native pre/post, Blueprint post-only и последующее ограниченное
    readback `TextBlock_89`, `RetainerBox_0`, текст/FText, textures, input state,
    visibility/opacity/enabled и identity. Ограничить частоту и длительность;
    локализовать ошибки по объектам; не делать writes или переиспользовать
