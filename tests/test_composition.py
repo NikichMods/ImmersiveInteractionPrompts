@@ -120,4 +120,3 @@ class CompositionPolicy(unittest.TestCase):
                   'S.clear_fail=false;key();assert(S.imports==1 and S.unbound==1)')
 
 if __name__=='__main__':unittest.main()
-

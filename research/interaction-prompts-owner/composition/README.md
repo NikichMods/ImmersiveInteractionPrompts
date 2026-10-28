@@ -124,3 +124,11 @@ ornament/upper/lower separation, F unchanged, no collision/flicker, and original
 lower position after removal. Preserve log COMPOSITION_GEOMETRY, TEXTURE_BOUND,
 LOWER_SHIFTED/LOWER_RESTORED and both REMOVED. If native drift/conflict occurs,
 stop this arrangement; do not add per-frame enforcement. No new font diagnostic.
+
+## Prepared source identity
+
+Implementation commit `996ee47f06f6cf88d0440d235d13acb9daf05284`.
+
+`Scripts/main.lua` SHA256: `3c8eb86e695b716616d89f143dd6d2f66ce4ff40c98db1aad50d99738f604abe`.
+
+`Scripts/IIPLayout.lua` SHA256: `332ffbdda46c7ac9edc245dfc42913529e8ee9f20752a9ee9e077a367525ecc6`.
