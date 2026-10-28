@@ -2,8 +2,8 @@
 
 **Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
 Shared replacement is blocked; [font-template/README.md](font-template/README.md)
-now supplies the first private transient UFont creation/storage probe, READY for
-one separate authorized run. No FFontData write or rendering result is claimed.
+records one successful private transient UFont creation/storage run; probe disabled.
+No FFontData write or rendering result is claimed.
 
 **Current PNG-header preparation:** [png-header/README.md](png-header/README.md),
 one local Aphes glyph PNG and Texture2D import source, READY for one separately

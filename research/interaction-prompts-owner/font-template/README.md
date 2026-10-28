@@ -1,9 +1,43 @@
 # UFont Template copy: creation and storage-isolation probe
 
-**Installed after explicit user authorization; host closed, runtime pending.**
+**Runtime STORAGE_CHECK_PASS; probe disabled after the closed session.**
 No FFontData writes, Aphes loading, TextBlock assignment, UI changes or
 rendering claim. Production stays BLOCKED. This is the first narrow check of the
 candidate in [DYNAMIC_FONT_READINESS.md](../DYNAMIC_FONT_READINESS.md).
+
+## Runtime result — 2026-10-28
+
+Installed exact source `6c75063300c9aa84ec946f64ca108cc4d686e1e3`, SHA256 below,
+matched after the user's run and normal exit. One naturally loaded donor, one
+CREATE_BEGIN and one CREATED; no probe failure. Established Steam1.09/build12996889,
+UE4.27 / UE4SS83330635 baseline.
+
+| Log line / Moscow time | Observed result |
+| --- | --- |
+| 652 /16:31:47 | ARMED |
+| 697–698 /16:32:16.995 | Template argument8 construction returned a separate transient UFont |
+| 699–700 | Distinct native array headers/buffers, entry/FontData and remaining inspected struct/header storage; entry address equals its corresponding data pointer; expected shared FontFace reference |
+| 701 | DONOR_UNCHANGED for the observed identity/storage/field snapshot |
+| 702 | DONE result=STORAGE_CHECK_PASS, font_data_writes=0, ui_writes=0, retained_objects=0, gc_forced=false |
+
+Representative buffer pair was `2189049476864 / 2194346407920`; FontData pair
+`2189049476872 / 2194346407928`. These are one-session native identities, not
+portable offsets or addresses to reuse. Passing guards also confirms Runtime
+cache, one Default entry, empty fallback/subtypes and matching selected values.
+
+Raw log SHA256 `c8c06876154954e94d507e7af1ebc683e37830ea42329564329d46a935f22453`;
+ignored archive `.local/research/interaction-prompts/font-template/20261028T133327Z/`
+holds the log, parsed result and saved enabled marker. After verifying host closure,
+only this probe's enabled.txt was removed; source remains hash-identical. Ten
+pre-existing mod files and UE4SS settings still match the installation baseline.
+No claim is made that natural gameplay left all save bytes unchanged.
+
+**This closes the Template creation/observed-storage gate.** It does not prove
+all internal FString allocations independent, setters safe, texture/font render,
+immediate GC or production lifecycle. No FFontData/FontFace/UI assignment was
+executed. Next prepare a separately reviewed setter/ownership slice that can
+configure only the private copy for Aphes, then use the established own TextBlock;
+no source changes or installation for that next stage are included here.
 
 ## Exact source and boundary
 
@@ -60,7 +94,8 @@ No force-loading, fallback donor or retry after moving to another screen.
 
 Raw source snapshots, UHT and extracted data stay ignored/local. Native engine
 copy semantics and their mirror/build limits remain in the parent report;
-Template forwarding through the installed engine remains the experiment's question.
+Template forwarding through the installed engine was the experiment's question;
+the one observed run above now confirms construction/storage on this target.
 
 ## What the probe does
 
@@ -134,9 +169,9 @@ Existing visual tests are not repeated as font evidence. Document links/diff
 hygiene and unchanged VERSION/old probe hashes are checked. No font payload,
 DLL, SDK or tools were generated/installed; only original research source/tests.
 
-## One future separately authorized runtime experiment
+## Completed authorized runtime procedure
 
-### Authorized installation — 2026-10-28
+### Authorized installation — historical record, 2026-10-28
 
 Exact source commit `6c75063300c9aa84ec946f64ca108cc4d686e1e3` and SHA256 above
 were installed as ImmersiveInteractionPromptsFontTemplateProbe/Scripts/main.lua,
@@ -159,5 +194,5 @@ then exit normally. **No visible UI change is expected.** Maintainer inspects
 CREATE_BEGIN → CREATED → STORAGE_ADDRESSES → STORAGE_DISTINCT → DONOR_UNCHANGED
 → DONE result=STORAGE_CHECK_PASS. NOT_LOADED is an honest terminal outcome; do
 not repeat or force load automatically. A second key does nothing. No Aphes.ttf
-or config file is needed for this stage. The user-operated run is pending;
-the agent has not launched the game.
+or config file is needed for this stage. This run is now complete; the agent did
+not launch the game. Do not repeat this successful storage test without a new reason.

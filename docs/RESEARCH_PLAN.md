@@ -1,15 +1,14 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — Template-copy creation/storage probe READY, без FFontData writes
+## Template-copy creation/storage завершён; следующий gate — setters/ownership
 
 [Font-template](../research/interaction-prompts-owner/font-template/README.md)
 подготовлен: один Ctrl+Alt+F7, naturally loaded donor, один новый RF_Transient UFont,
-проверки классов/структуры и native storage addresses, donor post-check. Теперь
-установлен по явному разрешению, с закрытым host/откатом/проверенными хэшами.
-Следующая минимальная проверка — один пользовательский запуск
-без видимого UI: установить optional Template forwarding и раздельное хранилище
-по логам. NOT_LOADED/невозможность прочитать адреса — terminal outcome без обхода.
-До последующей отдельной проверки setters/ownership не менять даже FFontData копии.
+проверки классов/структуры и native storage addresses, donor post-check. Один
+пользовательский запуск дал STORAGE_CHECK_PASS: Template forwarding и раздельный
+observed storage подтверждены. Probe отключён после выхода; повторять этот тест
+не нужно. Далее отдельно проверить setters/ownership и подготовить минимальную
+настройку только FFontData собственной копии; TTF/render пока не подтверждены.
 
 ## Выбор механизма — private UFont copy для dynamic text
 
@@ -18,8 +17,9 @@
 replacement отвергнут из-за потребителей; прямой C++ не готов по linkage/build.
 Первый read-only creation/storage probe подготовлен отдельно. Изменение existing
 FFontData копии на локальный TTF и назначение собственному TextBlock — последующие
-этапы, которых в этом probe нет. Template forwarding, изоляция, decode/render/cache
-остаются runtime gates. Установка разрешена только для нынешнего read-only probe;
+этапы, которых в этом probe нет. Template construction/observed storage проверены;
+полная ownership/setter safety и decode/render/cache остаются gates.
+Установка была разрешена только для нынешнего read-only probe;
 изменение шрифтовых данных и другие установки не входят в этот этап.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test

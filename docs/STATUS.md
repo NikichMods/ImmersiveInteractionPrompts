@@ -1,7 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: UFont Template-copy probe установлен по явному разрешению.
-Host closed; один creation/storage-inspection запуск ожидает пользователя.
+**2026-10-28: UFont Template-copy runtime STORAGE_CHECK_PASS; probe отключён.
+Одна отдельная transient копия и раздельный observed storage подтверждены логом.
 Никаких FFontData/UI-записей или Aphes-загрузки. Production BLOCKED.**
 
 - [Font-template probe](../research/interaction-prompts-owner/font-template/README.md):
@@ -15,12 +15,18 @@ Host closed; один creation/storage-inspection запуск ожидает п
 - 10 новых offline test groups проходят: creation/type/shape/address/alias/API/
   dispatch failures, donor post-check и one-attempt policy. Это mocks, не native
   copy/GC/render. Предыдущие visual tests не повторялись. Все wrapper references
-  callback-local, нет roots/manual GC; после будущей попытки копия остаётся для
+  callback-local, нет roots/manual GC; после выполненной попытки копия оставлена для
   обычного GC, немедленное освобождение не обещается.
 - Установлен exact source `6c75063300c9aa84ec946f64ca108cc4d686e1e3`, hash
   `f7714817...`; target ранее отсутствовал, проверяемый откат/pretest log вне loader.
   Десять существующих mod files, настройки UE4SS и 61 config/save file неизменны.
-  Старые probes отключены; игра агентом не запускалась, runtime результата нет.
+  После пользовательского запуска source hash совпал, лог сохранён, probe отключён.
+  Десять mod files и UE4SS settings всё ещё неизменны; для всех save bytes после
+  обычной игры такого утверждения не делается. Игра агентом не запускалась.
+- Runtime: 16:32:16 МСК, один CREATE_BEGIN/CREATED, STORAGE_DISTINCT,
+  DONOR_UNCHANGED и DONE result=STORAGE_CHECK_PASS. Только наблюдённые storage/
+  fields; не full deep-copy/setter/render/GC acceptance. Следующий этап требует
+  review setters/ownership и отдельного прототипа настройки собственной копии.
 
 - [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
   17 известных font packages / 5 UFont / 12 FontFace; общий Umg_Font и Garamond

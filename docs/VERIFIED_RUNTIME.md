@@ -1,6 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
-## Template-copy creation/storage probe — installed, runtime ещё не было
+## Template-copy creation/storage probe — runtime STORAGE_CHECK_PASS
+
+16:32:16 МСК пользовательского запуска: один CREATE_BEGIN → CREATED с отдельным
+transient UFont, STORAGE_ADDRESSES → STORAGE_DISTINCT → DONOR_UNCHANGED → DONE
+result=STORAGE_CHECK_PASS. Donor был естественно загружен; passed guards подтверждают
+Runtime, один Default entry, empty fallback/subtypes и matching selected fields.
+Реальные array header/buffer/entry/FontData адреса различаются; общий FontFace ожидаем.
+Source/installed SHA256 ниже совпал после выхода. Лог SHA256
+`c8c06876154954e94d507e7af1ebc683e37830ea42329564329d46a935f22453`, строки652,697–702,
+сохранён локально. При закрытой игре probe отключён; десять старых mod files и
+UE4SS settings неизменны. Нет FFontData/UI writes, TTF loading/render или GC proof.
+Полные provenance/ограничения — в отчёте. Это проверка наблюдаемого storage,
+не независимости всех FString buffers или безопасности будущего setter.
 
 [Исходник и проверяемая граница](../research/interaction-prompts-owner/font-template/README.md):
 UE4SS83330635 TArray GetArrayAddress/GetArrayDataAddress возвращают native header/
@@ -14,14 +26,16 @@ Runtime/typeface shape, native storage addresses, равенство selected va
 неизменность донора после попытки. Нет FFontData assignments, TextBlock/FontFace
 изменений или TTF загрузки. Новый source SHA256
 `f771481709412b2bdf5bc9f54e262b1d8cd7f69db23b1e9c72b0dca7b3b9cc7d`.
-10 новых mock test groups проходят. Это source/offline-подготовка, не подтверждение
-native copy, всех heap buffers, GC или Aphes в UMG. По последующему явному разрешению
+10 mock test groups подготовки проходят; сами по себе они не подтверждают
+native copy, heap buffers, GC или Aphes в UMG. Отдельный runtime-результат выше.
+По последующему явному разрешению
 exact source `6c75063300c9aa84ec946f64ca108cc4d686e1e3` установлен при закрытой игре;
 installed SHA256 совпал. Target ранее отсутствовал; откат и pretest log сохранены
 вне loader. Десять существующих mod files, UE4SS settings и 61 config/save file
 hash-verified unchanged. Старые probes остаются отключены. Предыдущие ui-child/PNG
-sources и VERSION неизменны; игра не запускалась. User run pending, write/render
-этап всё ещё не готов. Подробности установки находятся в отчёте probe.
+sources и VERSION неизменны; игра агентом не запускалась. User run завершён с
+результатом выше, probe теперь disabled; write/render этап всё ещё не готов.
+Подробности установки/проверки находятся в отчёте probe.
 
 ## Dynamic-font investigation — source-only, без игрового запуска
 
