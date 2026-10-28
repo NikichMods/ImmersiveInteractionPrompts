@@ -1,7 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: первый UFont Template-copy probe подготовлен. READY к одному
-отдельно разрешённому creation/storage-inspection запуску; не установлен.
+**2026-10-28: UFont Template-copy probe установлен по явному разрешению.
+Host closed; один creation/storage-inspection запуск ожидает пользователя.
 Никаких FFontData/UI-записей или Aphes-загрузки. Production BLOCKED.**
 
 - [Font-template probe](../research/interaction-prompts-owner/font-template/README.md):
@@ -15,7 +15,12 @@
 - 10 новых offline test groups проходят: creation/type/shape/address/alias/API/
   dispatch failures, donor post-check и one-attempt policy. Это mocks, не native
   copy/GC/render. Предыдущие visual tests не повторялись. Все wrapper references
-  callback-local, нет roots/manual GC; одна transient копия ожидает обычный GC.
+  callback-local, нет roots/manual GC; после будущей попытки копия остаётся для
+  обычного GC, немедленное освобождение не обещается.
+- Установлен exact source `6c75063300c9aa84ec946f64ca108cc4d686e1e3`, hash
+  `f7714817...`; target ранее отсутствовал, проверяемый откат/pretest log вне loader.
+  Десять существующих mod files, настройки UE4SS и 61 config/save file неизменны.
+  Старые probes отключены; игра агентом не запускалась, runtime результата нет.
 
 - [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
   17 известных font packages / 5 UFont / 12 FontFace; общий Umg_Font и Garamond

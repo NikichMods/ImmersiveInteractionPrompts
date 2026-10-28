@@ -4,7 +4,7 @@
 
 **No dynamic-font write/render payload exists.** A read-only
 [Template-copy creation/storage probe](font-template/README.md) is prepared,
-READY for one separately authorized test, not installed/run. Replacing an existing
+installed after explicit permission, host closed and user run pending. Replacing an existing
 shared font is **BLOCKED** by real consumers or unknown blast radius. The UE4.27
 C++ path-to-TTF constructor exists, but a directly injectable native bridge is
 **BLOCKED** by missing verified engine linkage/ABI and pinned build dependencies.
@@ -209,7 +209,8 @@ For the present **dynamic UMG text** goal, first use the prepared private-copy
 creation/storage probe before C++ or shared replacement. It checks one copy's
 type/cache/typeface count and addresses, then donor values; no entry is written.
 It uses exact naturally loaded EBGaramond-SemiBold_Font or records NOT_LOADED,
-without force load or scans. Installation/runtime still requires separate permission.
+without force load or scans. That read-only slice is now installed and awaits
+one user-operated run; later font-data writes still require separate review/permission.
 
 Only after this result and a further setter/ownership review may a later prototype
 change the copy's entry, bind it to the established own TextBlock and test dynamic

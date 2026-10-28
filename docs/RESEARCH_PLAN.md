@@ -4,8 +4,9 @@
 
 [Font-template](../research/interaction-prompts-owner/font-template/README.md)
 подготовлен: один Ctrl+Alt+F7, naturally loaded donor, один новый RF_Transient UFont,
-проверки классов/структуры и native storage addresses, donor post-check. Не установлен.
-Следующая минимальная проверка после отдельного разрешения — один такой запуск
+проверки классов/структуры и native storage addresses, donor post-check. Теперь
+установлен по явному разрешению, с закрытым host/откатом/проверенными хэшами.
+Следующая минимальная проверка — один пользовательский запуск
 без видимого UI: установить optional Template forwarding и раздельное хранилище
 по логам. NOT_LOADED/невозможность прочитать адреса — terminal outcome без обхода.
 До последующей отдельной проверки setters/ownership не менять даже FFontData копии.
@@ -18,7 +19,8 @@ replacement отвергнут из-за потребителей; прямой 
 Первый read-only creation/storage probe подготовлен отдельно. Изменение existing
 FFontData копии на локальный TTF и назначение собственному TextBlock — последующие
 этапы, которых в этом probe нет. Template forwarding, изоляция, decode/render/cache
-остаются runtime gates. Никакой установки сейчас не разрешено.
+остаются runtime gates. Установка разрешена только для нынешнего read-only probe;
+изменение шрифтовых данных и другие установки не входят в этот этап.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 

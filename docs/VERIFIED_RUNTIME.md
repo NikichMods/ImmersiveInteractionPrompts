@@ -1,6 +1,6 @@
 # Verified Runtime — Interaction Prompts
 
-## Template-copy creation/storage probe — offline READY, runtime ещё не было
+## Template-copy creation/storage probe — installed, runtime ещё не было
 
 [Исходник и проверяемая граница](../research/interaction-prompts-owner/font-template/README.md):
 UE4SS83330635 TArray GetArrayAddress/GetArrayDataAddress возвращают native header/
@@ -15,9 +15,13 @@ Runtime/typeface shape, native storage addresses, равенство selected va
 изменений или TTF загрузки. Новый source SHA256
 `f771481709412b2bdf5bc9f54e262b1d8cd7f69db23b1e9c72b0dca7b3b9cc7d`.
 10 новых mock test groups проходят. Это source/offline-подготовка, не подтверждение
-native copy, всех heap buffers, GC или Aphes в UMG. Не установлен/не запускался;
-предыдущие ui-child/PNG sources и VERSION неизменны. Состояние для одного отдельно
-разрешённого creation/inspection run — READY; write/render этап всё ещё не готов.
+native copy, всех heap buffers, GC или Aphes в UMG. По последующему явному разрешению
+exact source `6c75063300c9aa84ec946f64ca108cc4d686e1e3` установлен при закрытой игре;
+installed SHA256 совпал. Target ранее отсутствовал; откат и pretest log сохранены
+вне loader. Десять существующих mod files, UE4SS settings и 61 config/save file
+hash-verified unchanged. Старые probes остаются отключены. Предыдущие ui-child/PNG
+sources и VERSION неизменны; игра не запускалась. User run pending, write/render
+этап всё ещё не готов. Подробности установки находятся в отчёте probe.
 
 ## Dynamic-font investigation — source-only, без игрового запуска
 

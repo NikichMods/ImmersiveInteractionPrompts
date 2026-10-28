@@ -1,7 +1,7 @@
 # UFont Template copy: creation and storage-isolation probe
 
-**READY for one separately authorized creation/inspection run. Not installed or
-run.** No FFontData writes, Aphes loading, TextBlock assignment, UI changes or
+**Installed after explicit user authorization; host closed, runtime pending.**
+No FFontData writes, Aphes loading, TextBlock assignment, UI changes or
 rendering claim. Production stays BLOCKED. This is the first narrow check of the
 candidate in [DYNAMIC_FONT_READINESS.md](../DYNAMIC_FONT_READINESS.md).
 
@@ -136,11 +136,28 @@ DLL, SDK or tools were generated/installed; only original research source/tests.
 
 ## One future separately authorized runtime experiment
 
+### Authorized installation — 2026-10-28
+
+Exact source commit `6c75063300c9aa84ec946f64ca108cc4d686e1e3` and SHA256 above
+were installed as ImmersiveInteractionPromptsFontTemplateProbe/Scripts/main.lua,
+with an empty enabled.txt. Host absence was checked before copying, before enabling
+and after verification. Pinned UE4SS DLL identity matched the established baseline.
+The target did not previously exist; rollback restores that absence after verifying
+the two exact files and a closed host, refusing unexpected additions/changed bytes.
+Rollback syntax and expected file-set guard were checked without executing removal.
+
+Ignored evidence `.local/research/interaction-prompts/font-template/20261028T132712Z/`
+contains before/deployment manifests, pretest log and rollback.py, outside loader
+paths. Ten pre-existing mod files, UE4SS settings and 61 config/save files were
+hash-verified unchanged. Prior CanShow/UIChild remain disabled; no PNG probe was
+installed. No game was launched/terminated, source changed or hot reload performed.
+Installation proof is not Template-copy/runtime acceptance.
+
 After closed-host installation/rollback preparation, launch normally and reach a
 normal game scene where the font may already be loaded. Press Ctrl+Alt+F7 once,
 then exit normally. **No visible UI change is expected.** Maintainer inspects
 CREATE_BEGIN → CREATED → STORAGE_ADDRESSES → STORAGE_DISTINCT → DONOR_UNCHANGED
 → DONE result=STORAGE_CHECK_PASS. NOT_LOADED is an honest terminal outcome; do
 not repeat or force load automatically. A second key does nothing. No Aphes.ttf
-or config file is needed for this stage. Installation/runtime permission has not
-been given by preparation of these sources.
+or config file is needed for this stage. The user-operated run is pending;
+the agent has not launched the game.
