@@ -1,13 +1,15 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**INSTALLED, pending the first user-operated research test.**
-Not run/accepted by this installation step. Production remains BLOCKED. The divider
+**First run stopped before construction; probe now disabled. UI readiness BLOCKED
+on the live slot/getter contract.** Production remains BLOCKED. The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
 
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
-`25ba56ca3de419fd187ee4ab29dfb88bc5ffa0c8a68cf19e2a9b7b72ac330f2d`.
+`837029ddfd4e65a68b876fd5d3a9c7f7769fd81bc28974e7524ff0f91ea57d78`.
+This revision adds one LAYOUT_OBSERVED diagnostic before the unchanged guard;
+it is not installed. The exact tested earlier source/hash is recorded below.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
 one worktree, same research branch, current rules/deltas read. Existing findings
@@ -108,8 +110,44 @@ policy, not native initialization, rendering, GC or engine method bodies.
 
 ## Authorized installation, 2026-10-28
 
+### First result: layout guard, no new widget — 2026-10-28
+
+User saw the original «Открыть» at a chest and no additional OPEN after the chord.
+Closed session log: ARMED at 04:10:22 (line 652), WAITING/registered script hook
+(8,8) at 04:11:15 (710), FAILED at 711, `original layout differs from retained
+baseline`, then CLEANED reason=failure (712), user stop (713), normal Event loop
+end at 04:11:36 (714). CREATE_BEGIN/CREATED/ATTACHED are absent: no new widget
+construction or font copy/attachment was reached. CLEANED here means there was
+no recorded child to remove, not a successful native RemoveChild test.
+
+The natural callback and preceding checks passed: exact TipHUD/TextBlock,
+WidgetTree/canvas ownership, three original canvas children, Font.Size=22 and
+CanvasPanelSlot. Position/alignment getters completed, but the four-field
+condition expected `(88,0)` / `(0,0.5)` and failed. Values/types were not logged.
+Do not conclude that native layout changed: getter result shape, value/precision
+or a different runtime position remain possible. The responsible writer and
+actual mismatch are unknown. The static export was insufficient as a live
+equality assumption; no creation/render/GC/detachment conclusion follows.
+
+Tested source commit `c9ecc0064eae59e8f6fc2a6557a1721b28d80534`, script SHA256
+`25ba56ca3de419fd187ee4ab29dfb88bc5ffa0c8a68cf19e2a9b7b72ac330f2d`.
+Archived closed-session log SHA256
+`62dc68f8cf6562c165684a3bc556032ab03957f97457ea590998d4218bf515d9`.
+Installed script remains that exact version, disabled by moving only its own
+enabled.txt outside loader paths. Nine previous mod files/settings remain
+hash-identical. Raw log/analysis and updated guarded disabled-state rollback are
+local. No game termination or hot reload.
+
+The next smallest evidence is one logged Position.X/Y, Alignment.X/Y and result
+types at this same guard. The current source adds that bounded diagnostic only;
+it does not relax equality or move the original slot. The existing mock mismatch
+case now proves values are emitted before failure and no allocation occurs.
+Nineteen total offline tests pass. No new runtime revision installed or run.
+
+### Historical initial deployment
+
 User explicitly authorized this exact stock-font, no-divider source. Installed
-from `c9ecc0064eae59e8f6fc2a6557a1721b28d80534`, hash above, with game processes
+from `c9ecc0064eae59e8f6fc2a6557a1721b28d80534`, tested hash above, with game processes
 absent immediately before writing. Separate loader folder
 `ImmersiveInteractionPromptsUIChildProbe`, own Scripts/main.lua and empty
 enabled.txt only; no mods.txt edits. Previous same-probe payload was absent.

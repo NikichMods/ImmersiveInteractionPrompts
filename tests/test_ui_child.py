@@ -135,7 +135,7 @@ class ChildPolicy(unittest.TestCase):
 
     def test_missing_or_wrong_layout_no_creation(self):
         self.run_case('S.not_loaded=true;key();assert(S.created==0 and has("FAILED"))')
-        self.run_case('S.bad_layout=true;key();call();assert(S.created==0 and has("FAILED"))')
+        self.run_case('S.bad_layout=true;key();call();assert(S.created==0 and has("FAILED") and has("LAYOUT_OBSERVED") and has("position_x=99"))')
 
     def test_remove_failure_reported_and_manual_retry(self):
         self.run_case('key();call();S.remove_fail=true;key();assert(has("CLEANUP_FAILED") and S.removed==0);S.remove_fail=false;key();assert(S.removed==1)')

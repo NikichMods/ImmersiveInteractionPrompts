@@ -85,6 +85,13 @@ local function observe(context, ...)
         local position = source_slot:GetPosition()
         local anchors = source_slot:GetAnchors()
         local alignment = source_slot:GetAlignment()
+        local function scalar(n)
+            return type(n) == "number" and string.format("%.17g",n) or tostring(n)
+        end
+        log("LAYOUT_OBSERVED", "position_type=" .. type(position)
+            .. " position_x=" .. scalar(position.X) .. " position_y=" .. scalar(position.Y)
+            .. " alignment_type=" .. type(alignment)
+            .. " alignment_x=" .. scalar(alignment.X) .. " alignment_y=" .. scalar(alignment.Y))
         assert(position.X == 88 and position.Y == 0 and alignment.X == 0 and alignment.Y == 0.5,
                "original layout differs from retained baseline")
         assert(anchors.Minimum.X == 0 and anchors.Maximum.X == 0

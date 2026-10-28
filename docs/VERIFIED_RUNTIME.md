@@ -1,5 +1,21 @@
 # Verified Runtime — Interaction Prompts
 
+## Первый UIChild runtime: guard остановил создание, 2026-10-28
+
+Пользователь не увидел дополнительный OPEN. [Лог и точный разбор](../research/interaction-prompts-owner/ui-child/README.md)
+подтверждают успешную клавишу/регистрацию CanShow, затем FAILED на проверке
+Position=(88,0), Alignment=(0,0.5), до CREATE_BEGIN. Предыдущие проверки владельца,
+трёх canvas children и Font.Size=22 прошли. Значения/типы Position/Alignment в
+старом логе отсутствуют: native layout change и корректный getter shape не доказаны.
+Новый TextBlock не создавался; CLEANED означает отсутствие созданного ребёнка,
+а не проверенный RemoveChild. Session log SHA256
+`62dc68f8cf6562c165684a3bc556032ab03957f97457ea590998d4218bf515d9`.
+Игра завершилась нормально; установленный script hash остался точным исходным,
+probe отключён, девять прежних mod files/settings неизменны. Новая неустановленная
+ревизия лишь выводит реальные поля перед прежним guard; 19 offline tests проходят.
+UI experiment **BLOCKED** до получения этих значений; шрифт/создание/рендер/GC
+этот прогон не проверил. Никакого ослабления guard или повторного native research.
+
 ## UIChild установлен; runtime ещё не наблюдён, 2026-10-28
 
 По прямому разрешению пользователя установлен точный исходник ui-child из
