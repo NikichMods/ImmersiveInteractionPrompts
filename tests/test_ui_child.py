@@ -34,7 +34,7 @@ local tree=make("/Script/UMG.WidgetTree",w.p..".WidgetTree",w)
 local canvas=make("/Script/UMG.CanvasPanel",tree.p..".CanvasPanel_6",tree)
 local stock=make("/Script/UMG.TextBlock",tree.p..".TextBlock_89",tree)
 local original_slot=make("/Script/UMG.CanvasPanelSlot",canvas.p..".OriginalSlot",canvas)
-function original_slot:GetPosition()return {X=S.bad_layout and 99 or 88,Y=0}end
+function original_slot:GetPosition()return {X=S.bad_layout and 99 or 38,Y=0}end
 function original_slot:GetAlignment()return {X=0,Y=0.5}end
 function original_slot:GetAnchors()return {Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}}end
 stock.parent=canvas; stock.Slot=original_slot; stock.Visibility=0; stock.RenderOpacity=1; stock.Font={tag="unchanged_font",Size=22}
@@ -52,6 +52,7 @@ function canvas:AddChildToCanvas(label)
  for _,key in ipairs({"SetAutoSize","SetAnchors","SetAlignment","SetPosition","SetSize"})do
   slot[key]=function()api();if S.slot_fail then error("slot configuration failed")end end
  end
+ slot.SetPosition=function(_,v)api();assert(v.X==38 and v.Y==-18);S.own_x=v.X end
  return slot
 end
 function canvas:RemoveChild(label)
@@ -118,7 +119,7 @@ class ChildPolicy(unittest.TestCase):
         self.run_case('assert(S.created==0);key();S.text="Взять";call();assert(S.created==0)')
 
     def test_single_attachment_and_explicit_stop(self):
-        self.run_case('key();call();for i=1,20 do call()end;assert(S.created==1 and S.attached==1);key();assert(S.removed==1);call();assert(S.created==1 and has("CLEANED"))')
+        self.run_case('key();call();for i=1,20 do call()end;assert(S.created==1 and S.attached==1 and S.own_x==38);key();assert(S.removed==1);call();assert(S.created==1 and has("CLEANED"))')
 
     def test_timeout_without_further_callback(self):
         self.run_case('key();call();timer();assert(S.removed==1)')

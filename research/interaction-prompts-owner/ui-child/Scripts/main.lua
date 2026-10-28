@@ -92,8 +92,8 @@ local function observe(context, ...)
             .. " position_x=" .. scalar(position.X) .. " position_y=" .. scalar(position.Y)
             .. " alignment_type=" .. type(alignment)
             .. " alignment_x=" .. scalar(alignment.X) .. " alignment_y=" .. scalar(alignment.Y))
-        assert(position.X == 88 and position.Y == 0 and alignment.X == 0 and alignment.Y == 0.5,
-               "original layout differs from retained baseline")
+        assert(position.X == 38 and position.Y == 0 and alignment.X == 0 and alignment.Y == 0.5,
+               "original layout differs from measured Open baseline")
         assert(anchors.Minimum.X == 0 and anchors.Maximum.X == 0
                and anchors.Minimum.Y == 0.5 and anchors.Maximum.Y == 0.5, "unexpected anchors")
         local name = "IIP_UIChild_OPEN_" .. tostring(os.time())
@@ -119,7 +119,7 @@ local function observe(context, ...)
         slot:SetAutoSize(false)
         slot:SetAnchors({Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}})
         slot:SetAlignment({X=0,Y=1})
-        slot:SetPosition({X=88,Y=-18})
+        slot:SetPosition({X=position.X,Y=position.Y-18}) -- Relative to measured live stock text, not designer X=88.
         slot:SetSize({X=140,Y=28})
         label:SetVisibility(3) -- HitTestInvisible: no new input target.
         phase = "attached"

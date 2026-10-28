@@ -13,7 +13,7 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 - [Research plan](docs/RESEARCH_PLAN.md)
 - [Verified runtime and evidence gaps](docs/VERIFIED_RUNTIME.md)
 - [TipHUD layout and visual prototype readiness](research/interaction-prompts-owner/VISUAL_READINESS.md): additive UI path selected; the Aphes-specific font bridge remains blocked.
-- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): first run stopped at the live layout guard before construction; diagnostic update installed, exact getter values pending. Aphes and divider are deferred.
+- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): live slot X=38 measured; revised relative-position source prepared, not installed. Previous probe disabled; creation/attachment still untested. Aphes and divider are deferred.
 
 This module will have its own version and independently installable payload if implementation proves feasible.
 

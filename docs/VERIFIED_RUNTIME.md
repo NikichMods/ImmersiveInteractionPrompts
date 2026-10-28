@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## UIChild diagnostic result: Position.X=38, 2026-10-28
+
+[Второй прогон](../research/interaction-prompts-owner/ui-child/README.md) с точным
+установленным diagnostic hash `837029dd...` вывел Position table `(38,0)` и
+Alignment table `(0,0.5)`. Ошибка старого guard локализована: ожидаемый static X=88
+не совпадает с живым X=38; формат getters подходит, Y/alignment совпали. Кто
+устанавливает X и его универсальность не доказаны. CREATE_BEGIN снова не достигнут,
+поэтому отсутствие OPEN пока не проверяет механизм нового TextBlock.
+Closed-session log SHA256 `3b755b841139d17bfd6c3f4f65b37467faf0f96538158e0da803b69e1dd4bead`.
+Лог сохранён, probe отключён, остальные моды/settings не менялись по хэшам.
+Новый source использует измеренный guard X=38 и относительную позицию только
+нового ребёнка; исходный slot не меняет. 19 mock tests проходят. READY относится
+к одному будущему creation test; новый source не установлен, production BLOCKED.
+
 ## Диагностическое обновление UIChild установлено, значения ожидаются
 
 По прямому разрешению пользователя при закрытом host установлен исходник

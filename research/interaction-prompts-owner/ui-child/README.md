@@ -1,15 +1,16 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**Diagnostic revision installed with explicit permission; waiting for live slot
-values. UI readiness remains BLOCKED on the slot/getter contract.** The divider
+**Live slot values obtained; revised label source READY for one bounded creation
+test, not installed. Previous diagnostic probe disabled.** The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
 
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
-`837029ddfd4e65a68b876fd5d3a9c7f7769fd81bc28974e7524ff0f91ea57d78`.
-This revision adds one LAYOUT_OBSERVED diagnostic before the unchanged guard;
-it is installed, not yet runtime observed. The earlier tested source is below.
+`b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
+This revision uses the measured Open baseline X=38 and positions only its new
+label relative to the live original slot. It is not installed. Earlier sources
+and results remain below; production readiness is still BLOCKED.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
 one worktree, same research branch, current rules/deltas read. Existing findings
@@ -29,7 +30,7 @@ OPEN is not an Aphes translation or accepted visual design.
 | Primitive widget and owner | Exact loaded `/Script/UMG.TextBlock` UClass; Outer is selected TipHUD.WidgetTree, RF_Transient, unique checked name. No UUserWidget, Blueprint class duplication or guessed Initialize/Construct calls |
 | Parent/slot | Installed-build UHT: CanvasPanel.AddChildToCanvas returns CanvasPanelSlot; PanelWidget.RemoveChild returns bool; slot Parent/Content and getters are reflected. Existing seven-edge export identifies TextBlock_89 → CanvasPanel_6 |
 | Stock font | LuaUObject.cpp 754–830 supports same-type ScriptStructWrapper CopyCompleteValue. `SetFont(b.Font)` is synchronous and uses the existing complete typed value, not a made-up filename or partial font table. Original Text/Font/Slot untouched |
-| Text / geometry | Pinned LuaFText.cpp supplies FText(string); UHT declares SetText, SetFont, SetJustification and slot setters. New label only: fixed 140×28, `(88,-18)`, anchors `(0,0.5)`, alignment `(0,1)`, no autosize |
+| Text / geometry | Pinned LuaFText.cpp supplies FText(string); UHT declares SetText, SetFont, SetJustification and slot setters. New label only: fixed 140×28, position `(original.X, original.Y-18)`, anchors `(0,0.5)`, alignment `(0,1)`, no autosize. Observed Open slot `(38,0)` |
 | GC references | Reflected PanelWidget.Slots → PanelSlot.Content supplies the attached object-reference chain. Lua variables and Outer alone are not claimed to root objects. No AddToRoot/forced GC/destruction |
 | Detachment | Only the exact created child can be passed to RemoveChild; never ClearChildren, RemoveChildAt, source reparenting or native-array writes. Recheck GetParent after removal |
 
@@ -65,7 +66,8 @@ checks identity/outer/parent. Stale stored wrappers are never dereferenced.
 - A 30-second overall window selects only the first naturally visible, enabled
   TipHUD with current «Открыть». It requires the exact text class, WidgetTree /
   CanvasPanel_6 ownership, three original canvas children, original slot/anchors/
-  position and desktop Font.Size=22. Any structural mismatch stops before UI
+  measured Open position `(38,0)`, alignment `(0,0.5)` and desktop Font.Size=22.
+  Other positions remain outside this first test. Any structural mismatch stops before UI
   creation; nonmatching actions are simply skipped. Handheld/other layouts are
   outside this first test, not silently resized into the baseline.
 - A reentrancy guard plus attaching/attached phases prevents duplicate creation.
@@ -109,6 +111,30 @@ external reparenting and identity reuse. They test authored
 policy, not native initialization, rendering, GC or engine method bodies.
 
 ## Authorized installation, 2026-10-28
+
+### Second result: live X=38, getter format confirmed — 2026-10-28
+
+User again saw no OPEN. Diagnostic source `ea85872892090c8bd13fdc09a275b14ec9bfa94d`,
+hash `837029ddfd4e65a68b876fd5d3a9c7f7769fd81bc28974e7524ff0f91ea57d78`,
+matches the installed script. LAYOUT_OBSERVED at 04:19:06, log line 711, records
+`position_type=table position_x=38 position_y=0 alignment_type=table alignment_x=0 alignment_y=0.5`.
+Thus the mismatching field is X: the original guard required designer X=88.
+Table return shape is usable; alignment and Y match. No evidence identifies who
+wrote X=38 or proves it universal for every action/device/layout. Do not infer
+the input-icon producer from the coincidental numeric width.
+
+FAILED/CLEANED follow at 712/713; CREATE_BEGIN is absent. Normal Event loop end
+at 04:19:26 (716). The pre-construction stop therefore says nothing yet about
+new widget/font/Slate rendering, GC or RemoveChild. Archived log SHA256
+`3b755b841139d17bfd6c3f4f65b37467faf0f96538158e0da803b69e1dd4bead`.
+Probe disabled after the closed session, previous mod files/settings unchanged.
+
+Current source now validates the actual measured Open baseline X=38, retains
+all other guards, and uses live Position.X/Y only to place its own child.
+Original slot is never assigned. Mock fixture uses measured X=38 and asserts
+the new child receives X=38/Y=-18; all 19 tests pass. This is preparation for
+the first actual creation/attachment attempt, not a successful runtime result.
+New source is not installed; another read-only coordinate experiment is unnecessary.
 
 ### Diagnostic-only update installed, pending values
 
