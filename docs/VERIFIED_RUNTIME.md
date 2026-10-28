@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## Measured-X38 UIChild установлен, creation test ожидается
+
+По прямому разрешению установлен source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`,
+SHA256 `b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
+Host закрыт перед записью; installed hash совпал. Прежний diagnostic source и
+его disabled state, rollback и pretest log сохранены вне loader. Девять прочих
+mod files/settings неизменны; старый CanShow probe отключён. Игровой процесс
+агентом не запускался/не закрывался; создание/рендер/удаление ещё не наблюдались.
+
 ## UIChild diagnostic result: Position.X=38, 2026-10-28
 
 [Второй прогон](../research/interaction-prompts-owner/ui-child/README.md) с точным

@@ -2,8 +2,8 @@
 
 **2026-10-28: диагностический прогон измерил живой slot: Position=(38,0),
 Alignment=(0,0.5), оба getter возвращают table. OPEN не создавался из-за ожидания
-designer X=88. Исправленный source READY для одного creation test, не установлен;
-завершённый диагностический probe отключён.
+designer X=88. Исправленный source установлен по прямому разрешению при закрытой
+игре; первый creation test ожидается. Предыдущий payload сохранён для отката.
 Production evidence gate BLOCKED.**
 
 - Исправление ограничено доказанным Open baseline X=38; новый label берёт позицию
@@ -53,7 +53,8 @@ Production evidence gate BLOCKED.**
 - Для будущего Aphes-варианта потребуется совместимый UE4.27 editor/cook
   toolchain и локальный font resource. Автоматической установки не выполнялось.
   Ближайший шаг UI-эксперимента — отдельно разрешённое обновление на исправленный
-  source и первый реальный attach/detach test; повторного capture координат не нужно.
+  source выполнено; дальше первый реальный attach/detach test. Повторного capture
+  координат не нужно.
   Full native observer/UEPseudo не возобновляются. Подробные ограничения native
   geometry, individual visibility и будущего узкого runtime-теста — в отчёте.
 

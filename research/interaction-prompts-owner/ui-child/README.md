@@ -1,7 +1,7 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**Live slot values obtained; revised label source READY for one bounded creation
-test, not installed. Previous diagnostic probe disabled.** The divider
+**Measured-X38 revision installed with explicit permission; first creation test
+pending. Previous diagnostic bytes preserved for rollback.** The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
@@ -9,7 +9,7 @@ is deferred; neither is required for the label-only experiment.
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
 `b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
 This revision uses the measured Open baseline X=38 and positions only its new
-label relative to the live original slot. It is not installed. Earlier sources
+label relative to the live original slot. It is installed, not runtime observed. Earlier sources
 and results remain below; production readiness is still BLOCKED.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
@@ -111,6 +111,16 @@ external reparenting and identity reuse. They test authored
 policy, not native initialization, rendering, GC or engine method bodies.
 
 ## Authorized installation, 2026-10-28
+
+### Measured-X38 revision installed, pending creation test
+
+User authorized `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`; installed main.lua
+matches current SHA256 above. Host absent immediately before replacement.
+Previous diagnostic script/hash and disabled state preserved outside loader
+paths, with guarded rollback and pretest log. Nine other mod files/settings
+remain hash-identical; old CanShow probe disabled. Only own script and activation
+marker changed. No launch/termination/hot reload. Creation/render/removal remain
+unobserved until the next user-operated session.
 
 ### Second result: live X=38, getter format confirmed — 2026-10-28
 

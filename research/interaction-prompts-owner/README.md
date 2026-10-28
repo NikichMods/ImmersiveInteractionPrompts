@@ -2,7 +2,8 @@
 
 **Current experiment:** [stock-font ui-child](ui-child/README.md) stopped at the
 live layout guard before construction. A second run measured X=38, not designer
-X=88. Probe disabled; revised measured-baseline source prepared, not installed. Aphes/divider are
+X=88. Revised measured-baseline source installed with explicit permission,
+creation test pending. Aphes/divider are
 deferred; the older font-specific blockers are not prerequisites to this test.
 
 **Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
