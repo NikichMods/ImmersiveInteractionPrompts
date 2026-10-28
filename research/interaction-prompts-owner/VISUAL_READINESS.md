@@ -1,9 +1,10 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
-**Current independent step:** [stock-font child experiment](ui-child/README.md)
-is prepared for a separately permitted first label-only test. It defers Aphes
-and the unverified solid divider; the Aphes-specific BLOCKED checkpoint below
-does not block that narrower experiment. No current runtime/install performed.
+**Completed independent step:** [stock-font child experiment](ui-child/README.md)
+created, visibly rendered and manually detached one added label in-game, with
+original text/icon reported in place. Probe disabled. This closes that narrow
+primitive attachment question; Aphes/divider and broader lifecycle remain open.
+The Aphes-specific BLOCKED checkpoint below is unchanged.
 
 **Follow-up:** [local toolchain check](FONT_RESOURCE_READINESS.md) completed:
 no compatible editor/cooker located; repak is packaging-only. No font asset or UI

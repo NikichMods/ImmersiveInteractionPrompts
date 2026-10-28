@@ -1,8 +1,9 @@
 # Aphes UMG font resource: tooling checkpoint — 2026-10-28
 
-**Scope update:** Aphes tooling remains deferred. The separately prepared
-[stock-font child experiment](ui-child/README.md) can test one added label without
-this dependency. The BLOCKED result below applies to Aphes font production only.
+**Scope update:** Aphes tooling remains deferred. The independent
+[stock-font child experiment](ui-child/README.md) created/rendered/manually
+detached one label in-game without this dependency. This does not establish
+Aphes rendering; the BLOCKED result below applies to the Aphes font resource.
 
 **BLOCKED: no UE4.27 editor/cook toolchain located in the checked environment.**
 No FontFace/composite UFont, cooked payload or executable UI prototype was created.

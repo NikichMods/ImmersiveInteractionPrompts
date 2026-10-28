@@ -1,10 +1,18 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: диагностический прогон измерил живой slot: Position=(38,0),
-Alignment=(0,0.5), оба getter возвращают table. OPEN не создавался из-за ожидания
-designer X=88. Исправленный source установлен по прямому разрешению при закрытой
-игре; первый creation test ожидается. Предыдущий payload сохранён для отката.
-Production evidence gate BLOCKED.**
+**2026-10-28: одна дополнительная строка OPEN штатным шрифтом успешно создана,
+показана и удалена в игре. Пользователь подтвердил отсутствие смещения исходных
+«Открыть» и иконки. Probe отключён после прогона. Production gate BLOCKED.**
+
+- [Успешный ui-child run](../research/interaction-prompts-owner/ui-child/README.md):
+  source `6e55c18`, hash `b0e0f6c3...`, CREATED/SLOT_READY/ATTACHED и
+  REMOVED/CLEANED reason=user, без FAILED. Native RemoveChild и проверка GetParent
+  пройдены; отображение/исчезновение подтверждены пользователем. Один Open prompt,
+  без Aphes/разделителя; immediate destruction/GC и полный lifecycle не проверены.
+- Этот узкий эксперимент завершён. Дальше выбирать отдельный вопрос шрифта/
+  разделителя; повторное общее наблюдение CanShow и этот же attach/detach не нужны.
+
+### Предыдущие шаги и сохранённые ограничения
 
 - Исправление ограничено доказанным Open baseline X=38; новый label берёт позицию
   из текущего оригинального слота, не записывая в него. Прочие guards сохранены.
@@ -52,9 +60,8 @@ Production evidence gate BLOCKED.**
   OPEN остаётся временным техническим текстом, не переводом на Афес.
 - Для будущего Aphes-варианта потребуется совместимый UE4.27 editor/cook
   toolchain и локальный font resource. Автоматической установки не выполнялось.
-  Ближайший шаг UI-эксперимента — отдельно разрешённое обновление на исправленный
-  source выполнено; дальше первый реальный attach/detach test. Повторного capture
-  координат не нужно.
+  Measured-X38 source успешно прошёл первый attach/detach test и отключён;
+  повторного capture координат не нужно.
   Full native observer/UEPseudo не возобновляются. Подробные ограничения native
   geometry, individual visibility и будущего узкого runtime-теста — в отчёте.
 

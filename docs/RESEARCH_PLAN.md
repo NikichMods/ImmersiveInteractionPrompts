@@ -1,6 +1,15 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий этап — live slot измерен, исправленный source READY
+## Текущий этап завершён — один native child добавлен, показан и удалён
+
+[ui-child результат](../research/interaction-prompts-owner/ui-child/README.md)
+подтвердил primitive TextBlock/typed Font copy/AddChildToCanvas/RemoveChild на
+одном Open prompt; пользователь увидел OPEN и удаление без заметного смещения
+оригинальной строки/иконки. Probe отключён. Повтор этого опыта не нужен.
+Следующий этап выбирать по отдельному вопросу Aphes/разделителя, не превращая
+один успех в production/lifecycle/GC acceptance и не возобновляя native observer.
+
+## Историческая подготовка измеренного slot
 
 Второй прогон дал Position=(38,0), Alignment=(0,0.5), table shape. Designer X=88
 больше не используется как live baseline: source проверяет измеренный Open X=38

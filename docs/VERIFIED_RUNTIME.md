@@ -1,5 +1,28 @@
 # Verified Runtime — Interaction Prompts
 
+## UIChild: создание, отображение и ручное удаление подтверждены
+
+[Успешный прогон и ограничения](../research/interaction-prompts-owner/ui-child/README.md):
+source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`, SHA256
+`b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`,
+точно совпал с установленным после выхода. UE4SS 83330635, 04:25:02–04:26:03 МСК.
+CREATE_BEGIN/CREATED, ATTACH_BEGIN/SLOT_READY, ATTACHED, REMOVE_BEGIN/REMOVED,
+CLEANED reason=user; 11 диагностических строк, нет FAILED/CLEANUP_FAILED.
+Source readback после RemoveChild проверил отсутствие родителя у своего ребёнка.
+Пользователь подтвердил видимый OPEN, исчезновение после второго Ctrl+Alt+F9 и
+сохранение «Открыть»/иконки на месте. Это совместное log/visual доказательство
+одного экземпляра, не универсальное сохранение геометрии или gameplay-механик.
+
+Проверенный путь: текущий TipHUD.WidgetTree → StaticConstructObject(TextBlock,
+RF_Transient) → typed копия Font оригинала → CanvasPanel_6.AddChildToCanvas и
+свой CanvasPanelSlot → RemoveChild своего ребёнка. Оригинальный слот не менялся
+кодом; размещение нового использовало measured Position=(38,0), Alignment=(0,0.5).
+Closed-session log SHA256 `8e6e0e324bc4d090f7cb550ae21543f20e1f8e95123ec3d76c1ccfc1253cdf50`.
+Сохранён локально; probe отключён, bytes сохранены. Девять прочих mod files и
+settings неизменны. Не проверены timeout/смена цели/меню/GC, другие действия и
+устройства, DPI/длинные строки. Aphes/разделитель отсутствуют. Production BLOCKED;
+первый additive label experiment завершён, повтор ради дополнительных passes не нужен.
+
 ## Measured-X38 UIChild установлен, creation test ожидается
 
 По прямому разрешению установлен source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`,

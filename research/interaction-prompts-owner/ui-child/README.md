@@ -1,7 +1,7 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**Measured-X38 revision installed with explicit permission; first creation test
-pending. Previous diagnostic bytes preserved for rollback.** The divider
+**One live Open prompt: creation, visible stock-font label and manual detachment
+confirmed. Probe disabled after the completed session. Production BLOCKED.** The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
@@ -9,7 +9,8 @@ is deferred; neither is required for the label-only experiment.
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
 `b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
 This revision uses the measured Open baseline X=38 and positions only its new
-label relative to the live original slot. It is installed, not runtime observed. Earlier sources
+label relative to the live original slot. Its installed bytes matched in the
+successful run; it now remains installed but disabled. Earlier sources
 and results remain below; production readiness is still BLOCKED.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
@@ -99,8 +100,9 @@ Adding a child can change CanvasPanel_6 desired size and shift centered parents
 even though no existing property is assigned. Fixed new size limits this input;
 it does NOT prove zero reflow/clipping. Native layout/individual visibility and
 full menu/target lifecycle remain unknown. Actual font inheritance, rendering,
-GC survival while attached, detachment in the game and restored layout require
-runtime evidence. This is enough for a bounded research experiment, not a
+GC survival while attached and broader layout/lifecycle still need evidence.
+One stock-font render/manual detachment and perceived stable original layout
+are now confirmed by the first successful run above. This is not a
 production readiness claim or a guarantee against every engine failure.
 
 Offline `tools/test.py`: seven existing CanShow groups and twelve new Lua54 mock
@@ -111,6 +113,44 @@ external reparenting and identity reuse. They test authored
 policy, not native initialization, rendering, GC or engine method bodies.
 
 ## Authorized installation, 2026-10-28
+
+### Successful creation/render/manual removal — 2026-10-28
+
+Exact tested source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`, current hash above;
+installed bytes rechecked after exit. UE4SS log identifies 83330635. User confirmed:
+OPEN appeared; second Ctrl+Alt+F9 removed it; original «Открыть» and icon stayed
+in place. This is direct visual evidence for this one prompt and manual removal,
+not final visual design acceptance or a general layout/interaction guarantee.
+
+| Log line / Moscow time | Result |
+| --- | --- |
+| 652, 04:25:05 | ARMED |
+| 710–711, 04:25:47 | WAITING, Position table `(38,0)`, Alignment table `(0,0.5)` |
+| 712–715, 04:25:47 | CREATE_BEGIN → CREATED → ATTACH_BEGIN → SLOT_READY |
+| 716, 04:25:47.9687997 | ATTACHED, one_label=true, font=stock, divider=omitted |
+| 717–719, 04:25:52 | REMOVE_BEGIN → REMOVED → CLEANED reason=user |
+| 721, 04:26:03 | normal Event loop end |
+
+Eleven UIChild diagnostic lines; no FAILED/CLEANUP_FAILED. Source order means
+successful attachment Parent/Content checks, configuration and HitTestInvisible
+were reached. RemoveChild returned true and subsequent GetParent was invalid
+before CLEANED. This confirms native detachment of our child, not immediate
+UObject destruction or proven survival through a GC cycle. The visible interval
+was about 4.7 seconds; no timeout/state-change cleanup was exercised here.
+
+Archived closed-session log SHA256
+`8e6e0e324bc4d090f7cb550ae21543f20e1f8e95123ec3d76c1ccfc1253cdf50`.
+Raw log/analysis stay local. With host closed, only this probe's enabled.txt was
+moved outside loader paths; installed script preserved unchanged/disabled.
+Nine previous mod files and settings remain hash-identical. Earlier guarded
+rollback can restore the previous diagnostic script disabled; no rollback executed.
+
+**This experiment is complete.** It proves the additive primitive-widget route
+for one measured Open prompt, with the complete typed stock font copy and manual
+cleanup. It does not prove Aphes, divider brushes, long strings/DPI, keyboard/pad
+switching, all prompt owners, full target/menu/respawn lifecycle or GC behavior.
+Do not repeat this case just to accumulate passes. Choose any next step under
+a specific remaining font/divider/product question, not another general observer.
 
 ### Measured-X38 revision installed, pending creation test
 
