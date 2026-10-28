@@ -1,8 +1,8 @@
 # Статус Immersive Interaction Prompts
 
 **2026-10-28: label-only эксперимент успешно завершён. Новая research-ревизия
-с одним разделителем READY для отдельного визуального теста; не установлена.
-Установленная прежняя версия отключена. Production gate BLOCKED.**
+с одним разделителем установлена по прямому разрешению при закрытой игре,
+визуальный тест ожидается. Предыдущая версия сохранена. Production gate BLOCKED.**
 
 - [Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
   выбран UImage с native-initialized color-only Box brush, без текстур/ресурсов.
@@ -11,7 +11,9 @@
   Отрисовка линии не доказана существованием API и требует будущего наблюдения.
 - Сохраняются one-Open/30s/identity/layout guards и отсутствие записи в оригинал.
   Очистка двух own children независима, partial failure не блокирует попытку
-  убрать второго. 7+15 offline test groups проходят. Установки/запуска не было.
+  убрать второго. 7+15 offline test groups проходят. Установлен source `180ffbf`,
+  hash `94f7bd87...` совпал; девять других mod files/settings неизменны, откат и
+  pretest log сохранены вне loader. Игра агентом не запускалась.
 
 - [Успешный ui-child run](../research/interaction-prompts-owner/ui-child/README.md):
   source `6e55c18`, hash `b0e0f6c3...`, CREATED/SLOT_READY/ATTACHED и

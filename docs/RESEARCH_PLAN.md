@@ -5,8 +5,8 @@
 [Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md)
 выбирает UImage + color-only Box, 140×2 layout units под OPEN, без нового ресурса
 и без изменения исходного prompt. Source подготовлен с default/readback checks
-и независимой очисткой двух элементов. Не установлен, 22 offline groups проходят.
-Следующий достаточный шаг после отдельного разрешения — один визуальный тест
+и независимой очисткой двух элементов. Установлен по прямому разрешению при
+закрытой игре, 22 offline groups проходят. Следующий достаточный шаг — один визуальный тест
 линии/удаления пары, а не повтор доказательства TextBlock. Actual brush defaults,
 видимость/толщина, clipping/reflow в этой ревизии ещё не проверены.
 

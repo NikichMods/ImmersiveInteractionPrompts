@@ -1,8 +1,8 @@
 # Observation probe readiness — 2026-10-28
 
 **Current divider preparation:** [DIVIDER_READINESS.md](DIVIDER_READINESS.md),
-UImage/color-only Box, source READY for one future permitted visual test, not
-installed/run. The successful label-only run remains the accepted narrow baseline.
+UImage/color-only Box, installed with explicit permission, first visual test
+pending. The successful label-only run remains the accepted narrow baseline.
 
 **Current experiment:** [stock-font ui-child](ui-child/README.md) stopped at the
 live layout guard before construction. A second run measured X=38, not designer

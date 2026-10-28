@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Divider установлен; visual/runtime результат ожидается
+
+По прямому разрешению при закрытом host установлен source
+`180ffbfa8d0ba6e0e6c5da8aa8efe9f818152f3c`, SHA256
+`94f7bd87b91038dfea8c6c39cd1123fadbaa452fee88a7867c3b5b06e53ac8cb`.
+Installed bytes совпали. Предыдущий успешный label-only script и disabled state
+сохранены вне loader, есть guarded rollback и pretest log. Девять других mod files
+и settings неизменны. Изменены только собственные main.lua/enabled.txt; старый
+CanShow probe отключён. Игра не запускалась/не закрывалась агентом. Это установка,
+не доказательство отрисовки линии или очистки пары.
+
 ## Divider source readiness — offline, не runtime-подтверждение
 
 [Минимальный механизм](../research/interaction-prompts-owner/DIVIDER_READINESS.md):

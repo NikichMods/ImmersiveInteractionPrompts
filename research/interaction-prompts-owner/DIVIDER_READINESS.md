@@ -1,7 +1,7 @@
 # Resource-free divider in native TipHUD — 2026-10-28
 
-**READY for one separately authorized visual divider experiment.** Research
-source only; not installed/run. Actual line rendering is unverified. Production
+**Installed with explicit permission; first visual divider test pending.**
+No runtime result yet for this revision. Actual line rendering is unverified. Production
 BLOCKED; Aphes/cooker, native observer and general lifecycle are out of scope.
 
 Recovered clean single-worktree checkout on `research/interaction-prompts-owner`,
@@ -113,6 +113,15 @@ questions. Full target/menu/GC/device coverage is not added to this stage.
 
 ## Source, checks and future test
 
+### Authorized deployment, 2026-10-28
+
+User authorized source `180ffbfa8d0ba6e0e6c5da8aa8efe9f818152f3c`. Host absent
+immediately before replacement; installed hash matches below. Prior successful
+label-only source/hash and its disabled state preserved outside loader paths,
+with guarded rollback and pretest log. Nine other mod files and loader settings
+remain hash-identical. Only own main.lua/activation marker changed; old CanShow
+probe remains disabled. No game launch/termination/hot reload or visual result.
+
 [ui-child/Scripts/main.lua](ui-child/Scripts/main.lua), SHA256
 `94f7bd87b91038dfea8c6c39cd1123fadbaa452fee88a7867c3b5b06e53ac8cb`.
 Frozen successful label-only source stays at `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`
@@ -135,4 +144,5 @@ line under OPEN, original action/icon still in place, second chord removes both.
 Capture BRUSH_DEFAULT/BRUSH_READY, two role-tagged attachments/removals and final
 CLEANED; user observes actual pixels. If absent, use this evidence to distinguish
 configuration failure from render/scale behavior, without an automatic broad
-observer or asset-override fallback. No runtime installation authorized here.
+observer or asset-override fallback. Installation was subsequently authorized as
+recorded above; execution/observation is now the user's next step.
