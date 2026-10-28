@@ -1,14 +1,24 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий выбор — private UFont copy для dynamic text; source-only кандидат
+## Текущий шаг — Template-copy creation/storage probe READY, без FFontData writes
+
+[Font-template](../research/interaction-prompts-owner/font-template/README.md)
+подготовлен: один Ctrl+Alt+F7, naturally loaded donor, один новый RF_Transient UFont,
+проверки классов/структуры и native storage addresses, donor post-check. Не установлен.
+Следующая минимальная проверка после отдельного разрешения — один такой запуск
+без видимого UI: установить optional Template forwarding и раздельное хранилище
+по логам. NOT_LOADED/невозможность прочитать адреса — terminal outcome без обхода.
+До последующей отдельной проверки setters/ownership не менять даже FFontData копии.
+
+## Выбор механизма — private UFont copy для dynamic text
 
 [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md)
 сравнивает shared donor, C++ path constructor, PNG и Coherent. In-place font
 replacement отвергнут из-за потребителей; прямой C++ не готов по linkage/build.
-Прежде него подготовить узкий Lua Template-copy probe: доказать независимость
-одного Runtime UFont, затем изменить только его existing FFontData на локальный
-TTF и назначить копию собственному TextBlock. Template forwarding, изоляция,
-decode/render/cache остаются runtime gates. Никакой установки сейчас не разрешено.
+Первый read-only creation/storage probe подготовлен отдельно. Изменение existing
+FFontData копии на локальный TTF и назначение собственному TextBlock — последующие
+этапы, которых в этом probe нет. Template forwarding, изоляция, decode/render/cache
+остаются runtime gates. Никакой установки сейчас не разрешено.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 

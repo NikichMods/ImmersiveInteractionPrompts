@@ -2,7 +2,9 @@
 
 ## Decision
 
-**No runtime-ready dynamic-font payload was produced.** Replacing an existing
+**No dynamic-font write/render payload exists.** A read-only
+[Template-copy creation/storage probe](font-template/README.md) is prepared,
+READY for one separately authorized test, not installed/run. Replacing an existing
 shared font is **BLOCKED** by real consumers or unknown blast radius. The UE4.27
 C++ path-to-TTF constructor exists, but a directly injectable native bridge is
 **BLOCKED** by missing verified engine linkage/ABI and pinned build dependencies.
@@ -10,9 +12,10 @@ C++ path-to-TTF constructor exists, but a directly injectable native bridge is
 A narrower **source-supported candidate** emerged: construct a private transient
 UFont using a small existing runtime UFont as Template, then change only the
 copy's existing FFontData entry to a local TTF filename. This is not replacement
-of the donor package or stock object. **READY to prepare a bounded copy-isolation
-probe; not READY for installation or claimed rendering.** It should be evaluated
-before paying for a native bridge. No new probe was authored in this doc-only step.
+of the donor package or stock object. **The first creation/storage probe is READY;
+FFontData mutation and rendering remain unprepared/unverified.** Evaluate this
+candidate before paying for a native bridge. The initial assessment at 872929c
+was doc-only; the linked follow-up now contains the bounded read-only probe.
 
 The [PNG experiment](png-header/README.md) remains independently READY for its
 previously specified, separately authorized runtime test. It supplies a fixed
@@ -197,22 +200,22 @@ recipe. No stock Font/FontFace, native-owned array or installed file was modifie
 | Route | True dynamic text? | State / main cost | Fits native TipHUD? |
 | --- | --- | --- | --- |
 | Shared donor + file/data replacement | Yes, potentially | BLOCKED: affects known/unknown other consumers; tool compatibility unproved | Potentially, but violates isolation |
-| Private transient Template UFont copy + local TTF | Yes, if filename path renders | Best next source-supported candidate; optional-template/copy/readback/cache gates open | Uses existing owned TextBlock mechanism |
+| Private transient Template UFont copy + local TTF | Yes, if filename path renders | First creation/storage probe prepared; Template/copy runtime and write/render/cache gates open | Future assignment would use the existing owned TextBlock mechanism |
 | Direct FString→FSlateFontInfo in C++ | Yes in UE4.27 | Engine feature confirmed; bridge BLOCKED by native linkage, dependencies and compatible build | Possible in principle, not demonstrated as injectable |
 | PNG→Texture2D | No; prepared fixed glyph image | Source READY, actual import/alpha/unbind untested; requires local raster generation | Own UImage + accepted divider |
 | Coherent @font-face | Yes in prior Coherent context | Existing Aphes evidence; prompt mapping, placement and lifecycle would be a separate integration | Overlay, not a native TipHUD TextBlock |
 
-For the present **dynamic UMG text** goal, prefer preparing the private-copy Lua
-probe before C++ or a shared asset replacement. First prove only one transient
-copy's type/cache/typeface count and independent array storage before writing its
-one entry; compare donor field values before/after and refuse any alias/mismatch.
-Use exact naturally loaded EBGaramond-SemiBold_Font or record NOT_LOADED; no forced
-asset loading or all-object scan. After those guards, bind only to the already
-established own TextBlock, try two technical strings/sizes (dynamic evidence),
-then detach and release its font reference. Keep the local TTF available until
-exit, with no forced GC or live file replacement. This needs a newly reviewed
-source prototype and separate installation/runtime authorization, not an immediate
-game action in this task.
+For the present **dynamic UMG text** goal, first use the prepared private-copy
+creation/storage probe before C++ or shared replacement. It checks one copy's
+type/cache/typeface count and addresses, then donor values; no entry is written.
+It uses exact naturally loaded EBGaramond-SemiBold_Font or records NOT_LOADED,
+without force load or scans. Installation/runtime still requires separate permission.
+
+Only after this result and a further setter/ownership review may a later prototype
+change the copy's entry, bind it to the established own TextBlock and test dynamic
+strings/sizes. Keep the local TTF available until exit, no forced GC or live file
+replacement. Neither full deep-copy independence nor Aphes rendering follows from
+distinct addresses on the inspected path. Those later writes are not in this probe.
 
 If the goal is only the first visual Aphes label, the existing PNG test is the
 cheapest prepared option and does not answer the dynamic-font question. No product

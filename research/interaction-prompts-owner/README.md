@@ -1,9 +1,9 @@
 # Observation probe readiness — 2026-10-28
 
 **Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
-Shared replacement is blocked; private transient Template UFont copy is a
-source-supported next candidate before native bridge/toolchain work. No dynamic
-font payload or runtime result is claimed.
+Shared replacement is blocked; [font-template/README.md](font-template/README.md)
+now supplies the first private transient UFont creation/storage probe, READY for
+one separate authorized run. No FFontData write or rendering result is claimed.
 
 **Current PNG-header preparation:** [png-header/README.md](png-header/README.md),
 one local Aphes glyph PNG and Texture2D import source, READY for one separately

@@ -1,9 +1,21 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: исследование динамического Aphes UMG завершено без runtime.
-Shared-font replacement BLOCKED; прямой C++-мост не готов. Найден более узкий
-Lua-кандидат: собственная transient Template-копия UFont + FFontData.FontFilename.
-READY к подготовке copy-isolation probe, не к установке. Production BLOCKED.**
+**2026-10-28: первый UFont Template-copy probe подготовлен. READY к одному
+отдельно разрешённому creation/storage-inspection запуску; не установлен.
+Никаких FFontData/UI-записей или Aphes-загрузки. Production BLOCKED.**
+
+- [Font-template probe](../research/interaction-prompts-owner/font-template/README.md):
+  Ctrl+Alt+F7, один naturally loaded donor и одна transient копия; точный
+  Template argument8, game-thread callback без hooks/timers/scans. NOT_LOADED
+  завершает попытку. Num проверяется до index1, empty arrays не индексируются.
+- Адреса native array header/buffer/entry/FontData сравниваются через проверенные
+  pinned getters, не через identity Lua wrappers. Успех требует отличающегося
+  storage, ожидаемой структуры/значений и повторной проверки донора. Shared
+  FontFace ожидается; независимость FString backing/private state не объявляется.
+- 10 новых offline test groups проходят: creation/type/shape/address/alias/API/
+  dispatch failures, donor post-check и one-attempt policy. Это mocks, не native
+  copy/GC/render. Предыдущие visual tests не повторялись. Все wrapper references
+  callback-local, нет roots/manual GC; одна transient копия ожидает обычный GC.
 
 - [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
   17 известных font packages / 5 UFont / 12 FontFace; общий Umg_Font и Garamond
@@ -16,7 +28,8 @@ READY к подготовке copy-isolation probe, не к установке. 
   небольшой Runtime UFont, проверить изоляцию, перенастроить только существующий
   FFontData копии и назначить её собственному TextBlock. Это source-supported
   гипотеза; optional Template, decode/render/cache и cleanup ещё не проверены.
-  Новый исполняемый payload не создавался, игра/моды/настройки не менялись.
+  Для write/render этапа payload не создавался; нынешний probe только читает
+  новую копию. Игра/моды/настройки не менялись.
 - PNG-header ниже по-прежнему READY к своему отдельному тесту; это фиксированные
   глифы, не решение arbitrary dynamic text. Coherent — отдельный overlay route.
 

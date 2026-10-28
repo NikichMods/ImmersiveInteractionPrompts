@@ -17,6 +17,7 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 - [Resource-free divider result](research/interaction-prompts-owner/DIVIDER_READINESS.md): UImage Box line visibly rendered, both added elements detached through user control; probe disabled. Aphes remains deferred.
 - [Local Aphes PNG experiment](research/interaction-prompts-owner/png-header/README.md): glyph image and dynamic Texture2D import source prepared, not installed/run. No font/image payload distributed.
 - [Dynamic UMG font assessment](research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md): shared replacement rejected; private Template UFont copy is a source-supported candidate before a C++ bridge. No new runtime result.
+- [UFont Template creation probe](research/interaction-prompts-owner/font-template/README.md): one-copy native storage inspection source prepared; no font-data/UI writes or installation.
 
 This module will have its own version and independently installable payload if implementation proves feasible.
 

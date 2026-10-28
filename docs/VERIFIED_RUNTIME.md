@@ -1,5 +1,24 @@
 # Verified Runtime — Interaction Prompts
 
+## Template-copy creation/storage probe — offline READY, runtime ещё не было
+
+[Исходник и проверяемая граница](../research/interaction-prompts-owner/font-template/README.md):
+UE4SS83330635 TArray GetArrayAddress/GetArrayDataAddress возвращают native header/
+buffer, а ordinary StructProperty Get + GetStructAddress — native struct storage.
+GetPropertyAddress относится к общей metadata и не подходит для isolation proof.
+Индексный Get остаётся потенциально пишущим: в probe exact Num проверяется раньше.
+
+Подготовлен однократный Ctrl+Alt+F7 probe: создать RF_Transient UFont с Template
+argument8 из естественно загруженного Garamond Font, проверить отдельный объект,
+Runtime/typeface shape, native storage addresses, равенство selected values и
+неизменность донора после попытки. Нет FFontData assignments, TextBlock/FontFace
+изменений или TTF загрузки. Новый source SHA256
+`f771481709412b2bdf5bc9f54e262b1d8cd7f69db23b1e9c72b0dca7b3b9cc7d`.
+10 новых mock test groups проходят. Это source/offline-подготовка, не подтверждение
+native copy, всех heap buffers, GC или Aphes в UMG. Не установлен/не запускался;
+предыдущие ui-child/PNG sources и VERSION неизменны. Состояние для одного отдельно
+разрешённого creation/inspection run — READY; write/render этап всё ещё не готов.
+
 ## Dynamic-font investigation — source-only, без игрового запуска
 
 [Отчёт и пределы доказательств](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
