@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Screen-position follow-up — source/offline only, 2026-10-29
+
+[Viewport report](../research/interaction-prompts-owner/viewport/README.md): actual
+UHT CDO constructor assignment ExtendedWidgetComponent.Space=Screen, absent base
+component override; UE4.27 screen layer still projects scene-component location.
+This narrows the earlier world/screen unknown; exact live per-instance overrides
+and native Genesis transform writer are unobserved. UMG viewport functions exist,
+but UserWidget base is Abstract. Candidate uses one own Canvas under already
+in-viewport HUDMainUMG.Main_Panel, with no original TipHUD mutation.
+New anchors/hint-brush clone/controls have offline/mock evidence only. Earlier
+composition PASS does not establish this independent-screen experiment.
+
+
 ## Compact composition — bounded runtime PASS, 2026-10-29
 
 [Composition result](../research/interaction-prompts-owner/composition/README.md):
@@ -522,8 +535,9 @@ production gate **BLOCKED**.
 
 - `ExtendedWidget`, тип `/Script/Genesis.ExtendedWidgetComponent`,
   `IsActivated=true`, `WidgetClass=/Game/MainContent/Template/UMG/TipHUD.TipHUD_C`,
-  `DrawSize=1000×1000`. Пространство world/screen и live размещение не установлены
-  из этих сериализованных значений.
+  `DrawSize=1000×1000`. Эти serialized values сами по себе не задают Space;
+  последующий UHT CDO check выше установил inherited Screen. Live размещение/
+  overrides требуют отдельного различения от reflected defaults.
 - `TipHUDArgument`, тип `/Script/Genesis.TipHUDArgumentComponent`,
   `msgTag=Interact`, `IconNameIndex=InteractButton`,
   `ActionName=EGenesisInputCommandType::Interact`, сетка `8×8`.

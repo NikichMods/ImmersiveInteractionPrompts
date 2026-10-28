@@ -1,5 +1,13 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**New placement direction:** [viewport/README.md](viewport/README.md), READY
+source/offline, subsequent user authorization permits installation. One owned
+Canvas in existing viewport HUD, original TipHUD unchanged; new upper style
+outline0/tracking150/size28, lower and copied current hint share a baseline.
+Bottom-center position remains experimental; parent-normalized coordinates need
+one user-run placement test. Earlier TipHUD composition result below stays intact.
+
+
 **Dynamic font follow-up:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 identifies private Template UFont + reflected FFontData filename as the next
 candidate before a C++ bridge. Its storage test passed, and

@@ -1,0 +1,142 @@
+# Fixed screen-position research prototype — 2026-10-29
+
+**READY source/offline for one user-operated test.** Subsequent user instruction
+also authorizes closed-game installation once ready; installation result is
+recorded below when performed. Production BLOCKED. Prior native Aphes/font,
+ornament and TipHUD-child results are reused, not reopened.
+
+## Question, recovered baseline and selected mechanism
+
+Goal: a compact sample stays in the lower screen while the world target/camera
+moves; user tunes X/Y live. Original TipHUD remains visible/unmodified. This
+stage does not select/hide/update all interaction types or own production lifecycle.
+Checkout was clean, one worktree, research branch at17c2080b4baa7dfca09f18fdbd9d1e64406720cd;
+Research mainbea384a6ba5cfb6ca19f50ac29987107538bb107 and fresh remotes matched.
+DevRules origin/main0f4888bb9501afa42e3b9492c5794c98bf58537f was checked and reused.
+No unpublished work replaced; no VERSION/main/other-mod runtime changes.
+
+### The current prompt is screen-space, but world-positioned
+
+Retained actual UHT `Genesis/Private/ExtendedWidgetComponent.cpp` constructor
+contains `Space=EWidgetSpace::Screen`; base UMG WidgetComponent default is World.
+These generated **constructor assignments** are reflected CDO values: pinned
+UEHeaderGenerator.cpp789ff reads GetClassDefaultObject and compares parent values.
+The generated empty gameplay method bodies/placeholder returns are not native code.
+BaseGameEventObject_BP's ExtendedWidget component template supplies TipHUD class,
+activation and DrawSize1000×1000, with no serialized Space override. Thus this
+baseline inherits Screen; live/placed overrides were not read in this step.
+
+UE4.27 WidgetComponent registers screen components in FWorldWidgetScreenLayer;
+SWorldWidgetScreenLayer.cpp92–145 projects SceneComponent.GetComponentLocation
+through the local player's projection, then converts viewport position to layer
+coordinates. Screen-space here is not a fixed viewport coordinate. Native
+Genesis SetArrayData/SetShow internals and the exact live component transform
+writer remain unknown. No need to resolve those writers for a separate sample.
+
+### Comparison
+
+| Route | Evidence / complexity | Behavior preservation / maintenance decision |
+| --- | --- | --- |
+| Move existing TipHUD/component | Component already Screen; position projected from scene component. Fixed-position override would fight its owner or require reparenting the live widget | Changes the original prompt and ownership; not selected |
+| New standalone viewport UserWidget | Actual UHT has WidgetBlueprintLibrary.Create(WorldContextObject, TSubclassOf<UserWidget>, OwningPlayer), AddToViewport/AddToPlayerScreen, normalized-anchor/position methods. UE4.27 Initialize creates WidgetTree and viewport owns the Slate layer | UUserWidget itself is Abstract and ValidateUserWidgetClass rejects it. Game ExtendedUserWidget is concrete but native initialization callbacks are not fully known; reusing a game Blueprint would also execute its construct graph. No bypass of Initialize/abstract checks, no native bridge/new cooked BP for this test |
+| **Own Canvas under existing viewport HUD root** | Existing CombatHUD/R-004/005 already find in-viewport HUDMainUMG_BP_C and validate gameplay pawn. Saved root is Canvas Main_Panel. AddChildToCanvas uses existing proven native primitive attachment; no new UserWidget construction | **Selected minimum.** Add one owned subtree, move only its slot anchors, delete only that subtree. Borrows host visibility/DPI/lifetime; desktop/fullscreen-root assumptions guarded. Broader HUD lifecycle still unaccepted |
+| Coherent HTML | Actual UHT includes CreateJSEvent/AddString/AddBool/TriggerJSEvent and readiness APIs; Html has genesis-input-direction controls. But ShowTipMessage/HideTipMessage bindings2678–2686 and TipMessage DOM5987ff are commented out; no active native TipHUD→current action/input bridge was established in these bounded inputs | Possible custom event bridge, not impossible. Would need payload/target/hide/input synchronization, document readiness and compatible common Hud.html patch; this overlaps other Coherent mods. More new seams than the selected root Canvas. CSS convenience does not remove state ownership |
+
+No global object/actor inventory, frame monitor, new native observer or game run
+was used. A one-time class-scoped FindAllOf(HUDMainUMG_BP_C), already used by
+CombatHUD, returns a Lua table in LuaMod.cpp1398ff; this is not a TArray out-param
+or array-resize path. Count limit8; require exactly one matching in-viewport HUD
+with GenesisCharacter-derived owning pawn. Wrong-map DefaultPawn is rejected.
+
+## Prototype and evidence boundaries
+
+[Scripts/main.lua](Scripts/main.lua), [IIPPosition.lua](Scripts/IIPPosition.lua).
+One post-only CanShow hook waits for a naturally visible RU Open, reads its
+font/localized display text and actual RetainerBox child Image brush. It then
+becomes inert. This is one snapshot sample, not a continuing interaction observer.
+The sample deliberately remains while walking away from the chest, until user
+cleanup or180s timeout. It is not presented as a valid live action prompt.
+
+The existing HUD must have stretched viewport anchors0,0→1,1, zero viewport
+alignment and identity RenderTransform; its WidgetTree.RootWidget must be exact
+Canvas Main_Panel with identity transform. On controls, viewport presence,
+transforms and stretch are rechecked. No original child/root/slot properties are
+set. Add one own transient Canvas320×132 to this root; fixed size, centered
+alignment, zero offsets, point anchors initially(.50,.78), own z-order100.
+
+Coordinates denote that Canvas center (upper/lower text horizontal axis at its
+center); they are integer percentages of the **HUD root**, expected to cover the
+viewport under the stock stretched-host layout. Hidden native viewport margins
+are not reflected/read; exact viewport-pixel correspondence remains a runtime
+check, not a claim derived from a cached desired size or opaque FGeometry.
+No GetCachedGeometry conversion or DPI guessing is used. Anchor percentages
+are DPI-independent relative to the parent. Viewport dimensions are logged
+through the exact UHT WidgetLayoutLibrary.GetViewportSize static function/CDO.
+
+Five own children: Aphes OPEN28/LetterSpacing150/outline0/shadow0; stock-font
+localized snapshot22 with original outline; copied current Image hint on the
+same Y as lower text; one local stock ornament200×6 between rows; temporary
+coordinate indicator. Hint FSlateBrush is a native value copy retaining the
+current resource (possibly MID), with no material-parameter writes. It is not
+reconstructed from a hard-coded F/keymap; whole hint/device changes are not
+synchronized after the snapshot. Original input hints, arrays and action untouched.
+No externally shared font/resource contents are mutated. Font/PNG paths and
+assets remain local; no proprietary image/font enters public Git.
+
+Own widget references come from the HUD's native panel/tree and own font/brush
+properties, not Lua wrapper retention or Outer alone. Cleanup hides the own
+Canvas, releases upper Font via the own lower FontInfo carrier, detaches each
+own child and clears image resources, then removes the empty own Canvas. Partial
+release failure keeps the hidden Canvas and lower carrier attached for explicit
+retry. Primitive path/address/class records guard every future lookup; no GC
+forcing, raw offsets, roots, owner-array edits or original UI restoration needed.
+No input mode/focus, actor location, loader/game settings or save write calls.
+
+### Controls for the future user-run test
+
+All keys use **Ctrl+Alt**:
+
+- **F6**: arm at one Open prompt; after attachment, clean up. One creation attempt
+  per game session, including failures; no rearm/reimport after successful cleanup.
+- **Arrow keys**:1 percentage-point X/Y steps, bounded10–90%.
+- **Home**: reset50%,78%.
+- **F7**: structured POSITION action=commit log, including percentages and viewport
+  size. No config/save is written. Every move/reset also logs its value.
+- Timeout180s from arming: cleanup. Original TipHUD is unaffected throughout.
+
+Key symbols and synchronous registration/dispatch were checked in pinned
+LuaMod.cpp471ff/1631ff; all7 collisions are checked before registering any key.
+Registration failure leaves callbacks inert. Every engine operation is dispatched
+to EngineTick game thread; no per-frame layout writes/loop/ticker.
+
+## Offline checks and readiness
+
+Eight new mock groups: create/style/move/commit/reset/cleanup; sample independent
+of later target text; ambiguous/nonstretched HUD rejection; import failure;
+partial attachment; timeout/viewport loss; font-release retry with preserved
+carrier; coordinate bounds and collision preflight. Full runner66 tests passed.
+Mocks do not establish actual HUD anchors, hint material display, clipping,
+placement under DPI/aspect ratios, input propagation or native GC/render.
+
+Source mirror UE4.27 revision306a7e9f7fb53f14c2cb3bfd3854ad906710a17e was inspected:
+UserWidget.cpp109–160/887–970/1102–1177/2013–2042, WidgetComponent.cpp and
+SWorldWidgetScreenLayer.cpp92–145. Local source manifest records URL/hash. Source
+mirror is not the game binary; retained game UHT confirms relevant reflection.
+[Official UE4.27 UMG viewport example](https://dev.epicgames.com/documentation/unreal-engine/user-interface-with-umg?application_version=4.27&lang=en-US)
+is supporting precedent; UE5 and other Lua integrations are not contract proof.
+Pinned UE4SS source: [LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp).
+
+Next sufficient test: closed-game rollback/hash-verified installation (authorized
+by user's follow-up), then user starts game. At one unopened chest arm F6; inspect
+screen sample while rotating camera/walking away, choose X/Y, F7, Home/reset if
+needed, F7 again after final choice, F6 cleanup before180s, close normally. Check
+stock prompt unchanged and own block completely removed. This accepts only
+placement/tuning, not production visibility/target selection or final bottom position.
+
+## Prepared source hashes
+
+`Scripts/main.lua` SHA256 `3fa10606000f9b44406d1ddf5a798d1634483e6809570c8fc9b242ed12da63fa`.
+
+`Scripts/IIPPosition.lua` SHA256 `e2e83b83e2a8b4d1efdef5b01b7125383de99d784f15319ecbbc5ce89bc59620`.
+
+[Pinned UE4.27 projection source](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Slate/SWorldWidgetScreenLayer.cpp) and [UserWidget implementation](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/UserWidget.cpp) support the comparison above.

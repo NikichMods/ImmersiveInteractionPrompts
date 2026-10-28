@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — screen-position: READY source/offline, установка разрешена
+последующим сообщением пользователя; runtime ещё не проверен. Production BLOCKED.**
+[Viewport research](../research/interaction-prompts-owner/viewport/README.md):
+ExtendedWidgetComponent уже Screen по CDO, но позиция проецируется из world
+component location. Подготовлен собственный Canvas в существующем viewport HUD
+Main_Panel; не перенос/изменение TipHUD.50%/78%, CtrlAlt-стрелки±1%, Home сброс,
+F7 запись, F6 cleanup,180s. Верхняя28 без outline, tracking150; lower/actual hint
+снимком на одной горизонтали.66 offline tests pass (8 новых). Оригинал видим,
+полный lifecycle и окончательная нижняя позиция не принимаются этим прототипом.
+
+
 **2026-10-29 — компактная композиция технически сработала в игре;
 пользователь подтвердил видимый результат. Probe отключён. Production BLOCKED.**
 [Точный результат](../research/interaction-prompts-owner/composition/README.md):
