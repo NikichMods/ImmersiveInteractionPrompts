@@ -1,11 +1,38 @@
 # Compact Aphes / ornament / localized action — 2026-10-28
 
-**READY for one separately authorized research installation/test. Not installed or
-run. Production BLOCKED.** Source: [Scripts/main.lua](Scripts/main.lua), small
+**INSTALLED with explicit permission, awaiting one user-run visual test.
+Not run by the agent. Production BLOCKED.** Source: [Scripts/main.lua](Scripts/main.lua), small
 bounded geometry helper [IIPLayout.lua](Scripts/IIPLayout.lua).
 The accepted `aphes-text` source is unchanged; its font/render/OPEN→READ and manual
 cleanup evidence is reused, not rerun. This variant tests composition and an
 unproven native PNG import, not the font mechanism again.
+
+## Authorized installation — 2026-10-28
+
+Installed with host process absent and source/hash verification. Exact implementation
+`996ee47f06f6cf88d0440d235d13acb9daf05284`, published preparation
+`3ba3c045186588f55ccabc7a020e23b43f45c5bf`; source hashes below unchanged.
+New UE4SS mod folder `ImmersiveInteractionPromptsCompositionProbe`, previously
+absent: main.lua, IIPLayout.lua, private IIPCompositionConfig.lua and enabled.txt.
+Only this new probe enabled; prior IIP probes remain disabled, mods.txt unchanged.
+TTF and stock PNG stay outside the game, referenced by absolute private paths.
+Config SHA256 `baf73b46c7cd284737304e9f20ada0464afc9eae8ae3f0cd174ea5e5490e43bc`;
+TTF/PNG/DLL exact hashes matched the prepared baseline.
+
+Rollback/pretest log/settings/mods.txt and before/after manifests are local/ignored
+under `.local/research/interaction-prompts/composition/install-20261028T194414Z`.
+`rollback.ps1` checks the host is closed, exact target and installed hashes, then
+removes only the four known files/new directories to restore the absent state.
+Fifteen pre-existing mod/loader files and56 current config/save files hash-identical
+at the completed installation check22:44:14 Moscow, before a later game launch.
+No settings/saves/other mod writes by the installer; no agent launch/hot reload.
+The game process subsequently started22:45:01 Moscow. A read-only log check saw
+COMPOSITION_GEOMETRY/TEXTURE_BOUND/LOWER_SHIFTED/ATTACHED at22:46:00: cached text
+127.75×37.5, key slot38×38 at(0,0), centerX101.875, lower translationY29.
+No visual/manual-cleanup acceptance is claimed from those initial log events.
+Config/save-byte preservation after that game launch is not claimed; an Engine.ini
+hash changed after installation. The installer did not write that file.
+Await user observation and a completed-run log review.
 
 ## Adopted layout and scope
 
@@ -117,8 +144,7 @@ Private `IIPCompositionConfig.lua` must return `{filename=<absolute local TTF>,
 separator_filename=<absolute stock PNG>}` beside the source for a future install;
 actual machine paths are in local configuration only. Missing config disables.
 
-Next sufficient step, **after separate installation permission**: closed-game
-rollback/hash-verified install of this source + helper + private config; one
+Next sufficient step: the user runs the already installed candidate at one
 natural chest Open prompt, Ctrl+Alt+F6: attach → READ → cleanup within30s. Check
 ornament/upper/lower separation, F unchanged, no collision/flicker, and original
 lower position after removal. Preserve log COMPOSITION_GEOMETRY, TEXTURE_BOUND,

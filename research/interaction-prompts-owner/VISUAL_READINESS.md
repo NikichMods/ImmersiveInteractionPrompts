@@ -29,7 +29,8 @@ cook toolchain; the earlier proposed tooling check below is historical.
 
 **Current checkpoint:** native Aphes font/label/divider primitives passed their
 bounded tests. [Compact composition](composition/README.md) is READY for a separate
-visual test, not installed/run. Its stock PNG import and reversible lower-text
+visual test; now installed with explicit permission, awaiting user run. Its stock
+PNG import and reversible lower-text
 translation have source/mock evidence only. Production BLOCKED.
 
 **Historical checkpoint below:** serialized layout and pre-font experiments are

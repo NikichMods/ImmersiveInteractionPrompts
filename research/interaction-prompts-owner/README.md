@@ -1,7 +1,7 @@
 # Observation probe readiness — 2026-10-28
 
 **Current composition candidate:** [composition/README.md](composition/README.md).
-READY source/offline for a separate permitted test; not installed/run. Stock
+Source/offline READY; now installed with explicit permission, awaiting user test. Stock
 location-title PNG identified, local UImage import prepared, F-height separator,
 Aphes above and one reversible lower-text render translation. No enforced
 per-frame layout; conflict stops the attempt. Production BLOCKED.

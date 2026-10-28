@@ -1,7 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28 — компактная композиция: READY для отдельного ограниченного теста,
-не установлена и не запущена. Production BLOCKED.**
+**2026-10-28 — компактная композиция установлена с разрешения пользователя;
+ожидается один пользовательский визуальный тест. Production BLOCKED.**
 [Источник и границы](../research/interaction-prompts-owner/composition/README.md):
 штатный орнамент найден в Coherent как один PNG570×16; подготовлен его локальный
 импорт в собственный UImage. Aphes32/outline1 над линией; линия на высоте центра F,
@@ -10,6 +10,15 @@ Slot/Font/Text оригинала не меняются. При конфликт
 без повторного навязывания позиции. Восемь новых mock groups проходят;
 alpha/render/масштаб/стабильность/точный возврат нижней строки требуют runtime.
 Принятые Aphes OPEN→READ, UIChild и resource-free divider не повторялись.
+
+Установка: source996ee47/preparation3ba3c04, exact hashes в composition README;
+новая папка CompositionProbe с private config и enabled.txt. Игра была закрыта,
+откат и pretest log вне loader. 15 прежних mod/loader files и56 config/save files
+неизменны на момент установки; TTF/PNG не копировались в игру, старые probes
+отключены. После установки начался игровой процесс; начальный лог22:46 подтвердил
+TEXTURE_BOUND/LOWER_SHIFTED/ATTACHED. Агент игру не запускал. Визуальное качество
+и возврат нижней строки требуют пользовательского результата; сохранность
+config/save bytes после запуска не заявляется.
 
 **2026-10-28: Aphes OPEN→READ→manual cleanup технически прошёл runtime;
 пользователь подтвердил визуальный успех. Probe отключён после выхода.
