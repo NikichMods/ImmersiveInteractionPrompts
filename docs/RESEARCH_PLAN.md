@@ -5,12 +5,12 @@
 Порядок/типы пяти входов и отсутствие const/ref/out/return установлены; полный
 numeric flags dump и регистрация hooks не выполнены. Предыдущее ограничение
 Lua EPropertyFlags API сохраняется, но больше не требует reader для получения
-этой декларации. [Проверка marshalling](../research/interaction-prompts-owner/OBSERVER_READINESS.md)
-остановила подготовку observer до регистрации: callee frame/Locals lifetime
-для Blueprint → native arrays не подтверждён, точная UEPseudo-зависимость
-недоступна. Следующий шаг — получить её исходник/точное принятое доказательство,
-затем закончить проверку и подготовить один observer; SDK не повторять.
-Установка/прогон observer — отдельная граница. Подробности первого этапа и хэши —
+этой декларации. Полный native observer остановлен на callee frame/Locals lifetime.
+Пользователь принял уменьшенный эксперимент: текущие поля TipHUD в одном
+безаргументном CanShow callback. [CanShow observer](../research/interaction-prompts-owner/can-show-state/README.md)
+подготовлен и проверен offline; native-массивы, отложенный readback и UEPseudo
+отложены. Следующий шаг — отдельное разрешение установки точного script/hash
+при закрытой игре и короткая проверка естественных CanShow вызовов. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
 render path ещё не доказаны. Никакого production-кода и runtime-кандидата нет.
@@ -24,7 +24,16 @@ Take/Open/Check, отдельная пока не связанная ветка 
 доказательство реального порядка UI-записей, всех live instances или UMG-рендера
 символов. Общие выводы уже перенесены в Asterigos-Research (R-006/R-007).
 
-## Следующий этап — один observation-only runtime probe
+## Принятый ближайший эксперимент — CanShow
+
+Проверить, достигается ли callback нужного живого TipHUD и как меняются его
+текущее Text-поле/visibility/opacity/enabled при обычном подходе/уходе и меню.
+Без actor mapper, textures, исходного результата CanShow и final-writer claims.
+Если этих наблюдений хватит для следующего решения, не возвращаться автоматически
+к полному probe. Если не хватит — назвать конкретный остаточный вопрос и только
+затем выбирать более сложный механизм. Runtime остаётся непроведённым.
+
+## Отложенная программа полного observation-only probe
 
 **Вопрос:** кто действительно пишет и обновляет живой prompt после
 `SetupTipMessage_Proxy`/`SetupTipMessage2`, и как связаны конкретный actor,

@@ -1,1 +1,2 @@
-# No third-party test dependencies at this research/recipe-only stage.
+# Lua 5.4 offline observer checks; externally supplied, not bundled in the mod.
+lupa==2.8

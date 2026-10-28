@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Current adopted scope:** [minimal CanShow state observer](can-show-state/README.md)
+is prepared/offline tested, not installed. User explicitly deferred UEPseudo and
+native-array/delayed-readback investigation. Earlier full-observer proposals and
+blockers below remain historical/deferred, not prerequisites for that smaller test.
+
 **Latest:** [observer route review](OBSERVER_READINESS.md) stops before Lua payload
 creation: the pinned lower native hook-frame implementation is unavailable, so
 callee Locals provenance/lifetime for the actual Blueprint call is not established.

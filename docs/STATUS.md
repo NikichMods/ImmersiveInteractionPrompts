@@ -1,7 +1,6 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: декларация SetupTipMessage2 получена; подготовка observer остановлена
-на неподтверждённом native hook-frame contract;
+**2026-10-28: подготовлен минимальный CanShow observer, офлайн-проверки пройдены;
 production evidence gate BLOCKED.**
 
 - Принята цель двух рядов с сохранением native localized action/input; конкретный
@@ -26,7 +25,7 @@ production evidence gate BLOCKED.**
   ранее установила разрыв: не было отражённой native-сигнатуры SetupTipMessage2; выводить
   Lua ABI из Blueprint-вызова нельзя. По исходнику установленной версии UE4SS
   Blueprint callbacks доступны post-only, результат CanShow аргументом не приходит;
-  маршалинг параметров происходит до Lua callback. Исполняемый probe не создан.
+  маршалинг параметров происходит до Lua callback. Полный native probe не создан.
 - [Проверка reflection API](../research/interaction-prompts-owner/METADATA_CAPTURE.md)
   подтвердила поиск UFunction, GetFunctionFlags, обход свойств, GetInner и
   однократную очередь ExecuteInGameThread по исходнику 83330635. Но FProperty и
@@ -42,20 +41,27 @@ production evidence gate BLOCKED.**
   последовательные завершённые UHT-генерации, анализируется последняя. Новых модов
   не установлено. Loader config восстановлен побайтово, старые моды/сохранения/
   игровые конфиги неизменны по хэшам. Сырая выгрузка и лог остаются локальными.
-- [Проверка маршрута observer](../research/interaction-prompts-owner/OBSERVER_READINESS.md)
+- [Проверка маршрута полного observer](../research/interaction-prompts-owner/OBSERVER_READINESS.md)
   установила borrowed-путь native frame → RemoteUnrealParam → TArray → элемент.
   Не подтверждено происхождение/время жизни callee Locals для Blueprint-вызова
   этого native consumer: необходимая зависимость UEPseudo на точном gitlink SHA
   недоступна через проверенные GitHub/Git/local routes. Это пробел доказательств,
-  не установленный сбой UE4SS. Lua observer не создан, hooks не регистрировались.
+  не установленный сбой UE4SS. Этот маршрут отложен; native hooks не регистрировались.
 - Также подтверждено: индексный Get у TArray может расширить массив при выходе
   за границу; наличие обработчика типа/IsValid у массива не доказывает безопасное
   read-only чтение. Все будущие обращения должны быть строго ограничены размером
   и временем жизни исходной памяти; temporary parameter wrappers не сохраняются.
-- Следующий минимальный шаг — доступ к точной native hook-зависимости либо
-  принятому доказательству этого конкретного маршрута, затем подготовка одного
-  observer. Повторять UHT или устанавливать неполный probe не предлагается.
-  Final writer, live owner/lifecycle и спуск открыты.
+- Пользователем принят меньший эксперимент: только текущий текст и состояние
+  TipHUD в zero-input Blueprint CanShow post, без native-массивов/отложенного
+  UI-чтения. [Исходник и инструкция](../research/interaction-prompts-owner/can-show-state/README.md)
+  подготовлены, семь групп Lua 5.4 mock-тестов проходят. Одна диагностическая
+  клавиша запускает/останавливает наблюдение; лимиты 10 минут / 600 строк /
+  8 identities, один снимок полей в секунду. UI writes и return overrides отсутствуют.
+- UEPseudo и полный native observer отложены. Наличие callbacks/показ/текст
+  ещё не проверены в игре. Следующий шаг — отдельно разрешённая установка
+  точного CanShow payload при закрытой игре, затем короткое обычное наблюдение.
+  Final writer, actor ownership, полный lifecycle, текстуры и спуск не входят
+  в доказательства уменьшенного эксперимента.
 - Веб-поиск уточнил prerequisite доступа: официальная документация UE4SS требует
   связки GitHub/Epic Games для UEPseudo. Подходящего публичного зеркала точного
   commit не найдено. Это исходная зависимость, не отдельный Nexus-мод; повторное

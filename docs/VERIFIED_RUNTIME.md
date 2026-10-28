@@ -1,6 +1,24 @@
 # Verified Runtime — Interaction Prompts
 
-## Актуальная проверка marshalling observer, 2026-10-28
+## Актуальный минимальный CanShow observer, 2026-10-28
+
+По явному решению пользователя full native observer и UEPseudo отложены.
+Подготовлен [CanShow state observer](../research/interaction-prompts-owner/can-show-state/README.md):
+один Blueprint post-hook, текущий TextBlock_89.Text и stored Visibility/
+RenderOpacity/bIsEnabled самого TipHUD. У CanShow нет входных параметров;
+единственный ReturnValue исключается из аргументов реальным script_hook UE4SS
+83330635. Поэтому прежний маршрут чтения native-массивов здесь не используется.
+Оригинальный bool не читается/не заменяется; целевая функция не вызывается probe.
+
+Чтение синхронное внутри callback; отложены только control dispatch/timeout,
+без UI reads. Wrapper references не сохраняются. Семь групп offline Lua 5.4
+тестов проходят: read-only traps, nil returns, throttling/deduplication,
+ошибки/отключение, объекты/поля, лимиты и escaping. Это проверка исходника и
+собственной логики, **не UE4SS runtime binding/рендер/приёмка**. Исходник/hash,
+проверенные контракты, будущая установка/rollback и ограничения — в README probe.
+Новая установка/запуск не проводились. Production gate **BLOCKED**.
+
+## Предыдущая проверка полного native observer, 2026-10-28
 
 [Readiness-отчёт](../research/interaction-prompts-owner/OBSERVER_READINESS.md):
 декларация UHT остаётся доказанной, но observer не создан. Проверенный путь

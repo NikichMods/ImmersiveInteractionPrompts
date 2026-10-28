@@ -1,5 +1,10 @@
 # Observer marshalling readiness — 2026-10-28
 
+**Scope changed by the user:** the native-array observer below is deferred.
+[A smaller CanShow-only observer](can-show-state/README.md) is now prepared and
+offline tested: no input parameters, native arrays or delayed UI reads. Its
+different route does not require resolving this deferred native-frame blocker.
+
 **Result: BLOCKED on native hook-frame provenance/lifetime for the established
 Blueprint → SetupTipMessage2 call. No executable Lua observer was authored,
 registered, installed or run.** The UHT declaration remains established; this
