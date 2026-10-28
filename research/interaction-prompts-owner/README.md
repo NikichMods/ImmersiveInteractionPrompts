@@ -2,7 +2,7 @@
 
 **Current experiment:** [stock-font ui-child](ui-child/README.md) stopped at the
 live layout guard before construction; disabled after session. A diagnostic-only
-source revision is prepared, not installed. Aphes/divider are
+source revision is now installed with explicit permission, pending values. Aphes/divider are
 deferred; the older font-specific blockers are not prerequisites to this test.
 
 **Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED

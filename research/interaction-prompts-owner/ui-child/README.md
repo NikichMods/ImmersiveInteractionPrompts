@@ -1,7 +1,7 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**First run stopped before construction; probe now disabled. UI readiness BLOCKED
-on the live slot/getter contract.** Production remains BLOCKED. The divider
+**Diagnostic revision installed with explicit permission; waiting for live slot
+values. UI readiness remains BLOCKED on the slot/getter contract.** The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
@@ -9,7 +9,7 @@ is deferred; neither is required for the label-only experiment.
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
 `837029ddfd4e65a68b876fd5d3a9c7f7769fd81bc28974e7524ff0f91ea57d78`.
 This revision adds one LAYOUT_OBSERVED diagnostic before the unchanged guard;
-it is not installed. The exact tested earlier source/hash is recorded below.
+it is installed, not yet runtime observed. The earlier tested source is below.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
 one worktree, same research branch, current rules/deltas read. Existing findings
@@ -110,6 +110,16 @@ policy, not native initialization, rendering, GC or engine method bodies.
 
 ## Authorized installation, 2026-10-28
 
+### Diagnostic-only update installed, pending values
+
+Explicitly authorized source `ea85872892090c8bd13fdc09a275b14ec9bfa94d` installed
+with host closed; hash matches the current source above. Previous exact script
+`25ba56ca...` and its disabled state are preserved outside loader paths, along
+with a guarded rollback restoring that old disabled state and the pretest log.
+Only own main.lua replaced / own enabled.txt recreated. Nine other mod files
+and UE4SS-settings.ini remain hash-identical; old CanShow probe stays disabled.
+No game launch/termination/hot reload; no values or successful UI creation claimed.
+
 ### First result: layout guard, no new widget — 2026-10-28
 
 User saw the original «Открыть» at a chest and no additional OPEN after the chord.
@@ -142,7 +152,8 @@ The next smallest evidence is one logged Position.X/Y, Alignment.X/Y and result
 types at this same guard. The current source adds that bounded diagnostic only;
 it does not relax equality or move the original slot. The existing mock mismatch
 case now proves values are emitted before failure and no allocation occurs.
-Nineteen total offline tests pass. No new runtime revision installed or run.
+Nineteen total offline tests pass. At this analysis checkpoint the revision was
+not installed/run; the subsequent authorized diagnostic deployment is above.
 
 ### Historical initial deployment
 

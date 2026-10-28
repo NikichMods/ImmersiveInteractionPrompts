@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Диагностическое обновление UIChild установлено, значения ожидаются
+
+По прямому разрешению пользователя при закрытом host установлен исходник
+`ea85872892090c8bd13fdc09a275b14ec9bfa94d`, SHA256
+`837029ddfd4e65a68b876fd5d3a9c7f7769fd81bc28974e7524ff0f91ea57d78`.
+Он добавляет LAYOUT_OBSERVED перед прежним guard, без ослабления условий.
+Предыдущий exact script и отключённое состояние сохранены вне loader; есть
+guarded rollback, возвращающий эту версию в disabled state. Pretest log сохранён.
+Девять остальных mod files и loader settings неизменны по хэшам. Новых runtime
+значений пока нет; игра агентом не запускалась/не закрывалась. UI gate BLOCKED.
+
 ## Первый UIChild runtime: guard остановил создание, 2026-10-28
 
 Пользователь не увидел дополнительный OPEN. [Лог и точный разбор](../research/interaction-prompts-owner/ui-child/README.md)
