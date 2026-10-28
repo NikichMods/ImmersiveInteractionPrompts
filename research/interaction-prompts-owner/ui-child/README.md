@@ -1,7 +1,7 @@
 # Stock-font TipHUD child experiment — source preparation only
 
-**READY for one separately authorized research runtime test of an added label.**
-Not installed, not run, not accepted UI. Production remains BLOCKED. The divider
+**INSTALLED, pending the first user-operated research test.**
+Not run/accepted by this installation step. Production remains BLOCKED. The divider
 is deliberately omitted: no checked texture-free solid-brush construction or
 existing narrow brush resource was established in this step. Aphes/cooker work
 is deferred; neither is required for the label-only experiment.
@@ -106,7 +106,20 @@ contracts, cleanup failure/retry, destroyed-owner lookup, hidden/disabled states
 external reparenting and identity reuse. They test authored
 policy, not native initialization, rendering, GC or engine method bodies.
 
-## Future test — not authorized for installation in this stage
+## Authorized installation, 2026-10-28
+
+User explicitly authorized this exact stock-font, no-divider source. Installed
+from `c9ecc0064eae59e8f6fc2a6557a1721b28d80534`, hash above, with game processes
+absent immediately before writing. Separate loader folder
+`ImmersiveInteractionPromptsUIChildProbe`, own Scripts/main.lua and empty
+enabled.txt only; no mods.txt edits. Previous same-probe payload was absent.
+Nine pre-existing mod files and UE4SS-settings.ini verified unchanged; previous
+CanShow probe remains disabled. Installed DLL matches the recorded 83330635 hash.
+Pretest log, before/deployment manifests and guarded rollback script are local
+outside loader paths. Rollback restores the previous absence of this probe;
+no rollback was executed. No game start/termination/hot reload performed.
+
+## Initial preparation contract (historical)
 
 After separate installation permission, freeze exact source/hash, verify closed
 host and preserve prior same-probe payload/log outside loader paths. Install only

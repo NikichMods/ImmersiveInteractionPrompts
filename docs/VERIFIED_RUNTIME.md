@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## UIChild установлен; runtime ещё не наблюдён, 2026-10-28
+
+По прямому разрешению пользователя установлен точный исходник ui-child из
+`c9ecc0064eae59e8f6fc2a6557a1721b28d80534`, SHA256
+`25ba56ca3de419fd187ee4ab29dfb88bc5ffa0c8a68cf19e2a9b7b72ac330f2d`.
+Закрытый host проверен перед записью. Отдельный ImmersiveInteractionPromptsUIChildProbe,
+только свой Scripts/main.lua и enabled.txt; installed hash совпал. Все девять
+старых mod files и настройки UE4SS неизменны по хэшам. Предыдущий CanShow probe
+отключён. Pretest log/manifest/guarded rollback сохранены вне loader paths;
+предыдущего UIChild payload не было, откат восстанавливает его отсутствие.
+Это installed/pending runtime, не успешное создание/показ/удаление элемента.
+Игра не запускалась/не закрывалась агентом, hot reload не применялся.
+
 ## Stock-font child: исходник готов к первому исследовательскому тесту
 
 [ui-child](../research/interaction-prompts-owner/ui-child/README.md) использует

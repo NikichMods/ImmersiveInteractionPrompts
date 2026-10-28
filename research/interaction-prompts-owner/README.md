@@ -1,7 +1,7 @@
 # Observation probe readiness — 2026-10-28
 
-**Current experiment:** [stock-font ui-child](ui-child/README.md) prepared for one
-separately authorized attach/detach test; no installation/run. Aphes/divider are
+**Current experiment:** [stock-font ui-child](ui-child/README.md) installed with
+explicit permission; first attach/detach test pending. Aphes/divider are
 deferred; the older font-specific blockers are not prerequisites to this test.
 
 **Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
