@@ -1,6 +1,6 @@
 # Minimal CanShow state observer
 
-**Installed 2026-10-28 for the first user-operated test; runtime not yet verified.** User-adopted
+**First runtime observation succeeded 2026-10-28; probe now disabled.** User-adopted
 reduced scope: current text and state of TipHUD at one zero-input Blueprint
 boundary. UEPseudo/native-array investigation is deferred; production remains
 BLOCKED. This does not implement the earlier full observer specification.
@@ -117,14 +117,22 @@ confirmed CanShow's zero inputs and the actual return-skipping dispatch route.
 
 ## Installed identity and short test
 
+Completed first session: script hook registered; 948 calls, three widgets and six
+changed snapshots, no FAILED observer event. The text changed from stored `???`
+to localized actions; this is not proof of a visible placeholder or complete
+show/hide lifecycle. [Exact findings and evidence hash](../../../docs/VERIFIED_RUNTIME.md)
+are canonical. After normal exit the enabled marker was moved into ignored
+evidence outside Mods; unchanged script remains installed but inactive. No rerun
+is requested merely to repeat successful binding/text reads.
+
 User authorized installation; performed at 03:10 Moscow with the host closed.
 Installed exactly the script from `4cda59f27f4719a728a88d671e04cca901e08ab8`
 with the SHA256 above, plus an empty enabled.txt, in the distinct
 ImmersiveInteractionPromptsCanShowProbe folder. No previous same-probe payload
 existed. Pre-test log and deployment/hash manifest were preserved in ignored
 storage outside Mods. All eight previous mod files and loader config remain
-hash-identical. Game was not launched/terminated; successful loading and callback
-execution are still pending. These script bytes are frozen for this test; a
+hash-identical. The agent did not launch/terminate the game; the subsequent
+user-operated run confirmed loading and callback execution. These script bytes are frozen for this test; a
 changed script must receive a separately identified test artifact/hash.
 
 For any subsequent separately authorized installation: verify game closed without

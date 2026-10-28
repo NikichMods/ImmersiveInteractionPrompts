@@ -1,21 +1,22 @@
 # Observation probe readiness — 2026-10-28
 
-**Current adopted scope:** [minimal CanShow state observer](can-show-state/README.md)
-is prepared/offline tested, not installed. User explicitly deferred UEPseudo and
-native-array/delayed-readback investigation. Earlier full-observer proposals and
-blockers below remain historical/deferred, not prerequisites for that smaller test.
+**Current adopted scope/result:** [minimal CanShow state observer](can-show-state/README.md)
+confirmed live callback/text/state reads from three TipHUD instances; the first
+run is preserved in docs/VERIFIED_RUNTIME.md and the probe is now disabled.
+UEPseudo/native-array/delayed-readback work remains deferred. Earlier proposals
+and blockers below are historical, not prerequisites for repeating that result.
 
-**Latest:** [observer route review](OBSERVER_READINESS.md) stops before Lua payload
+**Historical full-observer route:** [observer route review](OBSERVER_READINESS.md) stops before Lua payload
 creation: the pinned lower native hook-frame implementation is unavailable, so
 callee Locals provenance/lifetime for the actual Blueprint call is not established.
 UHT signature evidence remains valid. No observer is ready to install.
 
-**Current result:** [built-in UHT declaration](UHT_SIGNATURE.md) closes the missing
+**Earlier UHT result:** [built-in UHT declaration](UHT_SIGNATURE.md) closes the missing
 SetupTipMessage2 declaration gap. Preparation of one observer is the next step;
 hook activation, final writer and production acceptance remain unproved. The
 initial blocker and proposals below are historical evidence.
 
-**Continuation:** [metadata API review](METADATA_CAPTURE.md) checked the proposed
+**Earlier metadata review:** [metadata API review](METADATA_CAPTURE.md) checked the proposed
 next step and found that UE4SS 83330635's Lua FProperty wrapper lacks parameter
 flag readers. The original observer blocker remains; a complete Lua capture is
 also blocked. The procedure below is the historical initial proposal, not a
