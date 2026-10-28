@@ -1,26 +1,32 @@
 # План исследования — contextual prompts и письменность
 
-## Template-copy creation/storage завершён; следующий gate — setters/ownership
+## Текущий шаг — Aphes TextBlock source READY, runtime write/render ещё открыт
+
+[Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md) подготовлен
+после setter/ownership review. Один отдельно разрешённый будущий run:
+Ctrl+Alt+F6 OPEN→READ на том же label→cleanup; проверить реальные glyph shapes,
+не Latin fallback, при сохранении original action/icon. Логи metadata configuration
+не заменяют визуальную проверку. Сейчас нет установки или разрешения менять игру.
+
+## Template-copy creation/storage завершён; setters рассмотрены в следующем отчёте
 
 [Font-template](../research/interaction-prompts-owner/font-template/README.md)
 подготовлен: один Ctrl+Alt+F7, naturally loaded donor, один новый RF_Transient UFont,
 проверки классов/структуры и native storage addresses, donor post-check. Один
 пользовательский запуск дал STORAGE_CHECK_PASS: Template forwarding и раздельный
 observed storage подтверждены. Probe отключён после выхода; повторять этот тест
-не нужно. Далее отдельно проверить setters/ownership и подготовить минимальную
-настройку только FFontData собственной копии; TTF/render пока не подтверждены.
+не нужно. Setter/ownership review и минимальная настройка только FFontData копии
+теперь подготовлены отдельно, но реальные TTF/write/render пока не подтверждены.
 
 ## Выбор механизма — private UFont copy для dynamic text
 
 [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md)
 сравнивает shared donor, C++ path constructor, PNG и Coherent. In-place font
 replacement отвергнут из-за потребителей; прямой C++ не готов по linkage/build.
-Первый read-only creation/storage probe подготовлен отдельно. Изменение existing
-FFontData копии на локальный TTF и назначение собственному TextBlock — последующие
-этапы, которых в этом probe нет. Template construction/observed storage проверены;
-полная ownership/setter safety и decode/render/cache остаются gates.
-Установка была разрешена только для нынешнего read-only probe;
-изменение шрифтовых данных и другие установки не входят в этот этап.
+Read-only construction/storage уже проверены. Следующий Aphes-text source готов
+после setter review; реальная запись existing FFontData и font decode/render/cache
+ещё не проверены. Старое разрешение установки касалось только завершённого
+read-only probe. Новая установка или игровой запуск сейчас не выполняются.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 
@@ -89,15 +95,16 @@ cleanup. Разделитель исключён до подтверждения
 решать Aphes/cooker или повторять старый CanShow-read probe. Native rendering/GC/
 влияние на desired size остаются вопросами этого опыта. Production BLOCKED.
 
-## Отложенный Aphes-вариант — font bridge BLOCKED
+## Исторический cooked Aphes-вариант — toolchain BLOCKED
 
 [Visual readiness](../research/interaction-prompts-owner/VISUAL_READINESS.md)
 подтвердил slot ownership. Выбран узкий путь: добавить верхний label/разделитель
 соседями TextBlock_89 в CanvasPanel_6, сохранив исходные localized text/input/
 hold/lock и родителей. Полная замена TipHUD/overlay не оправданы.
-Исполняемый prototype не создан: отсутствует проверенный Aphes UMG font object.
+Этот первоначальный путь не дал cooked Aphes font object/prototype. Текущий
+transient-provider source описан выше и рассматривается отдельно.
 Проверка доступного toolchain [завершена](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md):
-UE4.27 editor/cooker в проверенных местах не найден. Следующий достаточный шаг —
+UE4.27 editor/cooker в проверенных местах не найден. Только для возврата к cooked route —
 получить доступ к совместимому toolchain, затем подготовить локальный companion
 runtime UFont/FontFace из уже имеющегося TTF,
 не меняя общие шрифты и не публикуя игровые ресурсы. Только затем — подготовка

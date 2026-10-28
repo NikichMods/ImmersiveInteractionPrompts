@@ -1,5 +1,9 @@
 # Observation probe readiness — 2026-10-28
 
+**Current Aphes writer:** [aphes-text/README.md](aphes-text/README.md), setter/
+ownership review and separate OPEN→READ source READY for one authorized future
+visual run. Not installed/run; native write/glyph/GC acceptance remains open.
+
 **Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
 Shared replacement is blocked; [font-template/README.md](font-template/README.md)
 records one successful private transient UFont creation/storage run; probe disabled.
@@ -20,14 +24,15 @@ label successfully; user confirmed original text/icon stayed in place. Probe now
 disabled, the bounded test is complete. Divider also completed separately;
 Aphes font-specific blockers are not prerequisites to these established results.
 
-**Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
-on a located UE4.27 editor/import/cooker. No font resource or UI prototype created;
-Research main has been merged into its existing metadata branch without history loss.
+**Cooked-font route:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) remains
+BLOCKED without UE4.27 import/cooker. No cooked Aphes resource was created. This
+does not block the distinct transient-provider source prepared above.
 
 **Current visual stage:** [layout/font readiness](VISUAL_READINESS.md) confirms
 the seven slot edges and selects additive siblings under CanvasPanel_6 with an
-isolated font resource. Executable visual prototype BLOCKED on the Aphes UMG
-font bridge; no UI payload prepared or installed. Native/UEPseudo remains deferred.
+isolated font provider. Stock-font label/divider and Template storage already
+passed. Aphes writer source is now READY after setter review, not installed/run.
+Native C++/UEPseudo bridge remains deferred.
 
 **Current adopted scope/result:** [minimal CanShow state observer](can-show-state/README.md)
 confirmed live callback/text/state reads from three TipHUD instances; the first

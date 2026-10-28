@@ -1,5 +1,26 @@
 # Verified Runtime — Interaction Prompts
 
+## Aphes writer/visual readiness — source/static/offline, без нового runtime
+
+[Setter/ownership review и исходник](../research/interaction-prompts-owner/aphes-text/README.md):
+pinned LuaUScriptStruct NewIndex адресует существующее собственное поле; object
+Set пишет nullptr только в pointer slot; Lua string Set создаёт FString и делает
+copy assignment. В exact установленной UE4SS.dll `ce5e3c46...` статически проверены
+экспортированные FString constructor/copy/assignment и resize/copy paths: destination
+владеет скопированными символами, temporary input buffer не заимствуется. Нативное
+UE4.27 property/struct/FString/TArray копирование рассмотрено отдельно. Ни один
+адрес из анализа не используется для runtime вызова/доступа к памяти.
+
+На этой основе подготовлен отдельный writer: guards→private FFontData configuration
+→readback/donor post-check→own label FontObject→native SetFont. Тот же package Outer,
+что в принятом Template-тесте; UI удерживает font через UPROPERTY, не через Lua/Outer.
+После detachment native SetFont(stock typed read) заменяет ссылку собственного label;
+при failure она сохраняется для explicit cleanup retry, без forced GC.
+Исходник SHA256 `9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`.
+10 новых mock groups pass. Реальные setters/decoder, Aphes glyphs OPEN→READ,
+освобождение cache/GC и visual cleanup пока не подтверждены. Новый probe не установлен,
+игра не запускалась. Предыдущие принятые исходники/VERSION/моды/настройки сохранены.
+
 ## Template-copy creation/storage probe — runtime STORAGE_CHECK_PASS
 
 16:32:16 МСК пользовательского запуска: один CREATE_BEGIN → CREATED с отдельным

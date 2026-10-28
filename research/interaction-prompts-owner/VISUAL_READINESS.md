@@ -2,7 +2,9 @@
 
 **Dynamic font follow-up:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 identifies private Template UFont + reflected FFontData filename as the next
-candidate to investigate before a C++ bridge. No new source/runtime test yet;
+candidate before a C++ bridge. Its storage test passed, and
+[aphes-text/README.md](aphes-text/README.md) now prepares the separate writer/visual
+test after setter review; no native write/render result yet;
 stock-resource replacement has no safe donor. The older cooker blocker is scoped
 to creating cooked assets, not a universal requirement for dynamic fonts.
 
@@ -207,27 +209,21 @@ automatic general action mapping or full native observer is proposed.
 | --- | --- |
 | Observable change | New compact upper glyph label + authored thin divider; original localized action and input untouched |
 | Owner | Serialized CanvasPanel_6 and seven reciprocal slot edges confirmed; live text access already observed |
-| Final consumer / commit | Native original text consumer known; additive child's font/Slate and native geometry interaction not verified |
+| Final consumer / commit | Native original text consumer known; stock-font child/divider rendered and detached, private font write/render remains unverified |
 | Blast radius | Intended one test instance; class override/shared fonts would broaden it and are excluded from preferred route |
 | Preserved invariants | Original TextBlock reference/font/text/slot, icon/hold/lock branch, parent visibility/opacity, native input/localization |
-| Acceptance evidence | No engine font/render/attachment test yet; no visual payload ready |
+| Acceptance evidence | Stock-font label/divider and Template creation/storage passed; Aphes OPEN→READ source READY, actual setters/glyph render/GC not accepted |
 
-**Overall BLOCKED; no executable visual prototype.** The next sufficient work is
-offline preparation/validation of one local-only UE4.27 runtime composite +
-FontFace from the existing Aphes TTF, with a reproducible recipe, compatible cook
-identity and local asset hashes. Check available cook tooling first; do not
-reconstruct the game project or launch another investigation automatically.
-If that dependency is obtained, prepare one bounded additive prototype; do not
-solve production lifecycle/action mapping in the same first visual test.
+**Production BLOCKED; bounded Aphes source READY.** The
+[transient-provider prototype](aphes-text/README.md) now bypasses cooked resources
+for this investigation after a separate setter/ownership review. The historical
+editor/cook route is still unavailable, but is not a prerequisite to this source.
 
-Only after source review and separate installation/runtime permission, the
-smallest real-game test is one naturally visible «Открыть» prompt: attach once
-to that instance; compare before/after and rollback; verify OPEN uses actual
-Aphes glyphs, compact line fits, original localized text/icon/hold remain intact,
-leave/return and ordinary menu hide/show do not leave orphan decoration. A normal
-keyboard/gamepad switch checks that retained input rendering still fits. This is
-an eventual test plan, not a request to run the game now. Broader actions, long
-strings/DPI and user visual acceptance remain later production gates.
+After separate installation/runtime permission, one natural «Открыть» prompt:
+Ctrl+Alt+F6 OPEN→READ on the same own label→cleanup, original localized text/icon
+preserved. Verify actual Aphes glyphs rather than fallback and inspect native
+configuration/release logs. This is not a request to run now. Broader hide/show,
+world-travel, input-device/DPI/long-string and GC acceptance remain later gates.
 
 ## Offline checks and exact inputs
 

@@ -35,9 +35,9 @@ No claim is made that natural gameplay left all save bytes unchanged.
 **This closes the Template creation/observed-storage gate.** It does not prove
 all internal FString allocations independent, setters safe, texture/font render,
 immediate GC or production lifecycle. No FFontData/FontFace/UI assignment was
-executed. Next prepare a separately reviewed setter/ownership slice that can
-configure only the private copy for Aphes, then use the established own TextBlock;
-no source changes or installation for that next stage are included here.
+executed in this test. The following [Aphes writer](../aphes-text/README.md) now
+contains the separate setter/ownership review and source to configure only its
+own copy and TextBlock. It is not installed/run; no change to this accepted probe.
 
 ## Exact source and boundary
 

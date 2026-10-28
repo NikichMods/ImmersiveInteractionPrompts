@@ -1,5 +1,27 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-28: Aphes TextBlock source READY к одному отдельно разрешённому
+OPEN→READ→cleanup тесту. Setter/ownership review выполнен; не установлен/не запускался.
+Production BLOCKED, Aphes render/write runtime acceptance ещё нет.**
+
+- [Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md): exact
+  UE4SS nested setters и owning FString assignment проверены исходником и bounded
+  static inspection установленной DLL. Копирование FString рассмотрено отдельно
+  от успешного чтения/storage-теста; UObject nil setter не меняет shared FontFace.
+- Новый probe создаёт одну собственную transient Template-копию с тем же package
+  Outer, проверяет allocation-specific storage перед записями, меняет только её
+  существующий FFontData и контролирует donor snapshot после попытки. Никакой
+  перестройки native arrays/сырых offsets или записи в оригинальные UI/font нет.
+- Ctrl+Alt+F6: OPEN → READ на том же own TextBlock → cleanup. Переиспользуются
+  one-Open/30s, X38 и принятый resource-free divider. Удержание через собственный
+  FontObject; очистка detach→typed SetFont(stock read) без раннего обнуления ссылки
+  перед возможной ошибкой. Failed release сохраняет reference для явного retry.
+- 10 новых mock groups проходят, включая partial setters, readback/bind failures,
+  donor fault и cleanup retry. Реальная загрузка/глифы/GC не проверены. TTF/config/
+  raw evidence ignored; production, VERSION и установленные моды/настройки неизменны.
+
+## Завершённый Template-copy creation/storage
+
 **2026-10-28: UFont Template-copy runtime STORAGE_CHECK_PASS; probe отключён.
 Одна отдельная transient копия и раздельный observed storage подтверждены логом.
 Никаких FFontData/UI-записей или Aphes-загрузки. Production BLOCKED.**
@@ -25,8 +47,8 @@
   обычной игры такого утверждения не делается. Игра агентом не запускалась.
 - Runtime: 16:32:16 МСК, один CREATE_BEGIN/CREATED, STORAGE_DISTINCT,
   DONOR_UNCHANGED и DONE result=STORAGE_CHECK_PASS. Только наблюдённые storage/
-  fields; не full deep-copy/setter/render/GC acceptance. Следующий этап требует
-  review setters/ownership и отдельного прототипа настройки собственной копии.
+  fields; не full deep-copy/setter/render/GC acceptance. Setter review и следующий
+  отдельный source-прототип теперь находятся в Aphes-text выше; runtime writes открыты.
 
 - [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
   17 известных font packages / 5 UFont / 12 FontFace; общий Umg_Font и Garamond
@@ -128,16 +150,17 @@
 - [Visual readiness report](../research/interaction-prompts-owner/VISUAL_READINESS.md):
   семь reciprocal slot edges, штатный текст/иконки — отдельные дети CanvasPanel_6.
   Рекомендуется добавление соседних элементов, без reparent/изменения TextBlock_89
-  и без вмешательства в input/hold/lock branch. Это выбранный исследовательский
-  путь, не проверенная runtime-реализация.
+  и без вмешательства в input/hold/lock branch. Stock-font child/divider уже
+  прошли ограниченный runtime-тест; Aphes render остаётся отдельным вопросом.
 - Одного TTF/SourceFilename или записи reflected FontFilename недостаточно для
-  доказательства корректной загрузки Aphes. Предпочтительное продолжение — новый
+  доказательства корректной загрузки Aphes. Первоначальный cooked-план — новый
   локальный UE4.27 runtime composite UFont/FontFace только для верхней строки;
   [Локальная проверка toolchain](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md)
   завершена: UE4.27 editor/cooker в проверенных местах не найден; существующий
-  repak 0.2.3 только упаковывает файлы. Font resource и визуальный payload не созданы.
+  repak 0.2.3 только упаковывает файлы. Cooked font resource не создан. Текущий
+  transient Aphes writer source теперь подготовлен отдельно, не установлен.
   OPEN остаётся временным техническим текстом, не переводом на Афес.
-- Для будущего Aphes-варианта потребуется совместимый UE4.27 editor/cook
+- Для возвращения к cooked Aphes-варианту потребуется совместимый UE4.27 editor/cook
   toolchain и локальный font resource. Автоматической установки не выполнялось.
   Measured-X38 source успешно прошёл первый attach/detach test и отключён;
   повторного capture координат не нужно.

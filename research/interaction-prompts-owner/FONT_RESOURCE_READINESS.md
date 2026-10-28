@@ -2,7 +2,9 @@
 
 **Current dynamic-font assessment:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 separates blocked shared replacement/native linkage from a source-supported private
-Template UFont copy + local filename candidate. No dynamic-font runtime is proved.
+Template UFont copy + local filename candidate. Storage creation passed;
+[aphes-text](aphes-text/README.md) is now source READY after setter review, without
+new runtime installation or Aphes render proof.
 The missing editor/cooker conclusion below applies to the historical cooked-resource
 recipe, not every possible runtime font-provider mechanism.
 
@@ -16,7 +18,7 @@ detached one label in-game without this dependency. This does not establish
 Aphes rendering; the BLOCKED result below applies to the Aphes font resource.
 
 **BLOCKED: no UE4.27 editor/cook toolchain located in the checked environment.**
-No FontFace/composite UFont, cooked payload or executable UI prototype was created.
+No cooked FontFace/composite UFont or UI prototype using that cooked payload was created.
 No installation, game execution, hot reload or internal-structure workaround.
 
 This continues [VISUAL_READINESS.md](VISUAL_READINESS.md), source baseline
@@ -94,7 +96,8 @@ claimed as a successfully reproduced build recipe.
   Existing CanShow tests are not rerun as new font evidence; there is no new
   executable runtime mechanism to test.
 
-**Next visual experiment: BLOCKED.** Supply the path to an existing compatible
+**Historical cooked-route experiment: BLOCKED.** This is not the current
+transient-provider prototype's prerequisite. For that older route, supply an existing compatible
 UE4.27 editor/cook installation, or separately authorize obtaining one. Then
 build/validate the isolated font before preparing the bounded sibling-label/
 divider prototype. OPEN remains technical glyph input, not an Aphes translation.
