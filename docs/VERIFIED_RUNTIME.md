@@ -9,7 +9,9 @@ This narrows the earlier world/screen unknown; exact live per-instance overrides
 and native Genesis transform writer are unobserved. UMG viewport functions exist,
 but UserWidget base is Abstract. Candidate uses one own Canvas under already
 in-viewport HUDMainUMG.Main_Panel, with no original TipHUD mutation.
-New anchors/hint-brush clone/controls have offline/mock evidence only. Earlier
+New anchors/hint-brush clone/controls have offline/mock evidence only. Exact
+source242a5f0 was installed with explicit follow-up permission, host closed and
+hashes/rollback checked; no agent game launch or runtime acceptance. Earlier
 composition PASS does not establish this independent-screen experiment.
 
 

@@ -1,7 +1,7 @@
 # Observation probe readiness — 2026-10-28
 
 **Current screen-position candidate:** [viewport/README.md](viewport/README.md).
-READY source/offline, user authorized installation after readiness. One owned
+Source/offline READY; now installed with follow-up permission, awaiting user test. One owned
 Canvas under an existing viewport HUD; no original TipHUD mutations. Fixed
 root-normalized anchors, bounded live tuning/log/reset/cleanup; not runtime PASS.
 

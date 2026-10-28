@@ -1,7 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-29 — screen-position: READY source/offline, установка разрешена
-последующим сообщением пользователя; runtime ещё не проверен. Production BLOCKED.**
+**2026-10-29 — screen-position установлен с разрешения пользователя;
+ожидается игровой позиционный тест. Production BLOCKED.**
 [Viewport research](../research/interaction-prompts-owner/viewport/README.md):
 ExtendedWidgetComponent уже Screen по CDO, но позиция проецируется из world
 component location. Подготовлен собственный Canvas в существующем viewport HUD
@@ -10,6 +10,12 @@ F7 запись, F6 cleanup,180s. Верхняя28 без outline, tracking150; 
 снимком на одной горизонтали.66 offline tests pass (8 новых). Оригинал видим,
 полный lifecycle и окончательная нижняя позиция не принимаются этим прототипом.
 
+
+Установка source242a5f0 при закрытой игре, exact source/helper/config/input hashes
+проверены; отдельный ViewportProbe и guarded rollback вне loader.18 прежних
+mod/loader files и56 config/save files совпали на момент установки. Другие IIP
+probes отключены, TTF/PNG остались вне игры. Агент игру не запускал; новый render,
+корневая геометрия, clone hint и live placement ещё не проверены.
 
 **2026-10-29 — компактная композиция технически сработала в игре;
 пользователь подтвердил видимый результат. Probe отключён. Production BLOCKED.**

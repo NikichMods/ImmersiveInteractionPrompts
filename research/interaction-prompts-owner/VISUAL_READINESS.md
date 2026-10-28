@@ -1,7 +1,7 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
 **New placement direction:** [viewport/README.md](viewport/README.md), READY
-source/offline, subsequent user authorization permits installation. One owned
+source/offline, installed with follow-up permission; awaiting user test. One owned
 Canvas in existing viewport HUD, original TipHUD unchanged; new upper style
 outline0/tracking150/size28, lower and copied current hint share a baseline.
 Bottom-center position remains experimental; parent-normalized coordinates need

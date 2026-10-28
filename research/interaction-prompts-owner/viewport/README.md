@@ -1,9 +1,27 @@
 # Fixed screen-position research prototype — 2026-10-29
 
-**READY source/offline for one user-operated test.** Subsequent user instruction
-also authorizes closed-game installation once ready; installation result is
-recorded below when performed. Production BLOCKED. Prior native Aphes/font,
+**INSTALLED with explicit follow-up permission; awaiting one user-run test.**
+Source/offline READY; no runtime acceptance yet. Production BLOCKED. Prior native Aphes/font,
 ornament and TipHUD-child results are reused, not reopened.
+
+## Authorized installation — 2026-10-29
+
+Exact source `242a5f0a6f5807dd4cdc3953f1f51acc02b0be06` installed at01:42 Moscow
+with host closed. New UE4SS mod folder `ImmersiveInteractionPromptsViewportProbe`,
+previously absent: main.lua, IIPPosition.lua, private IIPViewportConfig.lua and
+empty enabled.txt. No overwrite of accepted/previous probe source. All older
+IIP probes remain disabled. Source hashes below matched installed bytes;
+config SHA256 `baf73b46c7cd284737304e9f20ada0464afc9eae8ae3f0cd174ea5e5490e43bc`.
+TTF443fcae9..., PNG901b7260... and pinned DLLce5e3c46... matched prior identities.
+TTF/PNG remain outside the game; loader/global config and other mods unchanged.
+
+Rollback/pretest log/settings/mods.txt and before/installed manifests stay ignored
+under `.local/research/interaction-prompts/screen-space/install-20261028T224203Z`.
+Guarded rollback checks closed host, exact target/hashes and unexpected files,
+then restores its prior absent state.18 previous mod/loader files and56 current
+config/save files hash-identical at installation. This does not claim byte
+preservation after later natural gameplay. The agent did not launch/close the
+host or hot reload. Await user controls/result, not another installation approval.
 
 ## Question, recovered baseline and selected mechanism
 
@@ -126,8 +144,7 @@ mirror is not the game binary; retained game UHT confirms relevant reflection.
 is supporting precedent; UE5 and other Lua integrations are not contract proof.
 Pinned UE4SS source: [LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp).
 
-Next sufficient test: closed-game rollback/hash-verified installation (authorized
-by user's follow-up), then user starts game. At one unopened chest arm F6; inspect
+Next sufficient test: user starts the already installed candidate. At one unopened chest arm F6; inspect
 screen sample while rotating camera/walking away, choose X/Y, F7, Home/reset if
 needed, F7 again after final choice, F6 cleanup before180s, close normally. Check
 stock prompt unchanged and own block completely removed. This accepts only
