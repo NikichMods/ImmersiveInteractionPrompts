@@ -1,7 +1,7 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: Aphes TextBlock source READY к одному отдельно разрешённому
-OPEN→READ→cleanup тесту. Setter/ownership review выполнен; не установлен/не запускался.
+**2026-10-28: Aphes TextBlock установлен по явному разрешению при закрытой игре.
+OPEN→READ→cleanup пользовательский тест ожидается. Setter/ownership review выполнен.
 Production BLOCKED, Aphes render/write runtime acceptance ещё нет.**
 
 - [Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md): exact
@@ -18,7 +18,12 @@ Production BLOCKED, Aphes render/write runtime acceptance ещё нет.**
   перед возможной ошибкой. Failed release сохраняет reference для явного retry.
 - 10 новых mock groups проходят, включая partial setters, readback/bind failures,
   donor fault и cleanup retry. Реальная загрузка/глифы/GC не проверены. TTF/config/
-  raw evidence ignored; production, VERSION и установленные моды/настройки неизменны.
+  raw evidence ignored; production, VERSION и ранее существовавшие моды/настройки неизменны.
+- Установлены exact source `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4` / hash
+  `9042d9da...`, private config и enabled.txt; сам TTF остаётся вне игры. Target ранее
+  отсутствовал, guarded rollback/pretest log сохранены вне loader. 11 старых mod
+  files, UE4SS settings и 57 current config/save files неизменны. Старые probes
+  отключены; игра агентом не запускалась, native write/render результата ещё нет.
 
 ## Завершённый Template-copy creation/storage
 

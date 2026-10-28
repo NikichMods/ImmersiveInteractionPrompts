@@ -2,7 +2,7 @@
 
 **Current Aphes writer:** [aphes-text/README.md](aphes-text/README.md), setter/
 ownership review and separate OPEN→READ source READY for one authorized future
-visual run. Not installed/run; native write/glyph/GC acceptance remains open.
+visual run. Now installed with explicit permission; native write/glyph/GC acceptance remains open.
 
 **Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
 Shared replacement is blocked; [font-template/README.md](font-template/README.md)

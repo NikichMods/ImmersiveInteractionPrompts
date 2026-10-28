@@ -18,8 +18,13 @@ UE4.27 property/struct/FString/TArray копирование рассмотре�
 при failure она сохраняется для explicit cleanup retry, без forced GC.
 Исходник SHA256 `9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`.
 10 новых mock groups pass. Реальные setters/decoder, Aphes glyphs OPEN→READ,
-освобождение cache/GC и visual cleanup пока не подтверждены. Новый probe не установлен,
-игра не запускалась. Предыдущие принятые исходники/VERSION/моды/настройки сохранены.
+освобождение cache/GC и visual cleanup пока не подтверждены. После явного разрешения
+exact source `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4` / SHA256 выше установлен
+при закрытой игре вместе с private config/empty enabled.txt. TTF не копировался
+в игру. Target ранее отсутствовал, откат/pretest log вне loader. 11 existing mod
+files, UE4SS settings и 57 current config/save files hash-verified unchanged;
+старые probes отключены. Игра агентом не запускалась, user visual run pending.
+Принятые исходники и VERSION сохранены. Детали/идентичность — в отчёте Aphes-text.
 
 ## Template-copy creation/storage probe — runtime STORAGE_CHECK_PASS
 

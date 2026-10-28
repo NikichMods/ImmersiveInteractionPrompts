@@ -2,8 +2,8 @@
 
 ## Decision
 
-**The [Aphes writer/visual source](aphes-text/README.md) is READY for one separately
-authorized test, not installed/run.** Setter/ownership review includes pinned
+**The [Aphes writer/visual source](aphes-text/README.md) is installed after explicit
+permission; host closed and user visual run pending.** Setter/ownership review includes pinned
 dispatch and static owning-string-copy evidence from the installed DLL. The
 [Template-copy storage probe](font-template/README.md) already passed one run and
 was disabled. Replacing an existing
@@ -217,7 +217,8 @@ and donor post-check are retained. No forced asset loading or shared replacement
 
 Keep the local TTF available until exit, no forced GC/live file replacement.
 Actual glyph rendering and wider lifecycle do not follow from correct metadata
-readback or different storage addresses. Installation needs separate permission.
+readback or different storage addresses. Installation has been separately authorized
+and completed; it does not constitute visual/runtime acceptance.
 PNG remains a fixed-raster alternative, not the selected solution to dynamic text;
 Coherent is not substituted for the native UMG goal.
 

@@ -1,6 +1,6 @@
 # Private UFont Aphes TextBlock — setter review and visual probe
 
-**READY for one separately authorized visual experiment; not installed/run.**
+**Installed after explicit user permission; host closed, visual run pending.**
 Production BLOCKED. OPEN/READ are technical glyph strings, not verified Aphes
 translations. No PNG, cooked font, editor, C++ bridge or shared font replacement.
 The completed [Template storage result](../font-template/README.md) is reused.
@@ -116,10 +116,30 @@ software installer, new DLL, hot reload, production release or installed revisio
 was created by this stage. Original source/example/tests are public; font, config,
 raw engine/tool text and evidence manifests remain local/ignored.
 
-## One next sufficient experiment
+## Authorized installation — 2026-10-28
 
-After separate installation permission and closed-host rollback/hash preparation:
-one natural Open prompt; first Ctrl+Alt+F6 shows Aphes-shaped OPEN plus the established
+Exact source commit `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4`, SHA256 above,
+installed as ImmersiveInteractionPromptsAphesTextProbe/Scripts/main.lua with private
+IIPAphesConfig.lua and empty enabled.txt. Config SHA256
+`ec319801578d8adec5a59e7a15e5bec442bc7960478e3fc21912bdb0a6275325`;
+its Lua value was parsed and matched the verified local original TTF path/hash.
+The TTF itself was not copied into the game. Keep the local input available
+through normal exit. Prior CanShow/UIChild/FontTemplate probes remain disabled.
+
+Host closure was checked before writes, enabling and post-verification. Eleven
+existing mod files, UE4SS settings and 57 current config/save files were hash-verified
+unchanged. Only the three new files were added; the target previously did not exist.
+Ignored evidence `.local/research/interaction-prompts/aphes-text/20261028T172901Z/`
+contains before/deployment manifests, pretest log, private config copy and a guarded
+rollback outside loader paths. Rollback restores prior ABSENT state, requiring a
+closed host, exact file set and both Lua hashes; its syntax/file-set guard was checked
+without executing removal. No game launch, shutdown, hot reload or shared asset
+replacement occurred. Installation is not actual setter/glyph/cleanup acceptance.
+
+## One next sufficient experiment — user run pending
+
+Installation/rollback/hash preparation above is complete. Use one natural Open
+prompt; first Ctrl+Alt+F6 shows Aphes-shaped OPEN plus the established
 divider, second changes the same element to READ, third removes both. Complete
 within30 seconds; original localized action/icon should remain throughout. Record
 the two visual states and inspect FONT_CONFIGURED/FONT_BOUND/DONOR_UNCHANGED,

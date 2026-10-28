@@ -6,7 +6,8 @@
 после setter/ownership review. Один отдельно разрешённый будущий run:
 Ctrl+Alt+F6 OPEN→READ на том же label→cleanup; проверить реальные glyph shapes,
 не Latin fallback, при сохранении original action/icon. Логи metadata configuration
-не заменяют визуальную проверку. Сейчас нет установки или разрешения менять игру.
+не заменяют визуальную проверку. Этот exact probe теперь установлен по явному
+разрешению при закрытой игре, с откатом/хэшами; ожидается один пользовательский run.
 
 ## Template-copy creation/storage завершён; setters рассмотрены в следующем отчёте
 
@@ -26,7 +27,8 @@ replacement отвергнут из-за потребителей; прямой 
 Read-only construction/storage уже проверены. Следующий Aphes-text source готов
 после setter review; реальная запись existing FFontData и font decode/render/cache
 ещё не проверены. Старое разрешение установки касалось только завершённого
-read-only probe. Новая установка или игровой запуск сейчас не выполняются.
+read-only probe. Нынешнее отдельное разрешение позволило установить Aphes-text;
+его игровой запуск агентом не выполнялся и runtime acceptance ещё нет.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 
