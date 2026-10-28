@@ -1,6 +1,6 @@
 # Minimal CanShow state observer
 
-**Prepared/offline checked, not installed or runtime verified.** User-adopted
+**Installed 2026-10-28 for the first user-operated test; runtime not yet verified.** User-adopted
 reduced scope: current text and state of TipHUD at one zero-input Blueprint
 boundary. UEPseudo/native-array investigation is deferred; production remains
 BLOCKED. This does not implement the earlier full observer specification.
@@ -115,9 +115,19 @@ identity budgets and diagnostic escaping. The mocks do not emulate engine bindin
 and are not runtime acceptance. A local source assertion check separately
 confirmed CanShow's zero inputs and the actual return-skipping dispatch route.
 
-## Future installation and short test — not performed
+## Installed identity and short test
 
-Only after separate installation authorization: verify game closed without
+User authorized installation; performed at 03:10 Moscow with the host closed.
+Installed exactly the script from `4cda59f27f4719a728a88d671e04cca901e08ab8`
+with the SHA256 above, plus an empty enabled.txt, in the distinct
+ImmersiveInteractionPromptsCanShowProbe folder. No previous same-probe payload
+existed. Pre-test log and deployment/hash manifest were preserved in ignored
+storage outside Mods. All eight previous mod files and loader config remain
+hash-identical. Game was not launched/terminated; successful loading and callback
+execution are still pending. These script bytes are frozen for this test; a
+changed script must receive a separately identified test artifact/hash.
+
+For any subsequent separately authorized installation: verify game closed without
 terminating it, verify UE4SS DLL hash
 `ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`, source commit
 and script hash. Inspect the distinct `ImmersiveInteractionPromptsCanShowProbe`

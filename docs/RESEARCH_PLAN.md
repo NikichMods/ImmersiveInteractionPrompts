@@ -8,9 +8,10 @@ Lua EPropertyFlags API сохраняется, но больше не требу
 этой декларации. Полный native observer остановлен на callee frame/Locals lifetime.
 Пользователь принял уменьшенный эксперимент: текущие поля TipHUD в одном
 безаргументном CanShow callback. [CanShow observer](../research/interaction-prompts-owner/can-show-state/README.md)
-подготовлен и проверен offline; native-массивы, отложенный readback и UEPseudo
-отложены. Следующий шаг — отдельное разрешение установки точного script/hash
-при закрытой игре и короткая проверка естественных CanShow вызовов. Подробности первого этапа и хэши —
+подготовлен, проверен offline и установлен по отдельному разрешению пользователя
+при закрытой игре; native-массивы, отложенный readback и UEPseudo отложены.
+Следующий шаг — короткий пользовательский прогон естественных CanShow вызовов,
+затем самостоятельный сбор/анализ локального лога агентом. Подробности первого этапа и хэши —
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md), разделы 1–8. Production gate **BLOCKED**:
 живой final writer, lifecycle, фактическое соответствие действий и шрифтовый
 render path ещё не доказаны. Никакого production-кода и runtime-кандидата нет.

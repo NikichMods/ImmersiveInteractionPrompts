@@ -16,7 +16,13 @@ RenderOpacity/bIsEnabled самого TipHUD. У CanShow нет входных �
 ошибки/отключение, объекты/поля, лимиты и escaping. Это проверка исходника и
 собственной логики, **не UE4SS runtime binding/рендер/приёмка**. Исходник/hash,
 проверенные контракты, будущая установка/rollback и ограничения — в README probe.
-Новая установка/запуск не проводились. Production gate **BLOCKED**.
+Установка отдельно разрешена пользователем и выполнена 2026-10-28 в 03:10 МСК
+при закрытой игре. Script/source `4cda59f27f4719a728a88d671e04cca901e08ab8`,
+SHA256 `ae75d8419d988ea91be288ba1aa33760ab980b354cd4d74d791564eec5109e09`
+совпал с установленными байтами; восемь прежних mod-файлов и loader config
+не изменены. Pre-test log/manifest сохранены вне Mods, в ignored evidence.
+Игра агентом не запускалась/не закрывалась, callback ещё не наблюдался.
+Production gate **BLOCKED**.
 
 ## Предыдущая проверка полного native observer, 2026-10-28
 
