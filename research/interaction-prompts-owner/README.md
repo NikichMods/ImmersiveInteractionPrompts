@@ -1,13 +1,13 @@
 # Observation probe readiness — 2026-10-28
 
 **Current Aphes writer:** [aphes-text/README.md](aphes-text/README.md), setter/
-ownership review and separate OPEN→READ source READY for one authorized future
-visual run. Now installed with explicit permission; native write/glyph/GC acceptance remains open.
+ownership review followed by one user-confirmed OPEN→READ/manual cleanup run.
+Native glyph rendering passed; probe disabled. Final design/GC/lifecycle remain open.
 
 **Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
 Shared replacement is blocked; [font-template/README.md](font-template/README.md)
 records one successful private transient UFont creation/storage run; probe disabled.
-No FFontData write or rendering result is claimed.
+That storage test itself contained no writes/render; the separate Aphes result is above.
 
 **Current PNG-header preparation:** [png-header/README.md](png-header/README.md),
 one local Aphes glyph PNG and Texture2D import source, READY for one separately

@@ -37,8 +37,8 @@ all internal FString allocations independent, setters safe, texture/font render,
 immediate GC or production lifecycle. No FFontData/FontFace/UI assignment was
 executed in this test. The following [Aphes writer](../aphes-text/README.md) now
 contains the separate setter/ownership review and source to configure only its
-own copy and TextBlock. It is now installed with explicit permission, user run
-pending; no change to this accepted, disabled storage probe.
+own copy and TextBlock. Its separate visual run now passed and it is disabled;
+no change to this accepted, disabled storage probe.
 
 ## Exact source and boundary
 

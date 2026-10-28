@@ -1,5 +1,29 @@
 # Verified Runtime — Interaction Prompts
 
+## Native Aphes dynamic text — visual/runtime PASS в ограниченном сценарии
+
+[Точный результат](../research/interaction-prompts-owner/aphes-text/README.md):
+source `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4`, installed SHA256
+`9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`, private config
+и original TTF443fcae9... /13920 bytes совпали после выхода. UE4SS DLLce5e3c46...
+остаётся pinned baseline. 21:07:54 МСК FONT_CONFIGURED/FONT_BOUND/DONOR_UNCHANGED,
+own OPEN attached; 21:08:11 TEXT_CHANGED READ same_element=true; 21:08:21 оба
+REMOVED, FONT_RELEASED, CLEANED reason=user own_children_remaining=0, ~27.2с после
+WAITING, не timeout. Ещё один CLEANED на нуле в21:08:25 без повторного создания.
+
+Пользователь подтвердил визуальный успех; один кадр2560×1440 показывает глифы
+Aphes над штатной «Открыть»/F и divider. Это принятие технического пути
+local TTF→private transient UFont→native UMG TextBlock→dynamic SetText, без
+editor/cooker/PNG/new C++ bridge. Не финальная композиция и не перевод на Афес.
+Layout/divider/outline/font sizes явно оставлены открытыми.
+
+Лог SHA256 `b83f9bbe387b4894b07938d121913ca2d957a4fc08b2008262481847c6313c7c`,
+кадр SHA256 `b8a9397ee1bb42992d207a328495585cf8ae8a63464103305fa5d20a7340e6de`;
+raw archive ignored/local. Выход пользователя через Alt+F4; manual cleanup
+завершён до выхода, normal-menu shutdown/GC/cache deallocation не подтверждены.
+При закрытой игре probe отключён. 11 old mod files/settings/TTF unchanged;
+save-byte preservation после естественной игры не заявляется. Production BLOCKED.
+
 ## Aphes writer/visual readiness — source/static/offline, без нового runtime
 
 [Setter/ownership review и исходник](../research/interaction-prompts-owner/aphes-text/README.md):
@@ -18,12 +42,14 @@ UE4.27 property/struct/FString/TArray копирование рассмотре�
 при failure она сохраняется для explicit cleanup retry, без forced GC.
 Исходник SHA256 `9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`.
 10 новых mock groups pass. Реальные setters/decoder, Aphes glyphs OPEN→READ,
-освобождение cache/GC и visual cleanup пока не подтверждены. После явного разрешения
+освобождение cache/GC и visual cleanup не подтверждались этими mocks. Позднейший
+runtime/visual результат приведён выше. После явного разрешения
 exact source `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4` / SHA256 выше установлен
 при закрытой игре вместе с private config/empty enabled.txt. TTF не копировался
 в игру. Target ранее отсутствовал, откат/pretest log вне loader. 11 existing mod
 files, UE4SS settings и 57 current config/save files hash-verified unchanged;
-старые probes отключены. Игра агентом не запускалась, user visual run pending.
+старые probes отключены. Игра агентом не запускалась; user visual run затем завершён,
+текущий Aphes probe также отключён.
 Принятые исходники и VERSION сохранены. Детали/идентичность — в отчёте Aphes-text.
 
 ## Template-copy creation/storage probe — runtime STORAGE_CHECK_PASS

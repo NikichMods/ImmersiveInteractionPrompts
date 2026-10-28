@@ -1,13 +1,13 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — Aphes TextBlock source READY, runtime write/render ещё открыт
+## Текущий шаг — композиция после технического Aphes runtime PASS
 
-[Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md) подготовлен
-после setter/ownership review. Один отдельно разрешённый будущий run:
-Ctrl+Alt+F6 OPEN→READ на том же label→cleanup; проверить реальные glyph shapes,
-не Latin fallback, при сохранении original action/icon. Логи metadata configuration
-не заменяют визуальную проверку. Этот exact probe теперь установлен по явному
-разрешению при закрытой игре, с откатом/хэшами; ожидается один пользовательский run.
+[Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md) прошёл
+один OPEN→READ→manual cleanup run; пользователь подтвердил visual success,
+кадр/логи/хэши сохранены, probe отключён. Не повторять font/storage test.
+Далее выбрать композицию: размеры/иерархия, отступы, divider и outline.
+Эти значения не утверждены; конкретное изменение оформления пока не выбрано.
+Production lifecycle/GC/широкая input/DPI/localization приёмка — отдельные gates.
 
 ## Template-copy creation/storage завершён; setters рассмотрены в следующем отчёте
 
@@ -17,18 +17,18 @@ Ctrl+Alt+F6 OPEN→READ на том же label→cleanup; проверить р�
 пользовательский запуск дал STORAGE_CHECK_PASS: Template forwarding и раздельный
 observed storage подтверждены. Probe отключён после выхода; повторять этот тест
 не нужно. Setter/ownership review и минимальная настройка только FFontData копии
-теперь подготовлены отдельно, но реальные TTF/write/render пока не подтверждены.
+были подготовлены отдельно и затем прошли ограниченный runtime выше.
 
 ## Выбор механизма — private UFont copy для dynamic text
 
 [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md)
 сравнивает shared donor, C++ path constructor, PNG и Coherent. In-place font
 replacement отвергнут из-за потребителей; прямой C++ не готов по linkage/build.
-Read-only construction/storage уже проверены. Следующий Aphes-text source готов
-после setter review; реальная запись existing FFontData и font decode/render/cache
-ещё не проверены. Старое разрешение установки касалось только завершённого
+Read-only construction/storage и Aphes-text write/render/reference-release
+проверены в одном сценарии; полный cache/GC lifecycle остаётся открытым.
+Старое разрешение установки касалось только завершённого
 read-only probe. Нынешнее отдельное разрешение позволило установить Aphes-text;
-его игровой запуск агентом не выполнялся и runtime acceptance ещё нет.
+его игровой запуск агентом не выполнялся, пользовательский run теперь принят технически.
 
 ## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 

@@ -1,8 +1,22 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: Aphes TextBlock установлен по явному разрешению при закрытой игре.
-OPEN→READ→cleanup пользовательский тест ожидается. Setter/ownership review выполнен.
-Production BLOCKED, Aphes render/write runtime acceptance ещё нет.**
+**2026-10-28: Aphes OPEN→READ→manual cleanup технически прошёл runtime;
+пользователь подтвердил визуальный успех. Probe отключён после выхода.
+Композиция/разделитель/обводка/размеры открыты. Production BLOCKED.**
+
+- [Runtime Aphes result](../research/interaction-prompts-owner/aphes-text/README.md):
+  FONT_CONFIGURED→FONT_BOUND→DONOR_UNCHANGED, OPEN attached, READ same_element=true,
+  оба REMOVED→FONT_RELEASED→CLEANED reason=user за ~27.2с, до timeout. Ошибок probe нет.
+- Кадр2560×1440 показывает Aphes glyph shapes, original «Открыть»/F и divider;
+  пользователь подтвердил визуальную процедуру. Исходник94770ed / hash9042d9da,
+  config/TTF/DLL identities совпали. Архив log/frame локальный/ignored.
+- Выход Alt+F4 записан явно: manual cleanup был раньше закрытия процесса, но
+  normal-menu quit/GC/full lifecycle не принимаются этим тестом. 11 прежних mod
+  files, loader settings и TTF неизменны; собственный enabled.txt снят при закрытой игре.
+- Следующее направление — композиция на проверенном native-механизме, без повтора
+  технического опыта. Финальные значения стиля и semantic Aphes translation не приняты.
+
+## Историческая подготовка Aphes writer
 
 - [Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md): exact
   UE4SS nested setters и owning FString assignment проверены исходником и bounded
@@ -23,7 +37,7 @@ Production BLOCKED, Aphes render/write runtime acceptance ещё нет.**
   `9042d9da...`, private config и enabled.txt; сам TTF остаётся вне игры. Target ранее
   отсутствовал, guarded rollback/pretest log сохранены вне loader. 11 старых mod
   files, UE4SS settings и 57 current config/save files неизменны. Старые probes
-  отключены; игра агентом не запускалась, native write/render результата ещё нет.
+  отключены; игра агентом не запускалась. Последующий runtime-результат приведён выше.
 
 ## Завершённый Template-copy creation/storage
 

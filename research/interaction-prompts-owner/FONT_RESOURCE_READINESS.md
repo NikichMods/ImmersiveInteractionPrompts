@@ -3,8 +3,8 @@
 **Current dynamic-font assessment:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 separates blocked shared replacement/native linkage from a source-supported private
 Template UFont copy + local filename candidate. Storage creation passed;
-[aphes-text](aphes-text/README.md) is now installed after explicit permission and
-setter review, with user run pending and no Aphes render proof.
+[aphes-text](aphes-text/README.md) now has one user-confirmed native Aphes OPEN→READ
+render and manual cleanup; probe disabled. No cooked font was needed for this path.
 The missing editor/cooker conclusion below applies to the historical cooked-resource
 recipe, not every possible runtime font-provider mechanism.
 

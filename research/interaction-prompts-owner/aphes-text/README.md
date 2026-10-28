@@ -1,9 +1,53 @@
 # Private UFont Aphes TextBlock — setter review and visual probe
 
-**Installed after explicit user permission; host closed, visual run pending.**
+**Technical visual experiment PASS: native Aphes OPEN→READ and manual cleanup.
+User confirmed the visual result; probe disabled after exit.**
 Production BLOCKED. OPEN/READ are technical glyph strings, not verified Aphes
 translations. No PNG, cooked font, editor, C++ bridge or shared font replacement.
 The completed [Template storage result](../font-template/README.md) is reused.
+
+## Runtime result — 2026-10-28
+
+Exact source `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4`, script/config/TTF hashes
+below and pinned UE4SS DLL identity were verified after exit. User reports the
+visual procedure succeeded and supplied one 2560×1440 frame showing Aphes-shaped
+glyphs above the original «Открыть»/F hint, with the divider. This is one captured
+state, not two fabricated OPEN/READ screenshots; the text change is additionally
+supported by the actual log and user's observation.
+
+| Log lines / Moscow time | Result |
+| --- | --- |
+| 715–718 /21:07:53.984–54.002 | One guarded prompt, own label, FONT_WRITE_BEGIN |
+| 720–722 /21:07:54.002 | FONT_CONFIGURED face_asset=nil filename_readback=true LazyLoad; FONT_BOUND; DONOR_UNCHANGED |
+| 732 /21:07:54.011 | ATTACHED own_children=2 font=Aphes-private word=OPEN |
+| 733 /21:08:11.539 | TEXT_CHANGED word=READ same_element=true |
+| 734–739 /21:08:21.189 | Both own children REMOVED, FONT_RELEASED, CLEANED reason=user own_children_remaining=0 |
+| 740 /21:08:25.072 | Additional user CLEANED at zero children; no second creation/write |
+
+Manual detachment happened about27.2 seconds after WAITING, before the30-second
+timeout. No probe FAILED/CHECK_FAILED/CLEANUP_FAILED. This confirms one runtime
+setter/bind/text-change/reference-release path, plus accepted visual Aphes rendering.
+The source assigns neither the original UFont/FontFace nor original TextBlock.
+DONOR_UNCHANGED covers the inspected snapshot, not every hidden allocation.
+
+User exited with **Alt+F4**, not the requested menu exit. The manual cleanup was
+logged before process closure, so its evidence stands; normal-menu shutdown,
+immediate GC/cache deallocation and full lifecycle are not claimed.
+
+Log SHA256 `b83f9bbe387b4894b07938d121913ca2d957a4fc08b2008262481847c6313c7c`;
+frame SHA256 `b8a9397ee1bb42992d207a328495585cf8ae8a63464103305fa5d20a7340e6de`.
+Ignored archive `.local/research/interaction-prompts/aphes-text/20261028T181134Z/`
+contains raw log/frame, parsed events and saved marker. After host closure only
+this probe's enabled.txt was removed; exact source/config stay installed disabled.
+Eleven old mod files, loader settings and local TTF still match installation hashes.
+No assertion is made about unchanged save bytes after the user's gameplay.
+
+**Accepted scope:** technical dynamic-font rendering/change/removal in one natural
+Open prompt. **Not accepted:** final composition, divider appearance, outline and
+font sizes; the user explicitly leaves these open. Also outside this run: broad
+hide/show/world-travel/input-device/DPI/language coverage and production lifecycle.
+The next useful work is composition using this proved native path, without
+repeating the font/storage experiments. Production remains BLOCKED.
 
 Source [Scripts/main.lua](Scripts/main.lua), SHA256
 `9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`.
@@ -116,7 +160,7 @@ software installer, new DLL, hot reload, production release or installed revisio
 was created by this stage. Original source/example/tests are public; font, config,
 raw engine/tool text and evidence manifests remain local/ignored.
 
-## Authorized installation — 2026-10-28
+## Authorized installation — historical record, 2026-10-28
 
 Exact source commit `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4`, SHA256 above,
 installed as ImmersiveInteractionPromptsAphesTextProbe/Scripts/main.lua with private
@@ -136,7 +180,7 @@ closed host, exact file set and both Lua hashes; its syntax/file-set guard was c
 without executing removal. No game launch, shutdown, hot reload or shared asset
 replacement occurred. Installation is not actual setter/glyph/cleanup acceptance.
 
-## One next sufficient experiment — user run pending
+## Completed experiment procedure
 
 Installation/rollback/hash preparation above is complete. Use one natural Open
 prompt; first Ctrl+Alt+F6 shows Aphes-shaped OPEN plus the established
@@ -147,5 +191,5 @@ TEXT_CHANGED and FONT_RELEASED/CLEANED after normal exit. A Latin fallback or
 missing glyphs is not success even with correct property readback. Missing donor
 or decode failure is recorded honestly; no forced load/alternative mechanism.
 
-This would prove the new write/render/dynamic-change seam in one bounded run.
-Production and wider lifecycle remain BLOCKED until their own real acceptance.
+This run is complete with the evidence above; do not repeat it without a new
+specific reason. Production/design and wider lifecycle remain separate gates.

@@ -2,8 +2,8 @@
 
 ## Decision
 
-**The [Aphes writer/visual source](aphes-text/README.md) is installed after explicit
-permission; host closed and user visual run pending.** Setter/ownership review includes pinned
+**The [Aphes writer/visual experiment](aphes-text/README.md) passed one user-confirmed
+OPEN→READ→manual cleanup run; probe is disabled.** Setter/ownership review includes pinned
 dispatch and static owning-string-copy evidence from the installed DLL. The
 [Template-copy storage probe](font-template/README.md) already passed one run and
 was disabled. Replacing an existing
@@ -15,9 +15,10 @@ A narrower **source-supported candidate** emerged: construct a private transient
 UFont using a small existing runtime UFont as Template, then change only the
 copy's existing FFontData entry to a local TTF filename. This is not replacement
 of the donor package or stock object. **The first creation/storage probe passed;
-FFontData write/render source is now prepared, actual writes/render unverified.** Evaluate this
-candidate before paying for a native bridge. The initial assessment at 872929c
-was doc-only; the linked follow-up now contains the bounded read-only probe.
+FFontData configuration, Aphes render and dynamic text change now passed in one
+scenario.** This is the selected bounded native path before any native bridge.
+The initial assessment at872929c was doc-only; the linked follow-ups contain
+separate storage and actual visual results. Design/production lifecycle remain open.
 
 The [PNG experiment](png-header/README.md) remains independently READY for its
 previously specified, separately authorized runtime test. It supplies a fixed
@@ -191,12 +192,13 @@ behavior are separate questions. The Template candidate avoids that allocation
 route, using a confirmed existing one-entry array with a count guard first.
 
 **Observed gate passed:** one installed Template construction, separate storage
-on the inspected path and unchanged selected donor state. **Remaining gates:**
-actual reflected writes/readback on the copy, filename decoding, glyph rasterization
-and font-cache lifetime. The source/static setter ownership gate is now reviewed
-in [aphes-text](aphes-text/README.md); the old storage result alone was insufficient.
+on the inspected path and unchanged selected donor state. The subsequent
+[aphes-text](aphes-text/README.md) run also confirmed writes/readback, actual glyphs,
+OPEN→READ and manual reference release. **Remaining gates:** full font-cache/GC
+lifetime, wider UI lifecycle and final composition. Storage equality alone was
+not used as proof of glyph rendering or ownership.
 Absence of an exposed constructor is not proof that every Lua font
-provider route is impossible. This candidate is source-supported, not a validated
+provider route is impossible. This path is now narrowly runtime-validated, not a production
 recipe. No stock Font/FontFace, native-owned array or installed file was modified.
 
 ## Comparison and minimal next step
@@ -204,21 +206,21 @@ recipe. No stock Font/FontFace, native-owned array or installed file was modifie
 | Route | True dynamic text? | State / main cost | Fits native TipHUD? |
 | --- | --- | --- | --- |
 | Shared donor + file/data replacement | Yes, potentially | BLOCKED: affects known/unknown other consumers; tool compatibility unproved | Potentially, but violates isolation |
-| Private transient Template UFont copy + local TTF | Yes, if filename path renders | Creation/storage passed; setter review and OPEN→READ source READY; actual write/render/cache unverified | Prepared assignment uses only the existing own TextBlock mechanism |
+| Private transient Template UFont copy + local TTF | Yes, OPEN→READ verified | Creation/storage, private configuration, glyph render and manual reference release passed; broader GC/lifecycle/design open | Verified with our own TextBlock in one natural Open prompt |
 | Direct FString→FSlateFontInfo in C++ | Yes in UE4.27 | Engine feature confirmed; bridge BLOCKED by native linkage, dependencies and compatible build | Possible in principle, not demonstrated as injectable |
 | PNG→Texture2D | No; prepared fixed glyph image | Source READY, actual import/alpha/unbind untested; requires local raster generation | Own UImage + accepted divider |
 | Coherent @font-face | Yes in prior Coherent context | Existing Aphes evidence; prompt mapping, placement and lifecycle would be a separate integration | Overlay, not a native TipHUD TextBlock |
 
 For the present **dynamic UMG text** goal, do not repeat the successful read-only
-copy run. The next sufficient experiment is the separately prepared Aphes writer:
-one OPEN→READ change on the same own TextBlock, then removal. Exact naturally
+copy or Aphes visual run. One OPEN→READ change on the same own TextBlock and
+manual removal have passed. Exact naturally
 loaded Garamond Template, allocation-specific pre-write guards, owning setters
 and donor post-check are retained. No forced asset loading or shared replacement.
 
 Keep the local TTF available until exit, no forced GC/live file replacement.
-Actual glyph rendering and wider lifecycle do not follow from correct metadata
-readback or different storage addresses. Installation has been separately authorized
-and completed; it does not constitute visual/runtime acceptance.
+Actual glyph rendering has separate user/frame evidence, beyond metadata readback
+or storage addresses. The probe is disabled; the next useful work is composition.
+Full GC/lifecycle and wider compatibility do not follow from this single case.
 PNG remains a fixed-raster alternative, not the selected solution to dynamic text;
 Coherent is not substituted for the native UMG goal.
 

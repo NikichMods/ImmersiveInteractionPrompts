@@ -3,8 +3,8 @@
 **Dynamic font follow-up:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 identifies private Template UFont + reflected FFontData filename as the next
 candidate before a C++ bridge. Its storage test passed, and
-[aphes-text/README.md](aphes-text/README.md) now prepares the separate writer/visual
-test after setter review; no native write/render result yet;
+[aphes-text/README.md](aphes-text/README.md) now records the successful native
+OPEN→READ/manual cleanup run and user visual confirmation;
 stock-resource replacement has no safe donor. The older cooker blocker is scoped
 to creating cooked assets, not a universal requirement for dynamic fonts.
 
@@ -209,20 +209,19 @@ automatic general action mapping or full native observer is proposed.
 | --- | --- |
 | Observable change | New compact upper glyph label + authored thin divider; original localized action and input untouched |
 | Owner | Serialized CanvasPanel_6 and seven reciprocal slot edges confirmed; live text access already observed |
-| Final consumer / commit | Native original text consumer known; stock-font child/divider rendered and detached, private font write/render remains unverified |
+| Final consumer / commit | Native original text consumer known; private UFont configured and actual Aphes rendered/switched on own child, manual detach/reference replacement passed |
 | Blast radius | Intended one test instance; class override/shared fonts would broaden it and are excluded from preferred route |
 | Preserved invariants | Original TextBlock reference/font/text/slot, icon/hold/lock branch, parent visibility/opacity, native input/localization |
-| Acceptance evidence | Stock-font label/divider and Template creation/storage passed; Aphes OPEN→READ source READY, actual setters/glyph render/GC not accepted |
+| Acceptance evidence | Stock-font label/divider, Template storage and actual Aphes OPEN→READ/manual cleanup passed; final composition and GC/production lifecycle not accepted |
 
-**Production BLOCKED; bounded Aphes source READY.** The
-[transient-provider prototype](aphes-text/README.md) now bypasses cooked resources
-for this investigation after a separate setter/ownership review. The historical
+**Production BLOCKED; bounded Aphes visual mechanism PASS.** The
+[transient-provider prototype](aphes-text/README.md) bypassed cooked resources
+in the accepted technical run after setter/ownership review. The historical
 editor/cook route is still unavailable, but is not a prerequisite to this source.
 
-After separate installation/runtime permission, one natural «Открыть» prompt:
-Ctrl+Alt+F6 OPEN→READ on the same own label→cleanup, original localized text/icon
-preserved. Verify actual Aphes glyphs rather than fallback and inspect native
-configuration/release logs. This is not a request to run now. Broader hide/show,
+The one natural «Открыть» prompt OPEN→READ/manual cleanup test is complete;
+do not repeat it. Next choose composition, outline, sizes and divider without
+treating the current technical appearance as adopted design. Broader hide/show,
 world-travel, input-device/DPI/long-string and GC acceptance remain later gates.
 
 ## Offline checks and exact inputs
