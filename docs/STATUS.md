@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — изменён приоритет визуального размещения; World-space occlusion
+исследовательски BLOCKED, production BLOCKED.** Пользователь предпочёл
+привязанную к объекту подсказку, которую персонаж действительно перекрывает
+при пересечении на экране, вместо экранного положения под героиней. Это новый
+потребительский приоритет, не новый runtime PASS. Статически известен наследуемый
+`ExtendedWidgetComponent.Space=Screen`; Epic UE4.27 поддерживает World widget
+как 3D-плоскость с проверкой глубины, но конкретный Shipping/UE4SS seam,
+привязка, поворот, масштаб, material depth и влияние смены Space на native
+TipHUD ещё не установлены. Следующий шаг — ограниченное source/UHT/read-only
+сравнение World-space существующего компонента, отдельного reversible world
+sample и screen-mask fallback. Не менять production, не устанавливать payload,
+не запускать игру без отдельной готовности/разрешения. Принятый ранее
+нижний экранный X50%/Y78% остаётся резервным решением, а не текущим
+первым выбором. [Новая визуальная цель](REQUIREMENTS.md#предпочтительное-размещение-и-перекрытие--решение-2026-10-29).
+
 **2026-10-29 — screen placement/render/manual cleanup PASS; пользователь выбрал
 X50% / Y78% для продолжения. Arrow tuning NOT_PASSED. Probe отключён. Production BLOCKED.**
 [Точный результат](../research/interaction-prompts-owner/viewport/README.md):
