@@ -1,10 +1,16 @@
 # Aphes UMG font resource: tooling checkpoint — 2026-10-28
 
+**Current dynamic-font assessment:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
+separates blocked shared replacement/native linkage from a source-supported private
+Template UFont copy + local filename candidate. No dynamic-font runtime is proved.
+The missing editor/cooker conclusion below applies to the historical cooked-resource
+recipe, not every possible runtime font-provider mechanism.
+
 **PNG alternative:** [local PNG → Texture2D](png-header/README.md) is prepared,
 not installed/run. It avoids a cooked UFont for this fixed glyph sample; the
 native-font toolchain blocker below remains specific to that older route.
 
-**Scope update:** Aphes tooling remains deferred. The independent
+**Completed prerequisite:** The independent
 [stock-font child experiment](ui-child/README.md) created/rendered/manually
 detached one label in-game without this dependency. This does not establish
 Aphes rendering; the BLOCKED result below applies to the Aphes font resource.

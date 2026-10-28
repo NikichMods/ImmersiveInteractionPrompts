@@ -1,5 +1,11 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Dynamic font follow-up:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
+identifies private Template UFont + reflected FFontData filename as the next
+candidate to investigate before a C++ bridge. No new source/runtime test yet;
+stock-resource replacement has no safe donor. The older cooker blocker is scoped
+to creating cooked assets, not a universal requirement for dynamic fonts.
+
 **PNG alternative:** [PNG-header](png-header/README.md) is prepared for one separate
 native texture/alpha test. It bypasses a cooked UFont for fixed raster glyphs;
 it is not a native Aphes font resource or a runtime-proven image path yet.

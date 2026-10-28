@@ -1,5 +1,24 @@
 # Verified Runtime — Interaction Prompts
 
+## Dynamic-font investigation — source-only, без игрового запуска
+
+[Отчёт и пределы доказательств](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
+read-only разбор 17 известных font packages дал 5 UFont и 12 FontFace. Garamond
+используется HudUmg DamageDigits0…19 и Umg_Font, а Umg_Font — сохранёнными
+IndicateTipItemWidget_BP TextBlocks. Безопасного in-place donor не установлено.
+UNREAL ENGINE Font Tool описывает замену, не подтверждённую для Asterigos изоляцию.
+
+Upstream UE4.27.2 source подтверждает FString→FSlateFontInfo→legacy composite
+font cache / LazyLoad и UTextBlock::SetFont. Это не ABI частного engine fork.
+В installed UHT нет reflected CompositeFont shared pointer у FSlateFontInfo;
+есть FFontData.FontFilename и UFont.CompositeFont. Pinned UE4SS LuaMod.cpp принимает
+Template в StaticConstructObject. Native template property/array copy — основание
+для отдельного кандидата с частным transient UFont, не доказательство его исполнения.
+Сначала требуется изоляция копии/readback, затем TTF rendering/cache lifecycle.
+Ни новый runtime payload, ни DLL, ни font replacement в этом этапе не создавались.
+Прежние ui-child/divider и PNG-исходники неизменны; новый dynamic-font runtime
+не объявляется READY. Подготовка ограниченного copy-isolation probe обоснована.
+
 ## PNG-header readiness — offline, без нового runtime
 
 [Точный отчёт](../research/interaction-prompts-owner/png-header/README.md): installed

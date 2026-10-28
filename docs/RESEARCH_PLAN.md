@@ -1,6 +1,16 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий этап — PNG-header READY к одному import/alpha/unbind test
+## Текущий выбор — private UFont copy для dynamic text; source-only кандидат
+
+[Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md)
+сравнивает shared donor, C++ path constructor, PNG и Coherent. In-place font
+replacement отвергнут из-за потребителей; прямой C++ не готов по linkage/build.
+Прежде него подготовить узкий Lua Template-copy probe: доказать независимость
+одного Runtime UFont, затем изменить только его existing FFontData на локальный
+TTF и назначить копию собственному TextBlock. Template forwarding, изоляция,
+decode/render/cache остаются runtime gates. Никакой установки сейчас не разрешено.
+
+## Отдельно подготовленный PNG-header — READY к import/alpha/unbind test
 
 [PNG-header](../research/interaction-prompts-owner/png-header/README.md) подготовлен
 offline: local glyph PNG, explicit CDO/ImportFileAsTexture2D, UImage texture binding,

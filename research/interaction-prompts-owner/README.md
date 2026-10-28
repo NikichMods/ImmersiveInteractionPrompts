@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Current dynamic-font investigation:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md).
+Shared replacement is blocked; private transient Template UFont copy is a
+source-supported next candidate before native bridge/toolchain work. No dynamic
+font payload or runtime result is claimed.
+
 **Current PNG-header preparation:** [png-header/README.md](png-header/README.md),
 one local Aphes glyph PNG and Texture2D import source, READY for one separately
 permitted test; not installed/run. Completed UI/divider results are reused.
@@ -8,12 +13,12 @@ permitted test; not installed/run. Completed UI/divider results are reused.
 UImage/color-only Box rendered visibly; both own children detached by key-control,
 probe disabled. The successful label-only run remains its separate narrow baseline.
 
-**Current experiment:** [stock-font ui-child](ui-child/README.md) stopped at the
+**Completed ui-child history:** [stock-font ui-child](ui-child/README.md) first stopped at the
 live layout guard before construction. A second run measured X=38, not designer
 X=88. Revised measured-baseline source then created/rendered/detached one OPEN
 label successfully; user confirmed original text/icon stayed in place. Probe now
-disabled, the bounded test is complete. Aphes/divider are
-deferred; the older font-specific blockers are not prerequisites to this test.
+disabled, the bounded test is complete. Divider also completed separately;
+Aphes font-specific blockers are not prerequisites to these established results.
 
 **Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
 on a located UE4.27 editor/import/cooker. No font resource or UI prototype created;

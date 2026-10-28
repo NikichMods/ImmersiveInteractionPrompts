@@ -1,8 +1,26 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: PNG-header source READY к одному отдельно разрешённому import/
-alpha/unbind тесту. Локальный Aphes OPEN PNG создан, ничего не установлено.
-Успешный divider baseline отключён; production gate BLOCKED.**
+**2026-10-28: исследование динамического Aphes UMG завершено без runtime.
+Shared-font replacement BLOCKED; прямой C++-мост не готов. Найден более узкий
+Lua-кандидат: собственная transient Template-копия UFont + FFontData.FontFilename.
+READY к подготовке copy-isolation probe, не к установке. Production BLOCKED.**
+
+- [Dynamic font readiness](../research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md):
+  17 известных font packages / 5 UFont / 12 FontFace; общий Umg_Font и Garamond
+  имеют подтверждённых других потребителей. Для остальных отсутствие ссылок в
+  ограниченных данных не доказывает независимость. Штатные ресурсы не менялись.
+- UE4.27.2 source подтверждает filename-конструктор FSlateFontInfo, но его native
+  shared pointer не отражён. C++ требует ещё подтверждённого engine linkage/ABI,
+  pinned UE4SS/dependencies и совместимого компилятора; один SetFont этого не решает.
+- Путь с Template-копией не требует этого конструктора: нативно скопировать
+  небольшой Runtime UFont, проверить изоляцию, перенастроить только существующий
+  FFontData копии и назначить её собственному TextBlock. Это source-supported
+  гипотеза; optional Template, decode/render/cache и cleanup ещё не проверены.
+  Новый исполняемый payload не создавался, игра/моды/настройки не менялись.
+- PNG-header ниже по-прежнему READY к своему отдельному тесту; это фиксированные
+  глифы, не решение arbitrary dynamic text. Coherent — отдельный overlay route.
+
+### Подготовленный PNG-header
 
 - [PNG-header отчёт](../research/interaction-prompts-owner/png-header/README.md):
   точный UHT/UE4SS83330635 подтверждает ImportFileAsTexture2D, explicit CDO call,
