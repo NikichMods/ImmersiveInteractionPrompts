@@ -1,5 +1,9 @@
 # Observation probe readiness — 2026-10-28
 
+**Current experiment:** [stock-font ui-child](ui-child/README.md) prepared for one
+separately authorized attach/detach test; no installation/run. Aphes/divider are
+deferred; the older font-specific blockers are not prerequisites to this test.
+
 **Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
 on a located UE4.27 editor/import/cooker. No font resource or UI prototype created;
 Research main has been merged into its existing metadata branch without history loss.

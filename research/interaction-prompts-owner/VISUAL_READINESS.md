@@ -1,5 +1,10 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Current independent step:** [stock-font child experiment](ui-child/README.md)
+is prepared for a separately permitted first label-only test. It defers Aphes
+and the unverified solid divider; the Aphes-specific BLOCKED checkpoint below
+does not block that narrower experiment. No current runtime/install performed.
+
 **Follow-up:** [local toolchain check](FONT_RESOURCE_READINESS.md) completed:
 no compatible editor/cooker located; repak is packaging-only. No font asset or UI
 payload created. The concrete prerequisite is an available UE4.27 font import/

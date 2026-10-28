@@ -1,6 +1,16 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий визуальный этап — layout установлен, font bridge BLOCKED
+## Текущий этап — одна штатная верхняя строка, READY для research runtime
+
+Пользователь выделил независимый [stock-font child experiment](../research/interaction-prompts-owner/ui-child/README.md).
+Исходник подготовлен: новый TextBlock в CanvasPanel_6 одного «Открыть», полный
+typed Font copy, без изменения оригинала; один запуск, stop/timeout/own-child
+cleanup. Разделитель исключён до подтверждения brush path. Следующий достаточный
+шаг — отдельное разрешение на установку и первый UI attach/detach test; не нужно
+решать Aphes/cooker или повторять старый CanShow-read probe. Native rendering/GC/
+влияние на desired size остаются вопросами этого опыта. Production BLOCKED.
+
+## Отложенный Aphes-вариант — font bridge BLOCKED
 
 [Visual readiness](../research/interaction-prompts-owner/VISUAL_READINESS.md)
 подтвердил slot ownership. Выбран узкий путь: добавить верхний label/разделитель

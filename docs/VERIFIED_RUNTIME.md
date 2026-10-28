@@ -1,5 +1,24 @@
 # Verified Runtime — Interaction Prompts
 
+## Stock-font child: исходник готов к первому исследовательскому тесту
+
+[ui-child](../research/interaction-prompts-owner/ui-child/README.md) использует
+проверенные в UE4SS 83330635 construction/struct-copy и отражённые UMG child/slot
+API: новый transient TextBlock с Outer=WidgetTree, добавление в CanvasPanel_6,
+копия текущего Font и удаление только своего ребёнка. READY относится к
+ограниченному эксперименту, не к наблюдённому native созданию/GC/рендеру.
+Один естественный «Открыть», baseline Font.Size=22 и три canvas children;
+reentrancy/duplicate guards, явный stop и однократная 30-секундная очистка.
+Между вызовами нет сохранённых UObject wrappers; cleanup заново находит точные
+объекты и проверяет identity/outer/parent. Исходный текст/слот/шрифт не меняются.
+Разделитель не создан: brush-render contract пока не проверен; Aphes отложен.
+Двенадцать новых policy/rollback mock-групп и семь исходных проходят; это не UMG test.
+Прикрепление может изменить desired size и сместить общий layout; его обратимость,
+инициализацию Slate, рендер шрифта и жизненный цикл следует проверить в игре.
+Исходник не устанавливался, игра не запускалась. Production gate **BLOCKED**.
+Общий Research main опубликован fast-forward до `b64e089` без потери UHT/CanShow/
+TipHUD/R-011; main этого мода не изменялся.
+
 ## Aphes font resource: локальный toolchain checkpoint, 2026-10-28
 
 [Проверка доступных средств](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md)

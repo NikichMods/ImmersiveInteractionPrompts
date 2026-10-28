@@ -1,8 +1,20 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: структура и slots TipHUD подтверждены offline; визуальный прототип
-BLOCKED на получении корректного Aphes UMG font resource. CanShow-наблюдение
-успешно завершено, probe отключён. Production evidence gate BLOCKED.**
+**2026-10-28: READY для отдельно разрешённого первого research UI-теста одной
+верхней строки штатным шрифтом. Прототип подготовлен, не установлен/не запущен.
+Разделитель и Aphes пока не готовы. Production evidence gate BLOCKED.**
+
+- [Новый ui-child прототип](../research/interaction-prompts-owner/ui-child/README.md):
+  один новый TextBlock с OPEN в CanvasPanel_6 одного естественного «Открыть»;
+  синхронная копия полного Font исходного TextBlock_89. Исходные Text/Font/Slot,
+  родители, массивы, иконка/hold и управление не изменяются кодом.
+- Один запуск/попытка за сессию, Ctrl+Alt+F9, окно 30 секунд; очистка своей
+  дочерней ссылки при stop/timeout/изменении выбранного состояния/ошибке.
+  Между вызовами только identity metadata, без UObject/Font/slot wrappers.
+  Двенадцать новых mock-групп проходят; native создание/GC/рендер/возврат геометрии
+  ещё требуют runtime-доказательства. Ошибка cleanup явно отмечается, не скрывается.
+- Разделитель не добавлен: texture-free brush path не подтверждён. Aphes/cooker
+  отложены по решению пользователя и не блокируют этот stock-font-only тест.
 
 - [Visual readiness report](../research/interaction-prompts-owner/VISUAL_READINESS.md):
   семь reciprocal slot edges, штатный текст/иконки — отдельные дети CanvasPanel_6.
@@ -16,9 +28,10 @@ BLOCKED на получении корректного Aphes UMG font resource. 
   завершена: UE4.27 editor/cooker в проверенных местах не найден; существующий
   repak 0.2.3 только упаковывает файлы. Font resource и визуальный payload не созданы.
   OPEN остаётся временным техническим текстом, не переводом на Афес.
-- Следующий достаточный шаг — предоставить совместимый UE4.27 editor/cook
-  toolchain, затем подготовить локальный font resource. Автоматическая установка
-  инструментов не выполнялась; игровой runtime не требуется на этом checkpoint.
+- Для будущего Aphes-варианта потребуется совместимый UE4.27 editor/cook
+  toolchain и локальный font resource. Автоматической установки не выполнялось.
+  Ближайший шаг текущего UI-эксперимента — отдельное разрешение на установку и
+  один тест появления/удаления штатно отрисованной верхней строки.
   Full native observer/UEPseudo не возобновляются. Подробные ограничения native
   geometry, individual visibility и будущего узкого runtime-теста — в отчёте.
 
