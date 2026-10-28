@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Aphes font resource: локальный toolchain checkpoint, 2026-10-28
+
+[Проверка доступных средств](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md)
+не обнаружила UE4.27 editor/import/cooker в проверенных PATH, registrations и
+локальных каталогах. Существующий repak_cli 0.2.3 умеет паковать, но не создавать
+и cook FontFace/UFont. Исходный TTF совпал по SHA256, TrueType header подтверждён;
+производный font resource не создавался. Визуальный эксперимент **BLOCKED** до
+получения совместимого toolchain, без автоматической установки. Локальный
+lookup manifest сохранён, игровых изменений нет. Research ветка согласована с
+main обычным merge `b64e089` с сохранением UHT/CanShow/TipHUD/R-011.
+
 ## Структура TipHUD и готовность визуального прототипа, 2026-10-28
 
 [Точный offline-отчёт](../research/interaction-prompts-owner/VISUAL_READINESS.md)

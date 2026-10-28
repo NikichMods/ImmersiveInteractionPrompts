@@ -1,5 +1,9 @@
 # Observation probe readiness — 2026-10-28
 
+**Font follow-up:** [toolchain checkpoint](FONT_RESOURCE_READINESS.md) is BLOCKED
+on a located UE4.27 editor/import/cooker. No font resource or UI prototype created;
+Research main has been merged into its existing metadata branch without history loss.
+
 **Current visual stage:** [layout/font readiness](VISUAL_READINESS.md) confirms
 the seven slot edges and selects additive siblings under CanvasPanel_6 with an
 isolated font resource. Executable visual prototype BLOCKED on the Aphes UMG

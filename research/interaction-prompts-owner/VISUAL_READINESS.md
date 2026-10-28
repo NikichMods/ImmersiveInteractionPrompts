@@ -1,5 +1,10 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Follow-up:** [local toolchain check](FONT_RESOURCE_READINESS.md) completed:
+no compatible editor/cooker located; repak is packaging-only. No font asset or UI
+payload created. The concrete prerequisite is an available UE4.27 font import/
+cook toolchain; the earlier proposed tooling check below is historical.
+
 **Checkpoint: BLOCKED for an executable Aphes visual prototype.** The least
 invasive candidate remains an additive runtime extension of the existing
 `CanvasPanel_6`, with an isolated font resource. Layout ownership is established

@@ -7,8 +7,10 @@
 соседями TextBlock_89 в CanvasPanel_6, сохранив исходные localized text/input/
 hold/lock и родителей. Полная замена TipHUD/overlay не оправданы.
 Исполняемый prototype не создан: отсутствует проверенный Aphes UMG font object.
-Следующий достаточный offline-шаг — проверить доступный UE4.27 cook toolchain и
-подготовить локальный companion runtime UFont/FontFace из уже имеющегося TTF,
+Проверка доступного toolchain [завершена](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md):
+UE4.27 editor/cooker в проверенных местах не найден. Следующий достаточный шаг —
+получить доступ к совместимому toolchain, затем подготовить локальный companion
+runtime UFont/FontFace из уже имеющегося TTF,
 не меняя общие шрифты и не публикуя игровые ресурсы. Только затем — подготовка
 одного bounded additive prototype и отдельное разрешение на runtime.
 Не повторять CanShow-read test и не возвращаться к полному observer для этой

@@ -12,10 +12,13 @@ BLOCKED на получении корректного Aphes UMG font resource. 
 - Одного TTF/SourceFilename или записи reflected FontFilename недостаточно для
   доказательства корректной загрузки Aphes. Предпочтительное продолжение — новый
   локальный UE4.27 runtime composite UFont/FontFace только для верхней строки;
-  путь cook/load ещё не подтверждён. Исполняемый визуальный payload не создан.
+  [Локальная проверка toolchain](../research/interaction-prompts-owner/FONT_RESOURCE_READINESS.md)
+  завершена: UE4.27 editor/cooker в проверенных местах не найден; существующий
+  repak 0.2.3 только упаковывает файлы. Font resource и визуальный payload не созданы.
   OPEN остаётся временным техническим текстом, не переводом на Афес.
-- Следующий достаточный шаг — offline-проверка доступного cook toolchain и
-  подготовка этого локального font resource; без установки/запуска игры.
+- Следующий достаточный шаг — предоставить совместимый UE4.27 editor/cook
+  toolchain, затем подготовить локальный font resource. Автоматическая установка
+  инструментов не выполнялась; игровой runtime не требуется на этом checkpoint.
   Full native observer/UEPseudo не возобновляются. Подробные ограничения native
   geometry, individual visibility и будущего узкого runtime-теста — в отчёте.
 
