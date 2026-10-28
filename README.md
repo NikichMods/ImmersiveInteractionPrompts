@@ -13,7 +13,8 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 - [Research plan](docs/RESEARCH_PLAN.md)
 - [Verified runtime and evidence gaps](docs/VERIFIED_RUNTIME.md)
 - [TipHUD layout and visual prototype readiness](research/interaction-prompts-owner/VISUAL_READINESS.md): additive UI path selected; the Aphes-specific font bridge remains blocked.
-- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): one OPEN label created, visibly rendered and manually removed in-game; original action/icon stayed in place. Probe disabled after the completed test. Aphes and divider remain deferred.
+- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): one OPEN label created, visibly rendered and manually removed in-game; original action/icon stayed in place. Probe disabled after the completed test. Aphes remains deferred.
+- [Resource-free divider preparation](research/interaction-prompts-owner/DIVIDER_READINESS.md): UImage Box revision prepared, not installed or visually tested. Aphes remains deferred.
 
 This module will have its own version and independently installable payload if implementation proves feasible.
 

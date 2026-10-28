@@ -46,18 +46,19 @@ w.TextBlock_89=stock; w.WidgetTree=tree; w.Visibility=0; w.RenderOpacity=1; w.bI
 function canvas:GetChildrenCount()api();return 3 end
 function canvas:AddChildToCanvas(label)
  api(); S.attached=S.attached+1; label.parent=self
- if S.attach_fail then error("attach failed after parenting") end
- local slot=make("/Script/UMG.CanvasPanelSlot",canvas.p..".OwnSlot",canvas)
+ if S.attach_fail or (S.divider_attach_fail and label==S.line) then error("attach failed after parenting") end
+ local slot=make("/Script/UMG.CanvasPanelSlot",canvas.p..".OwnSlot"..S.attached,canvas)
  slot.Parent=self;slot.Content=label
  for _,key in ipairs({"SetAutoSize","SetAnchors","SetAlignment","SetPosition","SetSize"})do
   slot[key]=function()api();if S.slot_fail then error("slot configuration failed")end end
  end
- slot.SetPosition=function(_,v)api();assert(v.X==38 and v.Y==-18);S.own_x=v.X end
+ slot.SetPosition=function(_,v)api();assert(v.X==38 and v.Y==(label==S.label and -18 or -15));S.own_x=v.X end
+ slot.SetSize=function(_,v)api();assert(v.X==140 and v.Y==(label==S.label and 28 or 2))end
  return slot
 end
 function canvas:RemoveChild(label)
- api(); if S.remove_fail then return false end
- assert(label==S.label,"removed foreign child"); label.parent=nil; S.removed=S.removed+1;return true
+ api(); if S.remove_fail or (S.line_remove_fail and label==S.line) then return false end
+ assert(label==S.label or label==S.line,"removed foreign child"); label.parent=nil; S.removed=S.removed+1;return true
 end
 function StaticFindObject(p)
  api()
@@ -65,16 +66,27 @@ function StaticFindObject(p)
   return {IsValid=function()return not S.not_loaded end,type=function()return "UFunction"end,
    GetFullName=function()return "Function "..p end,GetFunctionFlags=function()return 0x0c420800 end}
  end
- if p=="/Script/UMG.TextBlock"then return {IsValid=function()return true end,type=function()return "UClass"end}end
+ if p=="/Script/UMG.TextBlock" or p=="/Script/UMG.Image"then
+  return {p=p,IsValid=function()return p~="/Script/UMG.Image" or not S.image_missing end,type=function()return "UClass"end}
+ end
  return objects[p]
 end
 function StaticConstructObject(class,outer,name,flags)
  api();S.created=S.created+1; assert(outer==tree and flags==64)
- local label=make("/Script/UMG.TextBlock",tree.p.."."..name,tree); S.label=label
+ if class.p=="/Script/UMG.Image" and S.divider_construct_fail then error("divider constructor failure") end
+ local label=make(class.p,tree.p.."."..name,tree)
+ if class.p=="/Script/UMG.TextBlock"then S.label=label else S.line=label end
  function label:SetVisibility(v)api();self.visibility=v end
  function label:SetFont(v)api();assert(v==stock.Font);if S.font_fail then error("font fail")end end
  function label:SetText(v)api();assert(v=="OPEN")end
  function label:SetJustification(v)api();assert(v==0)end
+ if class.p=="/Script/UMG.Image"then
+  label.Brush={ResourceName={ToString=function()return S.resource_name or "None"end},
+   bIsDynamicallyLoaded=false,bHasUObject=S.resource_flag or false,DrawAs=0,
+   Margin={Left=9,Right=9,Top=9,Bottom=9},TintColor={ColorUseRule=2}}
+  function label:SetBrush(v)api();assert(v==self.Brush);if S.brush_fail then error("brush setter failure")end;S.brush_set=true end
+  function label:SetColorAndOpacity(v)api();self.ColorAndOpacity=v end
+ end
  return label
 end
 function FText(s)return s end
@@ -104,6 +116,7 @@ end
 function reparent()S.label.parent=make("/Script/UMG.CanvasPanel",tree.p..".Foreign",tree)end
 function has(s)for _,x in ipairs(S.logs)do if x:find(s,1,true)then return true end end return false end
 function original_ok()return stock.parent==canvas and stock.Slot==original_slot and stock.Font.tag=="unchanged_font"end
+function pair_detached()return (not S.label or not S.label.parent) and (not S.line or not S.line.parent)end
 '''
 
 
@@ -119,13 +132,13 @@ class ChildPolicy(unittest.TestCase):
         self.run_case('assert(S.created==0);key();S.text="Взять";call();assert(S.created==0)')
 
     def test_single_attachment_and_explicit_stop(self):
-        self.run_case('key();call();for i=1,20 do call()end;assert(S.created==1 and S.attached==1 and S.own_x==38);key();assert(S.removed==1);call();assert(S.created==1 and has("CLEANED"))')
+        self.run_case('key();call();for i=1,20 do call()end;assert(S.created==2 and S.attached==2 and S.own_x==38 and S.brush_set);assert(S.line.Brush.DrawAs==1 and S.line.Brush.TintColor.ColorUseRule==0);key();assert(S.removed==2 and pair_detached());call();assert(S.created==2 and has("CLEANED"))')
 
     def test_timeout_without_further_callback(self):
-        self.run_case('key();call();timer();assert(S.removed==1)')
+        self.run_case('key();call();timer();assert(S.removed==2 and pair_detached())')
 
     def test_target_text_change(self):
-        self.run_case('key();call();S.text="Взять";call();assert(S.removed==1)')
+        self.run_case('key();call();S.text="Взять";call();assert(S.removed==2 and pair_detached())')
 
     def test_partial_attachment_cleanup(self):
         for flag in ['attach_fail', 'slot_fail']:
@@ -139,7 +152,7 @@ class ChildPolicy(unittest.TestCase):
         self.run_case('S.bad_layout=true;key();call();assert(S.created==0 and has("FAILED") and has("LAYOUT_OBSERVED") and has("position_x=99"))')
 
     def test_remove_failure_reported_and_manual_retry(self):
-        self.run_case('key();call();S.remove_fail=true;key();assert(has("CLEANUP_FAILED") and S.removed==0);S.remove_fail=false;key();assert(S.removed==1)')
+        self.run_case('key();call();S.remove_fail=true;key();assert(has("CLEANUP_FAILED") and S.removed==0);S.remove_fail=false;key();assert(S.removed==2 and pair_detached())')
 
     def test_destroyed_owner_not_dereferenced(self):
         self.run_case('key();call();disappear();timer();assert(S.removed==0 and has("CLEANED"))')
@@ -149,10 +162,22 @@ class ChildPolicy(unittest.TestCase):
             self.run_case(setup+';key();call();assert(S.created==0)')
 
     def test_external_reparent_is_not_removed(self):
-        self.run_case('key();call();reparent();key();assert(S.removed==0 and has("CLEANUP_FAILED"))')
+        self.run_case('key();call();reparent();key();assert(S.removed==1 and not S.line.parent and has("CLEANUP_FAILED"))')
 
     def test_identity_reuse_rejected(self):
-        self.run_case('key();call();S.label.addr=S.label.addr+1;key();assert(S.removed==0 and has("CLEANUP_FAILED"))')
+        self.run_case('key();call();S.label.addr=S.label.addr+1;key();assert(S.removed==1 and not S.line.parent and has("CLEANUP_FAILED"))')
+
+    def test_second_child_partial_failures_cleanup_pair(self):
+        for setup, removed in [('S.divider_construct_fail=true',1),('S.brush_fail=true',1),('S.divider_attach_fail=true',2)]:
+            self.run_case(setup+f';key();call();assert(S.removed=={removed} and pair_detached() and has("FAILED"))')
+
+    def test_one_failed_removal_does_not_block_other(self):
+        self.run_case('key();call();S.line_remove_fail=true;key();assert(S.removed==1 and not S.label.parent and S.line.parent and has("CLEANUP_FAILED"));S.line_remove_fail=false;key();assert(S.removed==2 and pair_detached())')
+
+    def test_defaults_are_guarded_and_missing_class_allocates_nothing(self):
+        for setup in ['S.resource_name="Unexpected"','S.resource_flag=true']:
+            self.run_case(setup+';key();call();assert(S.created==2 and S.removed==1 and pair_detached() and not S.brush_set)')
+        self.run_case('S.image_missing=true;key();call();assert(S.created==0 and has("FAILED"))')
 
 
 if __name__ == '__main__':

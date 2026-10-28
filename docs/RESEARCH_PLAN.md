@@ -1,6 +1,16 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий этап завершён — один native child добавлен, показан и удалён
+## Текущий этап — разделитель READY к отдельно разрешённому визуальному тесту
+
+[Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md)
+выбирает UImage + color-only Box, 140×2 layout units под OPEN, без нового ресурса
+и без изменения исходного prompt. Source подготовлен с default/readback checks
+и независимой очисткой двух элементов. Не установлен, 22 offline groups проходят.
+Следующий достаточный шаг после отдельного разрешения — один визуальный тест
+линии/удаления пары, а не повтор доказательства TextBlock. Actual brush defaults,
+видимость/толщина, clipping/reflow в этой ревизии ещё не проверены.
+
+## Завершённая основа — один native child добавлен, показан и удалён
 
 [ui-child результат](../research/interaction-prompts-owner/ui-child/README.md)
 подтвердил primitive TextBlock/typed Font copy/AddChildToCanvas/RemoveChild на

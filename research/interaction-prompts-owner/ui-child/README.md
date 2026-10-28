@@ -1,17 +1,24 @@
-# Stock-font TipHUD child experiment — source preparation only
+# Native TipHUD label/divider research
 
-**One live Open prompt: creation, visible stock-font label and manual detachment
-confirmed. Probe disabled after the completed session. Production BLOCKED.** The divider
-is deliberately omitted: no checked texture-free solid-brush construction or
-existing narrow brush resource was established in this step. Aphes/cooker work
-is deferred; neither is required for the label-only experiment.
+**Current source: READY for one separately authorized divider test; not installed
+or run.** [Divider readiness](../DIVIDER_READINESS.md) owns its brush/default/
+render limits. It retains the accepted label and adds one resource-free Image Box,
+with pair cleanup. Aphes/cooker remain deferred. Production BLOCKED.
 
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
-`b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
-This revision uses the measured Open baseline X=38 and positions only its new
-label relative to the live original slot. Its installed bytes matched in the
-successful run; it now remains installed but disabled. Earlier sources
-and results remain below; production readiness is still BLOCKED.
+`94f7bd87b91038dfea8c6c39cd1123fadbaa452fee88a7867c3b5b06e53ac8cb`.
+Only the older label-only bytes remain installed, disabled and unchanged.
+Offline tests: 7 existing CanShow + 15 UIChild groups pass; no divider pixels
+observed. Future installation requires separate permission.
+
+## Completed label-only baseline and historical preparation
+
+One live Open prompt: creation, visible stock-font label and manual detachment
+confirmed; original action/icon stayed in place. This completed test is not
+being repeated for more confirmation. Frozen [source at 6e55c18](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6e55c184dded60eb1e2a1c0f8753f37bdeda18fe/research/interaction-prompts-owner/ui-child/Scripts/main.lua),
+SHA256 `b0e0f6c3db12c90b62e6e285d0ddfa227f22f383dd5eaf243512d643aad3d7bb`.
+The original single-child preparation and exact run records below describe that
+baseline; DIVIDER_READINESS above governs the revised two-child source.
 Target: Steam 1.09/build12996889, UE4.27, UE4SS `83330635`.
 Recovered clean project source/remote was `52f519ec850ef05f5e1b7d623eef8a46a9e8ac26`;
 one worktree, same research branch, current rules/deltas read. Existing findings
@@ -116,7 +123,7 @@ policy, not native initialization, rendering, GC or engine method bodies.
 
 ### Successful creation/render/manual removal — 2026-10-28
 
-Exact tested source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`, current hash above;
+Exact tested source `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`, hash `b0e0f6c3...` above;
 installed bytes rechecked after exit. UE4SS log identifies 83330635. User confirmed:
 OPEN appeared; second Ctrl+Alt+F9 removed it; original «Открыть» and icon stayed
 in place. This is direct visual evidence for this one prompt and manual removal,
@@ -155,7 +162,7 @@ a specific remaining font/divider/product question, not another general observer
 ### Measured-X38 revision installed, pending creation test
 
 User authorized `6e55c184dded60eb1e2a1c0f8753f37bdeda18fe`; installed main.lua
-matches current SHA256 above. Host absent immediately before replacement.
+matches the frozen label-only SHA256 above. Host absent immediately before replacement.
 Previous diagnostic script/hash and disabled state preserved outside loader
 paths, with guarded rollback and pretest log. Nine other mod files/settings
 remain hash-identical; old CanShow probe disabled. Only own script and activation

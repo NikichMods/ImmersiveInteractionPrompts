@@ -6,6 +6,10 @@ original text/icon reported in place. Probe disabled. This closes that narrow
 primitive attachment question; Aphes/divider and broader lifecycle remain open.
 The Aphes-specific BLOCKED checkpoint below is unchanged.
 
+**Divider follow-up:** [resource-free Image Box revision](DIVIDER_READINESS.md)
+is prepared for one separately authorized visual test, not installed/run. It reuses
+the completed label result; actual divider rendering/defaults remain unverified.
+
 **Follow-up:** [local toolchain check](FONT_RESOURCE_READINESS.md) completed:
 no compatible editor/cooker located; repak is packaging-only. No font asset or UI
 payload created. The concrete prerequisite is an available UE4.27 font import/

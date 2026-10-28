@@ -1,16 +1,25 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: одна дополнительная строка OPEN штатным шрифтом успешно создана,
-показана и удалена в игре. Пользователь подтвердил отсутствие смещения исходных
-«Открыть» и иконки. Probe отключён после прогона. Production gate BLOCKED.**
+**2026-10-28: label-only эксперимент успешно завершён. Новая research-ревизия
+с одним разделителем READY для отдельного визуального теста; не установлена.
+Установленная прежняя версия отключена. Production gate BLOCKED.**
+
+- [Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
+  выбран UImage с native-initialized color-only Box brush, без текстур/ресурсов.
+  Явные нулевые margins/белый цвет, 140×2 логических единицы, под OPEN. Defaults
+  и readback проверяются, неожиданная ресурсная кисть отклоняется до attachment.
+  Отрисовка линии не доказана существованием API и требует будущего наблюдения.
+- Сохраняются one-Open/30s/identity/layout guards и отсутствие записи в оригинал.
+  Очистка двух own children независима, partial failure не блокирует попытку
+  убрать второго. 7+15 offline test groups проходят. Установки/запуска не было.
 
 - [Успешный ui-child run](../research/interaction-prompts-owner/ui-child/README.md):
   source `6e55c18`, hash `b0e0f6c3...`, CREATED/SLOT_READY/ATTACHED и
   REMOVED/CLEANED reason=user, без FAILED. Native RemoveChild и проверка GetParent
   пройдены; отображение/исчезновение подтверждены пользователем. Один Open prompt,
   без Aphes/разделителя; immediate destruction/GC и полный lifecycle не проверены.
-- Этот узкий эксперимент завершён. Дальше выбирать отдельный вопрос шрифта/
-  разделителя; повторное общее наблюдение CanShow и этот же attach/detach не нужны.
+- Этот узкий label эксперимент завершён. Новый вопрос — видимость/толщина
+  texture-free разделителя и очистка пары; прежний опыт не повторяется сам по себе.
 
 ### Предыдущие шаги и сохранённые ограничения
 

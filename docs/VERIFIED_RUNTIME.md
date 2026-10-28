@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Divider source readiness — offline, не runtime-подтверждение
+
+[Минимальный механизм](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
+новый UImage в том же CanvasPanel_6, нативно созданная FSlateBrush с DrawAs=Box,
+нулевыми margins, отсутствующим ресурсом и заданным белым цветом. Контракт
+color-only Box и installed reflected fields/pinned writer API проверены; реальная
+отрисовка линии, defaults установленного UImage и её DPI-толщина не наблюдались.
+Ревизия READY для одного отдельно разрешённого визуального опыта; не установлена.
+Очистка обоих собственных детей независима, при partial failure сохраняются лишь
+неудалённые identities; source не меняет исходные Text/Font/Slot/родителей/массивы.
+7 CanShow + 15 UIChild mock groups проходят, не доказывая пиксели/GC. Проверенная
+label-only версия остаётся отключённой и побайтово неизменной. Aphes/production
+и общая lifecycle-приёмка не входят в этот этап.
+
 ## UIChild: создание, отображение и ручное удаление подтверждены
 
 [Успешный прогон и ограничения](../research/interaction-prompts-owner/ui-child/README.md):
