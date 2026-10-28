@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Подготовка компактной композиции — только offline, не runtime PASS
+
+[Composition](../research/interaction-prompts-owner/composition/README.md) фиксирует
+точные base Hud/CSS/PNG hashes и source-only контракты UE4.27. Орнамент названия
+локации — Coherent img с ele_loctitleline.png570×16, не готовый UMG-объект.
+Новая исследовательская ревизия переиспользует принятый private UFont и добавляет
+локальный PNG import/размещение/один reversible stock render translation.
+Это отдельный READY-кандидат для визуального теста; установленная игра не менялась,
+рендер/нативное восстановление stock translation и импорт текстуры не проверялись.
+Исторический Aphes PASS ниже не распространяется на новый layout/PNG.
+
 ## Native Aphes dynamic text — visual/runtime PASS в ограниченном сценарии
 
 [Точный результат](../research/interaction-prompts-owner/aphes-text/README.md):

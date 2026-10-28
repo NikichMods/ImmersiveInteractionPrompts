@@ -1,5 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
+**Current composition candidate:** [composition/README.md](composition/README.md).
+READY source/offline for a separate permitted test; not installed/run. Stock
+location-title PNG identified, local UImage import prepared, F-height separator,
+Aphes above and one reversible lower-text render translation. No enforced
+per-frame layout; conflict stops the attempt. Production BLOCKED.
+
 **Current Aphes writer:** [aphes-text/README.md](aphes-text/README.md), setter/
 ownership review followed by one user-confirmed OPEN→READ/manual cleanup run.
 Native glyph rendering passed; probe disabled. Final design/GC/lifecycle remain open.
@@ -31,7 +37,7 @@ does not block the distinct transient-provider source prepared above.
 **Current visual stage:** [layout/font readiness](VISUAL_READINESS.md) confirms
 the seven slot edges and selects additive siblings under CanvasPanel_6 with an
 isolated font provider. Stock-font label/divider and Template storage already
-passed. Aphes writer source is now READY after setter review, not installed/run.
+passed. Aphes writer has passed its bounded visual run; the new composition remains untested.
 Native C++/UEPseudo bridge remains deferred.
 
 **Current adopted scope/result:** [minimal CanShow state observer](can-show-state/README.md)

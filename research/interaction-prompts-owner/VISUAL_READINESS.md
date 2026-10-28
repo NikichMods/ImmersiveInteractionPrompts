@@ -15,8 +15,8 @@ it is not a native Aphes font resource or a runtime-proven image path yet.
 **Completed independent step:** [stock-font child experiment](ui-child/README.md)
 created, visibly rendered and manually detached one added label in-game, with
 original text/icon reported in place. Probe disabled. This closes that narrow
-primitive attachment question; Aphes/divider and broader lifecycle remain open.
-The Aphes-specific BLOCKED checkpoint below is unchanged.
+primitive attachment question; Aphes and resource-free divider passed separate bounded tests; broader lifecycle remains open.
+Its old font-specific checkpoint is historical; see the current checkpoint below.
 
 **Divider follow-up:** [resource-free Image Box revision](DIVIDER_READINESS.md)
 rendered in one Open prompt; native pair detachment and one Image's resource
@@ -27,12 +27,16 @@ no compatible editor/cooker located; repak is packaging-only. No font asset or U
 payload created. The concrete prerequisite is an available UE4.27 font import/
 cook toolchain; the earlier proposed tooling check below is historical.
 
-**Checkpoint: BLOCKED for an executable Aphes visual prototype.** The least
-invasive candidate remains an additive runtime extension of the existing
-`CanvasPanel_6`, with an isolated font resource. Layout ownership is established
-offline; a valid Aphes UMG font resource/construction path is not. No visual Lua
-payload, asset override, package or imitation of working UMG code was created.
-This is a specific missing font bridge, not evidence that UMG cannot render Aphes.
+**Current checkpoint:** native Aphes font/label/divider primitives passed their
+bounded tests. [Compact composition](composition/README.md) is READY for a separate
+visual test, not installed/run. Its stock PNG import and reversible lower-text
+translation have source/mock evidence only. Production BLOCKED.
+
+**Historical checkpoint below:** serialized layout and pre-font experiments are
+retained as provenance. Their original cooked-font prerequisite is not a current
+blocker for the separately proven transient-font path. The original no-stock-slot
+mutation rule still holds; the user now conditionally permits a single reversible
+render translation for the F-height composition, not stock Font/Text/Slot changes.
 
 ## Scope and recovered evidence
 
