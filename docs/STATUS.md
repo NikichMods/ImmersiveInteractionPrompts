@@ -1,21 +1,18 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-29 — screen-position установлен с разрешения пользователя;
-ожидается игровой позиционный тест. Production BLOCKED.**
-[Viewport research](../research/interaction-prompts-owner/viewport/README.md):
-ExtendedWidgetComponent уже Screen по CDO, но позиция проецируется из world
-component location. Подготовлен собственный Canvas в существующем viewport HUD
-Main_Panel; не перенос/изменение TipHUD.50%/78%, CtrlAlt-стрелки±1%, Home сброс,
-F7 запись, F6 cleanup,180s. Верхняя28 без outline, tracking150; lower/actual hint
-снимком на одной горизонтали.66 offline tests pass (8 новых). Оригинал видим,
-полный lifecycle и окончательная нижняя позиция не принимаются этим прототипом.
-
-
-Установка source242a5f0 при закрытой игре, exact source/helper/config/input hashes
-проверены; отдельный ViewportProbe и guarded rollback вне loader.18 прежних
-mod/loader files и56 config/save files совпали на момент установки. Другие IIP
-probes отключены, TTF/PNG остались вне игры. Агент игру не запускал; новый render,
-корневая геометрия, clone hint и live placement ещё не проверены.
+**2026-10-29 — screen placement/render/manual cleanup PASS; пользователь выбрал
+X50% / Y78% для продолжения. Arrow tuning NOT_PASSED. Probe отключён. Production BLOCKED.**
+[Точный результат](../research/interaction-prompts-owner/viewport/README.md):
+пять own children + один Canvas в Main_Panel, viewport2560×1440, исходный TipHUD
+видим/нетронут.02:28:05 initial POSITION50,78;02:30:43 CLEANED reason=user,
+оба brush refs/font released, все элементы и own Canvas удалены до180s timeout.
+Стрелки двигали камеру по сообщению пользователя; в логе нет move/reset/commit.
+Причина input routing не установлена, Home/F7 не приняты. Позиция выбрана словами
+пользователя и кадром, без ложного успешного F7. Ремонт стрелок на этом этапе отложен.
+Source242a5f0/helper/config/TTF/PNG/DLL и18 prior mod/loader files совпали.
+Raw log/frame локально; при закрытой игре снят только свой enabled.txt.
+Сохранить принятую геометрию при удалении debug indicator. Следующая осмысленная
+граница — native state/show-hide для одного Open, ещё без production lifecycle.
 
 **2026-10-29 — компактная композиция технически сработала в игре;
 пользователь подтвердил видимый результат. Probe отключён. Production BLOCKED.**

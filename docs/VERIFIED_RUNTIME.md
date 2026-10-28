@@ -1,19 +1,28 @@
 # Verified Runtime — Interaction Prompts
 
-## Screen-position follow-up — source/offline only, 2026-10-29
+## Screen-space placement result — bounded runtime PASS/PARTIAL, 2026-10-29
 
-[Viewport report](../research/interaction-prompts-owner/viewport/README.md): actual
-UHT CDO constructor assignment ExtendedWidgetComponent.Space=Screen, absent base
-component override; UE4.27 screen layer still projects scene-component location.
-This narrows the earlier world/screen unknown; exact live per-instance overrides
-and native Genesis transform writer are unobserved. UMG viewport functions exist,
-but UserWidget base is Abstract. Candidate uses one own Canvas under already
-in-viewport HUDMainUMG.Main_Panel, with no original TipHUD mutation.
-New anchors/hint-brush clone/controls have offline/mock evidence only. Exact
-source242a5f0 was installed with explicit follow-up permission, host closed and
-hashes/rollback checked; no agent game launch or runtime acceptance. Earlier
-composition PASS does not establish this independent-screen experiment.
+[Owning report](../research/interaction-prompts-owner/viewport/README.md), exact
+source242a5f0 /main3fa10606... /helper e2e83b83... /configbaf73b46... matched after
+exit, with TTF/PNG/DLL and18 previous mod/loader files. Native Canvas subtree in
+viewport HUD Main_Panel displayed independently of original TipHUD; user confirms
+the procedure except arrow movement and supplies one2560×1440 frame with both
+prompts.02:28:05 initial POSITION X50/Y78, viewport2560×1440;02:30:43 manual
+CLEANED remaining0 at≈158.45s, both brushes/font released, own Canvas detached.
+No probe failures. User explicitly chose initial50%/78% as continuing baseline.
 
+No move/reset/commit POSITION records. Arrow tuning did not pass (user saw camera
+movement); cause unknown. Home reset/F7 commit unverified, not inferred successful
+from the general report. No repeat/control repair needed for the chosen position.
+Single still is not camera-motion proof alone; user report supplies that part.
+No full lifecycle/remapping/other-resolution/GC acceptance. Probe disabled with
+host closed, source/config retained. Post-gameplay save/config identity not asserted.
+Log SHA2561f2f787a... /framef49ecdaf...; full hashes/local archive in report.
+
+The source distinction remains: reflected CDO ExtendedWidgetComponent.Space=Screen
+and no base-template override, but UE4.27 projects scene-component world location.
+This is different from the separately exercised HUD-root viewport placement.
+Exact live placed-component overrides/native Genesis position writer remain unknown.
 
 ## Compact composition — bounded runtime PASS, 2026-10-29
 

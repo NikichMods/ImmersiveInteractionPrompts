@@ -1,8 +1,59 @@
 # Fixed screen-position research prototype — 2026-10-29
 
-**INSTALLED with explicit follow-up permission; awaiting one user-run test.**
-Source/offline READY; no runtime acceptance yet. Production BLOCKED. Prior native Aphes/font,
+**Screen placement/render/manual cleanup PASS in one bounded run. User selected
+50%/78% as the continuing baseline. Arrow tuning NOT_PASSED; reset/commit keys
+unverified. Probe disabled. Production BLOCKED.** Prior native Aphes/font,
 ornament and TipHUD-child results are reused, not reopened.
+
+## User-run result and adopted position — 2026-10-29
+
+The user reports the procedure worked except arrow movement: arrows moved the
+camera and the sample did not move. They explicitly prefer the displayed initial
+position and choose it for further work. Preserve **X50%, Y78%, HUD-root normalized
+point anchors**, alignment(.5,.5), own Canvas320×132; sample text axis is X160,
+upperY0, ornamentY48, lower-row centerY76, debug indicatorY112. Removing the debug
+indicator must not silently resize/recenter the composition and shift its accepted
+visual position. This is a selected baseline at2560×1440, not multi-resolution,
+UI-scale or production-lifecycle acceptance. Exact viewport pixel mapping remains
+bounded by the native HUD-root geometry, not inferred for every aspect ratio.
+
+The one2560×1440 user frame shows both the untouched world-relative stock prompt
+and a separate lower-screen sample with native Aphes, ornament, copied current F
+hint/localized action on one baseline, and TEST X=50% Y=78%. The user's report
+supports the screen-position/camera check; a single still alone cannot prove
+stability across motion. The position was chosen explicitly in chat, **not** by
+pretending the F7 commit action succeeded.
+
+| Log lines / Moscow time | Observation |
+| --- | --- |
+| 726 /02:28:05.067 | F6 arms the one Open snapshot |
+| 727–734 /02:28:05.102–.126 | One PNG import/bind, private font bind/donor unchanged; initial POSITION50,78, viewport2560×1440; five own children plus one Canvas attached |
+| 735–743 /02:30:43.515 | coords removed, font released/upper removed, both image brushes released/images removed, lower removed; CLEANED reason=user remaining0 |
+
+Manual cleanup completed≈158.45s after arming, before180s timeout. CLEANED also
+requires successful empty own-Canvas detachment in this exact source. No probe
+FAILED/CLEANUP_FAILED events. No POSITION move/reset/commit events exist in the
+retained run. Arrow tuning therefore did not pass; reset/Home and F7 logging
+are not runtime-verified. Native key consumption/routing/modifier recognition is
+**not diagnosed** by missing log lines. Do not call the symptom a proven interception
+cause or retry/fix controls merely to recover a position already chosen by the user.
+No new payload/control revision or extra game test was prepared for that symptom.
+
+Exact installed source/helper/config, TTF/PNG/DLL and18 previous mod/loader files
+matched the installation manifest after exit. Host absent; only own enabled.txt
+removed, all scripts/private config and guarded rollback retained. No agent
+launch/termination/hot reload/settings/save/other-mod changes. Post-gameplay
+config/save byte identity is not asserted. Partial cleanup fault paths/GC/map
+travel, live remapping/device changes and dynamic target/lower-text synchronization
+remain outside this result. Final styling is not blanket accepted by the position choice.
+
+Local raw archive `.local/research/interaction-prompts/screen-space/runtime-20261028T233241Z`:
+log SHA256 `1f2f787adc0d82bfcdc005981c6ed513c0b218dafb90eb1bdefc0c37bdeb3096`;
+frame SHA256 `f49ecdafb7d1b635fa8f36b57704c4d1497bc0051ca052ba36b38f3f1daa2b07`.
+User frame/host resources/log remain local; no raw proprietary assets in Git.
+Next useful scope is synchronizing one screen-space Open prompt with native
+show/hide/current-target state while retaining the stock prompt for comparison;
+this requires its own bounded design/readiness, not automatic production work.
 
 ## Authorized installation — 2026-10-29
 
@@ -144,11 +195,11 @@ mirror is not the game binary; retained game UHT confirms relevant reflection.
 is supporting precedent; UE5 and other Lua integrations are not contract proof.
 Pinned UE4SS source: [LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp).
 
-Next sufficient test: user starts the already installed candidate. At one unopened chest arm F6; inspect
+Historical prepared procedure (completed result above governs current status): At one unopened chest arm F6; inspect
 screen sample while rotating camera/walking away, choose X/Y, F7, Home/reset if
 needed, F7 again after final choice, F6 cleanup before180s, close normally. Check
-stock prompt unchanged and own block completely removed. This accepts only
-placement/tuning, not production visibility/target selection or final bottom position.
+stock prompt unchanged and own block completely removed. The completed run accepts the displayed baseline and cleanup, not arrow tuning,
+production visibility or target selection.
 
 ## Prepared source hashes
 

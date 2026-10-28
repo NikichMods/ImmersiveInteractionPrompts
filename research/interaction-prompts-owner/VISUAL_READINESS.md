@@ -1,12 +1,11 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
-**New placement direction:** [viewport/README.md](viewport/README.md), READY
-source/offline, installed with follow-up permission; awaiting user test. One owned
-Canvas in existing viewport HUD, original TipHUD unchanged; new upper style
-outline0/tracking150/size28, lower and copied current hint share a baseline.
-Bottom-center position remains experimental; parent-normalized coordinates need
-one user-run placement test. Earlier TipHUD composition result below stays intact.
-
+**Current screen placement:** [viewport/README.md](viewport/README.md): bounded
+own HUD-root Canvas render/manual cleanup PASS. User selected X50%/Y78% as baseline
+at2560×1440. Keep its visual origin when removing debug indicator. Arrow tuning
+NOT_PASSED; Home/F7 unverified, no root-cause claim or forced repeat for the already
+chosen position. Probe disabled. Production lifecycle/other resolutions/final style
+remain unaccepted. Earlier TipHUD composition results below stay intact.
 
 **Dynamic font follow-up:** [DYNAMIC_FONT_READINESS.md](DYNAMIC_FONT_READINESS.md)
 identifies private Template UFont + reflected FFontData filename as the next
