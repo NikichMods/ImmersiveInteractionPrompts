@@ -1,6 +1,15 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий этап — разделитель READY к отдельно разрешённому визуальному тесту
+## Текущий этап завершён — resource-free линия видна, pair detachment доказан
+
+[Divider result](../research/interaction-prompts-owner/DIVIDER_READINESS.md)
+сохраняет кадр/логи/хэши: Box без ресурса отрисован, оба элемента удалены по
+key-control через ~5.5 с. Пользователь не уверен в наблюдении исчезновения;
+этот пробел не подменяется словами об уверенной visual cleanup acceptance.
+Probe отключён. Повтор ради общего подтверждения механизма не нужен; следующий
+вопрос выбирать отдельно для Aphes/дизайна/production lifecycle.
+
+## Историческая подготовка разделителя
 
 [Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md)
 выбирает UImage + color-only Box, 140×2 layout units под OPEN, без нового ресурса

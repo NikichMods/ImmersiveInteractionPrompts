@@ -1,8 +1,20 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: label-only эксперимент успешно завершён. Новая research-ревизия
-с одним разделителем установлена по прямому разрешению при закрытой игре,
-визуальный тест ожидается. Предыдущая версия сохранена. Production gate BLOCKED.**
+**2026-10-28: divider эксперимент завершён — линия видна на скриншоте,
+оба собственных элемента удалены из родителя по key-control. Probe отключён.
+Production gate BLOCKED.**
+
+- [Точный divider result](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
+  UImage default draw_as=3, ресурс отсутствует; explicit Box/readback успешен.
+  Кадр показывает OPEN/линию/«Открыть»/F. Через ~5.5 с оба REMOVED, CLEANED
+  reason=user own_children_remaining=0; не тайм-аут. Ошибок UIChild нет.
+- Пользователь неуверенно вспомнил выключение; визуальное исчезновение пары
+  отдельно не объявляется подтверждённым. Native detachment подтверждён логом и
+  GetParent checks. Один случай, без GC/timeout/lifecycle/final-design acceptance.
+- Исходник не менялся; disabled bytes/лог/кадр/откат сохранены локально, девять
+  соседних mod files/settings неизменны. Повтор этого общего опыта не нужен.
+
+### Подготовка разделителя (историческая)
 
 - [Divider readiness](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
   выбран UImage с native-initialized color-only Box brush, без текстур/ресурсов.

@@ -1,5 +1,28 @@
 # Verified Runtime — Interaction Prompts
 
+## Divider: ресурс-free Box виден, native очистка пары подтверждена
+
+[Точное свидетельство](../research/interaction-prompts-owner/DIVIDER_READINESS.md),
+source `180ffbfa8d0ba6e0e6c5da8aa8efe9f818152f3c`, hash
+`94f7bd87b91038dfea8c6c39cd1123fadbaa452fee88a7867c3b5b06e53ac8cb`,
+совпал с установленным после выхода. UE4SS 83330635, 04:51:04–04:52:14 МСК.
+Новый UImage имел Brush DrawAs=3, ResourceObject absent, ResourceName=None,
+dynamic=false, has_uobject=false. Явный Box/no-resource/zero-margin/white 140×2
+прошёл readback и attachment. Скриншот 2560×1440 показывает линию под OPEN,
+исходное «Открыть» и F hint; не доказывает неизменные pixel bounds без before frame.
+
+Через ~5.5 с divider REMOVED, label REMOVED, CLEANED reason=user,
+own_children_remaining=0. Обе проверки GetParent после RemoveChild успешны;
+20 UIChild lines, нет FAILED/CLEANUP_ITEM_FAILED/CLEANUP_FAILED. Это key-control
+cleanup, не timeout. Пользователь не помнит выключение уверенно: отдельного
+визуального подтверждения исчезновения пары не заявляем; native detachment доказан.
+Log SHA256 `24010b2bec863fdd17617b1b40502607c60f29273f0466670be96a2d0a825cd9`,
+original image SHA256 `076e2622aeef660b4a827200631a5d7d706dfe473d66ceff91544f5ddc79fda8`.
+Raw evidence локально. Probe отключён при закрытой игре, source сохранён; другие
+девять mod files/settings неизменны. Результат ограничен одним Open prompt;
+defaults не обобщаются на все brushes. GC/timeout/другие actions/devices/DPI и
+итоговый дизайн/Aphes не проверены. Технический divider experiment завершён.
+
 ## Divider установлен; visual/runtime результат ожидается
 
 По прямому разрешению при закрытом host установлен source

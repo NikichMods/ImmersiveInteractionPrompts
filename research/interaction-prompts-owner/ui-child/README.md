@@ -1,15 +1,16 @@
 # Native TipHUD label/divider research
 
-**Current source: divider revision installed with explicit permission, visual test
-pending.** [Divider readiness](../DIVIDER_READINESS.md) owns its brush/default/
+**Current source: divider rendered visibly in one Open prompt; both children
+detached by user control, probe now disabled.** [Divider result](../DIVIDER_READINESS.md) owns its brush/default/
 render limits. It retains the accepted label and adds one resource-free Image Box,
 with pair cleanup. Aphes/cooker remain deferred. Production BLOCKED.
 
 Source: [Scripts/main.lua](Scripts/main.lua), SHA256
 `94f7bd87b91038dfea8c6c39cd1123fadbaa452fee88a7867c3b5b06e53ac8cb`.
 Older successful label-only bytes/state are preserved outside loader for rollback.
-Offline tests: 7 existing CanShow + 15 UIChild groups pass; no divider pixels
-observed. Installed bytes match this source; no game launch by the agent.
+Offline tests: 7 existing CanShow + 15 UIChild groups pass. Screenshot confirms
+divider pixels; log confirms pair detachment. User was uncertain about visual
+disappearance. Installed bytes match this source and remain disabled.
 
 ## Completed label-only baseline and historical preparation
 

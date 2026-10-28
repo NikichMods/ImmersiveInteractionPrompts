@@ -7,8 +7,8 @@ primitive attachment question; Aphes/divider and broader lifecycle remain open.
 The Aphes-specific BLOCKED checkpoint below is unchanged.
 
 **Divider follow-up:** [resource-free Image Box revision](DIVIDER_READINESS.md)
-is prepared for one separately authorized visual test, not installed/run. It reuses
-the completed label result; actual divider rendering/defaults remain unverified.
+rendered in one Open prompt; native pair detachment and one Image's resource
+defaults were logged. Probe disabled. Full lifecycle/final design remain unverified.
 
 **Follow-up:** [local toolchain check](FONT_RESOURCE_READINESS.md) completed:
 no compatible editor/cooker located; repak is packaging-only. No font asset or UI
