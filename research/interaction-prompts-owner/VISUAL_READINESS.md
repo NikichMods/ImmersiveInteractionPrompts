@@ -10,7 +10,8 @@ to creating cooked assets, not a universal requirement for dynamic fonts.
 
 **PNG alternative:** [PNG-header](png-header/README.md) is prepared for one separate
 native texture/alpha test. It bypasses a cooked UFont for fixed raster glyphs;
-it is not a native Aphes font resource or a runtime-proven image path yet.
+it is not a native Aphes font resource; that glyph-image variant remains untested.
+The shared native import path now passed the stock ornament composition test.
 
 **Completed independent step:** [stock-font child experiment](ui-child/README.md)
 created, visibly rendered and manually detached one added label in-game, with
@@ -27,11 +28,11 @@ no compatible editor/cooker located; repak is packaging-only. No font asset or U
 payload created. The concrete prerequisite is an available UE4.27 font import/
 cook toolchain; the earlier proposed tooling check below is historical.
 
-**Current checkpoint:** native Aphes font/label/divider primitives passed their
-bounded tests. [Compact composition](composition/README.md) is READY for a separate
-visual test; now installed with explicit permission, awaiting user run. Its stock
-PNG import and reversible lower-text
-translation have source/mock evidence only. Production BLOCKED.
+**Current checkpoint:** [Compact composition](composition/README.md) passed one
+bounded import/display/state-change cleanup run; user reports visual success.
+Private native font and stock PNG texture paths now have separate runtime
+evidence. Lower translation restored, both children detached, probe disabled.
+Final appearance/manual-attached removal/full lifecycle remain open. Production BLOCKED.
 
 **Historical checkpoint below:** serialized layout and pre-font experiments are
 retained as provenance. Their original cooked-font prerequisite is not a current

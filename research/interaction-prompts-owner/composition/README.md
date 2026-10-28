@@ -1,11 +1,53 @@
 # Compact Aphes / ornament / localized action — 2026-10-28
 
-**INSTALLED with explicit permission, awaiting one user-run visual test.
-Not run by the agent. Production BLOCKED.** Source: [Scripts/main.lua](Scripts/main.lua), small
+**Bounded runtime PASS: stock ornament import/display, compact composition and
+state-change cleanup; user reports visual success. Probe disabled.
+Production BLOCKED; final styling not accepted.** Source: [Scripts/main.lua](Scripts/main.lua), small
 bounded geometry helper [IIPLayout.lua](Scripts/IIPLayout.lua).
 The accepted `aphes-text` source is unchanged; its font/render/OPEN→READ and manual
-cleanup evidence is reused, not rerun. This variant tests composition and an
-unproven native PNG import, not the font mechanism again.
+cleanup evidence is reused, not rerun. This variant tested composition and native stock PNG import; the earlier font
+mechanism was reused. No new font diagnostic was required.
+
+## Completed runtime result — 2026-10-29 Moscow
+
+Exact source/helper/config/TTF/PNG/DLL hashes matched the installation manifest.
+The user supplied one2560×1440 frame and said the result worked. It visibly shows
+Aphes above, stock localized «Открыть» below, key F in place and a very fine
+separator between them at key-center height. This accepts the limited technical
+visual result, not final ornament contrast/size/spacing or wider UX/lifecycle.
+The frame is not proof of post-cleanup appearance.
+
+| Log lines / Moscow time | Observed result |
+| --- | --- |
+| 710–713 /00:33:10.762–.764 | One Open attempt; cached text127.75×37.5, key38×38 at(0,0), centerX101.875, lineY0, lower translation29 |
+| 716–729 /00:33:10.780–.788 | FONT_CONFIGURED/BOUND, DONOR_UNCHANGED; one PNG IMPORT_BEGIN/TEXTURE_BOUND; both attached; LOWER_SHIFTED |
+| 730–737 /00:33:27.804 | LOWER_RESTORED, divider REMOVED/TEXTURE_UNBOUND, label REMOVED/FONT_RELEASED, CLEANED reason=target-state-changed, zero remaining |
+| 738–739 /00:33:31.838 and00:33:42.287 | CLEANED reason=user at zero; no new import/allocation |
+| 740 /00:33:45.833 | Event loop end; process absent at inspection |
+
+Cleanup happened approximately17.04s after arming, before the30s timeout.
+The eligible prompt state changed; the log does not identify the player's exact
+movement/action. No READ event or manual removal of an attached composition in
+this run: later user key presses cleaned an already empty state. Earlier accepted
+READ/font tests remain separate evidence. No probe failure/conflict/retry logged.
+Native translation readback is restored; no separate after-removal frame was supplied.
+No forced GC, immediate native/GPU deallocation, full lifecycle, other language,
+input device or resolution acceptance is inferred.
+
+Raw log/frame/events/result archived locally under
+`.local/research/interaction-prompts/composition/runtime-20261028T213628Z`.
+Log SHA256 `04e8e943db379971e5b40ffcdb16ccf931fea03e020b32e980f58d3169451cbb`;
+frame SHA256 `a6374d4c45bab919ff4e63b516b43181862c31e90568e0b1cc47389fe22ff33b`.
+No raw game image/log/font is published. At closed-game inspection all15 prior
+mod/loader files and TTF/PNG/DLL matched; config/save bytes after gameplay are not
+claimed unchanged. Only own empty enabled.txt was removed; installed source,
+helper/private config and guarded rollback remain intact. No process termination,
+hot reload, configuration or other-mod changes by the agent.
+
+Next step is composition tuning with the user: the downscaled ornament is very
+subtle; assess contrast/thickness and vertical spacing before another candidate.
+Do not repeat font/Template/import mechanism research without a concrete failure.
+No new behavior/source revision or automatic reinstall is authorized by this result.
 
 ## Authorized installation — 2026-10-28
 
@@ -144,8 +186,8 @@ Private `IIPCompositionConfig.lua` must return `{filename=<absolute local TTF>,
 separator_filename=<absolute stock PNG>}` beside the source for a future install;
 actual machine paths are in local configuration only. Missing config disables.
 
-Next sufficient step: the user runs the already installed candidate at one
-natural chest Open prompt, Ctrl+Alt+F6: attach → READ → cleanup within30s. Check
+Historical prepared procedure (completed result above governs current status):
+one natural chest Open prompt, Ctrl+Alt+F6: attach → READ → cleanup within30s. Check
 ornament/upper/lower separation, F unchanged, no collision/flicker, and original
 lower position after removal. Preserve log COMPOSITION_GEOMETRY, TEXTURE_BOUND,
 LOWER_SHIFTED/LOWER_RESTORED and both REMOVED. If native drift/conflict occurs,

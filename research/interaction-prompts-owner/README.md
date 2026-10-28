@@ -1,10 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
-**Current composition candidate:** [composition/README.md](composition/README.md).
-Source/offline READY; now installed with explicit permission, awaiting user test. Stock
-location-title PNG identified, local UImage import prepared, F-height separator,
-Aphes above and one reversible lower-text render translation. No enforced
-per-frame layout; conflict stops the attempt. Production BLOCKED.
+**Current composition result:** [composition/README.md](composition/README.md).
+Native stock PNG import/display, F-height placement and state-change cleanup
+passed one bounded run; user reports visual success. Native lower translation
+restored; both children detached/resource references cleared. Probe disabled.
+Final styling/full lifecycle remain open; no manual-attached removal/READ claim
+from this run. Production BLOCKED.
 
 **Current Aphes writer:** [aphes-text/README.md](aphes-text/README.md), setter/
 ownership review followed by one user-confirmed OPEN→READ/manual cleanup run.

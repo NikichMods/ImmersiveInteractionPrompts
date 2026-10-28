@@ -1,24 +1,17 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28 — компактная композиция установлена с разрешения пользователя;
-ожидается один пользовательский визуальный тест. Production BLOCKED.**
-[Источник и границы](../research/interaction-prompts-owner/composition/README.md):
-штатный орнамент найден в Coherent как один PNG570×16; подготовлен его локальный
-импорт в собственный UImage. Aphes32/outline1 над линией; линия на высоте центра F,
-«Открыть» ниже через один обратимый render translation. Ось по тексту без клавиши.
-Slot/Font/Text оригинала не меняются. При конфликте со штатной записью — остановка,
-без повторного навязывания позиции. Восемь новых mock groups проходят;
-alpha/render/масштаб/стабильность/точный возврат нижней строки требуют runtime.
-Принятые Aphes OPEN→READ, UIChild и resource-free divider не повторялись.
-
-Установка: source996ee47/preparation3ba3c04, exact hashes в composition README;
-новая папка CompositionProbe с private config и enabled.txt. Игра была закрыта,
-откат и pretest log вне loader. 15 прежних mod/loader files и56 config/save files
-неизменны на момент установки; TTF/PNG не копировались в игру, старые probes
-отключены. После установки начался игровой процесс; начальный лог22:46 подтвердил
-TEXTURE_BOUND/LOWER_SHIFTED/ATTACHED. Агент игру не запускал. Визуальное качество
-и возврат нижней строки требуют пользовательского результата; сохранность
-config/save bytes после запуска не заявляется.
+**2026-10-29 — компактная композиция технически сработала в игре;
+пользователь подтвердил видимый результат. Probe отключён. Production BLOCKED.**
+[Точный результат](../research/interaction-prompts-owner/composition/README.md):
+one local stock PNG import→TEXTURE_BOUND, Aphes/ornament/lower placement shown
+in the user frame.00:33:27 LOWER_RESTORED→оба REMOVED→TEXTURE_UNBOUND/FONT_RELEASED→
+CLEANED reason=target-state-changed за≈17.04с, до timeout; поздние user-key очистки
+на нуле без повторного создания. Это не manual removal while attached/READ-тест.
+Source996ee47, helper/config/TTF/PNG/DLL и15 старых mod/loader files совпали.
+Лог/кадр сохранены локально; при закрытой игре снят только enabled.txt.
+Оформление ещё не принято: особенно заметность тонкого орнамента и интервалы.
+Следующий шаг — согласовать композиционные поправки, без повтора font/import
+исследования и без автоматической установки новой версии.
 
 **2026-10-28: Aphes OPEN→READ→manual cleanup технически прошёл runtime;
 пользователь подтвердил визуальный успех. Probe отключён после выхода.

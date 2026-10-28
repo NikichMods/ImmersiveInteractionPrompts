@@ -1,17 +1,23 @@
 # Verified Runtime — Interaction Prompts
 
-## Подготовка компактной композиции — только offline, не runtime PASS
+## Compact composition — bounded runtime PASS, 2026-10-29
 
-[Composition](../research/interaction-prompts-owner/composition/README.md) фиксирует
-точные base Hud/CSS/PNG hashes и source-only контракты UE4.27. Орнамент названия
-локации — Coherent img с ele_loctitleline.png570×16, не готовый UMG-объект.
-Новая исследовательская ревизия переиспользует принятый private UFont и добавляет
-локальный PNG import/размещение/один reversible stock render translation.
-После отдельного разрешения этот кандидат установлен при закрытой игре, с
-проверенными hash/откатом; рендер, нативное восстановление stock translation и
-импорт текстуры ожидают пользовательского теста. Настройки/сохранения/другие моды
-не изменялись.
-Исторический Aphes PASS ниже не распространяется на новый layout/PNG.
+[Composition result](../research/interaction-prompts-owner/composition/README.md):
+exact source996ee47 / main SHA2563c8eb86e... and helper332ffbdd..., private config,
+TTF/PNG/DLL matched installation manifest. User reports success and supplies one
+2560×1440 frame: upper native Aphes, very fine stock ornament at F-center height,
+original «Открыть» below. This closes the narrow native PNG import/display and
+layout test; final styling/full lifecycle remain unaccepted.
+
+00:33:10 one570×16 import→TEXTURE_BOUND; LOWER_SHIFTED Y29; both attached.
+00:33:27 LOWER_RESTORED (native readback), both REMOVED, TEXTURE_UNBOUND,
+FONT_RELEASED, CLEANED reason=target-state-changed, zero remaining;≈17.04s before
+30s timeout. Later user-key cleanups were at zero, so this run does not establish
+manual removal while attached or READ. No post-cleanup screenshot/GC proof.
+Log04e8e943... /framea6374d4c... archived locally; full hashes in report.
+No probe failures/conflicts logged. Host closed; own probe disabled by marker
+removal, scripts/config retained.15 prior mod/loader files unchanged; no claim
+about save/config bytes after natural gameplay. Production BLOCKED.
 
 ## Native Aphes dynamic text — visual/runtime PASS в ограниченном сценарии
 
