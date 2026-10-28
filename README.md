@@ -12,6 +12,7 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 - [Status](docs/STATUS.md)
 - [Research plan](docs/RESEARCH_PLAN.md)
 - [Verified runtime and evidence gaps](docs/VERIFIED_RUNTIME.md)
+- [TipHUD layout and visual prototype readiness](research/interaction-prompts-owner/VISUAL_READINESS.md): additive UI path selected; Aphes UMG font bridge remains blocked, no visual payload yet.
 
 This module will have its own version and independently installable payload if implementation proves feasible.
 

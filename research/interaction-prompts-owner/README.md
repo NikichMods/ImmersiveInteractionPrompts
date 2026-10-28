@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Current visual stage:** [layout/font readiness](VISUAL_READINESS.md) confirms
+the seven slot edges and selects additive siblings under CanvasPanel_6 with an
+isolated font resource. Executable visual prototype BLOCKED on the Aphes UMG
+font bridge; no UI payload prepared or installed. Native/UEPseudo remains deferred.
+
 **Current adopted scope/result:** [minimal CanShow state observer](can-show-state/README.md)
 confirmed live callback/text/state reads from three TipHUD instances; the first
 run is preserved in docs/VERIFIED_RUNTIME.md and the probe is now disabled.

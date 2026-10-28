@@ -1,11 +1,27 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: CanShow observer сработал в игре — три TipHUD, шесть снимков,
-948 callbacks; после прогона probe отключён;
-production evidence gate BLOCKED.**
+**2026-10-28: структура и slots TipHUD подтверждены offline; визуальный прототип
+BLOCKED на получении корректного Aphes UMG font resource. CanShow-наблюдение
+успешно завершено, probe отключён. Production evidence gate BLOCKED.**
 
-- Принята цель двух рядов с сохранением native localized action/input; конкретный
-  layout и способ осмысленной внутримировой надписи ещё не выбраны.
+- [Visual readiness report](../research/interaction-prompts-owner/VISUAL_READINESS.md):
+  семь reciprocal slot edges, штатный текст/иконки — отдельные дети CanvasPanel_6.
+  Рекомендуется добавление соседних элементов, без reparent/изменения TextBlock_89
+  и без вмешательства в input/hold/lock branch. Это выбранный исследовательский
+  путь, не проверенная runtime-реализация.
+- Одного TTF/SourceFilename или записи reflected FontFilename недостаточно для
+  доказательства корректной загрузки Aphes. Предпочтительное продолжение — новый
+  локальный UE4.27 runtime composite UFont/FontFace только для верхней строки;
+  путь cook/load ещё не подтверждён. Исполняемый визуальный payload не создан.
+  OPEN остаётся временным техническим текстом, не переводом на Афес.
+- Следующий достаточный шаг — offline-проверка доступного cook toolchain и
+  подготовка этого локального font resource; без установки/запуска игры.
+  Full native observer/UEPseudo не возобновляются. Подробные ограничения native
+  geometry, individual visibility и будущего узкого runtime-теста — в отчёте.
+
+- Принята цель двух рядов с сохранением native localized action/input; выбран
+  исследовательский additive layout path, размеры/приёмка и способ осмысленной
+  внутримировой надписи остаются открытыми.
 - VERSION = 0.1.0 — начальная метка, без кандидата/билда/релиза.
 - [Статический отчёт](VERIFIED_RUNTIME.md) установил BaseGameEventObject_BP →
   ExtendedWidget → TipHUD; proxy → InteractTipToText/StringTable → native

@@ -1,5 +1,25 @@
 # Verified Runtime — Interaction Prompts
 
+## Структура TipHUD и готовность визуального прототипа, 2026-10-28
+
+[Точный offline-отчёт](../research/interaction-prompts-owner/VISUAL_READINESS.md)
+подтвердил семь связей Parent/Content/Slot в штатном WidgetTree: CanvasPanel_0 →
+HorizontalBox_4 → CanvasPanel_6; его отдельные дети — TextBlock_89, RetainerBox_0
+с разрешённой иконкой и CanvasPanel_2 с запретной накладкой. Text slot AutoSize,
+штатные локализация/иконки/hold остаются у игры. Это сериализованная структура,
+не измеренная runtime-геометрия.
+
+Предпочтительный механизм — новые соседние элементы внутри CanvasPanel_6 плюс
+изолированный font resource, без изменения оригинального TextBlock/slot и без
+общего font override. Визуальный prototype checkpoint **BLOCKED**: валидный Aphes
+UMG font object/cook-load path ещё не получен. Pinned UE4SS StaticConstructObject
+и reflected struct setters существуют; их наличие не доказывает импорт TTF или
+эквивалентность C++ FFontData constructor. UHT .cpp — stubs, не native implementation.
+Исполняемый визуальный payload не создан; установка/новый runtime отсутствуют.
+Следующее достаточное доказательство — локальный UE4.27 companion font resource,
+затем один отдельно разрешённый тест добавления к естественному «Открыть» prompt.
+CanShow-runtime ниже не повторялся. Production gate остаётся **BLOCKED**.
+
 ## Первый CanShow runtime-прогон, 2026-10-28 — наблюдение подтверждено
 
 **Подтверждено живое подключение минимального observer и чтение полей трёх
