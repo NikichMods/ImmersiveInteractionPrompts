@@ -6,17 +6,17 @@ Contextual world-object prompts will gain a visually prominent upper line in fit
 
 Examples: pick up, open, read, descend; other context actions only when supported by the verified presentation path.
 
-**Status: research; production gate BLOCKED. No production build or release exists.** A [minimal CanShow observer](research/interaction-prompts-owner/can-show-state/README.md) read live text/state from three TipHUD instances; it is now disabled after the successful first observation. Native-array observation and UEPseudo investigation are deferred. Live final writer, input texture producer and a usable UMG glyph path remain open. Invented decorative symbols must not be presented as a genuine fictional language.
+**Status: research; production gate BLOCKED. No production build or release exists.** Native Aphes text through a private transient UFont passed OPEN→READ and manual cleanup in one TipHUD prompt, with user visual confirmation. The probe is disabled. Composition, wider lifecycle/compatibility and production action mapping remain open. Native-array observation/UEPseudo work stays deferred; technical glyph strings are not verified Aphes translations.
 
 - [Requirements](docs/REQUIREMENTS.md)
 - [Status](docs/STATUS.md)
 - [Research plan](docs/RESEARCH_PLAN.md)
 - [Verified runtime and evidence gaps](docs/VERIFIED_RUNTIME.md)
-- [TipHUD layout and visual prototype readiness](research/interaction-prompts-owner/VISUAL_READINESS.md): additive UI path selected; the Aphes-specific font bridge remains blocked.
-- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): one OPEN label created, visibly rendered and manually removed in-game; original action/icon stayed in place. Probe disabled after the completed test. Aphes remains deferred.
-- [Resource-free divider result](research/interaction-prompts-owner/DIVIDER_READINESS.md): UImage Box line visibly rendered, both added elements detached through user control; probe disabled. Aphes remains deferred.
+- [TipHUD layout and visual prototype readiness](research/interaction-prompts-owner/VISUAL_READINESS.md): additive native glyph path verified narrowly; final composition and full lifecycle remain open.
+- [First stock-font child experiment](research/interaction-prompts-owner/ui-child/README.md): one stock-font OPEN label visibly rendered and manually removed; original action/icon stayed in place. Completed prerequisite, probe disabled.
+- [Resource-free divider result](research/interaction-prompts-owner/DIVIDER_READINESS.md): UImage Box line visibly rendered, both added elements detached through user control; completed prerequisite, probe disabled.
 - [Local Aphes PNG experiment](research/interaction-prompts-owner/png-header/README.md): glyph image and dynamic Texture2D import source prepared, not installed/run. No font/image payload distributed.
-- [Dynamic UMG font assessment](research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md): shared replacement rejected; private Template UFont copy is a source-supported candidate before a C++ bridge. No new runtime result.
+- [Dynamic UMG font assessment](research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md): shared replacement rejected; private Template UFont route subsequently passed the bounded Aphes rendering experiment without a new C++ bridge.
 - [UFont Template creation result](research/interaction-prompts-owner/font-template/README.md): one transient copy and distinct inspected native storage verified in-game; probe disabled, no font-data/UI writes.
 - [Dynamic Aphes TextBlock result](research/interaction-prompts-owner/aphes-text/README.md): native Aphes OPEN→READ/manual cleanup passed with user visual confirmation; probe disabled. Final design remains open.
 
