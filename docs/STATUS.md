@@ -1,8 +1,22 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-28: divider эксперимент завершён — линия видна на скриншоте,
-оба собственных элемента удалены из родителя по key-control. Probe отключён.
-Production gate BLOCKED.**
+**2026-10-28: PNG-header source READY к одному отдельно разрешённому import/
+alpha/unbind тесту. Локальный Aphes OPEN PNG создан, ничего не установлено.
+Успешный divider baseline отключён; production gate BLOCKED.**
+
+- [PNG-header отчёт](../research/interaction-prompts-owner/png-header/README.md):
+  точный UHT/UE4SS83330635 подтверждает ImportFileAsTexture2D, explicit CDO call,
+  SetBrushFromTexture и удержание через Brush.ResourceObject. Один импорт за
+  сессию, same one-Open/30s guards, независимая pair cleanup и очистка texture ref.
+- Один PNG560×112 RGBA из exact Aphes.ttf, прозрачный, hash `6c6fdd18...`;
+  OPEN — технические глифы, не перевод. PNG/TTF/private config ignored, в Git лишь
+  оригинальные source/recipe. 30 offline tests проходят; native import/alpha/GPU/
+  display/unbind не проверены. Нет установки, запуска игры или нового ПО.
+- Для Nexus возможна локальная extraction→render схема без поставки glyph payload;
+  targeted extractor/setup, зависимости, packaging и distribution review ещё
+  не реализованы/не закрыты. Самостоятельный production release не готов.
+
+### Завершённый divider baseline
 
 - [Точный divider result](../research/interaction-prompts-owner/DIVIDER_READINESS.md):
   UImage default draw_as=3, ресурс отсутствует; explicit Box/readback успешен.

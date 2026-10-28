@@ -1,6 +1,15 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий этап завершён — resource-free линия видна, pair detachment доказан
+## Текущий этап — PNG-header READY к одному import/alpha/unbind test
+
+[PNG-header](../research/interaction-prompts-owner/png-header/README.md) подготовлен
+offline: local glyph PNG, explicit CDO/ImportFileAsTexture2D, UImage texture binding,
+проверенный divider и pair cleanup. Не установлен, editor/cooker не нужен для
+этой гипотезы. После отдельного разрешения проверить native import, прозрачность
+и unbind в одном Open prompt. Не повторять успешные primitive/divider tests.
+Нexus setup/extraction и словарь Aphes остаются отдельными вопросами.
+
+## Завершённый divider — resource-free линия видна, pair detachment доказан
 
 [Divider result](../research/interaction-prompts-owner/DIVIDER_READINESS.md)
 сохраняет кадр/логи/хэши: Box без ресурса отрисован, оба элемента удалены по

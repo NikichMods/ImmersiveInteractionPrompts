@@ -1,5 +1,9 @@
 # Observation probe readiness — 2026-10-28
 
+**Current PNG-header preparation:** [png-header/README.md](png-header/README.md),
+one local Aphes glyph PNG and Texture2D import source, READY for one separately
+permitted test; not installed/run. Completed UI/divider results are reused.
+
 **Current divider preparation:** [DIVIDER_READINESS.md](DIVIDER_READINESS.md),
 UImage/color-only Box rendered visibly; both own children detached by key-control,
 probe disabled. The successful label-only run remains its separate narrow baseline.

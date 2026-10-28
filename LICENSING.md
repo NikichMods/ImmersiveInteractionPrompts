@@ -6,6 +6,12 @@ Game code/assets, fonts (including EB Garamond/Roboto/Aphes), extracted HTML, re
 
 While actively maintained, upstream issues/PRs are preferred; community maintenance is welcome if unmaintained. This is etiquette, not an additional license restriction.
 
+The PNG-header renderer/probe is original MPL-covered source. Aphes.ttf and any
+rasterized glyph image are excluded game-derived materials, kept local and not
+bundled. Pillow/FreeType/parser dependencies retain their own terms; a future
+user-side preparation tool needs its own dependency/distribution review. Local
+generation is not a clearance to publish the generated payload.
+
 ## Host HTML distribution review (2026-10-27)
 
 The bounded review did not locate an Asterigos-specific EULA or official modding

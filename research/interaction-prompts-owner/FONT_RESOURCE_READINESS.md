@@ -1,5 +1,9 @@
 # Aphes UMG font resource: tooling checkpoint — 2026-10-28
 
+**PNG alternative:** [local PNG → Texture2D](png-header/README.md) is prepared,
+not installed/run. It avoids a cooked UFont for this fixed glyph sample; the
+native-font toolchain blocker below remains specific to that older route.
+
 **Scope update:** Aphes tooling remains deferred. The independent
 [stock-font child experiment](ui-child/README.md) created/rendered/manually
 detached one label in-game without this dependency. This does not establish

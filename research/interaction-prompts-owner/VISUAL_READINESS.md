@@ -1,5 +1,9 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**PNG alternative:** [PNG-header](png-header/README.md) is prepared for one separate
+native texture/alpha test. It bypasses a cooked UFont for fixed raster glyphs;
+it is not a native Aphes font resource or a runtime-proven image path yet.
+
 **Completed independent step:** [stock-font child experiment](ui-child/README.md)
 created, visibly rendered and manually detached one added label in-game, with
 original text/icon reported in place. Probe disabled. This closes that narrow

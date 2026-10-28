@@ -1,5 +1,20 @@
 # Verified Runtime — Interaction Prompts
 
+## PNG-header readiness — offline, без нового runtime
+
+[Точный отчёт](../research/interaction-prompts-owner/png-header/README.md): installed
+UHT содержит ImportFileAsTexture2D(UObject*,const FString&) → UTexture2D*, Image
+texture bind/clear и size getters. Pinned UE4SS source подтверждает explicit CDO
+call, FString/object params и ordinary UObject return, без frame/array observer.
+Подготовлен один локальный Aphes OPEN PNG560×112, RGBA/alpha/antialias проверены,
+SHA256 `6c6fdd18a18d5215fe840e4a35ee86e87673086a10d46385927e335f45b20ad9`.
+Это raster glyph sample, не UFont/перевод. Новый research payload делает один
+import, проверяет transient Texture2D/size, удерживает кистью своего UImage и
+очищает ссылку после detachment. 30 mock tests проходят, не доказывая native
+decode/alpha/display/GC/unbind. READY для отдельной установки; её не было.
+PNG/TTF/private config ignored, установленный divider и девять прочих mod files/
+settings неизменны. Production/Nexus release BLOCKED, font cooker не использован.
+
 ## Divider: ресурс-free Box виден, native очистка пары подтверждена
 
 [Точное свидетельство](../research/interaction-prompts-owner/DIVIDER_READINESS.md),

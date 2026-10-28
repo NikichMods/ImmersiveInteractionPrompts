@@ -1,0 +1,2 @@
+# Offline rasterization only; not a UE4SS or game dependency.
+Pillow==12.3.0
