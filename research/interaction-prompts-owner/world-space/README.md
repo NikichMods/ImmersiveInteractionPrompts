@@ -1,7 +1,10 @@
 # World-space depth-occlusion study — 2026-10-29
 
-**Latest follow-up2026-10-30:** [deferred diagnostic revision INSTALLED](probe/deferred/README.md),
-runtime PENDING after user-authorized closed-game installation. Pinned script-callback lock vs EngineTick queue execution and
+**Latest run2026-10-30:** [deferred revision stopped NOT_LOADED after reload](probe/deferred/README.md),
+probe disabled. MATCH→EngineTick dispatch/math passed, host-class residency/live
+gate refused before component allocation. World draw/occlusion not reached;
+first-hang cause remains unknown. The following records preceding source work:
+pinned script-callback lock vs EngineTick queue execution and
 synchronous load path checked. Creation/cleanup moved out of CanShow, exact assets
 resolved before own hooks, fresh identities rechecked and native phase boundaries
 logged. Same anchor/material/visuals; old failure cause and World runtime remain

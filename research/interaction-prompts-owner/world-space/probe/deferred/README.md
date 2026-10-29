@@ -1,9 +1,52 @@
 # Deferred World creation — READY_SOURCE diagnostic revision, 2026-10-30
 
-**INSTALLED2026-10-30 / runtime PENDING.** This revision removes the inline creation
+**First run: NOT_LOADED after reload; probe DISABLED2026-10-30.** This revision removes the inline creation
 path and adds bounded phase diagnostics. It is not a proven fix for the hang.
 Frozen first-run source and its BLOCKED result stay in [the parent report](../README.md).
 World visual acceptance and production remain BLOCKED.
+
+## First deferred run — execution separation observed, host residency gate failed
+
+Exact2941123 installed hashes matched. User reports no cyan WORLD TEST. Logged
+00:42:59.389 load_host END/PREPARED before own hook registration; material was
+already resident. After manual reload three Open pairs acquired; init128 closed
+acquisition retaining3. At00:43:34.870 MATCH and CREATE_QUEUED;00:43:34.884
+CREATE_DISPATCHED on EngineTick, about14ms later. Fresh target checks passed;
+anchor_camera, look_at and make_transform each have BEGIN/END.
+
+resident_assets BEGIN then FAILED kind=NOT_LOADED at00:43:34.892:
+`prepared asset no longer resident: /Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`.
+This gate combines fresh lookup, native validity and exact path. The log cannot
+distinguish null lookup, pending kill or a path mismatch; GC/unload is not a proven
+cause. It does establish that pre-reload load success did not suffice for the
+required post-reload live-class contract in this run.
+
+STOP reason=failure result=NOT_LOADED, init128/open3/ready3/show2/visible_open1/
+matches1/poses0/hooks_remaining0/cleanup_queued=false. No component_construct,
+host_create, first Slate, registration or CREATED/STATE phase was entered. By source
+order the component was never allocated, so no native renderer cleanup was needed
+or exercised. Event loop ends00:44:06.144. This is a clean negative gate result,
+not World rendering acceptance, proof of first-hang cause or successful creation.
+
+Archived ignored outside loader:
+`.local/research/interaction-prompts/world-space/probe/deferred/not-loaded-run-20261029T214538Z/`.
+UE4SS log SHA2560c3f4cee9155bc87125c005e4dd2cdae9889c363449bb998ed98d22ec4afbc92;
+Genesis log SHA2566a35d73848a0de4697016fbc22fc7d6b403a04ef22cfafe23ba2116f904faafe.
+Archive retains payload copies, installation/disable manifests. Game already closed
+on inspection; agent did not terminate it. Removed only own enabled.txt;27 previous
+mod/loader hashes still match installation,88 current files retain hashes across
+disable. Other mods and current settings/saves preserved, with no claim that the
+user run itself left pre-play save/config bytes unchanged.
+
+**Current lookup-only-after-reload revision BLOCKED for another visual test.**
+Next minimal candidate seam: allow one explicitly bounded exact host/material
+refresh in the queued EngineTick action after reload, with paired load markers,
+then re-resolve/revalidate target and UI **after** any synchronous load before
+capturing pose or allocating components. Suppress own reentrant discovery during
+that preparation. This would reuse the now-observed EngineTick loading route;
+it does not require actor scans, old pointers, new geometry or a load in CanShow.
+No such revision is implemented/installed by this result, and no repeat run is
+requested for these unchanged bytes.
 
 ## Authorized closed-game installation — 2026-10-30
 
@@ -27,7 +70,8 @@ refuses unexpected contents, then removes only this new directory's own files.
 Older disabled payload/failed-run evidence and other mods are preserved. Pretest
 logs are historical snapshots, not a successful run of this revision.
 
-Ready for one user-run scenario below; native hang may still recur. No runtime
+At installation handoff it was ready for one user-run scenario; its NOT_LOADED
+result and current disabled state are recorded above. No runtime
 rendering/occlusion/cleanup PASS is inferred from installed byte identity.
 
 ## Question, method and conclusion
@@ -149,8 +193,8 @@ unmatched BEGIN followed by FAILED/STOP/cleanup; a hang can leave only BEGIN.
 Log buffering/process exit may truncate evidence, so no marker alone proves the
 root cause. No high-frequency progress printing or new observers were added.
 
-Installation authorization has now been fulfilled as recorded above; both files
-were deployed together, preserving disabled v1 bytes/rollback. Next: one user run
+Historical procedure for the completed run: both files were deployed together,
+preserving disabled v1 bytes/rollback. One user run
 with the existing F8→manual reload→Open→F7 procedure. If it freezes before reload,
 the preload markers are already useful; do not repeat or extend the run. If it
 reaches WORLD TEST, use the original partial-letter Hilda-occlusion/reappearance

@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — deferred World run: NOT_LOADED после reload, probe DISABLED.**
+[Точный результат](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Host load/PREPARED прошли до own hooks; после reload MATCH→CREATE_QUEUED→
+CREATE_DISPATCHED(EngineTick) и anchor/camera/math-фазы завершились. Затем gate
+resident_assets отказал: живой точный PostionItemUMG_BP_C не подтверждён.
+STOP result=NOT_LOADED/hooks_remaining0; component_construct не начат, World
+renderer не создавался. GC/unload как причина и исправление первого зависания
+не доказаны. Логи сохранены; при закрытой игре снят только own enabled.txt.
+27 старых mod/loader и88 текущих файлов сохранили хэши при проверке/отключении.
+Текущий lookup-only вариант BLOCKED; минимальная следующая правка — одно точное
+обновление ресурсов через EngineTick после reload, затем свежая проверка цели/UI.
+Новая ревизия не установлена; World/production acceptance BLOCKED.
+
+## История deferred-установки
+
 **2026-10-30 — deferred World revision INSTALLED, runtime PENDING.**
 По разрешению пользователя при закрытой игре установлен точный2941123 source
 в новый ImmersiveInteractionPromptsWorldDeferredProbe: два Lua и enabled.txt.

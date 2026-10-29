@@ -1,7 +1,8 @@
 # First owned World component — frozen failed revision
 
 **2026-10-30 source follow-up:** [separate deferred diagnostic revision](deferred/README.md)
-is now INSTALLED with runtime PENDING after separate authorization. It removes inline creation/cleanup, adds pre-hook
+completed one NOT_LOADED run after separate authorization and is now disabled.
+It removes inline creation/cleanup, adds pre-hook
 preparation and phase boundaries; it does not establish the old hang cause or a
 runtime fix. The original files/hashes and negative evidence below stay frozen.
 

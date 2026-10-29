@@ -1,6 +1,15 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — deferred World revision INSTALLED, runtime PENDING
+## Текущий результат — deferred World: NOT_LOADED guard, probe отключён
+
+Первый отложенный прогон дошёл из MATCH в EngineTick, но после reload точный
+живой host-class gate не прошёл. World-компонент ещё не создавался. Следующая
+минимальная правка — одно ограниченное разрешение/LoadAsset точных ресурсов
+после reload в EngineTick, затем новая проверка actor/component/widget/UI и pose.
+Никакой загрузки внутри CanShow или смены anchor/материала. Это план следующей
+ревизии, не установленное исправление и не World runtime PASS.
+
+## Предыдущая установка
 
 Отдельное разрешение на установку получено; точный2941123 source установлен
 при закрытой игре2026-10-30, с rollback/installed hashes. Следующий шаг — один

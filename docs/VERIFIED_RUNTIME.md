@@ -1,5 +1,20 @@
 # Verified Runtime — Interaction Prompts
 
+## Deferred World run — NOT_LOADED guard, 2026-10-30
+
+Exact2941123 source/installed bytes unchanged. PREPARED/load_host END before
+own hooks; three pairs after reload; MATCH→QUEUED00:43:34.870, EngineTick
+DISPATCHED00:43:34.884 and completed anchor_camera/look_at/make_transform.
+resident_assets then fails host live-class gate NOT_LOADED. STOP hooks_remaining0,
+poses0, cleanup_queued=false; no component allocation/World draw/teardown exercised.
+User saw no WORLD TEST. Prior preloading did not satisfy post-reload residency/
+validity gate; exact null/pending-kill/path subcondition and GC cause unknown.
+[Logs and next seam](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+UE4SS SHA2560c3f4cee9155bc87125c005e4dd2cdae9889c363449bb998ed98d22ec4afbc92;
+Genesis SHA2566a35d73848a0de4697016fbc22fc7d6b403a04ef22cfafe23ba2116f904faafe.
+Archived then disabled own marker closed-game;27 previous mod/loader hashes
+matched,88 current files unchanged across disable. No replacement installed.
+
 ## Deferred World revision installation — 2026-10-30, runtime PENDING
 
 Authorized closed-game installation of2941123d56f2840e98ce8ca49d81204b8185fbc5.
