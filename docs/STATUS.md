@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World orientation comparison READY_SOURCE, NOT_INSTALLED.**
+[Исходники, контракты, хэши и будущий тест](../research/interaction-prompts-owner/world-space/orientation/README.md).
+Отдельная ограниченная ревизия сохраняет принятый V3 renderer/anchor/material и
+начальную фиксированную ориентацию. F6 переключает fixed/follow: не чаще10Hz,
+поворот при ошибке>=1°, только собственный компонент через K2_SetWorldRotation
+на EngineTick, с readback и свежей проверкой цели/UI. Максимум450 проверок/45s;
+при потере/смене известной цели, уходе за экспериментальные bounds или F7 — stop
+и own cleanup. Нет сканирования мира, изменения размера/положения/оригинального UI.
+177 tests/13 suites PASS,19 новых; setter/marshaling/плавность ещё runtime PENDING.
+Динамический billboard не принят как production-дизайн. Следующий достаточный
+шаг после отдельного разрешения установки — один fixed/follow camera comparison
+и ручной F7 до timeout. Принятый rendering/occlusion опыт не повторять. Игра и
+установленный payload не менялись; production BLOCKED.
+
 **2026-10-30 — bounded World rendering / Hilda occlusion / timeout cleanup PASS.**
 [Полный результат](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
 Точный6ad93fc V3 загрузил host одним LoadAsset после reload, создал собственный

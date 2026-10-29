@@ -1,5 +1,15 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий достаточный шаг — fixed/follow и ручной F7
+
+[Orientation source READY_SOURCE](../research/interaction-prompts-owner/world-space/orientation/README.md), не установлен. Однократный look-at
+оставлен контрольным режимом; ограниченный follow нужен для сравнения читаемости
+при обходе объекта, а не как заранее принятое production-поведение. Один будущий
+прогон: fixed arc → F6 follow arc/небольшое near-far → F7 до30s, максимум два
+пользовательских F8 после стартового снимка. Это закрывает новый setter/UX и
+оставшийся ручной cleanup, не переоткрывает binding/render/occlusion. Size/scale,
+Aphes, ornament и полный lifecycle в этом изменении не трогаются.
+
 ## Текущий результат — один World render / Hilda occlusion / timeout cleanup PASS
 
 [V3 runtime](../research/interaction-prompts-owner/world-space/probe/deferred/README.md)
@@ -12,7 +22,7 @@ cleanup завершились. Проба отключена. Не повтор
 Предлагаемый следующий независимый вопрос — читаемость/ориентация при обычном
 движении камеры и изменении дистанции. Текущая плоскость получает один look-at
 при создании; ощущения раннего поворота не объяснены двумя поздними снимками.
-Решение о динамическом camera-facing/lifecycle ещё не реализовано и не принято
+Полное production-решение о динамическом camera-facing/lifecycle ещё не принято
 за production-поведение. Aphes/орнамент/нативные hints и полная композиция остаются
 отдельной интеграцией. Первый hang не диагностирован; production BLOCKED.
 

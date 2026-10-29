@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Orientation follow-up — SOURCE ONLY, 2026-10-30
+
+[Separate comparison source and exact limits](../research/interaction-prompts-owner/world-space/orientation/README.md) is READY_SOURCE, not installed.
+UE4.27/UHT confirms SceneComponent.K2_SetWorldRotation(FRotator,bool,FHitResult&,bool);
+pinned UE4SS requires an OutParm table even for false sweep. Native setter updates
+scene/render transform, unlike a direct reflected rotation-field assignment.
+Delayed callbacks only queue explicit EngineTick work.177 mocked/offline tests
+pass; these do not prove actual registered-component rotation, OutParm marshalling,
+visual smoothness/readability or F7 runtime cleanup. Accepted V3 facts below remain
+unchanged. No new runtime PASS or automatic production billboard decision.
+
 ## V3 owned World render / Hilda occlusion / timeout cleanup — bounded PASS, 2026-10-30
 
 [Exact timeline, poses and evidence limits](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).

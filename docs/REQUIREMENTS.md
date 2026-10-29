@@ -1,5 +1,9 @@
 # Требования — Immersive Interaction Prompts
 
+Уточнение2026-10-30: читаемость при обычном движении камеры — открытый UX gate.
+Ограниченная [fixed/follow проба](../research/interaction-prompts-owner/world-space/orientation/README.md) сравнивает способы ориентации;
+постоянный billboard, диапазон углов и distance scaling ещё не приняты.
+
 **Название принято 2026-10-27.** Концепция принята; ограниченный native Aphes render доказан, production lifecycle ещё открыт.
 
 ## Желаемый результат

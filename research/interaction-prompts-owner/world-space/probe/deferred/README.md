@@ -8,6 +8,10 @@ Frozen first-run source and its BLOCKED result stay in [the parent report](../RE
 This proves one World rendering/depth mechanism, not the final composition or
 production lifecycle. Production acceptance remains BLOCKED.
 
+Next source-only work: [fixed/follow orientation comparison](../../orientation/README.md),
+READY_SOURCE / NOT_INSTALLED. Accepted V3 source below is frozen; this new trial
+combines camera/readability evaluation with the unperformed manual F7 check.
+
 ## V3 user-run result — 2026-10-30, one natural Open
 
 Exact source6ad93fc302d43c9578792cd339ddf10421f3e0fe, main/helper hashes below

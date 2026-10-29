@@ -1,5 +1,8 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Next source-only revision:** [orientation fixed/follow comparison](orientation/README.md),
+READY_SOURCE / NOT_INSTALLED; native rotation and manual F7 still runtime PENDING.
+
 **Latest runtime2026-10-30:** [Deferred V3 bounded World rendering / Hilda partial-letter
 occlusion / timeout cleanup PASS](probe/deferred/README.md), probe disabled. Exact
 post-reload class load, private host/component/RT/stock masked material/native
@@ -8,7 +11,7 @@ late actual transforms match; perceived early motion is unresolved. No manual F7
 or dynamic billboard/full lifecycle/production acceptance. Do not repeat this
 completed mechanism test. Earlier source/install/blocker notes below are history.
 
-**Current2026-10-30:** [Deferred V3 post-reload refresh INSTALLED](probe/deferred/README.md),
+**Historical installation2026-10-30:** [Deferred V3 post-reload refresh INSTALLED](probe/deferred/README.md),
 runtime PENDING after authorized closed-game deployment. Maximum one exact load per HOST/MASK on queued EngineTick, explicit
 nil/null/invalid/native-invalid/identity diagnostics and fresh post-load target/UI/
 anchor checks before unchanged creation.158 offline tests PASS. Installed V2
