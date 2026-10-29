@@ -1,5 +1,10 @@
 # Natural Open binding — NO_EVENTS / mapping NOT_OBSERVED, probe disabled
 
+**Source-only follow-up:** [route/architecture review](ROUTE_REVIEW.md) prefers
+parent Blueprint BeginPlay acquisition joined to proven CanShow, based on an
+explicit BaseLoot parent-call chain. Setup/SetArrayData natural callsites remain
+unproved. No new executable payload or install; live binding/World still BLOCKED.
+
 ## Runtime result — 2026-10-29
 
 Installed source148e5c062cc5817e271635372d8111efb97cae4f and Lua hash below still

@@ -1,13 +1,26 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — Open binding NO_EVENTS; следующий вход не выбран
+## Следующий выбранный маршрут — parent Blueprint BeginPlay + CanShow, source-only
+
+[Сравнение и точный контракт](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md)
+подтвердили explicit BaseLoot BeginPlay→parent BeginPlay→own widget цепочку.
+Достаточный следующий шаг — отдельно подготовить read-only прототип двух точных
+script hooks:≤8 временных Open-пар при естественном BeginPlay, затем exact pointer
+join с известным CanShow. Будущий один тест требует arm до ручного reload текущего
+сохранения; просто подойти к уже инициализированному сундуку недостаточно.
+Новых runtime-исходников/установки в этом source-only этапе нет.
+Setup/SetArrayData не выбраны без подтверждённого natural callsite. World B остаётся
+предпочтительным условным направлением; Screen не удовлетворяет принятому occlusion.
+Live mapping/pose, World rendering и production BLOCKED.
+
+## Принятый отрицательный результат — Open binding NO_EVENTS
 
 [Первый event-scoped тест](../research/interaction-prompts-owner/open-binding/README.md)
 завершён: SetShow hook зарегистрирован, но за31.965s до user stop callbacks=0,
 MATCH/POSE нет. Проба отключена. Это не ошибка getter или доказанный native bypass:
 причина отсутствия событий неизвестна. Повтор того же опыта без новой причины
-не запланирован. Следующая отдельная граница — выбрать источник component identity
-с проверяемым естественным dispatch/timing; не ставить автоматически ещё один hook.
+не запланирован. Источник для следующего ограниченного теста выбран выше;
+не ставить автоматически ещё один hook.
 Host/CanShow результаты сохраняются. Live mapping, World и production BLOCKED.
 
 ## История первого Open binding прототипа

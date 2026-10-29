@@ -1,5 +1,23 @@
 # Verified Runtime — Interaction Prompts
 
+## Post-NO_EVENTS route selection — source-only, 2026-10-29
+
+[Exact comparison/contract](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md).
+New checked chain: BaseLoot_BP.ReceiveBeginPlay wrapper→ubergraph2152→explicit
+zero-arg BaseGameEventObject_BP_C.ReceiveBeginPlay→parent entry92→own
+ExtendedWidget.GetUserWidgetObject102→TipHUD cast144. BaseLoot's inherited
+TipHUDArgument template has Open. Parent event is non-Native, zero-input/void.
+Pinned83330635 registers non-native script callbacks on ProcessLocalScriptFunction
+post with context; equal pre/post IDs are not two separate script phases.
+CanShow supplies the already runtime-proven widget identity for a future exact join.
+This supports bounded initialization acquisition, not live actor mapping or a
+guarantee that every placed Open subclass calls the parent. Registration before a
+new BeginPlay generation and callback survival over one manual reload are gates.
+No natural Setup/SetArrayData/SetShow callsite found in304 retained script exports;
+their native implementations/timing remain unknown, not proven absent game-wide.
+Offline source assertions passed. No new probe/Lua edits/install/run or runtime
+proof. World rendering/production remain BLOCKED.
+
 ## Open binding run — NO_EVENTS, 2026-10-29
 
 [Exact negative result](../research/interaction-prompts-owner/open-binding/README.md).

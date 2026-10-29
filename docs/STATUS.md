@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — после NO_EVENTS выбран source-only маршрут: parent Blueprint
+BeginPlay → точный join с CanShow. Новый payload не создан.**
+[Переоценка архитектуры и контракт](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md):
+BaseLoot/Open ReceiveBeginPlay входит в ubergraph2152 и явно вызывает родительский
+BaseGameEventObject_BP.ReceiveBeginPlay; родитель получает own ExtendedWidget's
+widget на102. Это более сильное callsite-доказательство, чем декларации native
+Setup/SetArrayData. Для них natural timing/dispatch всё ещё неизвестны.
+Предпочтительный следующий тест — ограниченный захват≤8 Open-пар на естественном
+BeginPlay после ручного reload и сопоставление с уже доказанным CanShow callback.
+Статус PREFERRED_ROUTE_DEFINED, live mapping/pose ещё NOT_OBSERVED. Runtime-код,
+установка/игра/production/VERSION не менялись. World/production BLOCKED;
+реальное перекрытие Хильдой остаётся требованием, Screen только fallback.
+
 **2026-10-29 — Open binding: NO_EVENTS, mapping/pose NOT_OBSERVED; probe отключён.**
 [Результат](../research/interaction-prompts-owner/open-binding/README.md): native
 SetShow hook зарегистрирован IDs10/11, WAITING14:28:55.863 → STOP reason=user

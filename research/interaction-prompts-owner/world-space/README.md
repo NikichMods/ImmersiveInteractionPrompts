@@ -22,7 +22,10 @@ The [Open binding report/probe](../open-binding/README.md) completed one NO_EVEN
 run: native SetShow registered but0 callbacks/samples during31.965s until user stop.
 No actual component/widget/actor pair or pose was obtained; missing-event cause
 unknown. Probe disabled. The source getter contracts remain evidence, but another
-natural entry route needs separate review. World payload remains BLOCKED.
+natural entry route needed separate review. [Source-only route review](../open-binding/ROUTE_REVIEW.md)
+now prefers the explicit BaseLoot parent Blueprint BeginPlay chain, paired with
+proven CanShow for exact selection. No new payload. The host gate passed one
+viewport cycle; live binding and World registration/render/occlusion remain BLOCKED.
 The original comparison/checkpoint below is retained as historical provenance.
 
 ## Recovery and scope
@@ -177,9 +180,9 @@ runtime-validated payload; original actor serialization/lifecycle remains a gate
 | --- | --- | --- |
 | Advantage | Original localization, input/material producers and show/hide stay naturally connected | Original TipHUD and its renderer remain untouched; no in-place migration/restore |
 | Required work | Exact live component/transform/material; renderer registration and old screen-layer removal; finite snapshots of mutable state do not cover private renderer caches | Independent safe UserWidget, exact target owner/pose; transient allocation/finish-registration/no-collision; own orientation/scale and teardown |
-| Principal risk | Renderer absent after setter; stale/duplicate screen attachment or world proxy; native Genesis writes; rebuilding original Slate/native construct behavior | Creating a game UserWidget with unreviewed native callbacks; using the same live widget in two renderers; improper actor component persistence or collision |
+| Principal risk | Renderer absent after setter; stale/duplicate screen attachment or world proxy; native Genesis writes; rebuilding original Slate/native construct behavior | Host viewport lifecycle passed, but World rebuild/resource lifetime remains untested; sharing the same live widget across renderers and improper actor component persistence/collision remain unsafe |
 | Cleanup | Returning Space/scale/material values alone cannot prove native resource restoration | Conditional self-destroy/own-resource release path is source-visible; original needs no restoration; actual destroy/GC still untested |
-| Decision | Not a safe first payload; do not replace simple setter with blind re-registration/SetWidget(original) calls | **Preferred minimal architecture, currently BLOCKED** at independent host and exact binding |
+| Decision | Not a safe first payload; do not replace simple setter with blind re-registration/SetWidget(original) calls | **Conditional preferred architecture, BLOCKED** at live binding/World runtime; independent host viewport gate has passed |
 
 A live TipHUD cannot be used as B's SetWidget argument to dodge the missing host:
 UWidget.TakeWidget returns cached Slate content, not a deep UI clone. It would

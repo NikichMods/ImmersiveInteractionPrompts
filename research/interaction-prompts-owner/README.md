@@ -1,5 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
+**Current route decision, source-only:** [BeginPlay + CanShow review](open-binding/ROUTE_REVIEW.md).
+Positive BaseLoot/Open parent-call chain supports a bounded acquisition+exact join
+test design; no new runtime code. Natural Setup/SetArrayData dispatch is not proved.
+World B remains conditional preferred direction; Screen does not satisfy Hilda
+occlusion. Live mapping/pose and World rendering/production remain BLOCKED.
+
 **Current Open binding result:** [open-binding/README.md](open-binding/README.md).
 Native SetShow hook registered but received0 callbacks/0 samples in31.965s before
 user stop. NO_EVENTS, no live mapping/pose/getter proof; cause unknown. Probe
