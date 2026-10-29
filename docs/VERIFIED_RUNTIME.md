@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Acquisition-only budget closure — corrected source, 2026-10-29
+
+Read-only research revision closes only BeginPlay acquisition at128 and retains
+validated pairs for CanShow under the existing120s/4096/4-pose/8-candidate limits.
+No identity/return or game-state behavior changed.108 offline tests pass, including
+the3-pair replay matching after init closure and pending-unregister containment.
+SHA256932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664.
+User authorized installation; this source record is not new runtime acceptance.
+Earlier live acquisition evidence remains attached to3497ab5, not this revision.
+
 ## OpenJoin run — acquisition PASS, selection budget cutoff, 2026-10-29
 
 [Exact identities, evidence and limits](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).

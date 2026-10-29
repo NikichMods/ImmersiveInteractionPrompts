@@ -9,6 +9,7 @@ local phase,deadline="armed",0
 local hooks,candidates,seen={}, {}, {}
 local target,previous=nil,nil
 local final_result=nil
+local acquiring=false
 local count={init=0,open=0,not_ready=0,ready=0,show=0,visible=0,unmatched=0,match=0,poses=0}
 local checkpoints=0
 local function log(e,s) print("IIP_OPEN_JOIN event="..e.." "..(s or "").."\n") end
@@ -49,6 +50,13 @@ local function release(p)
     if ok then hooks[p]=nil
     else log("UNREGISTER_PENDING",tostring(err):sub(1,180)) end
 end
+local function close_acquisition(reason)
+    if not acquiring then return end
+    acquiring=false;seen={} -- Freeze only the already checked pairs; no further initialization reads.
+    release(BEGIN)
+    log("ACQUISITION_CLOSED","reason="..reason.." init="..count.init
+        .." retained="..#candidates.." selection_continues=true deadline_unchanged=true")
+end
 local function remaining() local n=0;for _ in pairs(hooks)do n=n+1 end;return n end
 local function result()
     if count.match>0 then return count.poses>0 and "MATCHED" or "MATCH_WITHOUT_POSE" end
@@ -63,6 +71,7 @@ local function stop(reason,outcome)
     if phase=="stopped" and remaining()==0 then return end
     final_result=final_result or outcome or result() -- Cleanup retry must not erase the original failure.
     phase="stopped" -- Before attempting removal, including when metadata is temporarily absent.
+    acquiring=false
     candidates,seen,target,previous={}, {}, nil,nil
     release(BEGIN);release(SHOW)
     log("STOP","reason="..reason.." result="..final_result
@@ -126,12 +135,12 @@ local function pose(reason)
     if count.poses>=4 then stop("pose_budget") end
 end
 local function acquire(context,...)
-    if phase~="waiting" then return end
+    if phase~="waiting" or not acquiring then return end
     local extra=select("#",...)
     guard(function()
         if not active() then return end
         count.init=count.init+1
-        if count.init>=128 then stop("init_budget");return end
+        if count.init>=128 then close_acquisition("init_budget");return end
         assert(extra==0,"CONTRACT: ReceiveBeginPlay inputs")
         local actor=context:get()
         assert(instance(actor) and derives(actor,BASE),"CONTRACT: BeginPlay actor context/default")
@@ -190,7 +199,7 @@ local function select_widget(context,...)
         if c.bVisible~=true or c.bAddedToScreen~=true then count.unmatched=count.unmatched+1;return end
         assert(c:GetWidgetSpace()==1,"CONTRACT: selected component is not Screen")
         target=found;candidates,seen={}, {};phase="bound";count.match=1
-        release(BEGIN) -- Only our acquisition hook; remaining BeginPlay callbacks are inert.
+        if acquiring then acquiring=false;release(BEGIN) end -- Already closed acquisition is never restarted.
         log("MATCH","reciprocal=true actor="..string.format("%q",path(actor)).." actor_class="..string.format("%q",cls(actor))
             .." component="..string.format("%q",path(c)).." widget="..string.format("%q",path(w))
             .." actor_address="..actor:GetAddress().." component_address="..c:GetAddress().." widget_address="..w:GetAddress())
@@ -209,6 +218,7 @@ local function control()
     if phase=="armed" then
         phase,deadline="waiting",os.time()+120 -- One attempt. Loading time is included.
         function_ready(BEGIN);function_ready(SHOW)
+        acquiring=true
         register(BEGIN,acquire);register(SHOW,select_widget)
         ExecuteInGameThreadWithDelay(120000,function()if phase~="stopped" then stop("timeout")end end)
         log("WAITING","reload_manually_once=true candidates_max=8 init_max=128 show_max=4096 poses_max=4 duration_max=120s")
@@ -224,6 +234,7 @@ local function dispatch(fn)
     local ok,err=pcall(ExecuteInGameThread,function()guard(fn)end,EGameThreadMethod.EngineTick)
     if not ok then
         phase="stopped";candidates,seen,target,previous={}, {}, nil,nil
+        acquiring=false
         final_result=final_result or "DISPATCH_FAILED"
         log("DISPATCH_FAILED","hooks_inert=true explicit_stop_or_exit_required=true "..tostring(err):sub(1,160))
     end

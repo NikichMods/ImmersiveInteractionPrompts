@@ -152,7 +152,9 @@ class BeginPlayJoinPolicy(unittest.TestCase):
         self.case('key();S.now=1121;key();assert(has("reason=timeout") and not has("event=CHECKPOINT"))')
 
     def test_exact_callback_and_candidate_caps(self):
-        self.case('key();set(P.argument,"tag","Take");for i=1,128 do begin()end;assert(has("reason=init_budget") and has("init=128"))')
+        self.case('key();set(P.argument,"tag","Take");for i=1,128 do begin()end;'
+                  'assert(has("event=ACQUISITION_CLOSED") and not S.hooks[BEGIN] and S.hooks[SHOW]);'
+                  'show();key(7);assert(has("init=128") and has("result=NO_OPEN_CANDIDATE"))')
         self.case('key();for i=1,4096 do show()end;assert(has("reason=show_budget") and has("show=4096") and S.pose_reads==0)')
         self.case('key();for i=1,9 do begin(pair(i+10))end;assert(has("reason=candidate_budget") and has("ready=8"))')
 
@@ -206,5 +208,25 @@ class BeginPlayJoinPolicy(unittest.TestCase):
         self.case('key();begin();show();S.unregister_fail=SHOW;set(P.component,"Widget",nil);show();'
                   'assert(has("kind=IDENTITY_ERROR"));S.unregister_fail=nil;key(7);'
                   'assert(S.logs[#S.logs]:find("result=IDENTITY_ERROR",1,true))')
+
+    def test_real_run_regression_three_pairs_survive_init_cutoff(self):
+        self.case('key();begin();local two=pair(2);local three=pair(3);begin(two);begin(three);'
+                  'local other=pair(99);set(other.argument,"tag","Take");for i=1,125 do begin(other)end;'
+                  'assert(has("retained=3") and not S.hooks[BEGIN] and S.hooks[SHOW]);'
+                  'local reads=S.context_reads;begin(other);assert(S.context_reads==reads);'
+                  'show(two);assert(has("event=MATCH") and has("actor=\\"/World.Chest2\\"") and S.pose_reads==1);'
+                  'key(7);assert(has("result=MATCHED") and has("init=128"))')
+
+    def test_closed_acquisition_stays_inert_if_unregistration_pending(self):
+        self.case('key();begin();S.unregister_fail=BEGIN;for i=1,127 do begin()end;'
+                  'local reads=S.context_reads;for i=1,20 do begin()end;assert(S.context_reads==reads);'
+                  'show();assert(has("event=MATCH") and S.pose_reads==1);S.unregister_fail=nil;'
+                  'key(7);assert(S.released==2 and has("init=128"))')
+
+    def test_init_close_does_not_extend_deadline_or_pose_cap(self):
+        self.case('key();begin();for i=1,127 do begin()end;S.now=1121;show();'
+                  'assert(has("reason=timeout") and S.pose_reads==0)')
+        self.case('key();begin();for i=1,127 do begin()end;show();for i=1,3 do key()end;'
+                  'assert(S.pose_reads==4 and has("reason=pose_budget"))')
 
 if __name__=='__main__':unittest.main()

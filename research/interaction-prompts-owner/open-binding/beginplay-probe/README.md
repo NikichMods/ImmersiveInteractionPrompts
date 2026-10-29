@@ -1,6 +1,27 @@
-# BeginPlay + CanShow Open join — acquisition PASS, selection cut off; disabled
+# BeginPlay + CanShow Open join — acquisition-budget correction READY_SOURCE
 
-## Runtime result — 2026-10-29
+## Corrected research revision — 2026-10-29
+
+User authorized preparation and installation of the budget correction. Current
+[source](Scripts/main.lua) SHA256
+`932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664`.
+On the128th BeginPlay callback, acquisition becomes inert before unregistration;
+ACQUISITION_CLOSED logs retained pairs and an unchanged deadline. Only own BeginPlay
+hook is released; checked candidate records and CanShow remain active. There is
+no new acquisition/re-registration, no change to the8-candidate/4096-CanShow/
+120s/4-pose bounds, identity checks, return policy or read-only scope. A pending
+BeginPlay removal cannot consume more contexts because the acquisition flag is
+already false. Candidate overflow still stops globally rather than hiding a ninth
+candidate; CanShow/pose/time limits and explicit stop still end everything.
+
+`python tools/test.py`:108 tests/10 suites PASS,25 join policy tests. The new real-run
+regression acquires3 pairs, reaches128, then matches the second pair via CanShow.
+Other new checks cover pending acquisition unregistration/inert late callbacks
+and unchanged timeout/pose cap. Prior runtime evidence below belongs to unchanged
+3497ab5 bytes, not acceptance of this correction. No production release/VERSION
+change or World payload. Exact replacement installation is a separate record.
+
+## Original revision runtime result — 2026-10-29
 
 Exact installed3497ab5234e61084cf75fe32fe1a16d4b92de443 source/hash below unchanged.
 Native loader83330635 registered script IDs10/10 (parent BeginPlay) and11/11
@@ -45,12 +66,12 @@ Game verified closed; only own enabled.txt removed after archiving. Source remai
 unchanged/disabled. All24 prior mod/loader hashes still matched installation;
 all87 other current files retained hashes across disable, including other mods.
 
-The next **proposed, not implemented** correction is to close only acquisition
+The next correction proposed after that original run was to close only acquisition
 at the existing128 callback budget, keeping the already checked≤8 pairs and the
 CanShow selection window within the same120s/4096/4-pose limits. Do not raise the
 init cap, repeat unchanged, automatically retry or install a new revision in this
-run. This would change budget policy and needs its own source preparation/tests
-before a separately authorized installation. It may permit selection, not
+run. That budget correction is now prepared/tested above and authorized for
+installation. It may permit selection, not
 guarantee a CanShow callback. World rendering/production remain BLOCKED.
 
 ## Installation history — 2026-10-29, before this run
@@ -70,10 +91,10 @@ and hash-guarded rollback.ps1 restoring the previously absent target. No source
 edit, launch/termination/reload/hot reload or runtime observation. Test below is
 now authorized for this installation; results are still PENDING.
 
-## Source preparation record
+## Original source preparation record — 3497ab5
 
 2026-10-29. Steam1.09/build12996889, UE4.27, UE4SS83330635. Separate research-only
-[Lua source](Scripts/main.lua), no dependencies beyond the pinned loader APIs.
+[Original Lua source](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/3497ab5234e61084cf75fe32fe1a16d4b92de443/research/interaction-prompts-owner/open-binding/beginplay-probe/Scripts/main.lua), no dependencies beyond the pinned loader APIs.
 SHA256 `995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3`.
 Prepared without installation/execution; later installation recorded above.
 Old SetShow source/result stays unchanged and disabled.
@@ -154,8 +175,9 @@ CanShow subsequently validates the selected target/state but does not auto-sampl
 transforms. No monitoring loop. Missing/disappeared identities are detected on a
 relevant callback/manual sample; total expiry also ends the record lifetime.
 
-128th initialization callback /4096th CanShow callback ends with BUDGET before
-reading that context. Ninth distinct Open actor also stops, rather than silently
+In the corrected revision, the128th initialization callback closes acquisition
+before reading that context, retaining checked pairs for CanShow. The4096th CanShow
+callback ends everything with BUDGET. Ninth distinct Open actor also stops, rather than silently
 discarding it and claiming uniqueness. Up to8 ACQUIRED/NOT_READY lines,4 POSEs,
 one MATCH and two manual waiting CHECKPOINTs; no per-frame log. Stop summary keeps:
 init/open/not_ready/ready/show/visible_open/unmatched/matches/poses and owned IDs left.
@@ -198,7 +220,7 @@ Source supports registration persistence but actual metadata availability, paren
 dispatch, candidate capacity, ready-widget timing and callback survival all remain
 runtime gates. Normal original UI/action behavior must also be observed by user.
 
-## Offline verification
+## Original offline verification — before the correction
 
 `python tools/test.py`: **105 tests /10 suites PASS**, including22 new Lua policy
 tests. Read-only engine-object mocks reject all property writes; callbacks are

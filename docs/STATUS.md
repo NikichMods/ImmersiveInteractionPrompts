@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — acquisition-budget correction READY_SOURCE, installation authorized.**
+[Ревизия](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
+закрывает только BeginPlay acquisition при128, сохраняя проверенные пары и CanShow.
+Общие120s/4096 callbacks/4 poses и≤8 кандидатов прежние; лишние init contexts не
+читаются даже при отложенном снятии hook.108 offline tests PASS, включая replay
+3-пар/128-callback сценария с последующим MATCH. Lua SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664.
+Runtime новой ревизии не проверен; production/VERSION/World не меняются.
+
 **2026-10-29 — OpenJoin: acquisition PASS, selection cut off by init budget;
 probe отключён.** [Точный результат](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
 после ручного reload получены3 реальные Open actor/component/TipHUD пары с

@@ -1,16 +1,24 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат —3 пары приобретены, selection прерван init budget
+## Текущий шаг — corrected acquisition-only budget revision
+
+Поправка подготовлена,108 offline tests PASS, установка разрешена пользователем.
+При128 закрывается только acquisition; сохранённые≤8 пар доступны CanShow в
+исходном120s окне. Следующий достаточный тест — один ручной reload после arm,
+появление Open и MATCH/POSE либо точный отрицательный итог. Больше init callbacks,
+новых hooks, объектов или автоматических повторов не добавлено. Production/World BLOCKED.
+
+## Основание поправки —3 пары приобретены, selection прерван init budget
 
 [Прогон](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
 подтвердил BeginPlay после reload и3 точные Open actor/component/TipHUD пары.
 Весь observer остановился на128 init callbacks до первого CanShow, за20.789s;
 active join/pose не получены, причина остановки известна и не является identity error.
 Проба отключена. Не повторять без изменений и не повышать лимиты автоматически.
-Предлагаемый следующий ограниченный этап — source-поправка: по128 закрыть только
+Выбранная source-поправка: по128 закрыть только
 acquisition, оставить≤8 уже проверенных пар и selection в исходных120s/4096
-CanShow/4 poses. Код этой поправки не создан; после подготовки нужны offline
-проверки и отдельная установка. World rendering/production остаются BLOCKED.
+CanShow/4 poses. Она подготовлена и проверена, её установка разрешена; фактический
+deployment фиксируется отдельно. World rendering/production остаются BLOCKED.
 
 ## История подготовки и установки первого dual-script probe
 
