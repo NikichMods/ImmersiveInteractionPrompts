@@ -1,6 +1,59 @@
-# BeginPlay + CanShow Open join — INSTALLED, runtime PENDING
+# BeginPlay + CanShow Open join — acquisition PASS, selection cut off; disabled
 
-## Authorized installation — 2026-10-29
+## Runtime result — 2026-10-29
+
+Exact installed3497ab5234e61084cf75fe32fe1a16d4b92de443 source/hash below unchanged.
+Native loader83330635 registered script IDs10/10 (parent BeginPlay) and11/11
+(CanShow) at19:41:14.437; WAITING19:41:14.4375096. After the requested manual reload,
+ACQUIRED appeared three times at19:41:34.642–34.643. This confirms parent script
+dispatch after reload and successful read-only ownership/widget getter checks.
+
+All actor paths share
+`/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel.`
+Their components are the exact actor path plus `.ExtendedWidget`; widgets share
+`/Engine/Transient.GameEngine_2147482619:MainGameInstance_BP_C_2147482611.`
+
+| Actual actor suffix | Actual widget suffix |
+| --- | --- |
+| 0-1_lootbox_01_mat_ST001 | TipHUD_C_2147477784 |
+| 0-1_lootbox_02_phy_r1t1 | TipHUD_C_2147477777 |
+| 0-1_lootbox_03_phy_r1t1 | TipHUD_C_2147477772 |
+
+ACQUIRED is emitted only after non-default actor/base checks, Open/Interact25,
+argument ownership, actor.ExtendedWidget↔GetOwner and GetWidget/GetUserWidgetObject/
+Widget equality and NewUserWidget compatibility. Those checks executed without
+failure for three distinct initialization pairs. Numeric addresses and concrete
+actor classes were not printed at this stage; do not invent them or identify
+the user's currently visible Open from actor names alone.
+
+At19:41:35.2264700 STOP reason=init_budget result=NO_CANSHOW:
+init=128 open=3 not_ready=0 ready=3 show=0 visible_open=0 unmatched=0 matches=0
+poses=0 hooks_remaining=0. Both own script unregister operations were accepted.
+Elapsed20.7889604s from arm, before120s; Event loop end19:42:22.2775601.
+No FAILED/UNREGISTER_PENDING/DISPATCH_FAILED from the probe.
+
+**Partial result:** acquisition/reciprocal initialized pairing and BeginPlay
+registration through this reload PASS. Current visible CanShow selection and
+world pose remain NOT_OBSERVED. CanShow callback survival is neither proved nor
+disproved: the entire observer was stopped by its initialization budget before
+any CanShow callback was observed.128 counts callbacks, not distinct actors;
+the8-Open limit was not reached. No world transform getter ran.
+
+Log SHA256 `62e8dcd171f9de0b4056ce2df4aa8470be07827cd5034aaf90ad9d8b9a74636f`;
+raw log/events/result retained locally at beginplay-probe/runtime-20261029T164344Z.
+Game verified closed; only own enabled.txt removed after archiving. Source remains
+unchanged/disabled. All24 prior mod/loader hashes still matched installation;
+all87 other current files retained hashes across disable, including other mods.
+
+The next **proposed, not implemented** correction is to close only acquisition
+at the existing128 callback budget, keeping the already checked≤8 pairs and the
+CanShow selection window within the same120s/4096/4-pose limits. Do not raise the
+init cap, repeat unchanged, automatically retry or install a new revision in this
+run. This would change budget policy and needs its own source preparation/tests
+before a separately authorized installation. It may permit selection, not
+guarantee a CanShow callback. World rendering/production remain BLOCKED.
+
+## Installation history — 2026-10-29, before this run
 
 User authorized installation; host verified closed before copying/enabling.
 Exact source3497ab5234e61084cf75fe32fe1a16d4b92de443 installed unchanged as
@@ -123,7 +176,7 @@ Counters describe callbacks, not physical actions or distinct widgets. A stop
 reason (user/timeout/budget/target state) accompanies the result. No automatic next
 route or repeated observation follows a negative result.
 
-## User test — authorized installation completed, runtime pending
+## Historical user procedure — completed once, result above
 
 Install only these exact bytes in a new research-only mod, with previous IIP probes
 disabled, verified rollback and a closed game. Exact installation is recorded above;

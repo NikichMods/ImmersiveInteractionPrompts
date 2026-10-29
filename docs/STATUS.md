@@ -1,6 +1,20 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-29 — BeginPlay + CanShow OpenJoin probe INSTALLED, runtime PENDING.**
+**2026-10-29 — OpenJoin: acquisition PASS, selection cut off by init budget;
+probe отключён.** [Точный результат](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
+после ручного reload получены3 реальные Open actor/component/TipHUD пары с
+проверенными взаимными ссылками. Затем STOP init_budget за20.789s: init=128,
+open/ready=3, show/matches/poses=0; ошибок probe нет.128 — callbacks, не число actor.
+Подтверждён BeginPlay dispatch после reload; CanShow survival/visible join и pose
+ещё не установлены. Лог сохранён, игра закрыта, снят только собственный enabled.txt;
+24 старых mod/loader hashes совпали,87 остальных текущих файлов не изменились при
+отключении. Код не менялся. Предложение следующего этапа — закрывать только
+acquisition при128, сохраняя3 пары и прежние общие лимиты; не реализовано/не установлено.
+World rendering и production BLOCKED.
+
+## История подготовки и установки
+
+**2026-10-29 — BeginPlay + CanShow OpenJoin probe INSTALLED, runtime PENDING на момент установки.**
 По разрешению пользователя при закрытой игре установлен точный3497ab5 исходник,
 Lua SHA256995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
 Добавлены только main.lua/enabled.txt в новом ImmersiveInteractionPromptsOpenJoinProbe.

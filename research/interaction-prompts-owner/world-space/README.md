@@ -1,5 +1,11 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Latest binding evidence:** [OpenJoin run](../open-binding/beginplay-probe/README.md)
+acquired3 real initialized Open actor/component/widget pairs after reload, then
+stopped at128 initialization callbacks before CanShow selection. Source acquisition
+gate now has runtime proof; active target/world pose and World renderer remain
+unproved. Probe disabled. No new World payload or budget correction installed.
+
 **BLOCKED for an executable World-space payload. Engine/API/material feasibility
 is source/static-confirmed; no Asterigos World-space rendering/rollback test.**
 No Lua/C++ game payload, install, game launch/termination, hot reload, production
@@ -25,7 +31,7 @@ unknown. Probe disabled. The source getter contracts remain evidence, but anothe
 natural entry route needed separate review. [Source-only route review](../open-binding/ROUTE_REVIEW.md)
 now prefers the explicit BaseLoot parent Blueprint BeginPlay chain, paired with
 proven CanShow for exact selection. A separate [read-only join source](../open-binding/beginplay-probe/README.md)
-passed105 offline tests and is installed closed-game by permission, runtime pending;
+passed105 offline tests and the partial acquisition run above; now disabled,
 no World payload. The host gate passed one
 viewport cycle; live binding and World registration/render/occlusion remain BLOCKED.
 The original comparison/checkpoint below is retained as historical provenance.

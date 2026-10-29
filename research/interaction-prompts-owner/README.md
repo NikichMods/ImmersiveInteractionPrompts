@@ -1,9 +1,15 @@
 # Observation probe readiness — 2026-10-28
 
+**Latest OpenJoin run:** [result](open-binding/beginplay-probe/README.md).
+Three initialized Open actor/component/widget pairs acquired after reload;
+BeginPlay dispatch PASS. Entire observer stopped at128 init callbacks/20.789s
+before any CanShow, so visible selection/pose NOT_OBSERVED. Probe disabled,
+source unchanged. Acquisition-only budget closure is proposed, not implemented.
+
 **Current route decision, source-only:** [BeginPlay + CanShow review](open-binding/ROUTE_REVIEW.md).
 Positive BaseLoot/Open parent-call chain supports the separate
 [BeginPlay join source](open-binding/beginplay-probe/README.md),105 offline tests;
-exact3497ab5 source now installed closed-game by permission, runtime pending.
+exact3497ab5 source completed the partial acquisition run above and is disabled.
 Natural Setup/SetArrayData dispatch is not proved.
 World B remains conditional preferred direction; Screen does not satisfy Hilda
 occlusion. Live mapping/pose and World rendering/production remain BLOCKED.

@@ -1,8 +1,8 @@
 # Binding route review after NO_EVENTS — source-only, 2026-10-29
 
 **Preparation follow-up:** [BeginPlay probe source/procedure](beginplay-probe/README.md)
-passed105 offline tests and is now installed closed-game by separate permission;
-runtime remains pending. This review records
+passed105 offline tests, acquired3 pairs after reload, then stopped at init budget
+before CanShow selection. It is disabled; live selected pose remains unproved. This review records
 the preceding route-selection evidence; actual reload/identity/pose remain untested.
 
 **Preferred next design: exact parent Blueprint ReceiveBeginPlay acquisition +

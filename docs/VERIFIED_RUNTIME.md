@@ -1,6 +1,22 @@
 # Verified Runtime — Interaction Prompts
 
-## OpenJoin installation — 2026-10-29, runtime PENDING
+## OpenJoin run — acquisition PASS, selection budget cutoff, 2026-10-29
+
+[Exact identities, evidence and limits](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+Source3497ab5/hash995a581f... unchanged; log SHA256
+62e8dcd171f9de0b4056ce2df4aa8470be07827cd5034aaf90ad9d8b9a74636f.
+Script IDs10/10 and11/11 registered19:41:14.437. Three ACQUIRED records after
+manual reload19:41:34.642–34.643 verify initialized Open actor/component/widget
+reciprocal links. Parent BeginPlay dispatch across this reload passed; numeric
+addresses/concrete actor classes were not logged and current visible target is
+not identified. STOP19:41:35.226 reason=init_budget result=NO_CANSHOW at20.789s:
+init128/open3/ready3/show0/match0/pose0. No probe failures; own unregister accepted.
+This is initialization acquisition proof, not CanShow reload failure or active
+target/transform proof. Probe disabled closed-game;24 baseline loader/mod files
+still match,87 other current files unchanged across disable. No source correction,
+new install or World test performed. Production/World rendering BLOCKED.
+
+## OpenJoin installation history — 2026-10-29, before the partial run
 
 Authorized closed-game installation of exact3497ab5234e61084cf75fe32fe1a16d4b92de443
 source, source/installed SHA256995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
