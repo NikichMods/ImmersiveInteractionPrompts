@@ -1,5 +1,16 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий достаточный шаг — вертикальный frame-Yaw + F7
+
+[READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Один будущий разрешённый прогон на прежнем
+natural Open:10–15s небольших перемещений камеры с изменением высоты, один F8,
+затем F7 до25–30s. Проверить вертикальность, горизонтальный поворот/видимую
+ступенчатость, loop cancellation и native own cleanup. Это новый gate scheduler/
+компоновки плоскости, не повторение binding/renderer/occlusion. Aphes, орнамент,
+локализацию/hints и production lifecycle не переносить в эту пробу. Минимальный
+резерв initial vertical yaw описан в REQUIREMENTS; actor-facing не выбран.
+
+
 ## Завершённый orientation run — техническая запись, без дизайна
 
 [Результат](../research/interaction-prompts-owner/world-space/orientation/README.md): native registered-component rotation и cleanup после потери

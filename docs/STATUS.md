@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — vertical world-Z yaw READY_SOURCE, NOT_INSTALLED.**
+[Отдельная ревизия, контракты, хэши и один будущий тест](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Решение пользователя
+зафиксировано в REQUIREMENTS: каждый EngineTick только горизонтальный Yaw,
+Pitch/Roll0, без1° threshold/интерполяции; fixed initial vertical — минимальный резерв.
+Pinned LoopInGameThreadAfterFrames(1) подтверждён вместе с ownership/cancel/unref.
+Один own loop после регистрации, нативный lifetime каждый кадр, полная topology/
+anchor проверка каждые12 callbacks;12000 updates/45s, прежние пределы сохранены.
+8 точечных lookups/13 UE calls в обычном follow-кадре — не замер производительности.
+199 tests/14 suites PASS,22 новых. Не установлен, игра и прежний payload не менялись.
+Следующий отдельный runtime gate: вертикальность/покадровый Yaw и F7 до30s в одном
+коротком прогоне. Cadence/camera phase/performance и manual cleanup ещё не приняты;
+production BLOCKED. Старые результаты rendering/occlusion/setter не повторять.
+
+
 **2026-10-30 — bounded World rotation / target-loss cleanup PASS; probe DISABLED.**
 [Технический результат и границы](../research/interaction-prompts-owner/world-space/orientation/README.md). Fixed:103 polls/0 writes/error27.383°;
 F6 включил follow, первый native setter вернулся, ошибки setter/readback нет.

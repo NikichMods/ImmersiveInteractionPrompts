@@ -1,5 +1,10 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Current source-only2026-10-30:** [vertical frame-yaw](vertical-yaw/README.md),
+READY_SOURCE / NOT_INSTALLED. User adopted world-Z vertical target; runtime
+frame cadence/performance/manual F7 remain open. Prior rendering and setter PASS
+are prerequisites, not repeated tests.
+
 **Next source-only revision:** [orientation fixed/follow comparison](orientation/README.md),
 READY_SOURCE / NOT_INSTALLED; native rotation and manual F7 still runtime PENDING.
 

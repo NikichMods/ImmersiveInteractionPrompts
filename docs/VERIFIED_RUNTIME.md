@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Vertical yaw frame scheduler — SOURCE ONLY, 2026-10-30
+
+[Exact source and bounds](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md) READY_SOURCE, NOT_INSTALLED. Pinned frame-loop
+runs via EngineTick, shared per-mod hook Lua matches CancelDelayedAction ownership;
+PendingRemoval erases/unrefs the callback. Return true is not a cancellation API.
+199 mocked/offline tests PASS,22 new. No runtime frame-yaw/cadence/performance/F7
+acceptance; the previous native setter and target-loss cleanup evidence below
+is unchanged. User adopted world-Z vertical yaw UX, not new runtime proof.
+
+
 ## Orientation — bounded native rotation and target-loss cleanup PASS, 2026-10-30
 
 [Exact evidence and limits](../research/interaction-prompts-owner/world-space/orientation/README.md). Source6d44daa/installed Lua hashes unchanged.

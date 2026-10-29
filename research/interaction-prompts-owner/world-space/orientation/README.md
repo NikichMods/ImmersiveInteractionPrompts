@@ -1,5 +1,9 @@
 # World orientation — bounded rotation / target-loss cleanup PASS
 
+**Successor source-only:** [vertical world-Z frame yaw](../vertical-yaw/README.md),
+READY_SOURCE / NOT_INSTALLED. New user decision supersedes full-pitch/fixed design
+comparison; this accepted runtime record and frozen Lua remain unchanged.
+
 2026-10-30. User-run technical result recorded below; probe DISABLED.
 Design/visual preference not evaluated here. Production BLOCKED.
 
