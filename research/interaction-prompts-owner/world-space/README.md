@@ -1,5 +1,11 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Current source2026-10-30:** [Deferred V3 post-reload refresh READY_SOURCE](probe/deferred/README.md),
+not installed. Maximum one exact load per HOST/MASK on queued EngineTick, explicit
+nil/null/invalid/native-invalid/identity diagnostics and fresh post-load target/UI/
+anchor checks before unchanged creation.158 offline tests PASS. Installed V2
+stays disabled; World rendering and first-hang cause are still unproved.
+
 **Latest run2026-10-30:** [deferred revision stopped NOT_LOADED after reload](probe/deferred/README.md),
 probe disabled. MATCH→EngineTick dispatch/math passed, host-class residency/live
 gate refused before component allocation. World draw/occlusion not reached;

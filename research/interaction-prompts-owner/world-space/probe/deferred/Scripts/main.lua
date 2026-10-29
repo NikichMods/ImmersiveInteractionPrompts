@@ -16,7 +16,7 @@ local cancel_requested=false
 local dispatch
 local count={init=0,open=0,not_ready=0,ready=0,show=0,visible=0,unmatched=0,match=0,poses=0}
 local checkpoints=0
-local function log(e,s) print("IIP_WORLD_V2_BIND event="..e.." "..(s or "").."\n") end
+local function log(e,s) print("IIP_WORLD_V3_BIND event="..e.." "..(s or "").."\n") end
 local function valid(o) return o~=nil and o:IsValid() end
 local function instance(o)
     return valid(o) and not o:HasAnyFlags(EObjectFlags.RF_ClassDefaultObject|EObjectFlags.RF_ArchetypeObject)
@@ -132,6 +132,19 @@ local function scalar(n)
     return string.format("%.9g",n)
 end
 local function vector(v) return scalar(v.X)..","..scalar(v.Y)..","..scalar(v.Z) end
+local function check_target(selected,stage)
+    log("PHASE","name=target_check edge=BEGIN stage="..stage)
+    local a,c,w=resolve(selected.actor),resolve(selected.component),resolve(selected.widget)
+    assert(World.target_alive(a,c,w),"IDENTITY: target pending kill before creation")
+    relations(a,c,w)
+    assert(same(w.WidgetTree,resolve(selected.tree)) and same(w.TextBlock_89,resolve(selected.text))
+        and same(a.RootComponent,resolve(selected.root)),"IDENTITY: UI/tree/root changed before creation")
+    assert(eligible(w) and c.bVisible==true and c.bAddedToScreen==true and c:GetWidgetSpace()==1,
+        "CONTRACT: target no longer visible Screen Open")
+    local anchor=vector(c:K2_GetComponentLocation()) -- Fresh finite anchor after any load, never an old process pose.
+    log("PHASE","name=target_check edge=END stage="..stage.." world_anchor="..anchor)
+    return a,c,w
+end
 local function pose(reason)
     if not active() or phase~="bound" then return end
     local actor,c,w=resolve(target.actor),resolve(target.component),resolve(target.widget)
@@ -224,14 +237,12 @@ local function select_widget(context,...)
         dispatch(function()
             if phase~="pending" or target~=selected or cancel_requested or not active() then return end
             log("CREATE_DISPATCHED","executor=EngineTick fresh_identity_check=true")
-            local a,component,widget=resolve(selected.actor),resolve(selected.component),resolve(selected.widget)
-            assert(World.target_alive(a,component,widget),"IDENTITY: target pending kill before creation")
-            relations(a,component,widget)
-            assert(same(widget.WidgetTree,resolve(selected.tree)) and same(widget.TextBlock_89,resolve(selected.text))
-                and same(a.RootComponent,resolve(selected.root)),"IDENTITY: UI/tree/root changed before creation")
-            assert(eligible(widget) and component.bVisible==true and component.bAddedToScreen==true
-                and component:GetWidgetSpace()==1,"CONTRACT: target no longer visible Screen Open")
-            phase="creating" -- Reentrant BeginPlay/CanShow cannot mutate orchestration during native work.
+            check_target(selected,"before_refresh") -- Discard all wrappers before any loading.
+            phase="creating" -- Suppress own reentrant callbacks throughout resource preparation.
+            World.refresh_assets()
+            if cancel_requested then stop("user");return end
+            if not active() then return end
+            local a,component,widget=check_target(selected,"after_refresh")
             World.create(a,component,widget,function(reason)guard(function()stop(reason)end)end)
             phase="bound"
             pose("match")
@@ -250,7 +261,7 @@ local function control()
     if phase~="armed" and not active() then return end
     if phase=="armed" then
         phase,deadline="preparing",os.time()+120 -- One attempt. Loading time is included.
-        World.prepare() -- Explicit EngineTick control before installing either script callback.
+        World.prepare() -- API-only preparation; no asset loading before the manual reload.
         assert(os.time()<deadline,"preparation exceeded observation deadline")
         phase="waiting"
         function_ready(BEGIN);function_ready(SHOW)

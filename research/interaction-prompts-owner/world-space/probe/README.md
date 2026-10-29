@@ -1,10 +1,10 @@
 # First owned World component — frozen failed revision
 
-**2026-10-30 source follow-up:** [separate deferred diagnostic revision](deferred/README.md)
-completed one NOT_LOADED run after separate authorization and is now disabled.
-It removes inline creation/cleanup, adds pre-hook
-preparation and phase boundaries; it does not establish the old hang cause or a
-runtime fix. The original files/hashes and negative evidence below stay frozen.
+**2026-10-30 follow-up:** [Deferred V2](deferred/README.md) completed one NOT_LOADED
+run and is disabled. Current Deferred V3 source is READY_SOURCE/NOT_INSTALLED:
+one exact post-reload EngineTick resource refresh and fresh target checks before
+unchanged creation. No old hang cause/runtime fix is established. The original
+files/hashes and negative evidence below stay frozen.
 
 **BLOCKED after user-reported hang, 2026-10-30; probe DISABLED.** Exact d4a1ac6 source was
 installed and tested with explicit user authorization. Production and

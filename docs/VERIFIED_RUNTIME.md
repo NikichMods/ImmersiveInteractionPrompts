@@ -1,5 +1,23 @@
 # Verified Runtime — Interaction Prompts
 
+## Deferred World V3 — source preparation after NOT_LOADED, 2026-10-30
+
+[Exact current revision and contract](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+No new game run/installation. Pinned StaticFindObject/LoadAsset null results use
+empty UObject userdata; remote GetAddress0 vs Lua/native validity and exact
+path/type now produce separate diagnostic states. LoadAsset did_load=true alone
+does not establish native validity or rendering. One load maximum per exact
+host/material resource, only after MATCH on EngineTick. API-only initial prepare;
+fresh original target/UI/Open/native checks and finite anchor both before/after
+refresh, no retained target wrappers across loading. Same World creation/cleanup,
+geometry/material and discovery route. Current main SHA256
+52fbcba729e062451f989557e9f1d690834cd884342a8033c66c7519507ec877;
+helper SHA256ca02673f7258b5459219d3e5cf0fb9e265c937f91875906375f1a8cd806fd33c.
+158 tests/12 suites PASS, deferred34. No component allocation on load rejection
+in mocks; this does not prove successful engine loading/draw/occlusion/teardown.
+READY_SOURCE/NOT_INSTALLED, installed V2 unchanged/disabled. First hang cause
+unknown; production and World runtime acceptance remain BLOCKED.
+
 ## Deferred World run — NOT_LOADED guard, 2026-10-30
 
 Exact2941123 source/installed bytes unchanged. PREPARED/load_host END before

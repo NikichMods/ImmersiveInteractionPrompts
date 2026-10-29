@@ -1,9 +1,105 @@
-# Deferred World creation — READY_SOURCE diagnostic revision, 2026-10-30
+# Deferred World creation — post-reload refresh READY_SOURCE, 2026-10-30
 
-**First run: NOT_LOADED after reload; probe DISABLED2026-10-30.** This revision removes the inline creation
-path and adds bounded phase diagnostics. It is not a proven fix for the hang.
+**Current V3: READY_SOURCE, NOT_INSTALLED / RUNTIME_NOT_TESTED.** The installed V2
+remains disabled after NOT_LOADED; its historical result follows below. V3 is not
+a proven fix for the first hang or evidence of working World rendering.
 Frozen first-run source and its BLOCKED result stay in [the parent report](../README.md).
 World visual acceptance and production remain BLOCKED.
+
+## Current V3 correction — one exact refresh after reload
+
+Recovered clean single checkout at c2a1068ed38a4edaf7f127024f2ba6226ff08cf5 on
+research/interaction-prompts-owner; project/DevRules remotes fetched and aligned,
+DevRules remains0f4888bb9501afa42e3b9492c5794c98bf58537f. No unpublished work was
+overwritten. Changed only this deferred resource seam/tests/docs, not installed
+files, production, VERSION, game settings/saves or other mods. Earlier V2 bytes
+remain in Git2941123/c2a1068 and the archived installed/run copies above/below.
+
+The observed NOT_LOADED is sufficient new reason to change the old lookup-only
+policy. To avoid wasting a load before map reload **and** preserve the total
+budget, F8 preparation now checks APIs only, with `asset_loads=0`. The same
+BeginPlay+CanShow discovery and explicit EngineTick queue stay unchanged. Once
+matched, EngineTick performs:
+
+1. Fresh target/reciprocal UI/native validity and finite anchor check, then discard
+   these wrappers. Mark phase creating to suppress own reentrant callbacks.
+2. One `refresh_assets` operation; resolve exact HOST and MASK. A live correct
+   resource needs no load. Unavailable resources get at most **one LoadAsset call
+   each in the whole session**, consumed before entering native code. No loops,
+   automatic retries, unload/replacement tricks or loads inside CanShow.
+3. Check LoadAsset's found/did_load flags, returned object's live/type/path state,
+   then fresh StaticFindObject and returned-vs-looked-up address identity. Wrong
+   identity is a hard refusal, not a reason to load something else.
+4. Check cancellation/deadline after loading. Re-resolve actor/component/TipHUD,
+   native not-PendingKill, Open/Interact25, widget storage/getters/NewUserWidget,
+   owner/argument links, original tree/text/actor root, visible Screen state and
+   finite world anchor **again after all loads**. No old wrappers span loading.
+5. Only then call the existing World.create; it retains lookup-only asset checks
+   before allocation. Component/host/Slate/renderer/cleanup code, anchor+32Z,
+   scale.25, draw512×128, material and original UI setters remain unchanged.
+
+Limits are still one session/create,≤8 candidates, init128/show4096/120s,≤4
+samples, own lifetime45s and explicit F7 cancellation/cleanup. Cancellation is
+checked before and after resource refresh; it cannot interrupt an in-flight
+synchronous load. A deadline, failed load, mismatched identity or changed UI
+refuses allocation. No extra probes or observers were added.
+
+### Exact loader/validity contract and new diagnostics
+
+Pinned UE4SS LuaMod.cpp1245–1275 StaticFindObject delegates to exact lookup and
+auto_construct_object; LuaUObject.cpp373–386 wraps a null pointer as an **empty
+UObject userdata**, rather than necessarily Lua nil. LuaUObject.hpp172–185
+GetAddress for remote UObject returns the pointer value without dereferencing it;
+zero distinguishes a null wrapper. IsValid761–775 checks pointer/sentinel/global
+map/unreachable but not PendingKill. Native KismetSystemLibrary.IsValid remains
+the separate non-null/not-PendingKill predicate (UE4.27 header1984ff).
+
+LoadAsset3334–3381 is game-thread-only, returns object/found/did_load, and can
+synchronously invoke LoadObject through AssetRegistry. did_load=true means a
+non-null returned pointer in this implementation, **not** proof of current native
+validity, expected UClass identity, WidgetTree creation or rendering. No raw memory
+or offsets are used to improve these distinctions.
+
+| ASSET state | Observation and policy |
+| --- | --- |
+| ABSENT_NIL | Lua nil; exact load may be attempted once. |
+| ABSENT_NULL | Lua IsValid false, remote address0; exact load may be attempted once. |
+| LUA_INVALID | Lua IsValid false, nonzero address; no dereference/path/class query; exact load may be attempted once. Does not diagnose deletion versus unreachable. |
+| NATIVE_INVALID | Lua valid, native IsValid false; exact load may be attempted once but a still-invalid return is refused. No forced resurrection. |
+| IDENTITY_MISMATCH | Native-live wrong path or resource type; log/stop without loading or allocation. Host native-parent and material-parent/overrides also remain checked. |
+| LIVE | Native-live expected exact path/type; no load needed. |
+
+Prefix now IIP_WORLD_V3 / IIP_WORLD_V3_BIND. New pairs:
+`target_check BEGIN/END stage=before_refresh`, `refresh_assets`, `resolve_host`,
+`resolve_material`, optional **load_host/load_material BEGIN/END**, then
+`target_check BEGIN/END stage=after_refresh world_anchor=...` before `create`.
+ASSET logs before_load/after_load/before_create; LOAD_RESULT records flags and
+return state. Load failure leaves no own component; later creation/cleanup phases
+are retained from V2. Logs localize progress, not native stack/deadlock cause.
+
+### Current source identity and checks
+
+[main.lua](Scripts/main.lua) SHA256
+`52fbcba729e062451f989557e9f1d690834cd884342a8033c66c7519507ec877`;
+[IIPWorldChild.lua](Scripts/IIPWorldChild.lua) SHA256
+`ca02673f7258b5459219d3e5cf0fb9e265c937f91875906375f1a8cd806fd33c`.
+`python tools/test.py`: **158 tests /12 suites PASS**, deferred suite34 cases
+(was15). Added/updated cases exercise per-resource load caps, nil/null/invalid/
+native-invalid/identity distinctions, false flags, stale fresh lookup, mismatched
+addresses, post-load owner/tree/widget/Open/visibility checks, fresh anchor,
+reentry, cancellation/expiry and no allocation on failure. Mocks do not prove
+that native loading returns, World renderer works or Hilda occludes the result.
+Private audit/tests: `.local/research/interaction-prompts/world-space/probe/deferred/post-reload-refresh/`;
+source-hashes.json SHA256c67b672fe68ac1eb7eafa110e901a7e65fde4759d1dc84773857f61fb42517e6.
+Git whitespace/relative links/source and installed-file preservation checked.
+
+**Next sufficient step:** separate closed-game authorization to install this exact
+pair, preserving disabled V2/rollback, then one existing F8→manual reload→Open→F7
+user run. Expected progress is ASSETS_READY→post-refresh target check→component
+phases. A load failure is useful negative evidence; successful loading alone is
+not a World rendering/occlusion PASS. Do not change anchor/material or repeat
+older tests independently. First-hang cause, World draw/occlusion/teardown and
+production remain unverified/BLOCKED.
 
 ## First deferred run — execution separation observed, host residency gate failed
 
@@ -38,15 +134,15 @@ mod/loader hashes still match installation,88 current files retain hashes across
 disable. Other mods and current settings/saves preserved, with no claim that the
 user run itself left pre-play save/config bytes unchanged.
 
-**Current lookup-only-after-reload revision BLOCKED for another visual test.**
+**Historical V2 lookup-only revision remains BLOCKED for another visual test.**
 Next minimal candidate seam: allow one explicitly bounded exact host/material
 refresh in the queued EngineTick action after reload, with paired load markers,
 then re-resolve/revalidate target and UI **after** any synchronous load before
 capturing pose or allocating components. Suppress own reentrant discovery during
 that preparation. This would reuse the now-observed EngineTick loading route;
 it does not require actor scans, old pointers, new geometry or a load in CanShow.
-No such revision is implemented/installed by this result, and no repeat run is
-requested for these unchanged bytes.
+The V3 source correction is now described above; it is not installed and no
+repeat run is requested for the unchanged V2 bytes.
 
 ## Authorized closed-game installation — 2026-10-30
 
@@ -137,7 +233,7 @@ derived from the context risk and the accepted host route, **not** a claim that
 UE4.27 categorically forbids every Create/SetWidget in every Blueprint callback.
 Read-only binding/getters and proven hook release remain on the original route.
 
-## New execution and lifetime policy
+## Original V2 execution and lifetime policy (historical)
 
 1. First F8 queues EngineTick control. One `prepare` attempt resolves exact host
    class and stock material, calling LoadAsset at most once each only on lookup
@@ -174,7 +270,7 @@ world tracker. Deadline checks/timers do **not** interrupt a native call that ha
 not returned. The expected executor separation still needs runtime confirmation;
 mock queue/reentrancy checks are not native-thread or load-progress proof.
 
-## Diagnostic phases and sufficient next test
+## Original V2 diagnostic phases and procedure (historical)
 
 Prefix `IIP_WORLD_V2` / `IIP_WORLD_V2_BIND`, bounded fixed phase names:
 
@@ -201,9 +297,10 @@ reaches WORLD TEST, use the original partial-letter Hilda-occlusion/reappearance
 criterion and manual cleanup, without changing camera/visual settings or anchor.
 Review the last phase pair alongside both logs before any further correction.
 
-## Source and checks
+## Prior V2 source and checks (historical)
 
-[main.lua](Scripts/main.lua), [IIPWorldChild.lua](Scripts/IIPWorldChild.lua).
+[V2 main.lua](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2941123d56f2840e98ce8ca49d81204b8185fbc5/research/interaction-prompts-owner/world-space/probe/deferred/Scripts/main.lua),
+[V2 IIPWorldChild.lua](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2941123d56f2840e98ce8ca49d81204b8185fbc5/research/interaction-prompts-owner/world-space/probe/deferred/Scripts/IIPWorldChild.lua).
 Main SHA256 `1b0f4bd4d48e183f04d7501cc28361651e94c2c0e641a9ec126ba8045f79ed38`;
 helper SHA256 `eb6cb013af851a765a8d8a40da1d917fb1cd2b8efa0f4890093f099761d057a3`.
 Source preparation changed no installed bytes or frozen v1 files; subsequent

@@ -1,6 +1,17 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — deferred World: NOT_LOADED guard, probe отключён
+## Текущий результат — Deferred V3 READY_SOURCE, не установлен
+
+Подготовлена [ограниченная post-reload refresh ревизия](../research/interaction-prompts-owner/world-space/probe/deferred/README.md):
+до hooks только проверка API, после MATCH максимум один точный LoadAsset HOST/MASK
+на EngineTick; статусы недоступности/identity раздельные. После загрузки свежая
+проверка actor/component/TipHUD/Open/UI/anchor, без старых wrappers; затем прежнее
+создание/очистка.158 offline tests PASS. Следующий достаточный шаг — отдельно
+разрешённая установка этой пары и один тот же ограниченный сценарий для нового
+resource gate и, если пройден, первого реального World renderer. Никакой смены
+anchor/материала/композиции. Native hang может повториться; runtime/production BLOCKED.
+
+## Предыдущий результат V2 — NOT_LOADED guard, probe отключён
 
 Первый отложенный прогон дошёл из MATCH в EngineTick, но после reload точный
 живой host-class gate не прошёл. World-компонент ещё не создавался. Следующая

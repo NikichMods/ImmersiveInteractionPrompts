@@ -7,7 +7,10 @@ local BASEMAT="/Engine/EngineMaterials/Widget3DPassThrough.Widget3DPassThrough"
 local state=nil
 local prepared=false
 local preparation_attempted=false
-local function log(e,s)print("IIP_WORLD_V2 event="..e.." "..(s or "").."\n")end
+local refresh_attempted=false
+local assets_refreshed=false
+local load_attempted={}
+local function log(e,s)print("IIP_WORLD_V3 event="..e.." "..(s or "").."\n")end
 local function step(name,fn,...)
  log("PHASE","name="..name.." edge=BEGIN")
  local values=table.pack(fn(...))
@@ -35,19 +38,39 @@ end
 local function alive(o)
  return valid(o) and static("/Script/Engine.KismetSystemLibrary:IsValid","KismetSystemLibrary",o)==true
 end
-local function preload(p,name)
- local o=StaticFindObject(p)
- if not valid(o)then
-  local loaded,found,did_load=step("load_"..name,LoadAsset,p)
-  assert(found==true and did_load==true and valid(loaded),"asset NOT_LOADED: "..p)
-  o=StaticFindObject(p);assert(same(o,loaded),"asset lookup/load mismatch")
- end
- assert(path(o)==p,"asset identity differs");return o
+local function resource_state(o,p)
+ if o==nil then return "ABSENT_NIL" end
+ if not valid(o)then return o:GetAddress()==0 and "ABSENT_NULL" or "LUA_INVALID" end
+ if not alive(o)then return "NATIVE_INVALID" end
+ if path(o)~=p or (p==HOST and o:type()~="UClass")
+  or (p==MASK and cls(o)~="/Script/Engine.MaterialInstanceConstant")then return "IDENTITY_MISMATCH" end
+ return "LIVE"
+end
+local function inspected(p,name,stage)
+ local o=StaticFindObject(p);local status=resource_state(o,p)
+ log("ASSET","resource="..name.." stage="..stage.." state="..status)
+ assert(status~="IDENTITY_MISMATCH","IDENTITY: asset mismatch: "..p)
+ return o,status
+end
+local function resolve_asset(p,name)
+ local o,status=inspected(p,name,"before_load")
+ if status=="LIVE"then return o end
+ assert(not load_attempted[name],"NOT_LOADED: exact load budget exhausted: "..p)
+ load_attempted[name]=true -- Before native call; no automatic retry after throw/failure.
+ local loaded,found,did_load=step("load_"..name,LoadAsset,p)
+ local returned=resource_state(loaded,p)
+ log("LOAD_RESULT","resource="..name.." found="..tostring(found).." did_load="..tostring(did_load).." state="..returned)
+ assert(returned~="IDENTITY_MISMATCH","IDENTITY: load returned a different asset: "..p)
+ assert(found==true and did_load==true and returned=="LIVE","NOT_LOADED: exact load failed: "..p)
+ local fresh,current=inspected(p,name,"after_load")
+ assert(current=="LIVE","NOT_LOADED: loaded asset not live on fresh lookup: "..p)
+ assert(same(fresh,loaded),"IDENTITY: lookup/load address mismatch: "..p)
+ return fresh
 end
 local function asset(p)
- local o=StaticFindObject(p)
- assert(alive(o) and path(o)==p,"NOT_LOADED: prepared asset no longer resident: "..p)
- return o -- Never LoadAsset during creation or after map reload.
+ local o,status=inspected(p,p==HOST and "host" or "material","before_create")
+ assert(status=="LIVE","NOT_LOADED: resource changed after refresh: "..p)
+ return o -- Lookup only during allocation/configuration; load budget is consumed earlier.
 end
 local function xyz(v)return {X=v.X,Y=v.Y,Z=v.Z}end
 local function finite(v)
@@ -100,14 +123,24 @@ local function own_tree(w)
 end
 function M.prepare()
  assert(not preparation_attempted,"one preparation attempt only");preparation_attempted=true
- assert(type(LoadAsset)=="function","missing World API: LoadAsset")
  step("prepare",function()
-  local c=step("resolve_host",preload,HOST,"host")
-  assert(c:type()=="UClass" and path(c:GetSuperStruct())=="/Script/UMG.UserWidget","host class differs")
-  material(step("resolve_material",preload,MASK,"material"))
+  assert(type(LoadAsset)=="function" and type(StaticConstructObject)=="function","missing World load/construct API")
+  assert(FName~=nil and FText~=nil and type(EObjectFlags.RF_Transient)=="number","missing constructors/flags")
  end)
  prepared=true
- log("PREPARED","executor=EngineTick own_script_hooks_installed=false no_gc_root_added=true")
+ log("PREPARED","executor=EngineTick own_script_hooks_installed=false asset_loads=0 load_stage=after_match")
+end
+function M.refresh_assets()
+ assert(prepared and not refresh_attempted and state==nil,"one pre-allocation refresh only");refresh_attempted=true
+ step("refresh_assets",function()
+  local c=step("resolve_host",resolve_asset,HOST,"host")
+  local parent=c:GetSuperStruct()
+  assert(valid(parent) and path(parent)=="/Script/UMG.UserWidget","IDENTITY: host parent differs")
+  material(step("resolve_material",resolve_asset,MASK,"material"))
+ end)
+ assets_refreshed=true
+ log("ASSETS_READY","executor=EngineTick host_loads="..(load_attempted.host and "1" or "0")
+  .." material_loads="..(load_attempted.material and "1" or "0").." no_gc_root_added=true")
 end
 function M.pending()return state~=nil end
 function M.target_alive(a,c,w)return alive(a) and alive(c) and alive(w)end
@@ -176,7 +209,7 @@ function M.sample(reason)
   .." rotation_pyr="..string.format("%.9g,%.9g,%.9g",r.Pitch,r.Yaw,r.Roll).." scale="..vector(scale).." original_writes=0")
 end
 function M.create(actor,source,w,onstop)
- assert(state==nil and prepared,"one prepared own World composition only")
+ assert(state==nil and assets_refreshed,"one refreshed own World composition only")
  log("PHASE","name=create edge=BEGIN")
  for _,name in ipairs({"StaticConstructObject","ExecuteInGameThreadWithDelay"})do
   assert(type(_G[name])=="function","missing World API: "..name)

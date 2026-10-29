@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — Deferred World V3 post-reload refresh READY_SOURCE, NOT_INSTALLED.**
+[Текущие исходники/хэши/проверки](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+F8 проверяет только API, без преждевременной загрузки. После MATCH отложенная
+EngineTick-задача различает nil/null-wrapper/Lua-invalid/native-invalid/identity
+mismatch и разрешает максимум один точный LoadAsset каждого HOST/MASK за сессию.
+После загрузки заново проверяются actor/component/TipHUD/UI/Open/native validity
+и текущий anchor; только затем прежний путь создания. Отмена/срок/reentry/cleanup
+сохранены, геометрия и материал неизменны.158 tests/12 suites PASS; deferred34.
+Установленная V2 и старый World probe отключены и не изменены. Игра не запускалась,
+новая ревизия не устанавливалась. Следующий шаг — отдельно разрешённая установка
+новой пары и один ограниченный фазовый тест. Загрузка класса не доказывает World
+renderer; причина первого зависания неизвестна, production/World acceptance BLOCKED.
+
+## Предыдущий результат Deferred V2
+
 **2026-10-30 — deferred World run: NOT_LOADED после reload, probe DISABLED.**
 [Точный результат](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
 Host load/PREPARED прошли до own hooks; после reload MATCH→CREATE_QUEUED→
