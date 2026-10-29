@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World orientation comparison INSTALLED, runtime PENDING.**
+По прямому разрешению пользователя при закрытой игре установлен точный6d44daa
+в новый ImmersiveInteractionPromptsWorldOrientationProbe: два Lua и enabled.txt.
+[Идентичность, откат и сценарий](../research/interaction-prompts-owner/world-space/orientation/README.md). Source/installed hashes совпали;
+только новая IIP-проба включена,12 прежних отключены.29 исторических и31 текущий
+mod/loader hash сохранены,59 config/save hash неизменны. DLL83330635 совпал;
+backup/manifest/guarded rollback вне loader, syntax PASS. Игра не запускалась,
+hot reload не применялся. Далее один пользовательский fixed/follow/F7 тест;
+плавность, native rotation/marshalling и ручной cleanup ещё не приняты.
+
+
 **2026-10-30 — World orientation comparison READY_SOURCE, NOT_INSTALLED.**
 [Исходники, контракты, хэши и будущий тест](../research/interaction-prompts-owner/world-space/orientation/README.md).
 Отдельная ограниченная ревизия сохраняет принятый V3 renderer/anchor/material и

@@ -1,7 +1,34 @@
-# World orientation/readability — READY_SOURCE, NOT_INSTALLED
+# World orientation/readability — INSTALLED, RUNTIME_PENDING
 
-2026-10-30. Source-only comparison revision, based on the frozen accepted V3.
-No new game installation, launch, reload or runtime acceptance. Production BLOCKED.
+2026-10-30. Comparison source based on frozen accepted V3. Authorized installation
+completed below; no game launch/reload or new runtime acceptance. Production BLOCKED.
+
+## Authorized installation — 2026-10-30
+
+User explicitly requested installation. Exact source commit
+`6d44daa28b4dcc1cf0109b6f6d3c4fcb06467a9f`; source/installed SHA256 match the
+values below, Lua unchanged. Only new own directory
+`ImmersiveInteractionPromptsWorldOrientationProbe` contains Scripts/main.lua,
+Scripts/IIPWorldChild.lua and empty enabled.txt. It is the only enabled IIP probe;
+all12 previous IIP directories remain disabled and unchanged. mods.txt unchanged:
+CombatHUD and SoulsEnemyHUD enabled as before.
+
+Asterigos/Genesis processes absent before and after installation. Steam manifest
+build12996889, latest loader log identifies83330635; UE4SS DLL SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`
+matches prior baseline.29 historical mod/loader hashes match; all31 current
+mod/loader files and59 current config/save files retain hashes across install.
+No game launch/termination, hot reload, settings/save write or other-mod change.
+
+Ignored backup outside loader:
+`.local/research/interaction-prompts/world-space/orientation/install-20261029T224843Z/`.
+Contains exact two Lua copies, pretest UE4SS/Genesis logs, mods.txt/settings copies,
+initial-state/installed hash manifests, verified result and guarded rollback.ps1.
+Rollback checks game closure, exact own target and unchanged files before removing
+only this new directory; prior state was absent. Syntax PASS, not executed.
+
+Installation PASS is not runtime rotation/marshalling/readability/F7 acceptance.
+Next step is the single user-operated camera comparison/manual cleanup below.
 
 ## Question and minimum sufficient experiment
 
@@ -101,10 +128,9 @@ distance ratio, **not** measured screen pixels or a readability guarantee. Follo
 removes most incidence distortion but does not solve small distant text, camera
 lag/stepping, scenery occlusion or overall composition.
 
-## One future separately authorized test, including manual cleanup
+## User test after authorized installation, including manual cleanup
 
-Installation is not authorized by this source preparation. After a separately
-permitted closed-game install with rollback and older probes disabled:
+The separately authorized installation above is ready. Run once:
 
 1. Start normally, load the same test save. Ctrl+Alt+F8 arms, then reload once as
    in the accepted binding procedure. Approach one natural «Открыть» prompt.

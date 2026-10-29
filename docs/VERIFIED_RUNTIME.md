@@ -1,5 +1,13 @@
 # Verified Runtime — Interaction Prompts
 
+## Orientation installation — 2026-10-30, runtime PENDING
+
+Authorized closed-game install of6d44daa28b4dcc1cf0109b6f6d3c4fcb06467a9f.
+[Installed identity, source hashes and rollback](../research/interaction-prompts-owner/world-space/orientation/README.md). Only new own orientation
+probe enabled; other IIP probes disabled.31 current mod/loader and59 config/save
+file hashes preserved;29 historical baseline hashes match. No new runtime result.
+
+
 ## Orientation follow-up — SOURCE ONLY, 2026-10-30
 
 [Separate comparison source and exact limits](../research/interaction-prompts-owner/world-space/orientation/README.md) is READY_SOURCE, not installed.

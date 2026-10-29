@@ -1,5 +1,12 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — orientation установлен, ожидается пользовательский прогон
+
+Точный6d44daa установлен по разрешению, source bytes не менялись. [Один сценарий](../research/interaction-prompts-owner/world-space/orientation/README.md):
+fixed arc → F6 follow arc → F7 до30s. Только два пользовательских F8 после создания;
+не доводить до четвёртого снимка/timeout вместо ручного cleanup. Результат pending.
+
+
 ## Следующий достаточный шаг — fixed/follow и ручной F7
 
 [Orientation source READY_SOURCE](../research/interaction-prompts-owner/world-space/orientation/README.md), не установлен. Однократный look-at
