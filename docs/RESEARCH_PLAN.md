@@ -1,14 +1,25 @@
 # План исследования — contextual prompts и письменность
 
-## Следующий выбранный маршрут — parent Blueprint BeginPlay + CanShow, source-only
+## Текущий шаг — BeginPlay + CanShow join probe READY_SOURCE
+
+[Подготовленный исходник и процедура](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
+проходят105 offline tests.8 Open attempts/128 init/4096 CanShow/120s/4 poses;
+нет игровых записей или сохранённых UObject wrappers. Следующее достаточное
+доказательство требует отдельной разрешённой установки и одного ручного reload
+сохранения после arm. На этом этапе установка/игра/reload запрещены и не выполнялись.
+Проверять реальные callbacks после reload, точный join и pose; не повторять Aphes,
+UserWidget или CanShow-only acceptance. Любой отрицательный итог завершает этот
+run без нового наблюдателя. World rendering/production остаются BLOCKED.
+
+## Основание выбранного маршрута — parent Blueprint BeginPlay + CanShow
 
 [Сравнение и точный контракт](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md)
 подтвердили explicit BaseLoot BeginPlay→parent BeginPlay→own widget цепочку.
-Достаточный следующий шаг — отдельно подготовить read-only прототип двух точных
-script hooks:≤8 временных Open-пар при естественном BeginPlay, затем exact pointer
-join с известным CanShow. Будущий один тест требует arm до ручного reload текущего
+Подготовлен отдельный read-only прототип двух точных script hooks:≤8 временных
+Open attempts при естественном BeginPlay, затем exact pointer join с известным
+CanShow. Будущий один тест требует arm до ручного reload текущего
 сохранения; просто подойти к уже инициализированному сундуку недостаточно.
-Новых runtime-исходников/установки в этом source-only этапе нет.
+Исходник READY_SOURCE, установки/запуска нет; исходный route review был source-only.
 Setup/SetArrayData не выбраны без подтверждённого natural callsite. World B остаётся
 предпочтительным условным направлением; Screen не удовлетворяет принятому occlusion.
 Live mapping/pose, World rendering и production BLOCKED.

@@ -1,5 +1,9 @@
 # Binding route review after NO_EVENTS — source-only, 2026-10-29
 
+**Preparation follow-up:** [BeginPlay probe source/procedure](beginplay-probe/README.md)
+is now READY_SOURCE with105 offline tests, not installed/run. This review records
+the preceding route-selection evidence; actual reload/identity/pose remain untested.
+
 **Preferred next design: exact parent Blueprint ReceiveBeginPlay acquisition +
 the already proven TipHUD CanShow callback for identity selection.** There is now
 a positive Blueprint callsite through the Open-tagged BaseLoot branch, rather

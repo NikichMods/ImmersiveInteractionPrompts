@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — BeginPlay + CanShow join probe READY_SOURCE, runtime NOT_TESTED.**
+[Исходник/процедура](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
+два точных single-callback script hooks,≤8 Open attempts,≤128 init/4096 CanShow,
+120s wall-clock,≤4 pose snapshots только после взаимного identity join.
+Проверены partial registration rollback, nil-return всех callbacks, source lifetime
+script registry через LoadMap и cleanup при отсутствующей metadata.105 offline
+tests/10 suites PASS. Lua SHA256995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
+Установки, запуска игры/reload/hot reload не было; production/VERSION не менялись.
+Реальная сохранность двух hooks через ручной reload и live actor/component/pose
+остаются непроверенными. Следующий шаг — отдельно разрешённая closed-game установка
+этих байтов и один пользовательский reload/test. World/production BLOCKED.
+
 **2026-10-29 — после NO_EVENTS выбран source-only маршрут: parent Blueprint
 BeginPlay → точный join с CanShow. Новый payload не создан.**
 [Переоценка архитектуры и контракт](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md):

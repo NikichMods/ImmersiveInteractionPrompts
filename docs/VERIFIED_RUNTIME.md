@@ -1,5 +1,23 @@
 # Verified Runtime — Interaction Prompts
 
+## BeginPlay + CanShow join preparation — offline only, 2026-10-29
+
+[Exact source/contracts and user procedure](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+Single script callback per exact path, positive equal IDs, nil returns; acquisition
+and selection use only primitive bounded identities. World pose reads follow one
+validated reciprocal actor/component/widget join.105 offline tests pass, including
+22 new policy tests with write-rejecting engine mocks and nil-return assertions.
+READY_SOURCE, not installed/run. Lua SHA256
+995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
+Pinned LuaMod.cpp1138/4271 uses function/Outer FName chains at mod scope, not a
+retained registration UFunction; LoadMap handlers do not clear this registry,
+uninstall does. LuaUObject.cpp86 delete listener removes wrapper tracking only.
+These source contracts support one manual reload experiment; mock metadata
+recreation is not live reload/dispatch proof. Missing metadata at stop can delay
+owned unregistration, so callbacks become inert first and only explicit stop retries.
+No automatic registration/retry/rooting/reload or extra lifecycle hook. Native
+World rendering/occlusion and production acceptance remain BLOCKED.
+
 ## Post-NO_EVENTS route selection — source-only, 2026-10-29
 
 [Exact comparison/contract](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md).

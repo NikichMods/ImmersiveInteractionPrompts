@@ -24,7 +24,8 @@ No actual component/widget/actor pair or pose was obtained; missing-event cause
 unknown. Probe disabled. The source getter contracts remain evidence, but another
 natural entry route needed separate review. [Source-only route review](../open-binding/ROUTE_REVIEW.md)
 now prefers the explicit BaseLoot parent Blueprint BeginPlay chain, paired with
-proven CanShow for exact selection. No new payload. The host gate passed one
+proven CanShow for exact selection. A separate [read-only join source](../open-binding/beginplay-probe/README.md)
+is READY_SOURCE with105 offline tests, not installed/run; no World payload. The host gate passed one
 viewport cycle; live binding and World registration/render/occlusion remain BLOCKED.
 The original comparison/checkpoint below is retained as historical provenance.
 

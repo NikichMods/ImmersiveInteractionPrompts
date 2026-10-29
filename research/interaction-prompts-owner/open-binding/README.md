@@ -3,7 +3,8 @@
 **Source-only follow-up:** [route/architecture review](ROUTE_REVIEW.md) prefers
 parent Blueprint BeginPlay acquisition joined to proven CanShow, based on an
 explicit BaseLoot parent-call chain. Setup/SetArrayData natural callsites remain
-unproved. No new executable payload or install; live binding/World still BLOCKED.
+unproved. The separate [BeginPlay join source](beginplay-probe/README.md) is now
+READY_SOURCE/offline-tested, not installed/run; live binding/World still BLOCKED.
 
 ## Runtime result — 2026-10-29
 
