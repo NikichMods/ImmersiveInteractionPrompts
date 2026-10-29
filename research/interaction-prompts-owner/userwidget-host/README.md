@@ -111,11 +111,11 @@ cleanup must release only that holder and own resources, with no forced GC claim
 Cooked presence is proved, **loaded-class residency is not**. Exact StaticFindObject
 may return NOT_LOADED. Pinned UE4SS LuaMod.cpp3334ff does expose game-thread-only
 LoadAsset(path), returning object/was_found/did_load through AssetRegistry.
-This does not prove the registry contains this cooked generated-class path or
-that a guessed Blueprint path will load it. No loader call was executed or payload
-written here. A future authorized test needs an exact class availability/load
-policy; missing class or wrong type/parent must stop, with no global scan or
-alternative-class guessing. A targeted load would require its own bounded review.
+The follow-up targeted registry check now confirms a separate exact `_C` entry
+(WidgetBlueprintGeneratedClass, direct UMG.UserWidget), not only a guessed
+Blueprint path. Registry SHA256 and the bounded loading policy are recorded in
+the [host-only probe](probe/README.md). One exact LoadAsset attempt is prepared;
+no loader call has been executed. Missing/wrong class or parent stops the probe.
 
 The source evidence is sufficient to design a small **host-only** lifecycle test:
 check the exact class/Create API; create one independent host; validate tree/identity
@@ -124,8 +124,10 @@ Hidden, make only the own host visible and verify a local label; remove only own
 content/owner. Compare original UI state and record the result. No natural Open
 actor or World-space positioning is needed to answer that question. Actual Lua
 Create marshaling, class availability, ownership across callbacks and teardown
-remain runtime gates. No executable probe was requested or authored as a substitute
-for those unobserved facts.
+remain runtime gates. The requested [Lua prototype](probe/Scripts/main.lua) is now
+READY_SOURCE with offline policy tests, not an observation of those native facts.
+It uses one owned viewport host and a plain label; no World component or TipHUD
+mutation. See [procedure, checks and cleanup limits](probe/README.md).
 
 No editor/cooker/C++ class project is needed **if this shipped candidate is usable
 at runtime**. Authoring an empty Blueprint/cooked asset or native UserWidget subclass
@@ -140,7 +142,8 @@ Asserted concrete/parent flags, complete function set and callable-symbol whitel
 Construct/PreConstruct entry paths, Tick/Paint defaults, no nested UserWidgets or
 bindings/animations, and three reciprocal slot edges. Reviewed native Create,
 InitializeWidgetStatic/instancing and per-object Slate cache paths. No mocked
-native render/GC success or new game execution is claimed. Tracked runtime source unchanged; public Git contains authored findings/hashes only.
+native render/GC success or new game execution is claimed. Production source is
+unchanged; public Git contains authored research source/tests/findings only.
 
 Source mirror revision306a7e9f7fb53f14c2cb3bfd3854ad906710a17e:
 [UserWidget.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/UserWidget.cpp),

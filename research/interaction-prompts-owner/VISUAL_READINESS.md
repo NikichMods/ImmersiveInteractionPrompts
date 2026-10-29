@@ -3,7 +3,9 @@
 **Host follow-up:** [userwidget-host/README.md](userwidget-host/README.md) found
 concrete PostionItemUMG_BP_C / direct UMG.UserWidget. First class blocker is
 source-resolved; host-only Create/tree/Slate/cleanup remains a separate unrun gate.
-Construct Hidden must be handled after first build. No World payload/installation.
+Construct Hidden is handled after first build by the prepared
+[host-only probe](userwidget-host/probe/README.md), READY_SOURCE with74 offline
+tests, not installed/run. No World payload/installation.
 Exact Open actor/component/pose remains unresolved; production BLOCKED.
 
 

@@ -1,5 +1,17 @@
 # Verified Runtime — Interaction Prompts
 
+## Independent host probe prepared — offline only, 2026-10-29
+
+[Exact source/procedure](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
+Targeted installed AssetRegistry read confirms the exact PostionItemUMG_BP_C
+generated-class record; raw registry SHA2569ba7a655f82877869145de2bc62c2fa76b392fd3d8e7ec67b6b9667784f1ac92.
+Pinned LoadAsset triple-return and static Create receiver contracts reviewed.
+One attempt, one private viewport instance/label, Construct Hidden check, manual
+and single60s cleanup prepared.74 Lua/mock tests pass; no native execution.
+READY_SOURCE is not runtime acceptance. Loading, fresh-tree instancing, rendering,
+native ownership release and preservation of original UI remain live test gates.
+No installation/game execution or production/VERSION changes occurred.
+
 ## Independent host class — FOUND/source-ready, runtime NOT_TESTED
 
 [Host report](../research/interaction-prompts-owner/userwidget-host/README.md):
@@ -11,7 +23,8 @@ and reciprocal tree edges checked from actual exports/bytecode. Native normal
 Create/Initialize/tree instancing/per-instance Slate reviewed at exact UE4.27;
 this supports a separate owned instance without original TipHUD mutation.
 First build hides self; future own visibility must follow that build. Exact Lua
-Create/class residency/Slate/cleanup still untested; no payload or game execution.
+Create/class residency/Slate/cleanup still untested; the follow-up payload above is
+prepared offline, with no installation or game execution.
 Original first host-class blocker source-resolved; exact Open binding remains.
 Export SHA256cac88b3e55127ad3afe5d9d976ed65371afabca9e61586311612aa5db192441f;
 full bytecode/source identities and availability limitations in the report.

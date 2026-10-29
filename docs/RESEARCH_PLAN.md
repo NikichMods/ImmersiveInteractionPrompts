@@ -1,5 +1,13 @@
 # План исследования — contextual prompts и письменность
 
+## Подготовленный следующий тест — независимый host, READY_SOURCE
+
+[Host-only probe](../research/interaction-prompts-owner/userwidget-host/probe/README.md)
+подготовлен и проходит74 offline tests. Точный generated-class registry entry
+найден; собственный Create/дерево/Construct Hidden/viewport/manual cleanup должны
+быть проверены одним отдельно разрешённым запуском. Не устанавливался.
+Это достаточная следующая граница; World/Open binding/Aphes сюда не включены.
+
 ## Текущий шаг — independent host найден; World-прототип ещё BLOCKED
 
 [Ограниченная проверка host](../research/interaction-prompts-owner/userwidget-host/README.md)
@@ -13,7 +21,8 @@ self-only callback/tree/Slate creation контрактами. Поиск ост
 Независимый следующий блокер — точная привязка natural Open actor/component/pose;
 в текущем этапе она не исследовалась. World renderer/material/registration review
 сохранён в [World report](../research/interaction-prompts-owner/world-space/README.md).
-Новый исполняемый payload не создан, установка и игра не выполнялись.
+Поиск класса не создавал payload; следующий host-only исходник подготовлен выше.
+Установка и игра не выполнялись.
 Предпочтительный объектный дизайн и fallback X50%/Y78% неизменны; font/divider/
 viewport исследования не повторялись. Production lifecycle остаётся BLOCKED.
 

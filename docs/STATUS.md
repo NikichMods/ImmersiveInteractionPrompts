@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — independent UserWidget probe READY_SOURCE; runtime NOT_TESTED.**
+[Исходник и процедура](../research/interaction-prompts-owner/userwidget-host/probe/README.md):
+точная `_C` запись подтверждена в локальном AssetRegistry. Одна попытка
+lookup/LoadAsset→Create, проверка свежего экземпляра/частного дерева, собственная
+тестовая строка после Construct Hidden, Ctrl+Alt+F6 cleanup и однократный60s timeout.
+Нет World/Aphes/TipHUD mutations.74 offline mock tests проходят; native Create,
+Slate/rendering и освобождение UI-владения пока не проверены в игре.
+Ничего не установлено/не запущено. Следующий шаг — отдельно разрешённый host-only
+тест. Exact Open binding и production gate остаются BLOCKED.
+
 **2026-10-29 — первый host-блокер SOURCE_RESOLVED: найден PostionItemUMG_BP_C.**
 [Проверка host](../research/interaction-prompts-owner/userwidget-host/README.md):
 прямая база UMG.UserWidget, concrete, без Genesis native-посредника; 14 exports,
@@ -9,7 +19,8 @@ build. Нативный Create/Initialize инстанцирует собств�
 Runtime загрузка/создание/очистка не проверены. Кандидат SOURCE_READY для отдельного
 host-only lifecycle test, не World/runtime PASS. Полный World-прототип BLOCKED на
 exact natural Open actor/component/pose и его собственных runtime gates.
-Payload/установка/запуск не выполнялись; никаких новых cooker/C++ зависимостей.
+На этапе поиска класса payload не создавался; follow-up исходник подготовлен выше.
+Установка/запуск не выполнялись; никаких новых cooker/C++ зависимостей.
 
 
 **2026-10-29 — World-space study завершён source/offline; executable payload

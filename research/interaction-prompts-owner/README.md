@@ -4,7 +4,9 @@
 Found concrete PostionItemUMG_BP_C directly on UMG.UserWidget; source-reviewed
 creation/tree/callbacks/Slate supports a separate host-only lifecycle test.
 Runtime NOT_TESTED; Construct hides self. Exact Open binding remains independent.
-No executable payload or install; World/production gate still BLOCKED.
+Follow-up [host-only probe](userwidget-host/probe/README.md) is READY_SOURCE:
+exact registry class entry checked, one Create/private-tree/Hidden/show/cleanup
+attempt and74 offline tests. Not installed/run; World/production still BLOCKED.
 
 
 **Current preferred direction:** [world-space/README.md](world-space/README.md).
