@@ -1,5 +1,13 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — vertical yaw установлен, ожидается один пользовательский тест
+
+Точныйf1eb635 установлен по прямому разрешению с закрытой игрой и откатом.
+[Процедура](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md): F8→один reload→natural Open→короткая проверка вертикального
+Yaw→один F8→F7 до timeout. Не уходить из зоны штатного Open до F7, чтобы потеря
+цели снова не заменила ручной cleanup. Runtime результата новой пробы ещё нет.
+
+
 ## Следующий достаточный шаг — вертикальный frame-Yaw + F7
 
 [READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Один будущий разрешённый прогон на прежнем

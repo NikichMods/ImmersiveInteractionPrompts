@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — vertical world-Z yaw INSTALLED, runtime PENDING.**
+По прямому разрешению пользователя при закрытой игре установлен точныйf1eb635
+в новый ImmersiveInteractionPromptsWorldYawProbe: два Lua и enabled.txt.
+[Хэши, откат и один сценарий](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Source/installed SHA256 совпали, Lua неизменён.
+Только новая IIP-проба включена;13 прежних отключены.29 исторических mod/loader
+hashes совпали;33 текущих mod/loader и56 существующих tracked config/save файлов
+сохранили hashes. UE4SS83330635/DLL совпал, backup/manifest/guarded rollback вне
+loader, syntax PASS. Игра не запускалась/не закрывалась, hot reload не применялся.
+Следующий шаг — один пользовательский vertical-yaw/F7 тест; runtime/production
+acceptance остаётся BLOCKED, установка не является его прохождением.
+
+
 **2026-10-30 — vertical world-Z yaw READY_SOURCE, NOT_INSTALLED.**
 [Отдельная ревизия, контракты, хэши и один будущий тест](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Решение пользователя
 зафиксировано в REQUIREMENTS: каждый EngineTick только горизонтальный Yaw,

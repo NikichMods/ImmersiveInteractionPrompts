@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## Vertical yaw installation — 2026-10-30, runtime PENDING
+
+Authorized closed-game installation of sourcef1eb6358fef4e9e9ebcb4e8ad00d2a9f04659851.
+[Exact source/installed hashes and rollback](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Only own WorldYawProbe enabled;
+older IIP probes disabled.33 current mod/loader and56 existing tracked config/save
+files retain hashes;29 historical baseline hashes match, pinned UE4SS unchanged.
+No game launch/hot reload, no new runtime frame/cancellation/F7 acceptance.
+
+
 ## Vertical yaw frame scheduler — SOURCE ONLY, 2026-10-30
 
 [Exact source and bounds](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md) READY_SOURCE, NOT_INSTALLED. Pinned frame-loop

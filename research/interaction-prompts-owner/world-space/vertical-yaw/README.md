@@ -1,9 +1,36 @@
-# Vertical world-Z yaw — READY_SOURCE / NOT_INSTALLED
+# Vertical world-Z yaw — INSTALLED / RUNTIME_PENDING
 
 2026-10-30. Separate research revision; old orientation source and runtime record
-are frozen. Production BLOCKED. No installation/game launch/hot reload or game-file
-changes. Reuse accepted exact Open binding, private host, World renderer/material,
+are frozen. Authorized installation below; no new game launch/hot reload or runtime
+acceptance. Production BLOCKED. Reuse accepted Open binding, private host, World renderer/material,
 Hilda occlusion and native cleanup; do not re-prove these prerequisite gates.
+
+## Authorized closed-game installation — 2026-10-30
+
+User explicitly requested installation. Exact source commit
+`f1eb6358fef4e9e9ebcb4e8ad00d2a9f04659851`; installed Lua SHA256 match the source
+values below without code edits. New own UE4SS directory
+`ImmersiveInteractionPromptsWorldYawProbe` contains only Scripts/main.lua,
+Scripts/IIPWorldChild.lua and empty enabled.txt. Only this IIP probe enabled;
+13 previous IIP directories retained disabled, mods.txt unchanged, CombatHUD and
+SoulsEnemyHUD enabled as before.
+
+Asterigos/Genesis processes absent before/after installation; no agent game launch
+or termination. Steam build12996889 and UE4SS83330635 identity match baseline.
+DLL SHA256 `ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+29 historical loader/mod hashes match. All33 pre-existing current mod/loader files
+and56 existing tracked config/save files retain hashes across install. Current
+files are preserved, not claimed equal to pre-gameplay save bytes. No production,
+VERSION, settings/save/other-mod writes or hot reload.
+
+Ignored rollback archive outside loader:
+`.local/research/interaction-prompts/world-space/vertical-yaw/install-20261029T233337Z/`.
+Exact source copies, initial-state/installed manifests, verified result, pretest
+UE4SS/Genesis logs, loader settings/mods.txt copies and guarded rollback.ps1 saved.
+Rollback verifies closed game, exact owned directory and file hashes before
+removing only new own files to restore prior absent state. Syntax PASS; not run.
+Installation PASS does not establish frame cadence, vertical visual acceptance,
+performance or manual F7/native cancellation. Proceed only with the user test below.
 
 ## Adopted orientation and minimum evidence
 
@@ -115,9 +142,9 @@ closing the previous missing-follow-metrics gap. No per-frame print. Success mea
 returned setter plus readback pitch/roll<=0.001degree and yaw error<=0.01degree;
 these are verification tolerances, not a motion deadband. No performance guarantee.
 
-## Single future separately authorized test
+## Single user test after authorized installation
 
-After closed-game installation with rollback/other IIP probes disabled:
+The installed exact source above is ready for one user-run scenario:
 
 1. Load test save, Ctrl+Alt+F8 once, reload once for the accepted natural binding.
 2. At one natural Open, WORLD TEST starts in vertical frame-follow. For about10–15s
@@ -133,7 +160,7 @@ After closed-game installation with rollback/other IIP probes disabled:
    Target-loss/timeout instead of F7 is recorded separately, never F7 PASS.
 
 Runtime frame cadence/camera phase, performance/readability, cancel-handle removal
-and manual F7 remain unverified. No installation permission is inferred here.
+and manual F7 remain unverified. The authorized install is recorded above.
 
 ## Offline verification and identity
 
