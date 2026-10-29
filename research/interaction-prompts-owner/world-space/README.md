@@ -184,8 +184,11 @@ broader package-class inventory or automatic native bridge/cooker installation.
 Likewise no proven inverse link from a CanShow UUserWidget to its owning world
 WidgetComponent was established. Component.InitWidget uses CreateWidget(World),
 whose outer can be GameInstance; GetOwningPlayerPawn is Hilda, not the interactive
-object. NewUserWidget/SenderActor are component-side properties. The existing
-actor→component→widget Blueprint evidence is not its inverse. Do not pick the
+object. NewUserWidget/SenderActor are component-side properties. The retained first
+CanShow run (948 callbacks/three widgets) already records all three TipHUD full
+names under MainGameInstance_BP_C, not an actor/component path. This existing
+runtime identity evidence is reused; it does not supply a component backlink or
+a new World test. The existing actor→component→widget Blueprint evidence is not its inverse. Do not pick the
 first loot actor/component, spawn beside Hilda and pretend it is the actual Open
 anchor, or install a global object scan to discover it.
 

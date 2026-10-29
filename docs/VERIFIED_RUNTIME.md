@@ -12,8 +12,10 @@ Concrete source boundary: UE4.27 SetWidgetSpace is assignment-only; OnRegister
 creates FWidgetRenderer only for non-Screen, and DrawWidgetToRenderTarget returns
 without that renderer. Tick/Space readback does not prove live migration. Separate
 component is the conditional candidate, blocked on independent UserWidget host and
-exact Open component binding. Base UserWidget is Abstract, existing live Slate
-content is not a duplicate. No executable payload built on unproved setters.
+exact Open component binding. The stored earlier CanShow run already scopes
+three live TipHUD full names under MainGameInstance_BP_C, not the target actor;
+this reused evidence does not provide the inverse component link. Base UserWidget
+is Abstract, existing live Slate content is not a duplicate. No executable payload built on unproved setters.
 
 Exactly seven Widget3DPassThrough packages inspected from installed base Paks.
 All six material instances lead to Unlit base; absent serialized disable-depth
