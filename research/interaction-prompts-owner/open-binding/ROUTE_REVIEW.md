@@ -1,9 +1,10 @@
 # Binding route review after NO_EVENTS — source-only, 2026-10-29
 
 **Preparation follow-up:** [BeginPlay probe source/procedure](beginplay-probe/README.md)
-passed105 offline tests, acquired3 pairs after reload, then stopped at init budget
-before CanShow selection. It is disabled; live selected pose remains unproved. This review records
-the preceding route-selection evidence; actual reload/identity/pose remain untested.
+passed105 original /108 corrected offline tests; the correction retained3 pairs
+and matched one natural Open actor/component/widget plus2 finite poses in-game.
+Probe disabled. This review records preceding source-only route selection;
+current runtime evidence is in the linked report. World rendering remains untested.
 
 **Preferred next design: exact parent Blueprint ReceiveBeginPlay acquisition +
 the already proven TipHUD CanShow callback for identity selection.** There is now

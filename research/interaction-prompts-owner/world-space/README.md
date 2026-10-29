@@ -1,11 +1,11 @@
 # World-space depth-occlusion study — 2026-10-29
 
-**Latest binding evidence:** [OpenJoin run](../open-binding/beginplay-probe/README.md)
-acquired3 real initialized Open actor/component/widget pairs after reload, then
-stopped at128 initialization callbacks before CanShow selection. Source acquisition
-gate now has runtime proof; active target/world pose and World renderer remain
-unproved. Original revision disabled; a tested acquisition-only budget correction
-is now installed by permission, runtime pending. No World payload installed.
+**Latest binding evidence — one natural Open mapping/pose PASS:**
+[OpenJoin run](../open-binding/beginplay-probe/README.md) retained3 initialized pairs
+after init128 closure, then CanShow selected the exact item_lootbox02_C actor /
+ExtendedWidget / TipHUD and read2 finite component poses. User stop46.394s,
+no probe error, hooks released; probe disabled. Both script readers worked across
+one manual reload. No World payload/rendering/occlusion acceptance.
 
 **BLOCKED for an executable World-space payload. Engine/API/material feasibility
 is source/static-confirmed; no Asterigos World-space rendering/rollback test.**
@@ -22,8 +22,9 @@ PostionItemUMG_BP_C with direct UMG.UserWidget base and reviewed own-only callba
 The original missing-class blocker is now **host-only runtime PASS**:
 [exact result](../userwidget-host/probe/README.md) confirms LoadAsset/Create/private
 tree/first-Slate Hidden/show/manual viewport cleanup. Probe disabled; do not repeat
-that test. Exact natural Open actor/component/pose remains the next independent
-World blocker, followed by World renderer/material/pose/occlusion runtime evidence.
+that test. Exact natural Open actor/component/pose now passed for one actor/class
+via the corrected join test above. World registration/render/material/pose/occlusion
+and own resource teardown remain independent gates.
 No World payload was created by this follow-up.
 The [Open binding report/probe](../open-binding/README.md) completed one NO_EVENTS
 run: native SetShow registered but0 callbacks/samples during31.965s until user stop.
@@ -32,9 +33,9 @@ unknown. Probe disabled. The source getter contracts remain evidence, but anothe
 natural entry route needed separate review. [Source-only route review](../open-binding/ROUTE_REVIEW.md)
 now prefers the explicit BaseLoot parent Blueprint BeginPlay chain, paired with
 proven CanShow for exact selection. A separate [read-only join source](../open-binding/beginplay-probe/README.md)
-passed105 offline tests and the partial acquisition run above; now disabled,
-no World payload. The host gate passed one
-viewport cycle; live binding and World registration/render/occlusion remain BLOCKED.
+passed105 original /108 corrected offline tests and the successful join above;
+now disabled, no World payload. The host gate passed one viewport cycle and the
+binding gate one natural Open case. World registration/render/occlusion remain BLOCKED.
 The original comparison/checkpoint below is retained as historical provenance.
 
 ## Recovery and scope
@@ -191,7 +192,7 @@ runtime-validated payload; original actor serialization/lifecycle remains a gate
 | Required work | Exact live component/transform/material; renderer registration and old screen-layer removal; finite snapshots of mutable state do not cover private renderer caches | Independent safe UserWidget, exact target owner/pose; transient allocation/finish-registration/no-collision; own orientation/scale and teardown |
 | Principal risk | Renderer absent after setter; stale/duplicate screen attachment or world proxy; native Genesis writes; rebuilding original Slate/native construct behavior | Host viewport lifecycle passed, but World rebuild/resource lifetime remains untested; sharing the same live widget across renderers and improper actor component persistence/collision remain unsafe |
 | Cleanup | Returning Space/scale/material values alone cannot prove native resource restoration | Conditional self-destroy/own-resource release path is source-visible; original needs no restoration; actual destroy/GC still untested |
-| Decision | Not a safe first payload; do not replace simple setter with blind re-registration/SetWidget(original) calls | **Conditional preferred architecture, BLOCKED** at live binding/World runtime; independent host viewport gate has passed |
+| Decision | Not a safe first payload; do not replace simple setter with blind re-registration/SetWidget(original) calls | **Conditional preferred architecture**; host viewport and one live binding gate passed. World source preparation/runtime gates remain BLOCKED |
 
 A live TipHUD cannot be used as B's SetWidget argument to dodge the missing host:
 UWidget.TakeWidget returns cached Slate content, not a deep UI clone. It would

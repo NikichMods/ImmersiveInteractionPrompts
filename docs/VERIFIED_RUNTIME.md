@@ -1,5 +1,23 @@
 # Verified Runtime — Interaction Prompts
 
+## Natural Open join and component world pose — bounded PASS, 2026-10-29
+
+[Exact session identities, addresses, pose and limits](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+Source603ab6be645bbc2b552f3e88e0d2448c981485b1 / Lua SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664 unchanged.
+Log SHA256953bcf244a2c6bb952092a99bbac290556f90ff7a56be81c40331281fd2f8e1c.
+After manual reload,3 pairs acquired; init128 closed acquisition only. CanShow
+continued (415 callbacks total) and matched one exact visible RU Open widget to
+0-1_lootbox_01_mat_ST001 / class item_lootbox02_C / own ExtendedWidget.
+Component location(-40619.4648,12241.2139,5672), rotation(0,109.320808,0), scale(1,1,1);
+actor origin(-40619.4648,12241.2139,5552). Two identical samples; not a universal
+offset, dynamic tracking or billboard result. STOP reason=user result=MATCHED,
+matches1/poses2/unmatched0/hooks_remaining0 at46.394s. No probe failure events.
+Both script readers have live proof across this one reload, without auto-register.
+Probe disabled closed-game;24 other baseline mod/loader files match,88 current
+files unchanged across disable. World renderer/occlusion/teardown and production
+remain untested, no new World installation performed or authorized by this run.
+
 ## Budget correction deployment — 2026-10-29, runtime PENDING
 
 Authorized closed-game replacement of own OpenJoin main.lua plus empty enabled.txt.

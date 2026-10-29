@@ -1,6 +1,19 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — corrected acquisition-only budget revision
+## Текущий результат — natural Open join/pose PASS; следующий World-source gate
+
+[Исправленный прогон](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
+подтвердил точное соответствие одного item_lootbox02_C Open actor/компонента/TipHUD
+и2 finite world-pose снимка. Acquisition cap128 сохранил3 пары для CanShow;
+оба script readers работали после одного ручного reload. Проба отключена.
+Не повторять этот binding/host/font тест. Следующая независимая задача — source
+подготовка одного своего World WidgetComponent при сохранённом оригинальном
+prompt: native registration/ownership/resources, camera-facing pose, масштаб и
+очистка. Затем отдельно разрешённый runtime должен проверить реальную глубину и
+перекрытие Хильдой. Здесь новый World payload не создавался/не устанавливался.
+World runtime acceptance и production остаются BLOCKED.
+
+## История исправления acquisition-only budget
 
 Поправка подготовлена,108 offline tests PASS, точный603ab6b source установлен
 по разрешению пользователя при закрытой игре; runtime pending.

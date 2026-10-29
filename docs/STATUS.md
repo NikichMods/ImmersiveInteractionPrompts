@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — один natural Open actor/component/TipHUD join и world pose PASS;
+probe отключён.** [Полные identity/координаты](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
+603ab6b сохранил3 пары после ACQUISITION_CLOSED init128; CanShow после reload
+выбрал0-1_lootbox_01_mat_ST001 класса item_lootbox02_C и его exact ExtendedWidget/
+TipHUD.2 конечных world-pose снимка, затем user STOP result=MATCHED за46.394s,
+show415/unmatched0/match1/poses2/hooks_remaining0. Ошибок probe нет.
+Прямая live связь и один anchor доказаны; обе script routes пригодны в этом reload.
+Лог сохранён; игра закрыта, снят только собственный enabled.txt.24 прочих baseline
+mod/loader hashes совпали,88 текущих файлов сохранили хэши при отключении.
+Следующий отдельный шаг — подготовить собственный World-component тест на этом
+anchor, не менять оригинал. World rendering/occlusion и production BLOCKED.
+
 **2026-10-29 — исправленная OpenJoin ревизия INSTALLED, runtime PENDING.**
 Source603ab6be645bbc2b552f3e88e0d2448c981485b1, installed SHA256
 932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664.

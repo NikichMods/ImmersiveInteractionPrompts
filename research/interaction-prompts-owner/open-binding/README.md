@@ -3,8 +3,10 @@
 **Source-only follow-up:** [route/architecture review](ROUTE_REVIEW.md) prefers
 parent Blueprint BeginPlay acquisition joined to proven CanShow, based on an
 explicit BaseLoot parent-call chain. Setup/SetArrayData natural callsites remain
-unproved. The separate [BeginPlay join source](beginplay-probe/README.md) is now
-READY_SOURCE/offline-tested, not installed/run; live binding/World still BLOCKED.
+unproved. The separate [BeginPlay join result](beginplay-probe/README.md) now proves
+one natural Open actor/component/TipHUD join and finite world pose after reload.
+Probe disabled; this original SetShow NO_EVENTS result is unchanged. World rendering
+and production remain BLOCKED.
 
 ## Runtime result — 2026-10-29
 

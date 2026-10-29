@@ -1,6 +1,69 @@
-# BeginPlay + CanShow Open join — budget correction INSTALLED, runtime PENDING
+# BeginPlay + CanShow Open join — one natural Open mapping/pose PASS, disabled
 
-## Corrected revision installation — 2026-10-29
+## Corrected revision runtime result — 2026-10-29
+
+Exact source603ab6be645bbc2b552f3e88e0d2448c981485b1 / Lua SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664 verified unchanged.
+Log SHA256 `953bcf244a2c6bb952092a99bbac290556f90ff7a56be81c40331281fd2f8e1c`;
+raw log/events/result local at budget-fix/runtime-20261029T171750Z.
+
+- 20:13:44.145: two script registrations10/10 and11/11, then WAITING.
+- 20:13:52.147–52.148:3 Open initialization pairs acquired after manual reload.
+- 20:13:52.727: ACQUISITION_CLOSED init=128 retained=3, selection_continues=true,
+  deadline_unchanged=true. Only own BeginPlay hook removed, not the CanShow reader.
+- 20:14:18.239: CHECKPOINT metadata_loaded=true init=128 ready=3 show=6.
+- 20:14:23.741: MATCH reciprocal=true for exactly one pair below, then finite POSE1.
+- 20:14:27.189: explicit user POSE2 for that same checked identity, changed=false.
+- 20:14:30.539: own CanShow unregister accepted and STOP reason=user result=MATCHED,
+  init128/open3/not_ready0/ready3/show415/visible_open1/unmatched0/matches1/poses2,
+  hooks_remaining=0. Elapsed46.394s before120s, not a budget/timeout stop.
+- 20:14:41.760: Event loop end. No probe failure/pending-unregister/dispatch events.
+
+Live identifiers in **this process only**, not reusable selectors:
+
+| Role | Exact identity |
+| --- | --- |
+| Actor | `/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel.0-1_lootbox_01_mat_ST001` |
+| Concrete actor class | `/Game/MainContent/Act/Discoveries_BP/common/item_lootbox02.item_lootbox02_C` |
+| Component | exact actor path + `.ExtendedWidget`, class `/Script/Genesis.ExtendedWidgetComponent` |
+| Widget | `/Engine/Transient.GameEngine_2147482619:MainGameInstance_BP_C_2147482611.TipHUD_C_2147478037`, exact TipHUD_C class |
+| Addresses actor/component/widget |2147071029840 /2147055182048 /2144665516864 |
+
+Both POSE records:
+
+| Native read | X / Y / Z, or Pitch / Yaw / Roll |
+| --- | --- |
+| Component world location | -40619.4648 /12241.2139 /5672 |
+| Component world rotation |0 /109.320808 /0 |
+| Component scale |1 /1 /1 |
+| Actor world location | -40619.4648 /12241.2139 /5552 |
+
+The printed component anchor is120 world units above this actor origin, with
+matching X/Y in these samples. This is not a universal offset to hardcode. Both
+poses were unchanged; moving-anchor behavior, camera-facing behavior and wider
+placement coverage are not established by two identical samples.
+
+**Closed gate:** one naturally shown RU Open TipHUD is now joined through exact
+identity and rechecked reciprocal pointers to its concrete actor/component and
+finite world pose. Both script readers remained usable through this one manual
+reload, without automatic re-registration. This does not prove UFunction objects
+were unloaded/recreated, all map lifecycles, other Open classes or production
+target priority. visible_open counts qualifying waiting callbacks, not physical
+button presses or a proof that only one prompt exists globally.
+
+Game verified closed; log archived, only own enabled.txt removed. Corrected Lua
+remains unchanged/disabled. All24 other baseline mod/loader files still matched;
+all88 other current files retained hashes across disable. No rollback of other
+mods/config/save state. No new code, observer or World component installed.
+
+Next independent step is source preparation of one owned World WidgetComponent
+experiment at this verified natural anchor, reusing the accepted independent
+UserWidget host. Registration/resources, camera-facing orientation, scale/depth,
+actual Hilda occlusion and own teardown still need their own evidence. Original
+prompt must remain visible in the first World experiment. No World installation
+is authorized by this result; World runtime and production remain **BLOCKED**.
+
+## Corrected revision installation history — before this run
 
 Exact source603ab6be645bbc2b552f3e88e0d2448c981485b1 installed with the host closed.
 Own main.lua replaced, empty enabled.txt added; source/installed hash is932901d8...

@@ -2,14 +2,15 @@
 
 **Current corrected revision:** [budget-fix source and installation](open-binding/beginplay-probe/README.md).
 Source603ab6b closes acquisition only at128; checked pairs remain for CanShow under
-the same120s/4096/4-pose/8-candidate limits.108 offline tests pass; installed
-closed-game by explicit permission, runtime pending. No World/production release.
+the same120s/4096/4-pose/8-candidate limits.108 offline tests pass; one natural Open
+join and2 world-pose reads now passed in-game. Probe disabled, source unchanged.
+No World rendering/production acceptance.
 
-**Latest OpenJoin run:** [result](open-binding/beginplay-probe/README.md).
+**Prior OpenJoin run (before the correction):** [result](open-binding/beginplay-probe/README.md).
 Three initialized Open actor/component/widget pairs acquired after reload;
 BeginPlay dispatch PASS. Entire observer stopped at128 init callbacks/20.789s
 before any CanShow, so visible selection/pose NOT_OBSERVED. Probe disabled,
-source unchanged. Acquisition-only budget closure is proposed, not implemented.
+source unchanged. Acquisition-only budget closure was implemented/tested in603ab6b.
 
 **Current route decision, source-only:** [BeginPlay + CanShow review](open-binding/ROUTE_REVIEW.md).
 Positive BaseLoot/Open parent-call chain supports the separate
@@ -17,7 +18,8 @@ Positive BaseLoot/Open parent-call chain supports the separate
 exact3497ab5 source completed the partial acquisition run above and is disabled.
 Natural Setup/SetArrayData dispatch is not proved.
 World B remains conditional preferred direction; Screen does not satisfy Hilda
-occlusion. Live mapping/pose and World rendering/production remain BLOCKED.
+occlusion. One live mapping/pose is proved by the correction; World rendering/
+production remain BLOCKED.
 
 **Current Open binding result:** [open-binding/README.md](open-binding/README.md).
 Native SetShow hook registered but received0 callbacks/0 samples in31.965s before
