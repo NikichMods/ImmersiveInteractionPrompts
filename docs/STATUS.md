@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — исправленная OpenJoin ревизия INSTALLED, runtime PENDING.**
+Source603ab6be645bbc2b552f3e88e0d2448c981485b1, installed SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664.
+При закрытой игре заменён только own main.lua и добавлен enabled.txt;24 остальных
+mod/loader и62 текущих config/save files сохранили хэши. Старый995a581f payload
+и disabled-state сохранены для отката вне loader в локальном
+beginplay-probe/budget-fix/install-20261029T165639Z. Только OpenJoin включён.
+Игра/reload не запускались; [один пользовательский тест](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
+проверяет продолжение CanShow после ACQUISITION_CLOSED и MATCH/POSE.
+Это research handoff, не production release; VERSION/World gate не менялись.
+
 **2026-10-29 — acquisition-budget correction READY_SOURCE, installation authorized.**
 [Ревизия](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
 закрывает только BeginPlay acquisition при128, сохраняя проверенные пары и CanShow.

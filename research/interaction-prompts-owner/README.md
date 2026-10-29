@@ -1,5 +1,10 @@
 # Observation probe readiness — 2026-10-28
 
+**Current corrected revision:** [budget-fix source and installation](open-binding/beginplay-probe/README.md).
+Source603ab6b closes acquisition only at128; checked pairs remain for CanShow under
+the same120s/4096/4-pose/8-candidate limits.108 offline tests pass; installed
+closed-game by explicit permission, runtime pending. No World/production release.
+
 **Latest OpenJoin run:** [result](open-binding/beginplay-probe/README.md).
 Three initialized Open actor/component/widget pairs acquired after reload;
 BeginPlay dispatch PASS. Entire observer stopped at128 init callbacks/20.789s

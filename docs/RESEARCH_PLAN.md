@@ -2,7 +2,8 @@
 
 ## Текущий шаг — corrected acquisition-only budget revision
 
-Поправка подготовлена,108 offline tests PASS, установка разрешена пользователем.
+Поправка подготовлена,108 offline tests PASS, точный603ab6b source установлен
+по разрешению пользователя при закрытой игре; runtime pending.
 При128 закрывается только acquisition; сохранённые≤8 пар доступны CanShow в
 исходном120s окне. Следующий достаточный тест — один ручной reload после arm,
 появление Open и MATCH/POSE либо точный отрицательный итог. Больше init callbacks,

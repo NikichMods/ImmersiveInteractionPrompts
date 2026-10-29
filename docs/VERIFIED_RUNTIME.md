@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Budget correction deployment — 2026-10-29, runtime PENDING
+
+Authorized closed-game replacement of own OpenJoin main.lua plus empty enabled.txt.
+Source603ab6be645bbc2b552f3e88e0d2448c981485b1; source/installed SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664.
+24 other mod/loader and62 current config/save files unchanged by hash. Old exact
+995a581f... bytes/disabled state, snapshots/manifests and guarded rollback outside
+loader. Other IIP probes disabled. No new game execution or runtime acceptance;
+the earlier3-pair evidence belongs to the previous source. World/production BLOCKED.
+
 ## Acquisition-only budget closure — corrected source, 2026-10-29
 
 Read-only research revision closes only BeginPlay acquisition at128 and retains

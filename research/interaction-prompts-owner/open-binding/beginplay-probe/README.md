@@ -1,4 +1,20 @@
-# BeginPlay + CanShow Open join — acquisition-budget correction READY_SOURCE
+# BeginPlay + CanShow Open join — budget correction INSTALLED, runtime PENDING
+
+## Corrected revision installation — 2026-10-29
+
+Exact source603ab6be645bbc2b552f3e88e0d2448c981485b1 installed with the host closed.
+Own main.lua replaced, empty enabled.txt added; source/installed hash is932901d8...
+(full SHA256 below). Only this IIP probe is enabled. All24 other mod/loader files
+and62 current config/save files retained hashes. Pinned UE4SS DLL identity matched;
+current CombatHUD/other mods preserved. No game launch/reload/hot reload.
+
+Verified old995a581f... source and disabled marker state retained outside loader
+at local beginplay-probe/budget-fix/install-20261029T165639Z, with new source copy,
+pretest log/settings/mods.txt, baseline/installed manifests and guarded rollback.ps1.
+Rollback restores the old main.lua and removes only the new marker, after hash
+checks and closed-host check. It does not restore other mods or user data.
+Installation is not runtime acceptance. Repeat only the one user procedure below;
+ACQUISITION_CLOSED should leave CanShow able to select the retained pair(s).
 
 ## Corrected research revision — 2026-10-29
 
@@ -19,7 +35,7 @@ regression acquires3 pairs, reaches128, then matches the second pair via CanShow
 Other new checks cover pending acquisition unregistration/inert late callbacks
 and unchanged timeout/pose cap. Prior runtime evidence below belongs to unchanged
 3497ab5 bytes, not acceptance of this correction. No production release/VERSION
-change or World payload. Exact replacement installation is a separate record.
+change or World payload. Exact replacement installation is recorded above; runtime pending.
 
 ## Original revision runtime result — 2026-10-29
 

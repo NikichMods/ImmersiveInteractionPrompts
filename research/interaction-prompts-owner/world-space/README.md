@@ -4,7 +4,8 @@
 acquired3 real initialized Open actor/component/widget pairs after reload, then
 stopped at128 initialization callbacks before CanShow selection. Source acquisition
 gate now has runtime proof; active target/world pose and World renderer remain
-unproved. Probe disabled. No new World payload or budget correction installed.
+unproved. Original revision disabled; a tested acquisition-only budget correction
+is now installed by permission, runtime pending. No World payload installed.
 
 **BLOCKED for an executable World-space payload. Engine/API/material feasibility
 is source/static-confirmed; no Asterigos World-space rendering/rollback test.**
