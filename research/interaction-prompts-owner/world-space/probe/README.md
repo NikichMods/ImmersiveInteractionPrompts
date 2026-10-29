@@ -1,8 +1,34 @@
 # One owned World component — READY_SOURCE, 2026-10-29
 
-**Source preparation only. NOT_INSTALLED / RUNTIME_NOT_TESTED.** Production and
+**INSTALLED 2026-10-30 (Moscow), runtime PENDING.** Exact d4a1ac6 source was
+installed with explicit user authorization while the game was closed. Production and
 World rendering/occlusion acceptance remain **BLOCKED**. This is one separately
-authorizable experiment, not the final prompt or a production lifecycle system.
+user-operated experiment, not the final prompt or a production lifecycle system.
+
+## Closed-game installation — 2026-10-30
+
+Source commit `d4a1ac610fcfc829b59545a7138034aa1795efc3`; the two source/installed
+SHA256 values below match exactly. Only new own loader directory
+`ImmersiveInteractionPromptsWorldProbe` was created: `Scripts/main.lua`,
+`Scripts/IIPWorldChild.lua` and empty `enabled.txt`. No Lua edits for deployment.
+UE4SS DLL matches the pinned ce5e3c46... identity and existing log identifies83330635.
+All old IIP probes remain disabled; CombatHUD/SoulsEnemyHUD and mods.txt unchanged.
+25 previous mod/loader files and58 current config/save files retain their hashes.
+Game closure was checked before deployment, before enable and after verification;
+no launch/termination/reload/hot reload was performed.
+
+Local ignored backup outside the loader:
+`.local/research/interaction-prompts/world-space/probe/install-20261029T211023Z/`.
+It retains exact Lua copies, pretest UE4SS.log/settings/mods.txt, initial-state
+hash manifest, verified result and guarded `rollback.ps1`. Target was previously
+absent. Rollback checks closed host, exact resolved own target and installed-file
+hashes, refuses unfamiliar files and removes only its own three files/directories.
+It does not restore an old whole-loader snapshot over newer unrelated work.
+The copied log precedes this test and is not runtime evidence for the World probe.
+
+Ready for the single user-operated test below; visual/native teardown gates remain
+unverified. The former instruction to obtain separate installation permission
+was fulfilled by the user's explicit “Да, устанавливай”.
 
 ## Question and sufficient evidence
 
@@ -94,11 +120,11 @@ There are no scans, per-frame Lua polls, line traces, visibility tricks or
 automatic reloads. Native component render ticks are ordinary WidgetComponent
 behavior, bounded by the experiment's own destruction deadline.
 
-## Future single test — only after separate closed-game installation
+## Single user-operated test — installed exact source
 
-Deployment must first verify closed game, DLL/source hashes, rollback outside
-loader paths, and disable other completed IIP probes without changing other mods.
-This document does **not** authorize that installation.
+Deployment checks above passed: closed game, DLL/source hashes, rollback outside
+loader paths and other completed IIP probes disabled. The game was not started;
+the user performs the following one run.
 
 1. Load the familiar save near the unopened Open chest. Press **Ctrl+Alt+F8 once**,
    then manually reload that same save once. Acquisition must observe natural

@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Owned World probe installation — 2026-10-30, runtime PENDING
+
+User-authorized closed-game installation of exact d4a1ac610fcfc829b59545a7138034aa1795efc3.
+Main/source/installed SHA2564b54ebc97ab64b6c3ff75ed2216efe3a778591b2cc614d9e257c8060c07443ed;
+helper/source/installed SHA2569173993d5c6cd0f82f4179d5594418112f12a31b582ff5f68aed3c4b498db6e8.
+Only own new Scripts/main.lua, Scripts/IIPWorldChild.lua and empty enabled.txt.
+Pinned DLL hash verified;25 previous mod/loader and58 config/save files unchanged.
+Old IIP probes disabled, other mods preserved; pretest log and guarded rollback
+outside loader in ignored world-space/probe/install-20261029T211023Z.
+See [installation/test record](../research/interaction-prompts-owner/world-space/probe/README.md).
+No game launch/termination/reload/hot reload. Installation hashes establish byte
+identity and enabling only, not World rendering/depth/teardown acceptance.
+
 ## Owned World component — source readiness only, 2026-10-29
 
 [New source/procedure](../research/interaction-prompts-owner/world-space/probe/README.md)

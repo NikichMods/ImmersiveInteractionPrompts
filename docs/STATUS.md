@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World TEST prototype INSTALLED, runtime PENDING.**
+По разрешению пользователя при закрытой игре установлен точный d4a1ac6 source:
+два Lua-файла и enabled.txt в новом ImmersiveInteractionPromptsWorldProbe.
+[Хэши, откат и инструкция](../research/interaction-prompts-owner/world-space/probe/README.md).
+UE4SS83330635/DLL совпали;25 старых mod/loader и58 текущих config/save files
+сохранили хэши. CombatHUD/SoulsEnemyHUD сохранены; остальные IIP probes отключены.
+Backup/manifest/guarded rollback вне loader: local world-space/probe/
+install-20261029T211023Z. Исходники не менялись, игру не запускали/не закрывали.
+Следующий шаг — один пользовательский reload/Open/partial-occlusion/F7 test.
+World rendering/очистка в игре и production BLOCKED до результата.
+
+## Подготовка исходников
+
 **2026-10-29 — отдельный World-component прототип READY_SOURCE, не установлен.**
 [Исходники, точные хэши и процедура](../research/interaction-prompts-owner/world-space/probe/README.md).
 Проверенные OpenJoin и независимый host переиспользованы. Один собственный

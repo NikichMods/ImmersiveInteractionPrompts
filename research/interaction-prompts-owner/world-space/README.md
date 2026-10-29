@@ -7,8 +7,8 @@ ExtendedWidget / TipHUD and read2 finite component poses. User stop46.394s,
 no probe error, hooks released; probe disabled. Both script readers worked across
 one manual reload. No World payload/rendering/occlusion acceptance.
 
-**Current: [one owned World prototype READY_SOURCE](probe/README.md), NOT_INSTALLED /
-RUNTIME_NOT_TESTED.** Native transient ownership, manual FinishAddComponent
+**Current: [one owned World prototype INSTALLED](probe/README.md), runtime PENDING
+after authorized closed-game installation2026-10-30.** Native transient ownership, manual FinishAddComponent
 registration, stock masked depth material and own destruction were checked against
 UE4.27/pinned UE4SS and installed UHT. Two research Lua files reuse accepted
 binding/host routes, add one cyan WORLD TEST with fixed camera-facing pose and
