@@ -1,11 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
-**Current Open binding preparation:** [open-binding/README.md](open-binding/README.md).
-One native SetShow event supplies an exact component context; reciprocal widget/
-actor/argument checks and component world-pose reads are READY_SOURCE, not live
-mapping proof.83 offline tests pass; exact148e5c0 source installed closed-game by
-explicit permission, runtime still pending. No world scan, UI changes or
-World component. Next sufficient test may confirm one pair or yield no-match.
+**Current Open binding result:** [open-binding/README.md](open-binding/README.md).
+Native SetShow hook registered but received0 callbacks/0 samples in31.965s before
+user stop. NO_EVENTS, no live mapping/pose/getter proof; cause unknown. Probe
+disabled closed-game, source unchanged.83 offline tests remain policy evidence,
+not natural dispatch proof. Another entry route needs separate review; no new
+observer/world scan/UI changes or World component followed this negative run.
 
 **Latest host result — runtime PASS:** [host-only result](userwidget-host/probe/README.md).
 Exact class loaded, independent tree created, own label shown after Construct Hidden,

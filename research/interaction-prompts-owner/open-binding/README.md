@@ -1,6 +1,36 @@
-# Natural Open binding — INSTALLED, runtime PENDING
+# Natural Open binding — NO_EVENTS / mapping NOT_OBSERVED, probe disabled
 
-## Authorized installation — 2026-10-29
+## Runtime result — 2026-10-29
+
+Installed source148e5c062cc5817e271635372d8111efb97cae4f and Lua hash below still
+match. UE4SS83330635 registered the exact native SetShow hook IDs10/11 at
+14:28:55.8629603. WAITING14:28:55.8630038 → STOP14:29:27.8280779 reason=user,
+callbacks=0 samples=0 hook_remaining=false. Observation lasted31.965s, ending by
+the user's explicit stop before60s, not by timeout or callback budget.
+Event loop ended14:29:37.4985331; no probe FAILED/UNREGISTER_FAILED events.
+
+No component event reached the observer, so no MATCH/POSE was produced and no
+widget/owner/transform getter path was exercised. This is **NO_EVENTS**, not a
+pointer mismatch, a transform failure or evidence that GetWidget/GetOwner cannot
+work. The cause is unknown: native direct-call/reflected dispatch coverage and
+event timing relative to arm remain possible gaps, not diagnosed explanations.
+Do not conclude SetShow is never used in the game or automatically repeat/extend
+the same run. The user reported completion, not a new visual World-space result.
+
+Log SHA256 `cb14e1797409d94414f14139352f28653e83d06a9f5b591a95bd18115d429c2f`;
+raw log/events/result retained locally at open-binding/runtime-20261029T113047Z.
+Game verified closed; removed only this probe's enabled.txt after archiving.
+Source retained unchanged. All23 pre-install mod/loader hashes still matched;
+all87 other current mod/loader/config/save files retained hashes across disable.
+No changes to CombatHUD or other mods. No new observer was installed.
+
+The tested event route has not supplied the required identity. World payload and
+production remain BLOCKED. Next boundary is a separate source-led selection of
+an event/identity source with testable natural dispatch, reusing proven CanShow
+and host facts. No alternate payload, world scan, guessed actor or diagnostic
+escalation is authorized by this negative result.
+
+## Installation history — 2026-10-29, before this run
 
 Exact source commit148e5c062cc5817e271635372d8111efb97cae4f installed unchanged in
 ImmersiveInteractionPromptsOpenBindingProbe: Scripts/main.lua and empty enabled.txt.
@@ -127,7 +157,7 @@ can retry. Dispatch failure also makes the observer inert, with no game-state
 rollback needed because it made no writes. There is no UI cleanup, GC/root control,
 load/spawn, Create, show/hide call or asset mutation in this probe.
 
-## User experiment — installation authorized/completed, run still pending
+## Historical user procedure — completed once, result above
 
 1. Start gameplay a short distance outside one natural unopened Open prompt's
    range. F8 chord once, then approach until the normal «Открыть»/input hint appears.

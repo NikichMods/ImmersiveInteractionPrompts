@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — Open binding: NO_EVENTS, mapping/pose NOT_OBSERVED; probe отключён.**
+[Результат](../research/interaction-prompts-owner/open-binding/README.md): native
+SetShow hook зарегистрирован IDs10/11, WAITING14:28:55.863 → STOP reason=user
+14:29:27.828, callbacks=0/samples=0 за31.965s. Ошибок probe нет, но MATCH/POSE нет;
+getter/identity-проверки не исполнялись. Причина отсутствия событий неизвестна.
+Лог сохранён; игра закрыта, снят только свой enabled.txt.23 прежних mod/loader
+hashes совпали;87 остальных текущих файлов не изменились при отключении.
+Этот event route не закрыл live mapping gate. Не повторять/расширять прогон
+автоматически: сначала отдельный выбор проверяемого входа. World/production BLOCKED.
+
+## История подготовки Open binding
+
 **2026-10-29 — Open binding probe INSTALLED; runtime PENDING.**
 По явному разрешению пользователя при закрытой игре установлен точный148e5c0
 Lua SHA256a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f.

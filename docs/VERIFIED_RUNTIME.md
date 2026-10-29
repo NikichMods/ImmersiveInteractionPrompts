@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Open binding run — NO_EVENTS, 2026-10-29
+
+[Exact negative result](../research/interaction-prompts-owner/open-binding/README.md).
+Source148e5c0/hash a56d8fda... verified unchanged. Log SHA256
+cb14e1797409d94414f14139352f28653e83d06a9f5b591a95bd18115d429c2f.
+Native SetShow registration IDs10/11 succeeded; WAITING14:28:55.863 to user STOP
+14:29:27.828 produced callbacks=0/samples=0/hook_remaining=false,31.965s before
+timeout. No probe error events; Event loop end14:29:37.498. No MATCH/POSE/getter
+execution, hence no live owner/anchor proof. Missing dispatch/timing cause unknown;
+do not infer that SetShow never runs or that pointer getters failed.
+Probe disabled closed-game by removing only enabled.txt.23 original mod/loader
+files still matched install hashes;87 other current files unchanged across disable.
+No automatic alternate observer or new World experiment. Production BLOCKED.
+
 ## Open binding installation — 2026-10-29, runtime PENDING
 
 Explicitly authorized closed-game install, source148e5c062cc5817e271635372d8111efb97cae4f.

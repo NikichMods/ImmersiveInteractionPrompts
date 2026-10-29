@@ -1,6 +1,16 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — один read-only natural Open binding test, READY_SOURCE
+## Текущий результат — Open binding NO_EVENTS; следующий вход не выбран
+
+[Первый event-scoped тест](../research/interaction-prompts-owner/open-binding/README.md)
+завершён: SetShow hook зарегистрирован, но за31.965s до user stop callbacks=0,
+MATCH/POSE нет. Проба отключена. Это не ошибка getter или доказанный native bypass:
+причина отсутствия событий неизвестна. Повтор того же опыта без новой причины
+не запланирован. Следующая отдельная граница — выбрать источник component identity
+с проверяемым естественным dispatch/timing; не ставить автоматически ещё один hook.
+Host/CanShow результаты сохраняются. Live mapping, World и production BLOCKED.
+
+## История первого Open binding прототипа
 
 [Open binding](../research/interaction-prompts-owner/open-binding/README.md)
 содержит проверенные source/API контракты и отдельный прототип: естественный
