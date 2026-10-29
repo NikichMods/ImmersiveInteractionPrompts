@@ -1,11 +1,15 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Latest host gate — runtime PASS:** [result](userwidget-host/probe/README.md).
+Independent class LoadAsset/Create/private tree/Construct Hidden/show/manual cleanup
+passed in the game and user-confirmed. Probe disabled. This resolves the independent
+host gate for one viewport cycle; World component rendering/occlusion and exact
+natural Open binding remain separate, unproved gates. Production BLOCKED.
+
 **Host follow-up:** [userwidget-host/README.md](userwidget-host/README.md) found
-concrete PostionItemUMG_BP_C / direct UMG.UserWidget. First class blocker is
-source-resolved; host-only Create/tree/Slate/cleanup remains a separate unrun gate.
-Construct Hidden is handled after first build by the prepared
-[host-only probe](userwidget-host/probe/README.md), READY_SOURCE with74 offline
-tests, not installed/run. No World payload/installation.
+concrete PostionItemUMG_BP_C / direct UMG.UserWidget. The subsequent host-only
+Create/tree/Slate/show/manual cleanup gate passed; Construct Hidden was handled
+after first build.74 offline tests remain source-policy evidence. No World payload.
 Exact Open actor/component/pose remains unresolved; production BLOCKED.
 
 

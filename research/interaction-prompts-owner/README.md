@@ -1,17 +1,19 @@
 # Observation probe readiness — 2026-10-28
 
-**Current host result:** [userwidget-host/README.md](userwidget-host/README.md).
-Found concrete PostionItemUMG_BP_C directly on UMG.UserWidget; source-reviewed
-creation/tree/callbacks/Slate supports a separate host-only lifecycle test.
-Runtime NOT_TESTED; Construct hides self. Exact Open binding remains independent.
-Follow-up [host-only probe](userwidget-host/probe/README.md) is READY_SOURCE:
-exact registry class entry checked, one Create/private-tree/Hidden/show/cleanup
-attempt and74 offline tests. Not installed/run; World/production still BLOCKED.
+**Latest host result — runtime PASS:** [host-only result](userwidget-host/probe/README.md).
+Exact class loaded, independent tree created, own label shown after Construct Hidden,
+manual viewport cleanup passed; user confirmed scenario/original UI. Probe disabled.
+Next separate blocker is exact natural Open actor/component/pose, then World runtime.
+Source readiness notes below are historical; production remains BLOCKED.
+
+The [source audit](userwidget-host/README.md) and74 offline tests remain provenance
+for the runtime result above. Direct UMG.UserWidget parent; Construct hides self,
+and the accepted own visibility change follows the first Slate build.
 
 
 **Current preferred direction:** [world-space/README.md](world-space/README.md).
 Source/static study completed; executable World payload BLOCKED. Separate owned
-WidgetComponent preferred conditionally; host-class gap is now source-resolved by the follow-up above; exact natural Open
+WidgetComponent preferred conditionally; host gap is closed for the tested viewport cycle; exact natural Open
 binding and runtime lifecycle remain open. Setter-only original-component migration is not
 safe/proved. Stock depth-capable materials exist; no mask/PostProcess detour needed.
 No game run/install. Earlier screen-position result below is a verified fallback.

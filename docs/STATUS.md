@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — independent UserWidget host runtime PASS; probe отключён.**
+[Лог и границы](../research/interaction-prompts-owner/userwidget-host/probe/README.md):
+точный LoadAsset found/loaded=true → private tree → Construct Hidden → VISIBLE →
+ручной LABEL_REMOVED/OWNERSHIP_RELEASED/CLEANED reason=user за22.218s.
+Исходный HUD fingerprint неизменен; пользователь подтвердил весь сценарий.
+Игра закрыта, лог сохранён, снят только собственный enabled.txt;87 остальных
+текущих файлов сохранили хэши при отключении. Host-блокер закрыт для этого класса
+и одного viewport lifecycle. Следующий отдельный шаг — exact natural Open
+actor/component/pose. World rendering/occlusion и production всё ещё BLOCKED.
+
+## История этапов (предыдущие статусы на момент записи)
+
 **2026-10-29 — independent UserWidget probe установлен по разрешению пользователя;
 runtime PENDING.** Точный source commit a23635b95b029ff8d73dec4f940e1aa54c213d37,
 Lua SHA25666ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186.

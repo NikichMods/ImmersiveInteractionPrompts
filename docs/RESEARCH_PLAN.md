@@ -1,30 +1,23 @@
 # План исследования — contextual prompts и письменность
 
-## Подготовленный следующий тест — независимый host, READY_SOURCE
+## Текущий шаг после host runtime PASS
 
-[Host-only probe](../research/interaction-prompts-owner/userwidget-host/probe/README.md)
-подготовлен и проходит74 offline tests. Точный generated-class registry entry
-найден; собственный Create/дерево/Construct Hidden/viewport/manual cleanup должны
-быть проверены одним отдельно разрешённым запуском. Не устанавливался.
-Это достаточная следующая граница; World/Open binding/Aphes сюда не включены.
+[Независимый UserWidget](../research/interaction-prompts-owner/userwidget-host/probe/README.md)
+загружен, создан с отдельным деревом, показан после Construct Hidden и вручную
+удалён в игре; пользователь подтвердил сценарий. Проба отключена, повторять её
+не нужно. Следующая независимая неизвестная — exact natural Open
+actor/component/pose. Её доказательство позволит привязать будущий отдельный
+World WidgetComponent к реальному взаимодействию; до этого World payload и
+production BLOCKED. Новый observer/установка этим результатом не разрешены.
 
-## Текущий шаг — independent host найден; World-прототип ещё BLOCKED
+## Источники завершённой проверки host
 
-[Ограниченная проверка host](../research/interaction-prompts-owner/userwidget-host/README.md)
-нашла concrete PostionItemUMG_BP_C на прямой базе UMG.UserWidget, с проверенными
-self-only callback/tree/Slate creation контрактами. Поиск остановлен на одном
-подходящем классе, без общего реестра UI или нового authoring toolchain.
-Первый архитектурный host-блокер source-resolved. Следующий достаточный шаг —
-отдельный host-only тест residency/Create/private tree/first build/cleanup;
-не выдавать это за World occlusion. Construct Hidden обязательно учесть.
-
-Независимый следующий блокер — точная привязка natural Open actor/component/pose;
-в текущем этапе она не исследовалась. World renderer/material/registration review
-сохранён в [World report](../research/interaction-prompts-owner/world-space/README.md).
-Поиск класса не создавал payload; следующий host-only исходник подготовлен выше.
-Установка и игра не выполнялись.
-Предпочтительный объектный дизайн и fallback X50%/Y78% неизменны; font/divider/
-viewport исследования не повторялись. Production lifecycle остаётся BLOCKED.
+[Статический audit](../research/interaction-prompts-owner/userwidget-host/README.md)
+и [runtime result](../research/interaction-prompts-owner/userwidget-host/probe/README.md)
+фиксируют класс, registry/loading, source identity, отдельное дерево, Construct и
+ручное освобождение. World source/material review остаётся в
+[World report](../research/interaction-prompts-owner/world-space/README.md).
+Предпочтительный объектный дизайн и fallback X50%/Y78% неизменны.
 
 ## История композиции после технического Aphes runtime PASS
 

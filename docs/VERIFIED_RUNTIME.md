@@ -1,6 +1,21 @@
 # Verified Runtime — Interaction Prompts
 
-## Independent host installation — 2026-10-29, runtime PENDING
+## Independent UserWidget host — bounded runtime PASS, 2026-10-29
+
+[Exact result](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
+Source a23635b95b029ff8d73dec4f940e1aa54c213d37/hash66ffdce4...; session log
+SHA256e2aabde7105beb95294c97cbd9388a1c23f785de566095194bfb332027bfc6c4.
+13:15:24.782 exact generated-class LoadAsset found/loaded=true, private tree
+validated;13:15:24.790 Construct Hidden observed then own viewport label visible.
+13:15:47.008 manual cleanup releases own label/viewport after22.218s, original
+HUD/tree/root fingerprint unchanged. No probe failure events. User confirmed
+expected visible show/removal and original UI behavior. Closed-game disable only
+removed own enabled.txt;87 other current files unchanged. Already-diverged three
+CombatHUD files were preserved. No forced GC/package unload.
+This is host-only viewport evidence; World renderer/occlusion and exact Open binding
+remain unproved. Timeout/native GC/map lifecycle/production are not accepted.
+
+## Installation history — 2026-10-29, before runtime acceptance
 
 Authorized closed-game installation of exact a23635b source, SHA256
 66ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186.
@@ -10,7 +25,7 @@ log snapshot retained outside loader. No game execution or native success claime
 Next evidence: own label visible after first F6 chord, manual cleanup after second,
 original UI preserved; see [host-only procedure](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
 
-## Independent host probe prepared — offline only, 2026-10-29
+## Preparation history — offline only, 2026-10-29
 
 [Exact source/procedure](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
 Targeted installed AssetRegistry read confirms the exact PostionItemUMG_BP_C
@@ -22,7 +37,7 @@ READY_SOURCE is not runtime acceptance. Loading, fresh-tree instancing, renderin
 native ownership release and preservation of original UI remain live test gates.
 No installation/game execution or production/VERSION changes occurred.
 
-## Independent host class — FOUND/source-ready, runtime NOT_TESTED
+## Original class audit — source-only before the accepted follow-up
 
 [Host report](../research/interaction-prompts-owner/userwidget-host/README.md):
 `/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`

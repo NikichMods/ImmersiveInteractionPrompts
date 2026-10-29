@@ -1,11 +1,11 @@
 # Independent UserWidget host — bounded source review, 2026-10-29
 
-**FOUND / SOURCE_READY for a separate bounded host-lifecycle experiment.**
-The missing concrete host class is resolved statically. Runtime residency,
-Create/WidgetTree/first Slate construction/cleanup are NOT_TESTED. Full World Open
-prototype remains BLOCKED on its separate exact actor/component/pose binding and
-its runtime gates. No executable game payload, install, game launch, production,
-VERSION, settings/save or other-mod changes in this study.
+**Independent host runtime PASS:** [exact follow-up](probe/README.md) confirms
+LoadAsset/Create/private tree/first Slate Hidden/show/manual cleanup and user
+acceptance. Probe disabled. Full World Open prototype remains BLOCKED on exact
+actor/component/pose and World runtime gates. The source review below is retained
+as provenance, not a request to repeat the completed host test. Production/VERSION
+unchanged.
 
 Candidate (retain shipped spelling):
 `/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`.
@@ -106,7 +106,13 @@ widget identity must not be shared. A Lua wrapper/Outer alone is not a GC root.
 An owned component.Widget or viewport Slate holder must supply native ownership;
 cleanup must release only that holder and own resources, with no forced GC claim.
 
-## Availability gate and proposed separate test boundary
+## Availability gate and separate test boundary
+
+**Follow-up runtime PASS:** [host-only probe result](probe/README.md) confirms exact
+LoadAsset/Create, independent tree, first Construct Hidden, own viewport label and
+manual release with unchanged original HUD fingerprint/user acceptance. Probe
+disabled closed-game. Historical source analysis below is retained; its former
+runtime unknowns are resolved only for that one viewport lifecycle, not World/GC.
 
 Cooked presence is proved, **loaded-class residency is not**. Exact StaticFindObject
 may return NOT_LOADED. Pinned UE4SS LuaMod.cpp3334ff does expose game-thread-only

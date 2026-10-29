@@ -1,6 +1,39 @@
-# Independent UserWidget probe — READY_SOURCE, runtime NOT_TESTED
+# Independent UserWidget probe — bounded runtime PASS, disabled
 
-## Authorized installation — 2026-10-29, runtime PENDING
+## Runtime result — 2026-10-29
+
+User confirmed the complete prescribed visible show/manual-removal scenario and
+normal original UI behavior. Source a23635b95b029ff8d73dec4f940e1aa54c213d37,
+Lua SHA25666ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186.
+Session log SHA256 `e2aabde7105beb95294c97cbd9388a1c23f785de566095194bfb332027bfc6c4`.
+Raw log/events/result retained locally under host-probe/runtime-20261029T101730Z.
+Times below are the log's own timestamps:
+
+- 13:15:24.781 LOAD_BEGIN → .782 LOAD_RESULT found=true loaded=true;
+  INSTANCE_VALIDATED private_tree=true root_children=1 existing_instances_unchanged=true.
+- 13:15:24.790 CONSTRUCT_HIDDEN visibility=2 → ORIGINAL_TREE_UNCHANGED root_children=2
+  → VISIBLE. Native Create, private-tree checks and own post-build visibility passed.
+- 13:15:47.007 LABEL_REMOVED → OWNERSHIP_RELEASED viewport_ref=false,
+  gc_not_forced=true, class_cache_not_unloaded=true → ORIGINAL_TREE_UNCHANGED
+  →13:15:47.008 CLEANED reason=user own_viewport_remaining=0.
+  Manual cleanup after22.218s, before60s deadline; no cleanup retry was needed.
+- 13:15:52.884 Event loop end. No FAILED/CLEANUP_FAILED/PRESERVATION_CHANGED/
+  UNAVAILABLE events from this probe. Exactly one load/Create path and one visible cycle.
+
+After confirming the game closed, archived the log and removed only this probe's
+empty enabled.txt. Source remains unchanged/disabled. All87 other current
+mod/loader/config/save files retained hashes across this disable operation.
+Three CombatHUD files already differed from the earlier install snapshot before
+this operation; they were preserved, not restored or attributed to this probe.
+
+This closes the **independent UserWidget host** runtime gate for this class and
+one viewport lifecycle. It does not prove World WidgetComponent registration,
+rendering/occlusion, Open component/pose binding, callback lifetime across maps,
+timeout cleanup in the engine, native GC completion or production readiness.
+Next sufficient step is the separately scoped exact natural Open binding study;
+do not repeat this host test solely as a substitute for that missing evidence.
+
+## Installation history — 2026-10-29, before the accepted run
 
 Prepared source commit a23635b95b029ff8d73dec4f940e1aa54c213d37 installed unchanged
 as ImmersiveInteractionPromptsUserWidgetHostProbe (main.lua + empty enabled.txt).
@@ -8,7 +41,7 @@ Host closed before copy/enable; installed source hash matches below. All22 prior
 mod/loader files and63 config/save files retained hashes. Old IIP probes disabled.
 Rollback to prior absent target, source copy, prior log/settings and hash manifests
 are outside loader in ignored host-probe/install-20261029T081829Z.
-No launch/hot reload or runtime observation. Source preparation comments remain
+At installation there was no launch/hot reload or runtime observation. Source preparation comments remain
 unchanged to preserve exact tested bytes. Follow the test procedure below;
 installation authorization has now been received and executed.
 

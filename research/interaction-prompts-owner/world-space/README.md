@@ -12,10 +12,12 @@ This report does not call a speculative recipe READY.
 
 [Independent host review](../userwidget-host/README.md) found shipped concrete
 PostionItemUMG_BP_C with direct UMG.UserWidget base and reviewed own-only callbacks.
-The original missing-class blocker below is **source-resolved**, not runtime PASS.
-Loaded-class availability and Create/first-Slate-build/cleanup still need a
-separate bounded host test. Exact natural Open actor/component/pose remains the
-next independent World blocker. No World payload was created by this follow-up.
+The original missing-class blocker is now **host-only runtime PASS**:
+[exact result](../userwidget-host/probe/README.md) confirms LoadAsset/Create/private
+tree/first-Slate Hidden/show/manual viewport cleanup. Probe disabled; do not repeat
+that test. Exact natural Open actor/component/pose remains the next independent
+World blocker, followed by World renderer/material/pose/occlusion runtime evidence.
+No World payload was created by this follow-up.
 The original comparison/checkpoint below is retained as historical provenance.
 
 ## Recovery and scope
