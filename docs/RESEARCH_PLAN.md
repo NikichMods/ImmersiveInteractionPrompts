@@ -1,12 +1,13 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — BeginPlay + CanShow join probe READY_SOURCE
+## Текущий шаг — BeginPlay + CanShow join probe установлен, runtime PENDING
 
 [Подготовленный исходник и процедура](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
 проходят105 offline tests.8 Open attempts/128 init/4096 CanShow/120s/4 poses;
 нет игровых записей или сохранённых UObject wrappers. Следующее достаточное
-доказательство требует отдельной разрешённой установки и одного ручного reload
-сохранения после arm. На этом этапе установка/игра/reload запрещены и не выполнялись.
+доказательство требует одного ручного reload сохранения после arm. Отдельное
+разрешение на установку получено; точный3497ab5 payload установлен closed-game.
+Игра/reload агентом не запускались, приёмка остаётся pending.
 Проверять реальные callbacks после reload, точный join и pose; не повторять Aphes,
 UserWidget или CanShow-only acceptance. Любой отрицательный итог завершает этот
 run без нового наблюдателя. World rendering/production остаются BLOCKED.

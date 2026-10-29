@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — BeginPlay + CanShow OpenJoin probe INSTALLED, runtime PENDING.**
+По разрешению пользователя при закрытой игре установлен точный3497ab5 исходник,
+Lua SHA256995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
+Добавлены только main.lua/enabled.txt в новом ImmersiveInteractionPromptsOpenJoinProbe.
+24 старых mod/loader и61 текущий config/save files сохранили хэши. Другие моды и
+CombatHUD сохранены, старые IIP probes отключены. Вне loader сохранён rollback,
+снимки и манифесты в локальном beginplay-probe/install-20261029T163735Z.
+Игра/reload не запускались; следующий шаг — [один пользовательский reload/test](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+Live mapping/pose, World rendering и production остаются BLOCKED.
+
 **2026-10-29 — BeginPlay + CanShow join probe READY_SOURCE, runtime NOT_TESTED.**
 [Исходник/процедура](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
 два точных single-callback script hooks,≤8 Open attempts,≤128 init/4096 CanShow,

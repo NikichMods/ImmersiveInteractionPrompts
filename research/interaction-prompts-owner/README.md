@@ -2,8 +2,9 @@
 
 **Current route decision, source-only:** [BeginPlay + CanShow review](open-binding/ROUTE_REVIEW.md).
 Positive BaseLoot/Open parent-call chain supports the separate
-[BeginPlay join source](open-binding/beginplay-probe/README.md), READY_SOURCE with105
-offline tests, not installed/run. Natural Setup/SetArrayData dispatch is not proved.
+[BeginPlay join source](open-binding/beginplay-probe/README.md),105 offline tests;
+exact3497ab5 source now installed closed-game by permission, runtime pending.
+Natural Setup/SetArrayData dispatch is not proved.
 World B remains conditional preferred direction; Screen does not satisfy Hilda
 occlusion. Live mapping/pose and World rendering/production remain BLOCKED.
 

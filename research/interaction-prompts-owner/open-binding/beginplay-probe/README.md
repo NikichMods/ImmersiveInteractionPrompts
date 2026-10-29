@@ -1,9 +1,29 @@
-# BeginPlay + CanShow Open join — READY_SOURCE, runtime NOT_TESTED
+# BeginPlay + CanShow Open join — INSTALLED, runtime PENDING
+
+## Authorized installation — 2026-10-29
+
+User authorized installation; host verified closed before copying/enabling.
+Exact source3497ab5234e61084cf75fe32fe1a16d4b92de443 installed unchanged as
+ImmersiveInteractionPromptsOpenJoinProbe, Scripts/main.lua + empty enabled.txt.
+Source/installed SHA256 both
+`995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3`.
+Pinned UE4SS.dll SHA256ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290
+matched. All24 previous mod/loader and61 current config/save files retained hashes;
+other mods/current CombatHUD preserved, prior IIP probes disabled.
+
+Outside-loader local backup at beginplay-probe/install-20261029T163735Z contains
+exact source copy, prior UE4SS.log/settings/mods.txt, installed/verified manifests
+and hash-guarded rollback.ps1 restoring the previously absent target. No source
+edit, launch/termination/reload/hot reload or runtime observation. Test below is
+now authorized for this installation; results are still PENDING.
+
+## Source preparation record
 
 2026-10-29. Steam1.09/build12996889, UE4.27, UE4SS83330635. Separate research-only
 [Lua source](Scripts/main.lua), no dependencies beyond the pinned loader APIs.
 SHA256 `995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3`.
-Not installed or executed. Old SetShow source/result stays unchanged and disabled.
+Prepared without installation/execution; later installation recorded above.
+Old SetShow source/result stays unchanged and disabled.
 No World component, UI creation, Aphes, input remapping, game/save/config writes,
 object enumeration, forced asset load, initialization call or hot reload.
 Production and World-space runtime acceptance remain **BLOCKED**.
@@ -103,10 +123,11 @@ Counters describe callbacks, not physical actions or distinct widgets. A stop
 reason (user/timeout/budget/target state) accompanies the result. No automatic next
 route or repeated observation follows a negative result.
 
-## Future user test — requires separate closed-game installation authorization
+## User test — authorized installation completed, runtime pending
 
 Install only these exact bytes in a new research-only mod, with previous IIP probes
-disabled, verified rollback and a closed game. That has **not** been done here.
+disabled, verified rollback and a closed game. Exact installation is recorded above;
+no game or save reload has been performed by the agent.
 
 1. Start normally and load the existing save so both BP functions can be resident.
    Ctrl+Alt+F8 once arms the120s observation. No added text or visual effect is expected.

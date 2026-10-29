@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## OpenJoin installation — 2026-10-29, runtime PENDING
+
+Authorized closed-game installation of exact3497ab5234e61084cf75fe32fe1a16d4b92de443
+source, source/installed SHA256995a581f2b05aa5acc2578c293792f90817655ba652027167c2fbdf1177c16e3.
+Only new OpenJoinProbe main.lua/enabled.txt added. Pinned loader DLL verified;
+24 existing mod/loader and61 current config/save files unchanged by hash, prior
+IIP probes disabled. Local source/log/settings snapshots, manifests and guarded
+rollback retained outside loader. No game launch/reload/hot reload or live result.
+[Exact installation and procedure](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+
 ## BeginPlay + CanShow join preparation — offline only, 2026-10-29
 
 [Exact source/contracts and user procedure](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
