@@ -1,5 +1,27 @@
 # Verified Runtime — Interaction Prompts
 
+## World-space feasibility — source/static only, 2026-10-29
+
+[World report](../research/interaction-prompts-owner/world-space/README.md)
+confirms exact UHT World0/Screen1 APIs, packaged stock depth-capable widget
+materials and component lifecycle/transform contracts. DLL hash stillce5e3c46...
+for UE4SS83330635. No World render/occlusion or component migration/rollback was
+executed; earlier Aphes/viewport results do not supply that missing evidence.
+
+Concrete source boundary: UE4.27 SetWidgetSpace is assignment-only; OnRegister
+creates FWidgetRenderer only for non-Screen, and DrawWidgetToRenderTarget returns
+without that renderer. Tick/Space readback does not prove live migration. Separate
+component is the conditional candidate, blocked on independent UserWidget host and
+exact Open component binding. Base UserWidget is Abstract, existing live Slate
+content is not a duplicate. No executable payload built on unproved setters.
+
+Exactly seven Widget3DPassThrough packages inspected from installed base Paks.
+All six material instances lead to Unlit base; absent serialized disable-depth
+combined with actual UMaterial CDO false is static evidence, not active-component
+material/shader readback. Source override-material precedence is retained. Raw
+exports local; full hashes/audit and risks in report. Production BLOCKED.
+
+
 ## Screen-space placement result — bounded runtime PASS/PARTIAL, 2026-10-29
 
 [Owning report](../research/interaction-prompts-owner/viewport/README.md), exact

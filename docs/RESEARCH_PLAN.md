@@ -1,13 +1,26 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — композиция после технического Aphes runtime PASS
+## Текущий шаг — World-space occlusion, payload BLOCKED
 
-[Aphes-text](../research/interaction-prompts-owner/aphes-text/README.md) прошёл
-один OPEN→READ→manual cleanup run; пользователь подтвердил visual success,
-кадр/логи/хэши сохранены, probe отключён. Не повторять font/storage test.
-Далее выбрать композицию: размеры/иерархия, отступы, divider и outline.
-Эти значения не утверждены; конкретное изменение оформления пока не выбрано.
-Production lifecycle/GC/широкая input/DPI/localization приёмка — отдельные gates.
+[Ограниченное исследование](../research/interaction-prompts-owner/world-space/README.md)
+завершено: штатный World rendering/material depth путь есть на уровне source и
+локальных cooked assets. Рекомендуется отдельный собственный plain WidgetComponent,
+не setter-only переключение живого ExtendedWidgetComponent: требуются независимый
+конкретный UserWidget и точная привязка Open owner/pose. Первый следующий evidence
+шаг — один подтверждённый UserWidget host/Create/Initialize/lifecycle, без широкого
+observer и без автоматического runtime. Детали native renderer registration и
+проверки семи материалов в отчёте; новый исполняемый payload не создан.
+
+Принятый объектный дизайн предпочтителен; X50%/Y78% — проверенный fallback.
+Успешные Aphes/font/child/divider/viewport эксперименты повторять не нужно.
+Реальная depth occlusion, world readability, camera orientation и teardown пока
+не приняты. Установка/запуск не разрешены текущим исследовательским этапом.
+
+## История композиции после технического Aphes runtime PASS
+
+Aphes OPEN→READ/manual cleanup, ornamental TipHUD composition и отдельный
+viewport root sample имеют свои принятые узкие результаты и сохранённые артефакты.
+Полный production lifecycle/GC/input/DPI/localization остаётся отдельным gate.
 
 ## Template-copy creation/storage завершён; setters рассмотрены в следующем отчёте
 

@@ -1,5 +1,13 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Preferred World-space direction:** [world-space/README.md](world-space/README.md),
+source/static investigation complete, executable payload BLOCKED. Depth-capable
+stock materials present; separate own component is conditional on independent
+UserWidget host and exact Open component/pose binding. No original-component
+migration, game run/install, CustomDepth or mask payload. Viewport50%/78% below
+is the accepted fallback, not the preferred product direction.
+
+
 **Current screen placement:** [viewport/README.md](viewport/README.md): bounded
 own HUD-root Canvas render/manual cleanup PASS. User selected X50%/Y78% as baseline
 at2560×1440. Keep its visual origin when removing debug indicator. Arrow tuning

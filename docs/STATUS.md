@@ -1,19 +1,23 @@
 # Статус Immersive Interaction Prompts
 
-**2026-10-29 — изменён приоритет визуального размещения; World-space occlusion
-исследовательски BLOCKED, production BLOCKED.** Пользователь предпочёл
-привязанную к объекту подсказку, которую персонаж действительно перекрывает
-при пересечении на экране, вместо экранного положения под героиней. Это новый
-потребительский приоритет, не новый runtime PASS. Статически известен наследуемый
-`ExtendedWidgetComponent.Space=Screen`; Epic UE4.27 поддерживает World widget
-как 3D-плоскость с проверкой глубины, но конкретный Shipping/UE4SS seam,
-привязка, поворот, масштаб, material depth и влияние смены Space на native
-TipHUD ещё не установлены. Следующий шаг — ограниченное source/UHT/read-only
-сравнение World-space существующего компонента, отдельного reversible world
-sample и screen-mask fallback. Не менять production, не устанавливать payload,
-не запускать игру без отдельной готовности/разрешения. Принятый ранее
-нижний экранный X50%/Y78% остаётся резервным решением, а не текущим
-первым выбором. [Новая визуальная цель](REQUIREMENTS.md#предпочтительное-размещение-и-перекрытие--решение-2026-10-29).
+**2026-10-29 — World-space study завершён source/offline; executable payload
+BLOCKED, production BLOCKED.** [Точный отчёт](../research/interaction-prompts-owner/world-space/README.md).
+Предпочтительный дизайн — объектная подсказка с реальным перекрытием Хильдой;
+X50%/Y78% остаётся проверенным fallback. Материалы stock Widget3DPassThrough
+найдены и parent/depth defaults проверены: обычный World mesh с depth test возможен
+без special mask. Но это не runtime PASS в Asterigos.
+
+A (переключить оригинал) отклонён для первого опыта: SetWidgetSpace только пишет
+Space; FWidgetRenderer создаётся в OnRegister для World. Из Screen renderer может
+отсутствовать, и Tick не заменяет регистрацию/полный перенос screen-layer caches.
+B (свой plain transient WidgetComponent) предпочтителен, но ещё не READY:
+нет подтверждённого независимого concrete UserWidget host и точной связи natural
+Open TipHUD→компонент/owner/pose. Live TipHUD нельзя делить между рендерерами,
+а UserWidget base Abstract. Известные игровые native-базы не объявлены пустыми.
+Следующий достаточный шаг — подтвердить один независимый конкретный UserWidget
+через Create/Initialize и его lifecycle; затем exact Open binding/material/pose.
+Lua/C++ payload не создан; игра/настройки/сохранения/другие моды не менялись.
+Не исследовались CustomDepth/post-process/special mask, не повторялись font/UI runs.
 
 **2026-10-29 — screen placement/render/manual cleanup PASS; пользователь выбрал
 X50% / Y78% для продолжения. Arrow tuning NOT_PASSED. Probe отключён. Production BLOCKED.**

@@ -1,6 +1,14 @@
 # Observation probe readiness — 2026-10-28
 
-**Current screen-position result:** [viewport/README.md](viewport/README.md).
+**Current preferred direction:** [world-space/README.md](world-space/README.md).
+Source/static study completed; executable World payload BLOCKED. Separate owned
+WidgetComponent preferred conditionally; independent concrete UserWidget and exact
+natural Open binding are missing. Setter-only original-component migration is not
+safe/proved. Stock depth-capable materials exist; no mask/PostProcess detour needed.
+No game run/install. Earlier screen-position result below is a verified fallback.
+
+
+**Verified screen-position fallback:** [viewport/README.md](viewport/README.md).
 Own HUD-root Canvas rendering/manual cleanup passed; user selected initial50%/78%
 as the continuing baseline. Arrow tuning did not pass, reset/commit keys unverified;
 no input-routing cause claimed. Probe disabled. Original TipHUD unchanged;
