@@ -1,7 +1,58 @@
-# World orientation/readability — INSTALLED, RUNTIME_PENDING
+# World orientation — bounded rotation / target-loss cleanup PASS
 
-2026-10-30. Comparison source based on frozen accepted V3. Authorized installation
-completed below; no game launch/reload or new runtime acceptance. Production BLOCKED.
+2026-10-30. User-run technical result recorded below; probe DISABLED.
+Design/visual preference not evaluated here. Production BLOCKED.
+
+## User-run technical result — 2026-10-30
+
+Exact source6d44daa28b4dcc1cf0109b6f6d3c4fcb06467a9f; installed two Lua hashes
+match the frozen values below after exit. User reports the scenario completed
+more or less successfully and requests technical recording only. This is general
+visual confirmation, not a detailed fixed/follow preference or smoothness rating.
+
+| Moscow time | Logged evidence |
+| --- | --- |
+| 01:51:14.560–.595 | Natural exact Open MATCH, deferred creation completed; own WORLD TEST at anchor+32Z, draw512x128/scale.25, initial camera distance626.850. |
+| 01:51:28.341 | Fixed sample:103 polls,0 writes, camera distance579.656, facing error27.383degrees. Own STATE actual rotation13.7423601/80.682373/~0, original position unchanged, RT512x128/World0/stock masked depth=false; no collision/overlap/hardware/focus. |
+| 01:51:34.008 | F6 switches to follow:145 polls,0 writes at mode-change sample; distance551.023, error26.970degrees. |
+| 01:51:34.024351–.024450 | First K2_SetWorldRotation BEGIN/END completed (about0.099ms between markers, not a benchmark). No setter/readback failure followed. |
+| 01:51:57.223 | Guard: target no longer visible Screen Open. FAILED kind=CONTRACT_ERROR then STOP reason=failure, matches1/poses2/show2556/hooks_remaining0; cleanup queued. About42.629s after creation, before45s timeout. |
+| 01:51:57.239 | Unbind/destroy/host-release phase pairs completed, COMPONENT_DESTROYED with native validity check, CLEANED own_widget_holder=false/own_component_alive=false. |
+| 01:53:27.902 | Event loop end; no further probe events after CLEANED. |
+
+**Technically established:** fixed mode made no rotation writes through its last
+sample; follow was enabled, the reflected native rotation call with fresh
+FHitResult output table returned in this build, and execution continued to the
+later target-visibility guard. Source checks orientation/readback immediately
+after each setter, without an intervening callback; no corresponding error was
+logged. Thus the first update's <=0.1degree readback guard passed by control-flow
+evidence, not by a separately printed numeric follow-state measurement. No final
+follow sample/write count was recorded: do not invent a total rotation count,
+post-follow angle, mean frequency, jitter score or pixel/readability measurement.
+
+The terminal CONTRACT_ERROR identifies a **visibility-contract stop**, not a
+crash or established orientation defect. Which exact visibility predicate changed
+and why (range, camera, native state, etc.) was not logged and is unknown. Own
+cleanup after that stop completed. F7/user STOP is absent: manual World cleanup
+key remains NOT_EXERCISED, not PASS. Timeout acceptance remains the earlier V3
+result, not this run. No new occlusion claim is needed; reuse accepted V3.
+
+No design choice, follow preference, font/layout decision or production lifecycle
+acceptance is inferred. No payload fix or additional test is prepared in this
+recording step. Original UI identity/visibility guards held until the stop;
+no original UI writes exist in the tested source. This is not exhaustive gameplay
+or input-device acceptance.
+
+Closed-game archive outside loader:
+`.local/research/interaction-prompts/world-space/orientation/runtime-20261029T225510Z/`.
+UE4SS log SHA256 `bc0f046c85043d42974f50bec7e4fb4594a3a86e90c1885d2d16357d316db066`;
+Genesis log SHA256 `70e7ff42b873db46013dfe13cd662e382c707240b256a9f12d928c0ab8172401`.
+Raw logs, filtered events, exact installed source/manifest and before/after disable
+record retained locally. All31 pre-existing mod/loader hashes match installation;
+87 current files retain hashes across disabling (not a pre-play saves-equality
+claim). Removed only this probe's enabled.txt; source retained, all IIP probes now
+disabled. Game already closed; no agent launch/termination/hot reload. Production,
+VERSION, other mods and current settings/saves untouched.
 
 ## Authorized installation — 2026-10-30
 

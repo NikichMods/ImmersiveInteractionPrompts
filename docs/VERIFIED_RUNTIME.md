@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Orientation — bounded native rotation and target-loss cleanup PASS, 2026-10-30
+
+[Exact evidence and limits](../research/interaction-prompts-owner/world-space/orientation/README.md). Source6d44daa/installed Lua hashes unchanged.
+Fixed sample103 polls/0 writes/error27.383deg; F6 follow at145 polls, first native
+K2_SetWorldRotation BEGIN/END returned. Subsequent immediate readback guard did
+not fail (control-flow evidence); no final follow numeric sample or total writes.
+42.629s after creation target-visible Screen Open guard failed; hooks removed,
+native own component destruction/host release CLEANED. No manual F7/user STOP;
+no runtime acceptance of that key, no new timeout result. User general success
+report is distinct from design preference/smoothness acceptance. Archived and
+probe disabled closed-game;31 prior mod/loader hashes and87 current files preserved.
+
+
 ## Orientation installation — 2026-10-30, runtime PENDING
 
 Authorized closed-game install of6d44daa28b4dcc1cf0109b6f6d3c4fcb06467a9f.

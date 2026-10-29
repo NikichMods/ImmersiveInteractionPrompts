@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — bounded World rotation / target-loss cleanup PASS; probe DISABLED.**
+[Технический результат и границы](../research/interaction-prompts-owner/world-space/orientation/README.md). Fixed:103 polls/0 writes/error27.383°;
+F6 включил follow, первый native setter вернулся, ошибки setter/readback нет.
+Через42.629s после создания stop по потере видимости Screen Open (CONTRACT_ERROR),
+затем hooks_remaining0, native destruction и CLEANED. Конкретный visibility
+predicate/причина неизвестны; F7 в логе отсутствует и не принят. Итогового follow
+sample/числа поворотов нет. Пользователь сообщил общую успешность; дизайн,
+предпочтение режимов и плавность не оцениваются. Логи архивированы; при закрытой
+игре снят только own enabled.txt,31 прежний mod/loader hash совпал,87 текущих
+файлов сохранены при отключении. Production BLOCKED, нового payload нет.
+
+
 **2026-10-30 — World orientation comparison INSTALLED, runtime PENDING.**
 По прямому разрешению пользователя при закрытой игре установлен точный6d44daa
 в новый ImmersiveInteractionPromptsWorldOrientationProbe: два Lua и enabled.txt.

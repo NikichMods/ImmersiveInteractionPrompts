@@ -1,5 +1,13 @@
 # План исследования — contextual prompts и письменность
 
+## Завершённый orientation run — техническая запись, без дизайна
+
+[Результат](../research/interaction-prompts-owner/world-space/orientation/README.md): native registered-component rotation и cleanup после потери
+видимости цели подтверждены ограниченно; probe отключён. F7 остаётся непроверенным,
+итоговый follow angle/write count не записан. Этот шаг не назначает новый прогон,
+не выбирает дизайн и не меняет payload. Production lifecycle остаётся BLOCKED.
+
+
 ## Текущий handoff — orientation установлен, ожидается пользовательский прогон
 
 Точный6d44daa установлен по разрешению, source bytes не менялись. [Один сценарий](../research/interaction-prompts-owner/world-space/orientation/README.md):
