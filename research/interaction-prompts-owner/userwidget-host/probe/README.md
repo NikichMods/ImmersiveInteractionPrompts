@@ -1,5 +1,19 @@
 # Independent UserWidget probe — READY_SOURCE, runtime NOT_TESTED
 
+## Authorized installation — 2026-10-29, runtime PENDING
+
+Prepared source commit a23635b95b029ff8d73dec4f940e1aa54c213d37 installed unchanged
+as ImmersiveInteractionPromptsUserWidgetHostProbe (main.lua + empty enabled.txt).
+Host closed before copy/enable; installed source hash matches below. All22 prior
+mod/loader files and63 config/save files retained hashes. Old IIP probes disabled.
+Rollback to prior absent target, source copy, prior log/settings and hash manifests
+are outside loader in ignored host-probe/install-20261029T081829Z.
+No launch/hot reload or runtime observation. Source preparation comments remain
+unchanged to preserve exact tested bytes. Follow the test procedure below;
+installation authorization has now been received and executed.
+
+## Preparation record
+
 2026-10-29. Research-only [source](Scripts/main.lua), not installed or executed.
 Steam1.09/build12996889, UE4.27, UE4SS83330635. Production/World gates remain BLOCKED.
 The [candidate audit](../README.md) remains the source for Blueprint callbacks,

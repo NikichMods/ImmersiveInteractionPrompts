@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — independent UserWidget probe установлен по разрешению пользователя;
+runtime PENDING.** Точный source commit a23635b95b029ff8d73dec4f940e1aa54c213d37,
+Lua SHA25666ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186.
+Игра проверена закрытой до записи и включения; добавлены только main.lua и
+enabled.txt в новом ImmersiveInteractionPromptsUserWidgetHostProbe.
+22 прежних mod/loader files и63 config/save files сохранили хэши; старые IIP probes
+отключены. Локальный rollback/manifest/log snapshot вне loader:
+host-probe/install-20261029T081829Z. Игра не запускалась. Следующий шаг — один
+Ctrl+Alt+F6 show → Ctrl+Alt+F6 cleanup тест по [процедуре](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
+Production/World gates остаются BLOCKED.
+
 **2026-10-29 — independent UserWidget probe READY_SOURCE; runtime NOT_TESTED.**
 [Исходник и процедура](../research/interaction-prompts-owner/userwidget-host/probe/README.md):
 точная `_C` запись подтверждена в локальном AssetRegistry. Одна попытка

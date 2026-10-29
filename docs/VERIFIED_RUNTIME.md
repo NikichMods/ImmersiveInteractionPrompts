@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Independent host installation — 2026-10-29, runtime PENDING
+
+Authorized closed-game installation of exact a23635b source, SHA256
+66ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186.
+Only a new probe's main.lua/enabled.txt added;22 prior mod/loader and63 config/save
+files unchanged by hash. Old IIP probes remain disabled. Local rollback and prior
+log snapshot retained outside loader. No game execution or native success claimed.
+Next evidence: own label visible after first F6 chord, manual cleanup after second,
+original UI preserved; see [host-only procedure](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
+
 ## Independent host probe prepared — offline only, 2026-10-29
 
 [Exact source/procedure](../research/interaction-prompts-owner/userwidget-host/probe/README.md).
