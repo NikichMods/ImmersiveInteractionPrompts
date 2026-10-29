@@ -1,20 +1,21 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг — World-space occlusion, payload BLOCKED
+## Текущий шаг — independent host найден; World-прототип ещё BLOCKED
 
-[Ограниченное исследование](../research/interaction-prompts-owner/world-space/README.md)
-завершено: штатный World rendering/material depth путь есть на уровне source и
-локальных cooked assets. Рекомендуется отдельный собственный plain WidgetComponent,
-не setter-only переключение живого ExtendedWidgetComponent: требуются независимый
-конкретный UserWidget и точная привязка Open owner/pose. Первый следующий evidence
-шаг — один подтверждённый UserWidget host/Create/Initialize/lifecycle, без широкого
-observer и без автоматического runtime. Детали native renderer registration и
-проверки семи материалов в отчёте; новый исполняемый payload не создан.
+[Ограниченная проверка host](../research/interaction-prompts-owner/userwidget-host/README.md)
+нашла concrete PostionItemUMG_BP_C на прямой базе UMG.UserWidget, с проверенными
+self-only callback/tree/Slate creation контрактами. Поиск остановлен на одном
+подходящем классе, без общего реестра UI или нового authoring toolchain.
+Первый архитектурный host-блокер source-resolved. Следующий достаточный шаг —
+отдельный host-only тест residency/Create/private tree/first build/cleanup;
+не выдавать это за World occlusion. Construct Hidden обязательно учесть.
 
-Принятый объектный дизайн предпочтителен; X50%/Y78% — проверенный fallback.
-Успешные Aphes/font/child/divider/viewport эксперименты повторять не нужно.
-Реальная depth occlusion, world readability, camera orientation и teardown пока
-не приняты. Установка/запуск не разрешены текущим исследовательским этапом.
+Независимый следующий блокер — точная привязка natural Open actor/component/pose;
+в текущем этапе она не исследовалась. World renderer/material/registration review
+сохранён в [World report](../research/interaction-prompts-owner/world-space/README.md).
+Новый исполняемый payload не создан, установка и игра не выполнялись.
+Предпочтительный объектный дизайн и fallback X50%/Y78% неизменны; font/divider/
+viewport исследования не повторялись. Production lifecycle остаётся BLOCKED.
 
 ## История композиции после технического Aphes runtime PASS
 

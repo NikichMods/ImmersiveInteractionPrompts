@@ -1,5 +1,22 @@
 # Verified Runtime — Interaction Prompts
 
+## Independent host class — FOUND/source-ready, runtime NOT_TESTED
+
+[Host report](../research/interaction-prompts-owner/userwidget-host/README.md):
+`/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`
+is a concrete cooked Blueprint with direct UMG.UserWidget parent. Four functions:
+Construct self Hidden via36→10→26→41, PreConstruct31→41 return, own text helper,
+ubergraph; no script Tick/Paint or animations/bindings/nested widgets. All calls
+and reciprocal tree edges checked from actual exports/bytecode. Native normal
+Create/Initialize/tree instancing/per-instance Slate reviewed at exact UE4.27;
+this supports a separate owned instance without original TipHUD mutation.
+First build hides self; future own visibility must follow that build. Exact Lua
+Create/class residency/Slate/cleanup still untested; no payload or game execution.
+Original first host-class blocker source-resolved; exact Open binding remains.
+Export SHA256cac88b3e55127ad3afe5d9d976ed65371afabca9e61586311612aa5db192441f;
+full bytecode/source identities and availability limitations in the report.
+
+
 ## World-space feasibility — source/static only, 2026-10-29
 
 [World report](../research/interaction-prompts-owner/world-space/README.md)
@@ -11,8 +28,9 @@ executed; earlier Aphes/viewport results do not supply that missing evidence.
 Concrete source boundary: UE4.27 SetWidgetSpace is assignment-only; OnRegister
 creates FWidgetRenderer only for non-Screen, and DrawWidgetToRenderTarget returns
 without that renderer. Tick/Space readback does not prove live migration. Separate
-component is the conditional candidate, blocked on independent UserWidget host and
-exact Open component binding. The stored earlier CanShow run already scopes
+component remains the conditional candidate: its original host-class gap is now
+source-resolved by the follow-up above; host runtime and exact Open binding remain
+unverified. The stored earlier CanShow run already scopes
 three live TipHUD full names under MainGameInstance_BP_C, not the target actor;
 this reused evidence does not provide the inverse component link. Base UserWidget
 is Abstract, existing live Slate content is not a duplicate. No executable payload built on unproved setters.

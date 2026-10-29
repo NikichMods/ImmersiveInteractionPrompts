@@ -1,5 +1,12 @@
 # Two-line TipHUD: layout and font readiness — 2026-10-28
 
+**Host follow-up:** [userwidget-host/README.md](userwidget-host/README.md) found
+concrete PostionItemUMG_BP_C / direct UMG.UserWidget. First class blocker is
+source-resolved; host-only Create/tree/Slate/cleanup remains a separate unrun gate.
+Construct Hidden must be handled after first build. No World payload/installation.
+Exact Open actor/component/pose remains unresolved; production BLOCKED.
+
+
 **Preferred World-space direction:** [world-space/README.md](world-space/README.md),
 source/static investigation complete, executable payload BLOCKED. Depth-capable
 stock materials present; separate own component is conditional on independent

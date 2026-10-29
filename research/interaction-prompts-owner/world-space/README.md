@@ -8,6 +8,16 @@ Preferred next architecture is **B: a separate, owned plain UWidgetComponent**,
 conditional on an independent UserWidget host and exact Open-component binding.
 This report does not call a speculative recipe READY.
 
+## Current host follow-up
+
+[Independent host review](../userwidget-host/README.md) found shipped concrete
+PostionItemUMG_BP_C with direct UMG.UserWidget base and reviewed own-only callbacks.
+The original missing-class blocker below is **source-resolved**, not runtime PASS.
+Loaded-class availability and Create/first-Slate-build/cleanup still need a
+separate bounded host test. Exact natural Open actor/component/pose remains the
+next independent World blocker. No World payload was created by this follow-up.
+The original comparison/checkpoint below is retained as historical provenance.
+
 ## Recovery and scope
 
 Clean, single research checkout initially at1320ad57665124f18b61244b10c5c7c6980388ea,

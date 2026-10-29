@@ -1,9 +1,16 @@
 # Observation probe readiness — 2026-10-28
 
+**Current host result:** [userwidget-host/README.md](userwidget-host/README.md).
+Found concrete PostionItemUMG_BP_C directly on UMG.UserWidget; source-reviewed
+creation/tree/callbacks/Slate supports a separate host-only lifecycle test.
+Runtime NOT_TESTED; Construct hides self. Exact Open binding remains independent.
+No executable payload or install; World/production gate still BLOCKED.
+
+
 **Current preferred direction:** [world-space/README.md](world-space/README.md).
 Source/static study completed; executable World payload BLOCKED. Separate owned
-WidgetComponent preferred conditionally; independent concrete UserWidget and exact
-natural Open binding are missing. Setter-only original-component migration is not
+WidgetComponent preferred conditionally; host-class gap is now source-resolved by the follow-up above; exact natural Open
+binding and runtime lifecycle remain open. Setter-only original-component migration is not
 safe/proved. Stock depth-capable materials exist; no mask/PostProcess detour needed.
 No game run/install. Earlier screen-position result below is a verified fallback.
 

@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — первый host-блокер SOURCE_RESOLVED: найден PostionItemUMG_BP_C.**
+[Проверка host](../research/interaction-prompts-owner/userwidget-host/README.md):
+прямая база UMG.UserWidget, concrete, без Genesis native-посредника; 14 exports,
+4 собственные функции, no Tick/Paint/animations/bindings/nested UserWidgets.
+Construct скрывает только self (Hidden); будущая видимость — после первого Slate
+build. Нативный Create/Initialize инстанцирует собственное дерево и Slate cache.
+Runtime загрузка/создание/очистка не проверены. Кандидат SOURCE_READY для отдельного
+host-only lifecycle test, не World/runtime PASS. Полный World-прототип BLOCKED на
+exact natural Open actor/component/pose и его собственных runtime gates.
+Payload/установка/запуск не выполнялись; никаких новых cooker/C++ зависимостей.
+
+
 **2026-10-29 — World-space study завершён source/offline; executable payload
 BLOCKED, production BLOCKED.** [Точный отчёт](../research/interaction-prompts-owner/world-space/README.md).
 Предпочтительный дизайн — объектная подсказка с реальным перекрытием Хильдой;
@@ -11,8 +23,9 @@ A (переключить оригинал) отклонён для первог
 Space; FWidgetRenderer создаётся в OnRegister для World. Из Screen renderer может
 отсутствовать, и Tick не заменяет регистрацию/полный перенос screen-layer caches.
 B (свой plain transient WidgetComponent) предпочтителен, но ещё не READY:
-нет подтверждённого независимого concrete UserWidget host и точной связи natural
-Open TipHUD→компонент/owner/pose. Live TipHUD нельзя делить между рендерерами,
+изначально не было подтверждённого host и exact Open binding. Host-класс теперь
+найден source-only (выше); точная связь natural Open TipHUD→компонент/owner/pose
+остаётся неизвестной. Live TipHUD нельзя делить между рендерерами,
 а UserWidget base Abstract. Известные игровые native-базы не объявлены пустыми.
 Следующий достаточный шаг — подтвердить один независимый конкретный UserWidget
 через Create/Initialize и его lifecycle; затем exact Open binding/material/pose.

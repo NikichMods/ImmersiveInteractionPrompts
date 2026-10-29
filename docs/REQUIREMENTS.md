@@ -60,8 +60,9 @@ UE4.27 поддерживает `EWidgetSpace::World` с глубинным пе
 для подтверждения World-режима не требуется.
 
 Текущее ограниченное [World-space исследование](../research/interaction-prompts-owner/world-space/README.md)
-подтвердило engine/material предпосылки, но новый executable test BLOCKED на
-независимом UserWidget host и exact Open binding. Это не отменяет выбранную
+подтвердило engine/material предпосылки. [Host-кандидат](../research/interaction-prompts-owner/userwidget-host/README.md)
+найден source-only; его runtime lifecycle ещё не проверен. Новый World executable
+test остаётся BLOCKED на exact Open binding и независимых runtime gates. Это не отменяет выбранную
 визуальную цель и не принимает runtime World-поведение. Не подменять обычную
 проверку глубины маской персонажа без новой обоснованной необходимости.
 
