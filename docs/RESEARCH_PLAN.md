@@ -1,6 +1,18 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — natural Open join/pose PASS; следующий World-source gate
+## Текущий результат — World prototype READY_SOURCE; следующий игровой gate
+
+[Один собственный World WidgetComponent](../research/interaction-prompts-owner/world-space/probe/README.md)
+подготовлен на подтверждённых host/binding маршрутах и точном engine/UHT контракте
+создания/регистрации/очистки. Он не установлен. После отдельного разрешения:
+closed-game установка двух точных Lua-файлов, затем один manual-reload тест
+WORLD TEST над естественным Open. Нужны видимые буквы→частичное перекрытие Хильдой→
+их возвращение при смещении→F7 удаление только своего renderer при сохранённом
+оригинале. Лог RT/material/visibility не заменяет визуальное доказательство.
+Не добавлять billboard, новые offsets, Aphes/орнамент или production lifecycle до
+этого результата.124 offline tests PASS; runtime/production BLOCKED.
+
+## Предыдущее основание — natural Open join/pose PASS
 
 [Исправленный прогон](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
 подтвердил точное соответствие одного item_lootbox02_C Open actor/компонента/TipHUD

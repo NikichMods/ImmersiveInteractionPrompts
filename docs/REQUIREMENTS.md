@@ -65,9 +65,11 @@ UE4.27 поддерживает `EWidgetSpace::World` с глубинным пе
 прошёл NO_EVENTS; следующий [OpenJoin](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md)
 приобрёл3 реальные initialization-пары actor/component/widget, но остановился на
 init budget до выбора видимого Open и pose. Исправленная read-only ревизия затем
-подтвердила один exact natural Open join и world pose и отключена. Новый World executable
-test остаётся BLOCKED на собственных registration/render/occlusion runtime gates;
-один Open binding prerequisite закрыт. Это не отменяет выбранную
+подтвердила один exact natural Open join и world pose и отключена.
+[Первый собственный World-прототип](../research/interaction-prompts-owner/world-space/probe/README.md)
+теперь READY_SOURCE: WORLD TEST без переноса финального дизайна, оригинал
+остаётся неизменным и видимым. Он не установлен; registration/render/occlusion/
+teardown в игре и production остаются BLOCKED. Это не отменяет выбранную
 визуальную цель и не принимает runtime World-поведение. Не подменять обычную
 проверку глубины маской персонажа без новой обоснованной необходимости.
 

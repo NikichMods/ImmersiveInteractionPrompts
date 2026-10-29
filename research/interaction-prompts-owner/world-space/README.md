@@ -7,13 +7,19 @@ ExtendedWidget / TipHUD and read2 finite component poses. User stop46.394s,
 no probe error, hooks released; probe disabled. Both script readers worked across
 one manual reload. No World payload/rendering/occlusion acceptance.
 
-**BLOCKED for an executable World-space payload. Engine/API/material feasibility
-is source/static-confirmed; no Asterigos World-space rendering/rollback test.**
-No Lua/C++ game payload, install, game launch/termination, hot reload, production
-edit, tool installation or settings/save change. Prior probes remain untouched.
-Preferred next architecture is **B: a separate, owned plain UWidgetComponent**,
-conditional on an independent UserWidget host and exact Open-component binding.
-This report does not call a speculative recipe READY.
+**Current: [one owned World prototype READY_SOURCE](probe/README.md), NOT_INSTALLED /
+RUNTIME_NOT_TESTED.** Native transient ownership, manual FinishAddComponent
+registration, stock masked depth material and own destruction were checked against
+UE4.27/pinned UE4SS and installed UHT. Two research Lua files reuse accepted
+binding/host routes, add one cyan WORLD TEST with fixed camera-facing pose and
+bounded cleanup. No original TipHUD renderer/fields are changed.16 new policy
+tests cover partial failures and native PendingKill-aware cleanup; mocks are not
+rendering proof. **World visual acceptance and production remain BLOCKED.**
+Next sufficient step is a separately authorized closed-game installation and one
+partial-letter Hilda-occlusion test described in the new report. No installation,
+game run, hot reload, production/VERSION, settings/save or other-mod edits here.
+The earlier study below remains provenance; its host/binding/source-preparation
+blockers have since been closed, while World runtime gates have not.
 
 ## Current host follow-up
 
@@ -222,7 +228,7 @@ a new World test. The existing actor→component→widget Blueprint evidence is 
 first loot actor/component, spawn beside Hilda and pretend it is the actual Open
 anchor, or install a global object scan to discover it.
 
-## 5. Readability/pose and the bounded test that is not yet READY
+## 5. Readability/pose and historical test prerequisites
 
 - World quad dimensions follow render-target pixels × component scale. At fixed
   scale projected text shrinks approximately as inverse camera depth. Matching
@@ -246,7 +252,7 @@ anchor, or install a global object scan to discover it.
   A future sample may copy one Open state only; it must not claim production
   semantics/lifecycle from that snapshot or from a one-view occlusion frame.
 
-**Next cheapest sufficient evidence:** first establish one independently creatable
+**Historical checkpoint, superseded by the READY_SOURCE report above:** first establish one independently creatable
 concrete UserWidget host through the real Create/Initialize contract, with reviewed
 base/construct/tick behavior and own WidgetTree/Slate ownership. A bounded check of
 one candidate is sufficient; do not build a new general observer. If no existing

@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — отдельный World-component прототип READY_SOURCE, не установлен.**
+[Исходники, точные хэши и процедура](../research/interaction-prompts-owner/world-space/probe/README.md).
+Проверенные OpenJoin и независимый host переиспользованы. Один собственный
+RF_Transient UMG.WidgetComponent: World0 до FinishAddComponent(manual=true),
+stock masked depth-tested material, WORLD TEST, фиксированная плоскость512×128
+со scale.25 и live anchor+32Z, без collision/overlaps/input/focus. Оригинальный
+TipHUD и его компонент остаются Screen и не изменяются.45s после создания,
+общие120s, явный F7 cleanup с native PendingKill-aware проверкой и retry отказа.
+16 новых policy tests PASS; весь suite124 tests PASS. Source/UHT audit и mocks
+не доказывают реальную отрисовку/перекрытие/teardown. Следующий шаг — отдельно
+разрешённая установка и один визуальный тест частично закрытых Хильдой букв.
+Установки/запуска игры не было; World runtime acceptance и production BLOCKED.
+
+## История binding-проверки
+
 **2026-10-29 — один natural Open actor/component/TipHUD join и world pose PASS;
 probe отключён.** [Полные identity/координаты](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md):
 603ab6b сохранил3 пары после ACQUISITION_CLOSED init128; CanShow после reload

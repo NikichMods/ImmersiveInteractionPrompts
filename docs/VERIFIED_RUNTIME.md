@@ -1,5 +1,25 @@
 # Verified Runtime — Interaction Prompts
 
+## Owned World component — source readiness only, 2026-10-29
+
+[New source/procedure](../research/interaction-prompts-owner/world-space/probe/README.md)
+is READY_SOURCE, NOT_INSTALLED, RUNTIME_NOT_TESTED. Reuses the accepted host and
+natural Open join below; no repetition of those game experiments. Pinned engine
+and UHT confirm native actor ownership for RF_Transient component creation,
+configure-before-register FinishAddComponent(true,FTransform), stock masked
+depth material and self-caller destruction/release. UE4SS Lua IsValid excludes
+unreachable but not PendingKill; cleanup uses native KismetSystemLibrary.IsValid
+instead of interpreting a surviving wrapper as failed destruction.
+
+Main SHA2564b54ebc97ab64b6c3ff75ed2216efe3a778591b2cc614d9e257c8060c07443ed;
+helper SHA2569173993d5c6cd0f82f4179d5594418112f12a31b582ff5f68aed3c4b498db6e8.
+124 offline tests PASS (16 new policy cases), targeted UHT/source audit PASS.
+These are source/mocking facts, **not** an additional runtime PASS. Actual World
+registration/Slate/RT rendering, Hilda partial depth occlusion, unchanged original
+UI/control behavior and own native resource teardown must be checked in one
+separately authorized user run. No game/installed files or VERSION changed;
+production and World visual acceptance remain BLOCKED.
+
 ## Natural Open join and component world pose — bounded PASS, 2026-10-29
 
 [Exact session identities, addresses, pose and limits](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
