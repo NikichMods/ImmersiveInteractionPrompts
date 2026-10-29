@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Deferred World revision installation — 2026-10-30, runtime PENDING
+
+Authorized closed-game installation of2941123d56f2840e98ce8ca49d81204b8185fbc5.
+Source/installed main SHA2561b0f4bd4d48e183f04d7501cc28361651e94c2c0e641a9ec126ba8045f79ed38;
+helper SHA256eb6cb013af851a765a8d8a40da1d917fb1cd2b8efa0f4890093f099761d057a3.
+Only new own WorldDeferredProbe Scripts/main.lua, Scripts/IIPWorldChild.lua and
+empty enabled.txt. Old WorldProbe stays disabled/unchanged; other mods preserved.
+Pinned DLL verified;27 previous mod/loader and59 config/save hashes unchanged.
+Pretest logs and guarded rollback outside loader in ignored deferred/
+install-20261029T214003Z; [full record](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+No game launch/termination/reload/hot reload or runtime acceptance. Byte identity
+does not establish that the hang is fixed or that World rendering/cleanup works.
+
 ## Deferred World revision — source readiness, no new runtime result, 2026-10-30
 
 [Full source-only review/revision](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).

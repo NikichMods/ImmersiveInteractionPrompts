@@ -1,13 +1,17 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — deferred World revision READY_SOURCE, не установлена
+## Текущий результат — deferred World revision INSTALLED, runtime PENDING
+
+Отдельное разрешение на установку получено; точный2941123 source установлен
+при закрытой игре2026-10-30, с rollback/installed hashes. Следующий шаг — один
+пользовательский сценарий ниже и анализ фазовых логов; запуск агентом не выполнялся.
 
 [Source-only follow-up](../research/interaction-prompts-owner/world-space/probe/deferred/README.md)
 подтвердил различие контекстов/lock, но не причину зависания. Новая отдельная
 ревизия: preload через EngineTick до own hooks; MATCH только ставит создание в
 очередь; fresh identity/UI/native validity; lookup-only после reload; фазовые
-BEGIN/END и отложенная очистка.139 offline tests PASS. Следующий шаг — отдельно
-разрешённая установка новой пары и один прежний пользовательский сценарий с
+BEGIN/END и отложенная очистка.139 offline tests PASS. Установка новой пары уже
+разрешена и завершена; следующий шаг — один прежний пользовательский сценарий с
 анализом последней фазы. Native hang может повториться; таймер/pcall не прерывает
 невернувшийся вызов. Не менять anchor/материал и не переносить полный дизайн.
 World rendering/visual acceptance/production BLOCKED.

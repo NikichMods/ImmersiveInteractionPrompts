@@ -1,9 +1,34 @@
 # Deferred World creation — READY_SOURCE diagnostic revision, 2026-10-30
 
-**NOT_INSTALLED / RUNTIME_NOT_TESTED.** This revision removes the inline creation
+**INSTALLED2026-10-30 / runtime PENDING.** This revision removes the inline creation
 path and adds bounded phase diagnostics. It is not a proven fix for the hang.
 Frozen first-run source and its BLOCKED result stay in [the parent report](../README.md).
 World visual acceptance and production remain BLOCKED.
+
+## Authorized closed-game installation — 2026-10-30
+
+Exact source `2941123d56f2840e98ce8ca49d81204b8185fbc5` installed after the user's
+explicit “Устанавливаем”. Both Lua/source/installed hashes below match. Only new
+own directory `ImmersiveInteractionPromptsWorldDeferredProbe` was created, with
+Scripts/main.lua, Scripts/IIPWorldChild.lua and empty enabled.txt. Original failing
+WorldProbe remains disabled and unchanged; no other IIP probe is enabled.
+UE4SS DLL matches pinned ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290.
+27 prior mod/loader and59 current config/save files retained their hashes.
+CombatHUD/SoulsEnemyHUD/mods.txt and loader configuration unchanged.
+Game closure checked repeatedly before writes/enable and after verification;
+no game launch/termination, reload, hot reload or Lua-source edits.
+
+Ignored backup outside loader:
+`.local/research/interaction-prompts/world-space/probe/deferred/install-20261029T214003Z/`.
+It stores exact new Lua copies, pretest UE4SS/Genesis logs, loader settings/mods.txt,
+initial-state hashes/installed manifest, verified result and guarded rollback.ps1.
+Rollback checks closed game, resolved exact own target and known file hashes,
+refuses unexpected contents, then removes only this new directory's own files.
+Older disabled payload/failed-run evidence and other mods are preserved. Pretest
+logs are historical snapshots, not a successful run of this revision.
+
+Ready for one user-run scenario below; native hang may still recur. No runtime
+rendering/occlusion/cleanup PASS is inferred from installed byte identity.
 
 ## Question, method and conclusion
 
@@ -124,8 +149,8 @@ unmatched BEGIN followed by FAILED/STOP/cleanup; a hang can leave only BEGIN.
 Log buffering/process exit may truncate evidence, so no marker alone proves the
 root cause. No high-frequency progress printing or new observers were added.
 
-Next sufficient step, after separate installation authorization: deploy **these
-two files together**, preserving the disabled v1 bytes/rollback. One user run
+Installation authorization has now been fulfilled as recorded above; both files
+were deployed together, preserving disabled v1 bytes/rollback. Next: one user run
 with the existing F8→manual reload→Open→F7 procedure. If it freezes before reload,
 the preload markers are already useful; do not repeat or extend the run. If it
 reaches WORLD TEST, use the original partial-letter Hilda-occlusion/reappearance
@@ -137,7 +162,8 @@ Review the last phase pair alongside both logs before any further correction.
 [main.lua](Scripts/main.lua), [IIPWorldChild.lua](Scripts/IIPWorldChild.lua).
 Main SHA256 `1b0f4bd4d48e183f04d7501cc28361651e94c2c0e641a9ec126ba8045f79ed38`;
 helper SHA256 `eb6cb013af851a765a8d8a40da1d917fb1cd2b8efa0f4890093f099761d057a3`.
-No installed bytes or frozen v1 files changed. No production/VERSION edits.
+Source preparation changed no installed bytes or frozen v1 files; subsequent
+installation is recorded above. No production/VERSION edits.
 
 `python tools/test.py`: **139 tests /12 suites PASS**, including15 new policy
 tests for enqueue-before-create, duplicate callback/reentry, native validity/

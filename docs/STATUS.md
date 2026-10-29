@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — deferred World revision INSTALLED, runtime PENDING.**
+По разрешению пользователя при закрытой игре установлен точный2941123 source
+в новый ImmersiveInteractionPromptsWorldDeferredProbe: два Lua и enabled.txt.
+[Хэши, откат и сценарий](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Старая зависшая ревизия сохранена и отключена; включён только новый IIP probe.
+UE4SS DLL совпал;27 прежних mod/loader и59 текущих config/save файлов сохранили
+хэши. Backup/manifest/guarded rollback вне loader в local deferred/
+install-20261029T214003Z. Игру не запускали/не закрывали, hot reload не применяли.
+Следующий шаг — один пользовательский F8→reload→Open→F7 тест с фазовыми логами.
+Причина прежнего зависания ещё не доказана; runtime/production acceptance BLOCKED.
+
+## Подготовка отложенной ревизии
+
 **2026-10-30 — deferred World diagnostic revision READY_SOURCE, NOT_INSTALLED.**
 [Разбор и отдельные исходники](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
 Причина первого зависания не доказана. Точный UE4SS source подтверждает: script
