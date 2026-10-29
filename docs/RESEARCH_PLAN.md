@@ -1,6 +1,18 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — World prototype BLOCKED после зависания
+## Текущий результат — deferred World revision READY_SOURCE, не установлена
+
+[Source-only follow-up](../research/interaction-prompts-owner/world-space/probe/deferred/README.md)
+подтвердил различие контекстов/lock, но не причину зависания. Новая отдельная
+ревизия: preload через EngineTick до own hooks; MATCH только ставит создание в
+очередь; fresh identity/UI/native validity; lookup-only после reload; фазовые
+BEGIN/END и отложенная очистка.139 offline tests PASS. Следующий шаг — отдельно
+разрешённая установка новой пары и один прежний пользовательский сценарий с
+анализом последней фазы. Native hang может повториться; таймер/pcall не прерывает
+невернувшийся вызов. Не менять anchor/материал и не переносить полный дизайн.
+World rendering/visual acceptance/production BLOCKED.
+
+## Предыдущий результат — первый World prototype BLOCKED после зависания
 
 Первый разрешённый запуск завершился пользовательским сообщением о зависании:
 точное Open MATCH есть, завершения World.create/отрисовки/очистки нет. Проба

@@ -1,5 +1,21 @@
 # Verified Runtime — Interaction Prompts
 
+## Deferred World revision — source readiness, no new runtime result, 2026-10-30
+
+[Full source-only review/revision](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+UE4SS83330635 script_hook retains m_thread_actions_mutex across callback; explicit
+EngineTick queues an action and process_simple_actions invokes it outside its
+queue-lock scope. LoadAsset can synchronously LoadObject on miss. This establishes
+a context risk/difference from the accepted host test, not the actual hang cause.
+Separate candidate preloads exact assets before own hook registration, enqueues
+creation after MATCH, rechecks identity/tree/visibility/native validity, does no
+fallback load after reload and queues native cleanup. Geometry/material unchanged.
+Main SHA2561b0f4bd4d48e183f04d7501cc28361651e94c2c0e641a9ec126ba8045f79ed38;
+helper SHA256eb6cb013af851a765a8d8a40da1d917fb1cd2b8efa0f4890093f099761d057a3.
+139 offline tests/12 suites PASS;15 new policy cases. These do not model a native
+call that never returns or prove World rendering/occlusion/cleanup. NOT_INSTALLED,
+RUNTIME_NOT_TESTED; frozen first-run source and disabled installed bytes unchanged.
+
 ## First owned World run — user-reported hang, 2026-10-30
 
 Exact d4a1ac6 main/helper source hashes still matched installed bytes. Acquired3

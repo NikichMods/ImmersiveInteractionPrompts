@@ -1,4 +1,9 @@
-# One owned World component — READY_SOURCE, 2026-10-29
+# First owned World component — frozen failed revision
+
+**2026-10-30 source follow-up:** [separate deferred diagnostic revision](deferred/README.md)
+is READY_SOURCE, NOT_INSTALLED. It removes inline creation/cleanup, adds pre-hook
+preparation and phase boundaries; it does not establish the old hang cause or a
+runtime fix. The original files/hashes and negative evidence below stay frozen.
 
 **BLOCKED after user-reported hang, 2026-10-30; probe DISABLED.** Exact d4a1ac6 source was
 installed and tested with explicit user authorization. Production and

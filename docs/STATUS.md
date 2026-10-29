@@ -1,5 +1,22 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — deferred World diagnostic revision READY_SOURCE, NOT_INSTALLED.**
+[Разбор и отдельные исходники](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Причина первого зависания не доказана. Точный UE4SS source подтверждает: script
+callback удерживает общий recursive mutex, а простая EngineTick action выполняется
+после освобождения очереди/lock. Синхронный LoadAsset на miss вызывает LoadObject.
+Новая ревизия разрешает класс/материал до регистрации своих hooks, создаёт только
+через EngineTick после свежей проверки identity/UI/native validity, не загружает
+ресурсы при создании/после reload; cleanup тоже отложен. BEGIN/END-фазы отделяют
+load/construct/Create/first Slate/register/cleanup. Anchor/визуальные параметры и
+материал прежние.139 offline tests/12 suites PASS;15 новых policy cases.
+Зависшая ревизия/установленные Lua не изменены и отключены. Новой установки,
+игрового прогона или runtime PASS нет; World/production acceptance BLOCKED.
+Следующий достаточный шаг — отдельное разрешение на установку новой пары файлов
+и один ограниченный пользовательский фазовый тест.
+
+## Предыдущий отрицательный игровой результат
+
 **2026-10-30 — первый World-прогон: пользователь сообщил зависание; probe DISABLED.**
 [Логи, границы и следующий шаг](../research/interaction-prompts-owner/world-space/probe/README.md).
 Точное Open MATCH получено00:15:12.150; это последняя строка UE4SS.log.
