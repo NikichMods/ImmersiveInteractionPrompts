@@ -1,5 +1,17 @@
 # Verified Runtime — Interaction Prompts
 
+## Vertical frame-yaw / manual F7 — bounded runtime PASS, 2026-10-30
+
+[Exact runtime evidence and limits](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Sourcef1eb635/installed Lua hashes
+unchanged. One loop handle3,1068 frames/1068 writes, no degeneracy or probe error.
+STATE actual rotation(0,73.4368515,0), fixed world position/scale, RT512x128 and
+stock depth material. User reports near-ideal behavior and explicitly confirms F7.
+LOOP_CANCELLED→STOP user/hooks_remaining0→native destroy/CLEANED user before timeout.
+Manual World F7 is now PASS in this scope. Rough60 callbacks/s is not measured
+display FPS or a performance benchmark. Archived/disabled closed-game,33 baseline
+mod/loader hashes and88 current files preserved. Production/full lifecycle open.
+
+
 ## Vertical yaw installation — 2026-10-30, runtime PENDING
 
 Authorized closed-game installation of sourcef1eb6358fef4e9e9ebcb4e8ad00d2a9f04659851.

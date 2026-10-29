@@ -1,9 +1,59 @@
-# Vertical world-Z yaw — INSTALLED / RUNTIME_PENDING
+# Vertical world-Z yaw — bounded runtime / manual F7 PASS
 
-2026-10-30. Separate research revision; old orientation source and runtime record
-are frozen. Authorized installation below; no new game launch/hot reload or runtime
-acceptance. Production BLOCKED. Reuse accepted Open binding, private host, World renderer/material,
+2026-10-30. User-run vertical yaw / manual F7 PASS recorded below; probe DISABLED.
+Exact source and earlier records remain frozen. Production BLOCKED. Reuse accepted
+Open binding, private host, World renderer/material,
 Hilda occlusion and native cleanup; do not re-prove these prerequisite gates.
+
+## User-run result — 2026-10-30, bounded PASS
+
+Source `f1eb6358fef4e9e9ebcb4e8ad00d2a9f04659851`; source and installed Lua hashes
+below matched after exit. Same Steam1.09/build12996889 / UE4.27 / UE4SS83330635.
+User reports everything worked almost ideally and explicitly confirms pressing F7.
+This supports bounded visual/operational acceptance of vertical frame-yaw and
+manual cleanup, not final typography/composition or a quantified performance test.
+
+| Moscow time | Evidence |
+| --- | --- |
+| 02:36:45.363 | Own WORLD TEST created at the matched natural Open, initial pitch0/yaw97.5467591/roll0, scale.25, RT target512x128, anchor+32Z. |
+| 02:36:45.364 | One LOOP_REGISTERED handle3, frames1. |
+| 02:36:45.368 | First vertical setter BEGIN/END returned. |
+| 02:37:01.777 | User snapshot:985 frames/985 writes, no degeneracies. Own actual rotation(0,73.4368515,0), yaw error0.000117563deg, fixed position(-40619.4648,12241.2139,5704), scale(.25,.25,.25), RT512x128, World0, no collision/overlap/hardware/focus, stock masked depth-disable=false; original_writes0. |
+| 02:37:03.159 | LOOP_CANCELLED handle3 reason=user, YAW_SUMMARY1068 frames/1068 writes/degenerate0, last requested yaw73.437059683518, error0.000093741deg, pitch0/roll0. STOP user/MATCHED, init128/open3/ready3/show1071/matches1/poses2/hooks_remaining0. |
+| 02:37:03.176 | COMPONENT_DESTROYED native pending-kill check, CLEANED reason=user/own_widget_holder=false/own_component_alive=false. |
+| 02:37:25.273 | Event loop end; no later probe events or FAILED/CLEANUP_PENDING/LOOP_CANCEL_PENDING events. |
+
+The1068 writes in about17.796s from creation correspond to roughly60 callbacks/s
+in this run. That is observed callback cadence, not a display-FPS measurement,
+proof that no engine tick was skipped, or a performance benchmark. The source
+uses a one-frame EngineTick-pre loop; the yaw readback guard passed during each
+successful update. User feedback supports perceived successful behavior; it
+supplies no separate numerical latency/jitter or FPS-drop measurement.
+
+**Closed gates for this scope:** live native frame-loop registration, horizontal
+camera-facing yaw with pitch/roll0, returned repeated setter calls/readbacks,
+manual F7 cancellation and native own cleanup before timeout. The actual snapshot
+and guarded updates support verticality; camera motion/visual behavior is also
+user-confirmed. Existing renderer/occlusion acceptance is reused, not repeated.
+CancelDelayedAction returned true; PendingRemoval/function-unref follows the
+pinned source contract, without an independent post-cancel handle-query log.
+No further own updates were logged after stop. No forced GC/GPU-free claim.
+
+No degenerate horizontal direction, fixed fallback, lost-target error or native
+45s timeout was exercised in this run; their earlier source/tests/results remain
+separate. Full Aphes composition, wider lifecycle, actions/input-device coverage
+and production acceptance are still open. The old unknown first-hang cause is
+not diagnosed by this success. No new payload or automatic follow-up test.
+
+Ignored archive outside loader:
+`.local/research/interaction-prompts/world-space/vertical-yaw/runtime-20261029T233819Z/`.
+UE4SS log SHA256 `d06cb0f2d327336493b143f3f2b3ac5fdf39d07a2632d656f58ef0afa747980a`;
+Genesis log SHA256 `88b57d58e8c69200a1b0f910c63a7d6473cb9337254e09334106f47f29072019`.
+Raw logs/filtered probe events, installed source/manifest and disable record saved.
+Game already closed. Removed only this own enabled.txt; payload retained. All33
+pre-existing loader/mod hashes match installation,88 current files retain hashes
+across disable (not a pre-play-save equality claim). All IIP probes disabled;
+other mods/current settings/saves preserved. No agent launch/termination/hot reload.
 
 ## Authorized closed-game installation — 2026-10-30
 
@@ -159,8 +209,8 @@ The installed exact source above is ready for one user-run scenario:
    hooks_remaining0, COMPONENT_DESTROYED/CLEANED, no subsequent native updates.
    Target-loss/timeout instead of F7 is recorded separately, never F7 PASS.
 
-Runtime frame cadence/camera phase, performance/readability, cancel-handle removal
-and manual F7 remain unverified. The authorized install is recorded above.
+This historical scenario completed in the bounded PASS above. No repeat is
+requested. Precise camera-phase latency and performance remain unmeasured.
 
 ## Offline verification and identity
 

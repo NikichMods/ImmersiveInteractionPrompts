@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — vertical frame-Yaw / manual F7 bounded runtime PASS; probe DISABLED.**
+[Точная запись](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Пользователь подтвердил почти идеальную работу и F7.
+Один loop handle3,1068 frames/1068 writes за~17.796s, no degeneracy/errors;
+STATE Pitch/Roll0, world position/scale неизменны, RT512x128/stock depth material.
+F7: LOOP_CANCELLED→STOP user/hooks_remaining0→native destroy/CLEANED user.
+Снято только own enabled.txt при уже закрытой игре;33 прежних mod/loader hashes
+совпали,88 текущих файлов сохранены. Sourcef1eb635 неизменён. Закрыт узкий gate
+вертикального покадрового Yaw и ручной очистки. Точный FPS/latency не измерены,
+финальная композиция/full lifecycle/production BLOCKED; нового payload/теста нет.
+
+
 **2026-10-30 — vertical world-Z yaw INSTALLED, runtime PENDING.**
 По прямому разрешению пользователя при закрытой игре установлен точныйf1eb635
 в новый ImmersiveInteractionPromptsWorldYawProbe: два Lua и enabled.txt.

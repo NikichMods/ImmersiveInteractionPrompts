@@ -1,5 +1,9 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Latest2026-10-30:** [vertical frame-yaw / manual F7 bounded PASS](vertical-yaw/README.md),
+probe disabled.1068 guarded writes, user confirmation, own cancellation/native
+cleanup. No repeat requested; final composition/full production lifecycle open.
+
 **Current source-only2026-10-30:** [vertical frame-yaw](vertical-yaw/README.md),
 READY_SOURCE / NOT_INSTALLED. User adopted world-Z vertical target; runtime
 frame cadence/performance/manual F7 remain open. Prior rendering and setter PASS

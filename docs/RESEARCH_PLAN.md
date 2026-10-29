@@ -1,5 +1,14 @@
 # План исследования — contextual prompts и письменность
 
+## Завершённый gate — vertical frame-Yaw и ручной F7 PASS
+
+[Подтверждённый результат](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md):1068 guarded yaw writes, Pitch/Roll0,
+успешные cancellation/native destruction по F7. Не повторять этот опыт ради
+перепроверки. Проба отключена, source сохранён. Новое исследование/установка
+не назначены; финальная композиция и полный production lifecycle остаются
+отдельными решениями, без расширения текущего теста.
+
+
 ## Текущий handoff — vertical yaw установлен, ожидается один пользовательский тест
 
 Точныйf1eb635 установлен по прямому разрешению с закрытой игрой и откатом.
