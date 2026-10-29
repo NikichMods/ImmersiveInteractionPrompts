@@ -7,17 +7,19 @@ ExtendedWidget / TipHUD and read2 finite component poses. User stop46.394s,
 no probe error, hooks released; probe disabled. Both script readers worked across
 one manual reload. No World payload/rendering/occlusion acceptance.
 
-**Current: [one owned World prototype INSTALLED](probe/README.md), runtime PENDING
-after authorized closed-game installation2026-10-30.** Native transient ownership, manual FinishAddComponent
+**Current: [first owned World run BLOCKED after user-reported hang](probe/README.md),
+probe DISABLED2026-10-30.** Exact Open MATCH was logged; creation completion,
+rendering/occlusion/cleanup were not. Cause remains unknown; no replacement installed.
+The following describes source readiness before that failed run. Native transient ownership, manual FinishAddComponent
 registration, stock masked depth material and own destruction were checked against
 UE4.27/pinned UE4SS and installed UHT. Two research Lua files reuse accepted
 binding/host routes, add one cyan WORLD TEST with fixed camera-facing pose and
 bounded cleanup. No original TipHUD renderer/fields are changed.16 new policy
 tests cover partial failures and native PendingKill-aware cleanup; mocks are not
 rendering proof. **World visual acceptance and production remain BLOCKED.**
-Next sufficient step is a separately authorized closed-game installation and one
-partial-letter Hilda-occlusion test described in the new report. No installation,
-game run, hot reload, production/VERSION, settings/save or other-mod edits here.
+That source-preparation stage led to the separately authorized installation/run;
+the new report now records its failure and disabled state. No hot reload,
+production/VERSION, settings/save or other-mod edits were made by this work.
 The earlier study below remains provenance; its host/binding/source-preparation
 blockers have since been closed, while World runtime gates have not.
 

@@ -1,9 +1,54 @@
 # One owned World component — READY_SOURCE, 2026-10-29
 
-**INSTALLED 2026-10-30 (Moscow), runtime PENDING.** Exact d4a1ac6 source was
-installed with explicit user authorization while the game was closed. Production and
+**BLOCKED after user-reported hang, 2026-10-30; probe DISABLED.** Exact d4a1ac6 source was
+installed and tested with explicit user authorization. Production and
 World rendering/occlusion acceptance remain **BLOCKED**. This is one separately
 user-operated experiment, not the final prompt or a production lifecycle system.
+
+## First World run — user-reported hang, no rendering/cleanup acceptance
+
+Exact installed source hashes below still matched after the run. UE4SS.log:
+00:14:42.083 arm/two script registrations;00:14:48.622–.623 three acquired pairs;
+00:14:49.204 init128 closes acquisition only, retaining3. At00:15:12.150 CanShow
+MATCH identifies the natural 0-1_lootbox_01_mat_ST001/item_lootbox02_C actor,
+its ExtendedWidget and TipHUD_C_2147478171. That is the final UE4SS log entry.
+There is no IIP_WORLD CREATED/STATE/FAILED/COMPONENT_DESTROYED/CLEANED/STOP event.
+User reports the game hung upon approaching the chest and a prompt appearing;
+this does not establish that WORLD TEST itself rendered or depth-tested.
+
+Genesis.log ends at00:15:12.158 Moscow with FlushAsyncLoading:1 QueuedPackages,
+0 AsyncPackages. The two logs narrow the interval to after exact binding and
+before the creation routine completed; they do **not** identify the hanging call,
+prove a loader deadlock or exclude a later creation/Slate/registration stage.
+No new crash directory for this session was found in the game's Saved/Crashes.
+No live stack/hang dump was captured; the game process was already absent when
+inspected. The agent did not terminate it, and how it ended is not established.
+
+Relevant implementation difference: this candidate calls World.create directly
+inside the CanShow script callback. The accepted host-only create/show test used
+explicit EngineTick-dispatched user control. Source-visible difference is not a
+diagnosis; moving work or changing material/position is not yet a proven fix.
+The124 mock tests do not model actual loader/Slate/native reentrancy or a native
+call that never returns; pcall/timeouts cannot guarantee recovery from that hang.
+
+Archived outside loader, ignored:
+`.local/research/interaction-prompts/world-space/probe/failed-run-20261029T211806Z/`.
+UE4SS log SHA2569bf9ef402009bc66bce07ba317be291d1b457a7a4e800bca9f08235cd3645b47;
+Genesis log SHA2562a1de4d854777bd9308ef408cdff3e220cc88baa5427e29fd3bfc03581727225.
+Archive includes exact payload copies, installation manifest and disable record.
+Closed-game containment removed **only own enabled.txt**; both Lua files retained
+for evidence.25 old mod/loader hashes still match installation baseline, and86
+current files retained hashes across disable. Current settings/saves are preserved;
+this is not a claim that the user run left saves unchanged from before play.
+No native runtime cleanup success is inferred from process exit/marker removal.
+
+**Next sufficient step:** narrow source review of creation in script-hook context
+and exact asset loading, then phase-boundary diagnostics sufficient to distinguish
+loading, allocation, first Slate and registration. Any diagnostic revision must
+have its own identity/readiness and separate installation authorization. Do not
+repeat these frozen failing bytes, shift the world anchor, change stock materials
+or broaden into a global observer without new evidence. World rendering, Hilda
+occlusion, native teardown and production remain BLOCKED.
 
 ## Closed-game installation — 2026-10-30
 
@@ -26,7 +71,8 @@ hashes, refuses unfamiliar files and removes only its own three files/directorie
 It does not restore an old whole-loader snapshot over newer unrelated work.
 The copied log precedes this test and is not runtime evidence for the World probe.
 
-Ready for the single user-operated test below; visual/native teardown gates remain
+At installation handoff it was ready for the single user-operated test below;
+that run has now failed as recorded above. Visual/native teardown gates remain
 unverified. The former instruction to obtain separate installation permission
 was fulfilled by the user's explicit “Да, устанавливай”.
 
@@ -120,7 +166,7 @@ There are no scans, per-frame Lua polls, line traces, visibility tricks or
 automatic reloads. Native component render ticks are ordinary WidgetComponent
 behavior, bounded by the experiment's own destruction deadline.
 
-## Single user-operated test — installed exact source
+## Historical test procedure — do not repeat the blocked candidate
 
 Deployment checks above passed: closed game, DLL/source hashes, rollback outside
 loader paths and other completed IIP probes disabled. The game was not started;

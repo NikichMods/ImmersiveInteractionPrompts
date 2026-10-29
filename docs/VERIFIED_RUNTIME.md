@@ -1,5 +1,20 @@
 # Verified Runtime — Interaction Prompts
 
+## First owned World run — user-reported hang, 2026-10-30
+
+Exact d4a1ac6 main/helper source hashes still matched installed bytes. Acquired3
+pairs, closed init128 acquisition, then exact natural Open MATCH00:15:12.150;
+no CREATED/STATE/failure/cleanup/STOP follows. User reports freeze on approaching
+the chest/prompt. Genesis.log ends00:15:12.158 with FlushAsyncLoading, not a
+captured stack or proven cause. WORLD TEST rendering/occlusion/teardown did not
+pass. See [exact evidence and limits](../research/interaction-prompts-owner/world-space/probe/README.md).
+UE4SS log SHA2569bf9ef402009bc66bce07ba317be291d1b457a7a4e800bca9f08235cd3645b47;
+Genesis log SHA2562a1de4d854777bd9308ef408cdff3e220cc88baa5427e29fd3bfc03581727225.
+No process remained on inspection; no agent termination. Archived logs/source,
+then removed only own marker closed-game;25 previous mod/loader hashes matched,
+86 current files unchanged across disable. Native runtime cleanup remains unproved.
+Cause UNKNOWN; candidate disabled/BLOCKED, no replacement installed.
+
 ## Owned World probe installation — 2026-10-30, runtime PENDING
 
 User-authorized closed-game installation of exact d4a1ac610fcfc829b59545a7138034aa1795efc3.
