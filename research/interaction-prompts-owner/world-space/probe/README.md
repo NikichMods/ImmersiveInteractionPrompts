@@ -1,10 +1,10 @@
 # First owned World component — frozen failed revision
 
-**2026-10-30 follow-up:** [Deferred V2](deferred/README.md) completed one NOT_LOADED
-run and is disabled. Current Deferred V3 is INSTALLED with runtime PENDING:
-one exact post-reload EngineTick resource refresh and fresh target checks before
-unchanged creation. No old hang cause/runtime fix is established. The original
-files/hashes and negative evidence below stay frozen.
+**2026-10-30 follow-up:** [Deferred V2/V3](deferred/README.md): V2 stopped NOT_LOADED;
+V3 subsequently passed one bounded World render/Hilda partial-letter occlusion/
+timeout cleanup test. All probes disabled. The first hang cause remains unknown;
+manual F7 and production lifecycle are not accepted. Original files/hashes and
+negative evidence below stay frozen.
 
 **BLOCKED after user-reported hang, 2026-10-30; probe DISABLED.** Exact d4a1ac6 source was
 installed and tested with explicit user authorization. Production and

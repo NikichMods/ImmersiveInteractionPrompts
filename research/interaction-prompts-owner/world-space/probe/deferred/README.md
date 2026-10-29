@@ -1,10 +1,74 @@
-# Deferred World creation — post-reload refresh READY_SOURCE, 2026-10-30
+# Deferred World creation — bounded rendering/occlusion/timeout cleanup PASS
 
-**Current V3: INSTALLED2026-10-30 / runtime PENDING.** The installed V2
-remains disabled after NOT_LOADED; its historical result follows below. V3 is not
-a proven fix for the first hang or evidence of working World rendering.
+**Current V3: bounded runtime PASS2026-10-30; probe DISABLED.** User confirmed
+WORLD TEST visibility, partial letters hidden by Hilda and their reappearance.
+Native state/readbacks and45s timeout cleanup completed. Manual F7 cleanup was
+not exercised before timeout. The first hang's exact cause remains unknown.
 Frozen first-run source and its BLOCKED result stay in [the parent report](../README.md).
-World visual acceptance and production remain BLOCKED.
+This proves one World rendering/depth mechanism, not the final composition or
+production lifecycle. Production acceptance remains BLOCKED.
+
+## V3 user-run result — 2026-10-30, one natural Open
+
+Exact source6ad93fc302d43c9578792cd339ddf10421f3e0fe, main/helper hashes below
+matched installed bytes after exit. Same Steam1.09/build12996889, UE4.27,
+UE4SS83330635/DLL baseline; original Screen component remained in use.
+
+| Moscow time | Evidence |
+| --- | --- |
+| 01:10:19.450 | API-only prepare and two script registrations. |
+| 01:10:27.423–.425 /28.006 | Three initialized pairs; init128 closes acquisition only. |
+| 01:10:49.238/.251 | Exact natural Open MATCH, queued then dispatched EngineTick. Actor0-1_lootbox_01_mat_ST001, class item_lootbox02_C, its ExtendedWidget and TipHUD_C_2147478021; no old process selector. |
+| 01:10:49.260 | Host ABSENT_NULL→one exact LoadAsset→found/did_load=true, LIVE on returned object and fresh lookup. Material LIVE, zero material loads. |
+| 01:10:49.261–.270 | Post-load target check and every construct/config/Create/first Slate/private UI/registration/original-check phase returned. CREATED. First sample RENDER_PENDING before render target was ready. |
+| 01:11:11.635 /15.901 | Two user F8 STATE snapshots, same render target1620911494464,512×128. Visible3/not-hidden, World0, collision0/overlap/hardware/focus=false, stock masked material/depth-disable=false, scale(.25,.25,.25). |
+| 01:11:34.283 | STOP world_timeout,74.833s from arm /45.013s from creation; init128/open3/ready3/show2536/match1/poses3/unmatched0/hooks_remaining0, cleanup queued. |
+| 01:11:34.300–.301 | Unbind/destroy/host release phase pairs completed; COMPONENT_DESTROYED native pending-kill check; CLEANED own_widget_holder=false/own_component_alive=false. No forced GC or instantaneous GPU-free claim. |
+| 01:11:49.277 | Event loop ends. No probe FAILED/CLEANUP_PENDING/DISPATCH_FAILED events. |
+
+Source anchor in both post-load checks and all3 poses:
+(-40619.4648,12241.2139,5672), source rotation(0,109.320808,0), source scale1;
+actor origin Z5552. Own component
+`0-1_lootbox_01_mat_ST001.IIP_WorldTest_1793311849` at
+(-40619.4648,12241.2139,5704), actual rotation
+(16.5287838,86.5690613,0), scale.25 in both user snapshots. These are historical
+measurements, not selectors or general placement constants.
+
+**User visual evidence:** user performed the scenario and explicitly confirmed
+that Hilda covered only part of the WORLD TEST letters and those letters returned
+when moving aside. This distinguishes geometry coverage from whole-widget hide
+or timeout. The user did not reach F7 before timeout; record timeout cleanup PASS,
+**not** manual World cleanup-key PASS. Original identity/visibility/Open and root/
+tree checks held; no source original-UI writes or input remapping. This is not an
+exhaustive test of all native interaction semantics, actions or input devices.
+
+User also perceived initial shift/turn toward camera followed by stability.
+Source performs camera-facing transform once, before registration; no later
+billboard/transform setter exists. Two logged actual world poses/angles match,
+and expected initial rotation differs only by float roundoff. These snapshots do
+not cover the first22s. Changing camera perspective can change the apparent angle
+of a fixed plane; it is a plausible explanation, not a diagnosed early movement.
+Do not silently treat this as a tested dynamic camera-facing mechanism.
+
+Ignored archive outside loader:
+`.local/research/interaction-prompts/world-space/probe/deferred/post-reload-refresh/runtime-pass-20261029T221444Z/`.
+UE4SS log SHA256de0d42d942662da4e38298ded3f54908d3993559b23179c01c4f436aaaccb543;
+Genesis log SHA2566d532c5857ebaf49e142a2215156010c8f908475ee098964d2d39bc68a0f396f.
+Exact payloads, installation manifest, filtered events and result/disable record
+retained. Game already closed when inspected; agent did not terminate it. Removed
+only own enabled.txt;29 previous mod/loader hashes match,91 current files retain
+hashes across disable. Current save/config bytes preserved across disable, not
+claimed identical to pre-play data after the user's gameplay.
+
+**Closed gate:** one independent owned World renderer, live natural Open binding,
+exact host load after reload, private UI/stock material/native state, user-confirmed
+partial Hilda occlusion/reappearance and timer-driven native logical destruction.
+Do not repeat this same test just to re-prove it. Open items: manual F7 on the
+World sample, continuous camera-facing/distance readability, broader lifecycle,
+other geometry/translucency, full Aphes composition/current input hints. A useful
+next separate decision is a bounded camera-motion/readability study using this
+accepted mechanism, rather than a replacement renderer or another binding probe.
+No new payload/design changes or installation are made by this result.
 
 ## Authorized V3 installation — 2026-10-30
 
@@ -25,8 +89,8 @@ loader settings/mods.txt, verified result and guarded rollback.ps1 retained.
 Rollback checks closed host, exact resolved own target and file hashes, refuses
 unfamiliar files, and removes only this new probe's own files/directories. Its
 PowerShell syntax was checked; rollback was not executed. Pretest logs are not
-V3 runtime evidence. Next step is the single user-run scenario below; loading
-success alone still does not establish World renderer/depth/cleanup acceptance.
+V3 runtime evidence. That scheduled user-run scenario has now completed as
+recorded above; no repetition of the accepted mechanism is requested.
 
 ## Current V3 correction — one exact refresh after reload
 
@@ -115,13 +179,11 @@ Private audit/tests: `.local/research/interaction-prompts/world-space/probe/defe
 source-hashes.json SHA256c67b672fe68ac1eb7eafa110e901a7e65fde4759d1dc84773857f61fb42517e6.
 Git whitespace/relative links/source and installed-file preservation checked.
 
-**Next sufficient step:** installation authorization has been fulfilled above;
-perform one existing F8→manual reload→Open→F7 user run. Expected progress is
-ASSETS_READY→post-refresh target check→component
-phases. A load failure is useful negative evidence; successful loading alone is
-not a World rendering/occlusion PASS. Do not change anchor/material or repeat
-older tests independently. First-hang cause, World draw/occlusion/teardown and
-production remain unverified/BLOCKED.
+**The planned V3 run is completed above:** ASSETS_READY→post-refresh target check→
+component phases, user-confirmed rendering/occlusion and timer cleanup. Loading
+alone was not used as the visual criterion. Do not repeat this accepted mechanism
+or older prerequisite tests independently. First-hang cause, manual F7, continuous
+camera/distance behavior, broader lifecycle and production remain unverified.
 
 ## First deferred run — execution separation observed, host residency gate failed
 

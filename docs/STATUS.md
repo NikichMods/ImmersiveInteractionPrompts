@@ -1,5 +1,23 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — bounded World rendering / Hilda occlusion / timeout cleanup PASS.**
+[Полный результат](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Точный6ad93fc V3 загрузил host одним LoadAsset после reload, создал собственный
+World-компонент; пользователь подтвердил видимость, частичное перекрытие букв
+Хильдой и возвращение букв при смещении. Два STATE: одинаковые world position/
+rotation, RT512×128, штатный masked/depth материал. Через45s world_timeout:
+hooks_remaining0, native COMPONENT_DESTROYED и CLEANED, ошибок probe нет.
+F7 до timeout не выполнен — ручной World cleanup-key не принят. Первые22s не
+покрыты снимками; ощущение начального поворота не диагностировано. В коде только
+начальная ориентация, динамический billboard пока не реализован/не проверен.
+Логи сохранены, при закрытой игре снят только own enabled.txt;29 прежних mod/loader
+hashes совпали,91 текущий файл не изменился при отключении. Проба DISABLED.
+Механизм реального перекрытия в одном Open доказан; причина первого зависания
+неизвестна. Не повторять этот этап. Следующий отдельный вопрос — поведение при
+движении камеры/дистанции; финальная композиция и production lifecycle BLOCKED.
+
+## История установки V3
+
 **2026-10-30 — Deferred World V3 INSTALLED, runtime PENDING.**
 По разрешению пользователя при закрытой игре установлен точный6ad93fc source
 в новый ImmersiveInteractionPromptsWorldRefreshProbe: два Lua и enabled.txt.

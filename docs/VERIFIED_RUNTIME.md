@@ -1,5 +1,30 @@
 # Verified Runtime — Interaction Prompts
 
+## V3 owned World render / Hilda occlusion / timeout cleanup — bounded PASS, 2026-10-30
+
+[Exact timeline, poses and evidence limits](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Source6ad93fc302d43c9578792cd339ddf10421f3e0fe; source/installed main
+52fbcba729e062451f989557e9f1d690834cd884342a8033c66c7519507ec877, helper
+ca02673f7258b5459219d3e5cf0fb9e265c937f91875906375f1a8cd806fd33c unchanged.
+After exact Open match, EngineTick HOST ABSENT_NULL→one load→LIVE, material LIVE
+without load. All owned construction/first Slate/registration phases completed.
+Two F8 STATE readbacks: same RT512×128/position/rotation/scale.25, World0, stock
+masked depth-disable=false, no collision/overlap/hardware/window focus. User
+explicitly confirms partial-letter Hilda coverage and reappearance when moving
+aside. That visual observation is separate from native RT/visibility readbacks.
+
+45s timeout STOP/MATCHED, init128/show2536/match1/poses3/hooks_remaining0; subsequent
+native unbind/self-destroy/host release and CLEANED completed. No probe failures.
+Manual F7 was not reached before timeout: not a manual World cleanup PASS or an
+instant GPU/GC-free result. Only initial camera-facing transform; both sampled
+rotations identical, first22s unsampled. Perceived early motion remains unexplained.
+First-hang cause and dynamic billboard/full lifecycle/production remain unproved.
+
+UE4SS log SHA256de0d42d942662da4e38298ded3f54908d3993559b23179c01c4f436aaaccb543;
+Genesis log SHA2566d532c5857ebaf49e142a2215156010c8f908475ee098964d2d39bc68a0f396f.
+Archived closed-game, own marker removed;29 previous mod/loader hashes matched,
+91 current files unchanged across disable. Probe/source preserved and disabled.
+
 ## V3 installation — 2026-10-30, runtime PENDING
 
 Authorized closed-game installation of6ad93fc302d43c9578792cd339ddf10421f3e0fe.
