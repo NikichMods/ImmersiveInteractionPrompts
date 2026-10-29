@@ -1,10 +1,32 @@
 # Deferred World creation — post-reload refresh READY_SOURCE, 2026-10-30
 
-**Current V3: READY_SOURCE, NOT_INSTALLED / RUNTIME_NOT_TESTED.** The installed V2
+**Current V3: INSTALLED2026-10-30 / runtime PENDING.** The installed V2
 remains disabled after NOT_LOADED; its historical result follows below. V3 is not
 a proven fix for the first hang or evidence of working World rendering.
 Frozen first-run source and its BLOCKED result stay in [the parent report](../README.md).
 World visual acceptance and production remain BLOCKED.
+
+## Authorized V3 installation — 2026-10-30
+
+Exact source `6ad93fc302d43c9578792cd339ddf10421f3e0fe` installed with explicit
+user permission, game closed throughout deployment. Source/installed main/helper
+SHA256 match the V3 values below; no Lua edits for installation. Only own new
+`ImmersiveInteractionPromptsWorldRefreshProbe` directory was created, containing
+Scripts/main.lua, Scripts/IIPWorldChild.lua and empty enabled.txt. Only this IIP
+marker enabled; V1/V2 retained unchanged/disabled, other mods including CombatHUD
+and SoulsEnemyHUD untouched. Pinned UE4SS DLL verified;29 old mod/loader and59
+current config/save files retained their hashes. No game launch/termination,
+reload/hot reload, production/VERSION or settings/save edits.
+
+Ignored backup outside loader:
+`.local/research/interaction-prompts/world-space/probe/deferred/post-reload-refresh/install-20261029T220606Z/`.
+Exact Lua copies, initial-state/installed hashes, pretest UE4SS/Genesis logs,
+loader settings/mods.txt, verified result and guarded rollback.ps1 retained.
+Rollback checks closed host, exact resolved own target and file hashes, refuses
+unfamiliar files, and removes only this new probe's own files/directories. Its
+PowerShell syntax was checked; rollback was not executed. Pretest logs are not
+V3 runtime evidence. Next step is the single user-run scenario below; loading
+success alone still does not establish World renderer/depth/cleanup acceptance.
 
 ## Current V3 correction — one exact refresh after reload
 
@@ -93,9 +115,9 @@ Private audit/tests: `.local/research/interaction-prompts/world-space/probe/defe
 source-hashes.json SHA256c67b672fe68ac1eb7eafa110e901a7e65fde4759d1dc84773857f61fb42517e6.
 Git whitespace/relative links/source and installed-file preservation checked.
 
-**Next sufficient step:** separate closed-game authorization to install this exact
-pair, preserving disabled V2/rollback, then one existing F8→manual reload→Open→F7
-user run. Expected progress is ASSETS_READY→post-refresh target check→component
+**Next sufficient step:** installation authorization has been fulfilled above;
+perform one existing F8→manual reload→Open→F7 user run. Expected progress is
+ASSETS_READY→post-refresh target check→component
 phases. A load failure is useful negative evidence; successful loading alone is
 not a World rendering/occlusion PASS. Do not change anchor/material or repeat
 older tests independently. First-hang cause, World draw/occlusion/teardown and

@@ -1,13 +1,19 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий результат — Deferred V3 READY_SOURCE, не установлен
+## Текущий результат — Deferred V3 INSTALLED, runtime PENDING
+
+Пользователь разрешил установку; точный6ad93fc source установлен при закрытой
+игре2026-10-30 с verified hashes и откатом. Следующий шаг — один пользовательский
+прогон ниже; успешная загрузка ресурсов сама по себе не подтверждает renderer.
+
+## Подготовка исходников V3
 
 Подготовлена [ограниченная post-reload refresh ревизия](../research/interaction-prompts-owner/world-space/probe/deferred/README.md):
 до hooks только проверка API, после MATCH максимум один точный LoadAsset HOST/MASK
 на EngineTick; статусы недоступности/identity раздельные. После загрузки свежая
 проверка actor/component/TipHUD/Open/UI/anchor, без старых wrappers; затем прежнее
-создание/очистка.158 offline tests PASS. Следующий достаточный шаг — отдельно
-разрешённая установка этой пары и один тот же ограниченный сценарий для нового
+создание/очистка.158 offline tests PASS. Установка пары разрешена и завершена;
+следующий достаточный шаг — один тот же ограниченный сценарий для нового
 resource gate и, если пройден, первого реального World renderer. Никакой смены
 anchor/материала/композиции. Native hang может повториться; runtime/production BLOCKED.
 

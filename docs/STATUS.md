@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — Deferred World V3 INSTALLED, runtime PENDING.**
+По разрешению пользователя при закрытой игре установлен точный6ad93fc source
+в новый ImmersiveInteractionPromptsWorldRefreshProbe: два Lua и enabled.txt.
+[Хэши/откат/процедура](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Другие IIP probes сохранены/отключены;29 старых mod/loader и59 текущих config/save
+файлов сохранили хэши, UE4SS DLL совпал. Backup/manifest/guarded rollback вне
+loader в local post-reload-refresh/install-20261029T220606Z. Lua не менялся.
+Игра не запускалась/не закрывалась, hot reload не выполнялся. Следующий шаг — один
+пользовательский F8→reload→Open→F7 тест новой загрузки и, если пройдена, renderer.
+Причина первого зависания неизвестна; World/production acceptance BLOCKED.
+
+## Подготовка V3
+
 **2026-10-30 — Deferred World V3 post-reload refresh READY_SOURCE, NOT_INSTALLED.**
 [Текущие исходники/хэши/проверки](../research/interaction-prompts-owner/world-space/probe/deferred/README.md).
 F8 проверяет только API, без преждевременной загрузки. После MATCH отложенная
