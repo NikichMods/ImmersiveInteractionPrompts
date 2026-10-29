@@ -1,10 +1,31 @@
-# Natural Open binding — READY_SOURCE for one read-only test, runtime NOT_TESTED
+# Natural Open binding — INSTALLED, runtime PENDING
+
+## Authorized installation — 2026-10-29
+
+Exact source commit148e5c062cc5817e271635372d8111efb97cae4f installed unchanged in
+ImmersiveInteractionPromptsOpenBindingProbe: Scripts/main.lua and empty enabled.txt.
+Source and installed SHA256 both
+`a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f`.
+Installed UE4SS.dll SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`, matching the
+pinned83330635 baseline and prior loader version banner. Host checked closed
+before copy and enable. No launch/termination/hot reload or Lua edits performed.
+
+All23 prior mod/loader files and64 config/save files retained hashes. Completed
+IIP probes remain disabled; current CombatHUD and other mod bytes were preserved.
+Outside-loader backup/rollback and verification manifests are ignored/local at
+open-binding/install-20261029T112539Z: exact source copy, pretest log/settings/
+mods.txt, installed.json, verified.json and hash-guarded rollback.ps1. Target was
+previously absent; rollback removes only the two matching own files and empty own
+directories with the host closed. Runtime mapping/pose remains untested.
+
+## Source preparation record
 
 2026-10-29. Steam1.09/build12996889, UE4.27 Windows x64, UE4SS83330635.
 [Lua source](Scripts/main.lua), SHA256
 `a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f`.
-No installation, game execution, production/VERSION, settings/save or other-mod
-changes. Independent UserWidget [runtime PASS](../userwidget-host/probe/README.md)
+Preparation made no installation, game execution, production/VERSION, settings/save or other-mod
+changes; the later authorized installation is recorded above. Independent UserWidget [runtime PASS](../userwidget-host/probe/README.md)
 is reused without another test. World rendering/occlusion remains NOT_TESTED.
 
 ## Question, existing evidence and chosen boundary
@@ -106,7 +127,7 @@ can retry. Dispatch failure also makes the observer inert, with no game-state
 rollback needed because it made no writes. There is no UI cleanup, GC/root control,
 load/spawn, Create, show/hide call or asset mutation in this probe.
 
-## Minimum future experiment — not authorized or installed by this stage
+## User experiment — installation authorized/completed, run still pending
 
 1. Start gameplay a short distance outside one natural unopened Open prompt's
    range. F8 chord once, then approach until the normal «Открыть»/input hint appears.

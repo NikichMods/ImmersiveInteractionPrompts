@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — Open binding probe INSTALLED; runtime PENDING.**
+По явному разрешению пользователя при закрытой игре установлен точный148e5c0
+Lua SHA256a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f.
+Добавлены только Scripts/main.lua + enabled.txt в собственном OpenBindingProbe;
+23 прежних mod/loader и64 config/save files не изменились по хэшам. Старые IIP
+probes отключены. Вне loader сохранены rollback/снимки/манифесты в локальном
+open-binding/install-20261029T112539Z. Игра не запускалась; следующий шаг —
+[один пользовательский Open test](../research/interaction-prompts-owner/open-binding/README.md#user-experiment--installation-authorizedcompleted-run-still-pending).
+Live mapping/pose ещё не подтверждены, World/production BLOCKED.
+
 **2026-10-29 — natural Open binding: READY_SOURCE для одного read-only теста,
 live mapping ещё NOT_TESTED.** [Отчёт и исходник](../research/interaction-prompts-owner/open-binding/README.md):
 один естественный post SetShow даёт component context без сканирования мира;

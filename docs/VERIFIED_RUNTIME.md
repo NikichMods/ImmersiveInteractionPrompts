@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Open binding installation — 2026-10-29, runtime PENDING
+
+Explicitly authorized closed-game install, source148e5c062cc5817e271635372d8111efb97cae4f.
+Source/installed Lua SHA256a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f.
+Pinned UE4SS.dll identity matches; only new probe Scripts/main.lua/enabled.txt added.
+23 pre-existing mod/loader files and64 config/save files retained hashes, including
+current CombatHUD. Prior IIP probes disabled. Exact source/log/settings/manifest
+and hash-guarded rollback retained outside loader. No game execution or new live
+mapping/pose proof. [Installation and test](../research/interaction-prompts-owner/open-binding/README.md).
+
 ## Open widget/component/actor/pose binding — source-only, 2026-10-29
 
 [Exact report and proposed test](../research/interaction-prompts-owner/open-binding/README.md).
