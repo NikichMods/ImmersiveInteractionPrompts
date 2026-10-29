@@ -1,6 +1,18 @@
 # План исследования — contextual prompts и письменность
 
-## Текущий шаг после host runtime PASS
+## Текущий шаг — один read-only natural Open binding test, READY_SOURCE
+
+[Open binding](../research/interaction-prompts-owner/open-binding/README.md)
+содержит проверенные source/API контракты и отдельный прототип: естественный
+SetShow context → GetWidget/GetOwner → взаимные ссылки actor/component/TipHUD →
+world transform. Никакого поиска первого сундука или сканирования объектов.
+Следующее достаточное доказательство — один отдельно разрешённый тест входа в
+зону Open, ручного snapshot и выхода/stop. MATCH закроет одну live mapping/pose
+границу; no-match за60s/64 callbacks означает недостаточность этого event route,
+без автоматического расширения исследования. Исходник не установлен.
+World WidgetComponent/Aphes/скрытие оригинала в этот тест не входят.
+
+## Принятое основание — host runtime PASS
 
 [Независимый UserWidget](../research/interaction-prompts-owner/userwidget-host/probe/README.md)
 загружен, создан с отдельным деревом, показан после Construct Hidden и вручную

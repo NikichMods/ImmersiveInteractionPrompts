@@ -18,6 +18,11 @@ tree/first-Slate Hidden/show/manual viewport cleanup. Probe disabled; do not rep
 that test. Exact natural Open actor/component/pose remains the next independent
 World blocker, followed by World renderer/material/pose/occlusion runtime evidence.
 No World payload was created by this follow-up.
+The next [Open binding report/probe](../open-binding/README.md) is READY_SOURCE:
+observe natural native SetShow context, then require reciprocal component/widget/
+actor pointers and read its world pose. It does not scan the world or create a
+component. Natural event dispatch and one actual mapping remain untested; no-match
+is a valid negative outcome. This does not make the World payload READY.
 The original comparison/checkpoint below is retained as historical provenance.
 
 ## Recovery and scope

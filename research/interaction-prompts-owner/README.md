@@ -1,5 +1,11 @@
 # Observation probe readiness — 2026-10-28
 
+**Current Open binding preparation:** [open-binding/README.md](open-binding/README.md).
+One native SetShow event supplies an exact component context; reciprocal widget/
+actor/argument checks and component world-pose reads are READY_SOURCE, not live
+mapping proof.83 offline tests pass; no install/run. No world scan, UI changes or
+World component. Next sufficient test may confirm one pair or yield no-match.
+
 **Latest host result — runtime PASS:** [host-only result](userwidget-host/probe/README.md).
 Exact class loaded, independent tree created, own label shown after Construct Hidden,
 manual viewport cleanup passed; user confirmed scenario/original UI. Probe disabled.

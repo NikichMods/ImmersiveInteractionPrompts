@@ -1,5 +1,21 @@
 # Verified Runtime — Interaction Prompts
 
+## Open widget/component/actor/pose binding — source-only, 2026-10-29
+
+[Exact report and proposed test](../research/interaction-prompts-owner/open-binding/README.md).
+UHT confirms ExtendedWidgetComponent.SetShow(bool,float,float), SenderActor,
+NewUserWidget; inherited GetWidget/GetUserWidgetObject and GetOwner; BP fields
+ExtendedWidget/TipHUDArgument. UE4.27 retained source shows both widget getters
+return stored Widget; component world location/rotation/scale getters supply the
+anchor separately from actor origin. No inverse TipHUD→component API was found in
+the inspected declarations; previous Open widget was under GameInstance, not actor.
+Prepared source observes one native post SetShow, then rechecks reciprocal pointers
+and current RU Open state on EngineTick. No native setter is called.83 offline
+tests pass. **No live mapping, natural SetShow dispatch or actual transform values
+are claimed**; the proposed test can end with an explicit no-match result.
+Source SHA256a56d8fda1821f28a01e1d1f4e423a8b33e60d3f36d2c7312c5c2ff3327d3f56f.
+No installation/game execution or production/VERSION changes.
+
 ## Independent UserWidget host — bounded runtime PASS, 2026-10-29
 
 [Exact result](../research/interaction-prompts-owner/userwidget-host/probe/README.md).

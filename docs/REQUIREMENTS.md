@@ -61,7 +61,8 @@ UE4.27 поддерживает `EWidgetSpace::World` с глубинным пе
 
 Текущее ограниченное [World-space исследование](../research/interaction-prompts-owner/world-space/README.md)
 подтвердило engine/material предпосылки. [Host-кандидат](../research/interaction-prompts-owner/userwidget-host/README.md)
-найден source-only; его runtime lifecycle ещё не проверен. Новый World executable
+подтвердил отдельный viewport lifecycle в игре. [Open binding probe](../research/interaction-prompts-owner/open-binding/README.md)
+теперь подготовлен source-only, без установки; live actor/component/pose ещё не получены. Новый World executable
 test остаётся BLOCKED на exact Open binding и независимых runtime gates. Это не отменяет выбранную
 визуальную цель и не принимает runtime World-поведение. Не подменять обычную
 проверку глубины маской персонажа без новой обоснованной необходимости.

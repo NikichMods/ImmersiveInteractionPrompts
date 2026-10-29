@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-29 — natural Open binding: READY_SOURCE для одного read-only теста,
+live mapping ещё NOT_TESTED.** [Отчёт и исходник](../research/interaction-prompts-owner/open-binding/README.md):
+один естественный post SetShow даёт component context без сканирования мира;
+проверяются назначенный TipHUD, GetOwner, взаимная actor.ExtendedWidget ссылка,
+Open/Interact и transform компонента. SenderActor/NewUserWidget не объявлены
+эквивалентом владельца без проверки. Лимиты60s/64 callbacks/6 snapshots, явный stop,
+нет retargeting/игровых записей.83 offline tests проходят. Реальный вызов этого
+отражённого метода для natural Open, live identities и pose ещё не получены.
+Ничего не установлено/не запущено. Host runtime PASS не повторялся.
+World rendering/occlusion и production BLOCKED.
+
 **2026-10-29 — independent UserWidget host runtime PASS; probe отключён.**
 [Лог и границы](../research/interaction-prompts-owner/userwidget-host/probe/README.md):
 точный LoadAsset found/loaded=true → private tree → Construct Hidden → VISIBLE →
