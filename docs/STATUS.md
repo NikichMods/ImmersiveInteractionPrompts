@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — native input-hint World mirror READY_SOURCE, NOT_INSTALLED.**
+[Три Lua, точные контракты/хэши и один тест](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Перед own allocation проверяется
+selected Retainer: при bRetainRender/global1/phase0-count1 и готовом UI MID/Icon RT
+свой Image ссылается на существующий MID; при выключенном bRetainRender допускается
+только одиночный untransformed Texture2D Image Brush. Global0/missing/change и
+неподдерживаемые источники отвергаются. Второго Retainer/записи параметров нет.
+Каждый кадр проверяются ресурс/device/identity; own stale reference скрывается/
+снимается до bounded settling/rebind. Максимум8 поколений, прежний World/Yaw/F7/
+timeout сохранён; никаких Aphes/текста/PNG.232 tests/16 suites PASS,25 новых.
+Фактическая активность/пиксели/alpha-gamma/device/remapping ещё не проверены в игре.
+Следующий отдельный тест: keyboard→controller→keyboard (без F8 на controller),
+F7 до30s. Полная композиция/production BLOCKED. Ничего не устанавливалось.
+
+
 **2026-10-30 — World Aphes composition integration BLOCKED: live input hint.**
 [Source-only review / partial pure plan](../research/interaction-prompts-owner/world-space/composition/README.md). Текст действия можно читать из
 оригинального GetText и обновлять собственный TextBlock текущим локализованным

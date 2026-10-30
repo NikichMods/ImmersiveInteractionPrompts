@@ -1,5 +1,10 @@
 # World Aphes composition integration — BLOCKED on current input-hint reproduction
 
+**Successor2026-10-30:** [hint-only mirror source READY_SOURCE](../hint-mirror/README.md),
+NOT_INSTALLED. The narrow candidate now exists; full composition remains BLOCKED
+until actual hint comparison. Earlier references to a not-yet-authored hint probe
+below describe this integration review before that preparation.
+
 2026-10-30. Source-only integration review. **No executable World-composition
 payload prepared, installed or run.** [IIPCompositionPlan.lua](IIPCompositionPlan.lua)
 is only a pure slot-envelope function, with no UE APIs, loading, callbacks or

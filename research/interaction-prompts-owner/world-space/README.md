@@ -1,5 +1,9 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Current source2026-10-30:** [native hint mirror READY_SOURCE](hint-mirror/README.md),
+NOT_INSTALLED. One own Image, no second Retainer/source parameter writes; pixel/
+device/current-key acceptance and full composition still open.
+
 **Current integration2026-10-30:** [World Aphes composition BLOCKED](composition/README.md)
 on live native hint reproduction; pure slot plan only, no executable payload.
 Accepted vertical-yaw/F7/renderer/font results below remain valid.

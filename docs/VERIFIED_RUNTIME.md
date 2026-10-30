@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Native input hint mirror — SOURCE ONLY, 2026-10-30
+
+[Exact APIs and candidate limits](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) READY_SOURCE / NOT_INSTALLED. Read-only
+Retainer.GetEffectMaterial / MID.K2_GetTextureParameterValue and own Image material
+setter confirmed from installed UHT/UE4.27; global cvar getter0 is ambiguous, so
+only stable value1 supported. Shipping cvar refresh delegate differs from dev;
+no private Slate-active flag claimed.232 offline tests PASS,25 new. No new live
+hint/device/remapping/alpha-gamma result; full composition/production remain BLOCKED.
+
+
 ## World composition follow-up — SOURCE ONLY / BLOCKED, 2026-10-30
 
 [Exact integration findings](../research/interaction-prompts-owner/world-space/composition/README.md). No new runtime result. Original GetText

@@ -1,5 +1,19 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий достаточный gate — один native hint mirror
+
+[READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Один будущий разрешённый прогон с Original
+Screen как эталоном: после прежнего F8/reload/Open сравнить keyboard→controller→
+keyboard, затем F7 до30s. Смена device/resource логируется автоматически: F8 во
+время controller-фазы не нажимать, он сам может переключить ввод на keyboard.
+Проверить символ текущей Interact/уже имеющийся remapping, прозрачность, crop/color,
+обновление ссылки и отсутствие вмешательства; settings специально не менять.
+Источник сперва проходит flags/MID/Icon readiness gate; отказ записывается до
+собственного component allocation. Binding/renderer/Yaw/F7 не переоткрывать как
+самостоятельные исследования. После hint acceptance можно готовить полную Aphes
+композицию, но сейчас её блокер визуального input hint ещё не закрыт.
+
+
 ## Текущий интеграционный блокер — актуальный native input hint
 
 [Обоснование и границы](../research/interaction-prompts-owner/world-space/composition/README.md). Сначала подтвердить read-only воспроизведение
