@@ -1,7 +1,8 @@
 # Owned World hint — Masked/Translucent A/B
 
-**INSTALLED / RUNTIME_PENDING**, 2026-10-30. Source readiness is unchanged;
-installation does not establish visual/native material transition acceptance.
+**MASKED_CAPTURE_PASS / A_B_INCOMPLETE_CAMERA_GUARD / DISABLED**, 2026-10-30.
+Source readiness is unchanged. Translucent transition/rendering remains untested;
+the disappearance in screenshot B was native cleanup, not a material result.
 Automatic native Screen-size measurement: **BLOCKED at opaque FGeometry return**;
 the permitted screenshot fallback is used. Own geometric slot projection is
 implemented. Visual equivalence, full composition and production remain BLOCKED.
@@ -186,4 +187,78 @@ refuses unexpected/changed files and does not delete recursively. Both scripts
 passed PowerShell parsing; rollback was not executed against this live install.
 
 Installation verification passed; game runtime, screenshots and material A/B
-remain PENDING. No hot reload, production/VERSION or other mod changes.
+were PENDING at handoff. No hot reload, production/VERSION or other mod changes.
+
+## Runtime result — 2026-10-30 09:40 Moscow
+
+Exact source/installed four hashes above remained unchanged. The user supplied
+two2560×1440 screenshots: A shows the small pale/bluish own F above the unchanged
+native action/F; B shows the original prompt with own icon absent after F6 and
+acknowledged camera movement. Raw frames/logs stay local, not public Git.
+
+| Event, Moscow time | Evidence and interpretation |
+| --- | --- |
+| 09:40:26.805 | Own component CREATED; accepted anchor/scale/DrawSize/Yaw path retained. |
+| 09:40:32.952 | Device1 native source bound, generation2; earlier device4 was replaced before A. No input/keymap override. |
+| 09:40:33.203 | One `SAMPLE mode=masked`, native projection/out-table readout completed. |
+| 09:40:51.607 | F6 handling fails `AB camera moved` in comparable(view), **before** own_material_switch BEGIN. |
+| 09:40:51.623 | Loop cancellation, RELEASED, native COMPONENT_DESTROYED and CLEANED reason=failure complete. |
+
+There is no own_material_switch BEGIN/END, no Translucent SAMPLE and no
+PAIR_READY. `comparable` runs before `phase="translucent"`, BlendMode write and
+SetMaterial. Thus material mutation was **not attempted**. The movement guard
+rejected the pair and removed the own output; B cannot diagnose invisible
+Translucent, alpha/gamma or failed SetMaterial. Manual F7 was not captured in
+this run; earlier accepted F7 evidence is unchanged. This is also not the earlier
+3.764s original-visibility failure: this component lived about24.8s and stopped
+specifically on the new camera-comparability guard.
+
+### A: measured state, not a color diagnosis
+
+- Native `ProjectWorldLocationToScreen` produced four finite corners and
+  GetViewportSize returned2560×1440, matching both PNG headers. Own **slot**
+  rectangle: x1243.62305–1269.57227, y568.714294–593.74115, dimensions
+  **25.9492188×25.0268555 px**. Slot38×38 corresponds to9.5×9.5 world units.
+  This is neither the painted F glyph bounds nor the source Screen slot size.
+  The latter remains unavailable through the selected opaque FGeometry route.
+- Camera at A: FOV75, rotation approximately(-20.5475,-75.5397,0), original
+  viewport coordinates; own plane Pitch/Roll0, scale0.25 and fixed world position
+  unchanged. No persisted pose/address becomes a selector in another process.
+- Own actual gamma=false, sRGB=true, force-linear=false, TargetGamma0,
+  RenderTargetFormat field6 (=RTF_RGBA16f); clear/background(0,0,0,0).
+  This enum field alone is **not** an independent measurement of RHI pixel
+  format/OverrideFormat after InitCustomFormat. No GPU-format conclusion follows.
+- Component/effective MID tint(1,1,1,1), opacity-from-texture1, own Image tint
+  white, Image/host opacity1. Effective BackColor(0,0,0,0). Masked component1 and
+  MIC blend1, two-sided=true, depth-disable=false; own RT512×128 and correct
+  component-owned MID/SlateUI binding passed. Source Icon51×51, format3,
+  AlphaComposite5 as before.
+
+The screenshot now corroborates the reported small/pale-blue appearance.
+Recorded values exclude a deliberately reduced own tint/opacity or enabled
+own gamma flag at A. They do not establish premultiplied-alpha, sampling or
+scene-color causality. No compensation, resize or material fix is justified by
+this incomplete pair.
+
+### Preservation and next sufficient step
+
+Ignored archive `runtime-20261030T064347Z` contains UE4SS/Genesis logs, event
+extract, original A/B PNGs, four exact installed Lua, enablement marker copy,
+installed manifest, current-state hashes and disable result. SHA256:
+
+- UE4SS.log: `b9188c68eecdc626d62062b2ee6b25b603cc40efaa6ba8ab7944f8ef3d8cfaa4`
+- Genesis.log: `78f923bd863ee8399c48808a3663676461188e95bf9b5fedd7afaf0b3c5e03f6`
+- A.png: `2d18a333241fc8ced14fdad45d7b065c54f38ed147e648210596452b276cbd76`
+- B.png: `5ba738882fb420d4fede868011aec25911e9ddaf10371a2554f2a30ff7ade066`
+
+With the game already closed (Get-Process/CIM), only this probe's enabled.txt
+was removed. Four Lua bytes remain installed/frozen;104 other current files and
+38 historical non-log mod/loader hashes were preserved. Other IIP probes remain
+disabled; CombatHUD/SoulsEnemyHUD/settings/saves were not modified or restored.
+No game launch/termination/hot reload, payload edit or automatic retry.
+
+Next sufficient evidence is the same separately authorized A/B attempt: choose
+camera pose **before** requesting A, then keep camera/character still through F6
+and B; only then move for changed-material occlusion. The strict guard worked
+as designed; this result calls for no code fix, wider tolerance or longer timeout.
+The pair remains open, not a negative verdict on Translucent or on World-space.

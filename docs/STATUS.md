@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — Masked capture PASS; A/B INCOMPLETE_CAMERA_GUARD, probe DISABLED.**
+[Лог, кадры, измерения и пределы](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+A записал проекцию своего slot25.949×25.027px при2560×1440, gamma=false,
+white tint/unit opacity. Пользовательский кадр подтверждает маленький голубоватый
+значок; причина цвета не установлена. F6 остановлен на `AB camera moved` ДО
+material-switch BEGIN и записи BlendMode/SetMaterial. Значок на B исчез из-за
+успешного native cleanup, не из-за Translucent: этот материал не проверен.
+Логи/два PNG сохранены локально; при закрытой игре снят только own enabled.txt.
+104 других текущих файла и38 historical mod/loader hashes сохранены. Lua не
+менялся. Следующий достаточный шаг — тот же A/B без движения между A и B,
+после отдельного разрешения; guards/timeout не ослаблять. Production BLOCKED.
+
 **2026-10-30 — World hint A/B INSTALLED, RUNTIME_PENDING.**
 По прямому разрешению пользователя при закрытой игре установлен точный
 source`caf955fb271558df1ddd5c991cf5b53217da2ef4` в новый WorldHintABProbe.

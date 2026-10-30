@@ -1,5 +1,16 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий результат — A измерен, сравнение материалов ещё не началось
+
+[Точная запись](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Получены native own-slot projection и RT/gamma/tint readback. На F6 camera guard
+остановил пробу до самого переключения; B — кадр после cleanup. Не считать это
+провалом Translucent и не создавать исправление/новый shader. Для закрытия
+оставшегося вопроса достаточно прежнего A/B при фиксированной камере после A;
+повтор/установка только по отдельному разрешению. Текущая проба отключена,
+sourcecaf955f неизменён; ручной F7 в этом run не записан. Никакого расширения
+guard/времени, повторения принятых renderer/Yaw или переноса полной композиции.
+
 ## Текущий handoff — A/B установлен, ожидается один пользовательский тест
 
 [Exact caf955f / installed hashes / rollback](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).

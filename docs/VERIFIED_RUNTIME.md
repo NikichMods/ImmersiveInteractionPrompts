@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Hint A/B — Masked readout PASS, pair rejected before switch, 2026-10-30
+
+[Exact result, timestamps, hashes and screenshot limits](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+At2560×1440 one Masked SAMPLE: own slot25.9492188×25.0268555px, numeric corner
+projection/viewport out tables succeeded; actual gamma=false, white/unit own
+tint/opacity. User A shows small pale/blue F. F6 fails `AB camera moved` before
+switch marker/BlendMode/SetMaterial; no Translucent sample/PAIR_READY. Missing
+icon on B is native guard cleanup, not a material diagnosis. Loop cancelled,
+borrowed reference released, native component destroyed/CLEANED. F7 not captured
+here. Archived logs/PNGs locally; closed-game own marker removal only,104 other
+current files and38 historical mod/loader hashes preserved. Sourcecaf955f exact
+Lua unchanged. Translucent/pixel equivalence/full composition remain unaccepted.
+
 ## Hint material A/B — authorized installation, runtime pending, 2026-10-30
 
 [Exact installed identity / preservation evidence](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
