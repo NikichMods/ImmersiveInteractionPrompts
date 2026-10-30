@@ -1,7 +1,7 @@
 # Fixed own-hint size calibration — source candidate
 
-**READY_SOURCE / NOT_INSTALLED / RUNTIME_NOT_TESTED**, 2026-10-30.
-One independent research candidate, no production/VERSION or installed changes.
+**INSTALLED / RUNTIME_PENDING**, 2026-10-30. Source readiness remains unchanged.
+One independent research candidate, no production/VERSION changes.
 Final composition, apparent-size acceptance and production remain **BLOCKED**.
 
 ## Decision and narrow seam
@@ -102,9 +102,9 @@ not painted glyph coverage. Screenshot/source pixels are not invented here.
 
 ## One future separately authorized test
 
-No installation/run is part of this preparation. Future installation requires
-closed-game identity checks, rollback outside loader and only this IIP probe
-enabled. Four authored Lua only, no assets/font/PNG, loader edits or release.
+The user subsequently authorized installation; see the exact record below.
+Only this IIP probe is enabled. Four authored Lua only, no assets/font/PNG,
+loader edits or release. The following steps are user-operated runtime.
 
 1. Start/load normally. Ctrl+Alt+F8 once, then the one manual reload required by
    accepted BeginPlay acquisition. Approach one natural Open without using it.
@@ -157,3 +157,31 @@ failures, source/view/settings changes, cancellation/visibility/timeout/cleanup
 and forbidden mutation scope. Full suite:275 tests/18 suites PASS. Local-link/whitespace/hash checks also pass. Mocks do not render UE/Slate or establish pixels.
 Local source/UHT hashes stay ignored under hint-mirror/size/source-hashes.json
 in the existing local research evidence root. No game assets are published.
+
+## Authorized installation — 2026-10-30 11:21 Moscow
+
+Installed exact source `9954b04828706820f94774a95f29cbb10f93629c` in the new
+`ImmersiveInteractionPromptsWorldHintSizeProbe` loader directory. All four Lua
+source/installed SHA256 values match the table above. The fifth file is empty
+enabled.txt, SHA256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+Lua was copied byte-for-byte, not edited for installation. Target was absent.
+
+Get-Process/CIM checks confirmed no Genesis/Asterigos process before mutation.
+Pinned UE4SS.dll SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`
+matched, existing log records83330635.16 prior IIP probes have no active marker
+or mods.txt enablement. Only this new marker was enabled; mods.txt and current
+CombatHUD/SoulsEnemyHUD bytes/enablement are unchanged.
+
+Ignored archive `install-20261030T082145Z` under the local hint-mirror/size evidence
+root holds all40 prior Mods files, loader DLL/settings/log and Genesis log,
+four exact source copies, planned/verified manifests, installer and guarded
+rollback. All44 existing mod/loader/log hashes and64 config/save hashes matched
+after installation; all backup copies also matched. No settings/save content
+was modified or restored. Rollback removes only five own expected files after
+closed-game/path/hash checks, refuses changed/unknown files and does not recurse.
+Install/rollback PowerShell parsing passed; rollback was not executed on the
+live install. Independent post-install hashing confirmed all five files.
+
+Agent did not launch/terminate game, hot reload or change old research payloads.
+Runtime size/readability/color/rebind/cleanup acceptance remains PENDING.

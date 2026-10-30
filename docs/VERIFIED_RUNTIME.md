@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Own size probe — authorized installation, runtime pending, 2026-10-30
+
+[Exact identity / preservation](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Closed-game source9954b04828706820f94774a95f29cbb10f93629c installed in own new
+WorldHintSizeProbe. Four Lua hashes match plus own empty enabled.txt;16 previous
+IIP probes disabled.44 prior mod/loader/log and64 config/save hashes preserved;
+backup/guarded rollback outside loader. No source changes, game launch/termination
+or hot reload. Installation PASS only; actual size/readability/color/rebind and
+this candidate's runtime cleanup remain pending.
+
 ## Own fixed-size calibration — source readiness only, 2026-10-30
 
 [Independent candidate, exact seam and test](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).

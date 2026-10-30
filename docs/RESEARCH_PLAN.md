@@ -1,5 +1,13 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — проба размера установлена по разрешению пользователя
+
+[Exact source9954b04 / installed hashes / rollback](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Один Open: F8 start, один reload, выбрать ракурс/остановиться, F8/A1.0×,
+F6/B1.5× без движения, F7 cleanup. F6 меняет только own extent, не материал.
+Получить кадры/лог этого теста; не возвращаться к материал-A/B и не менять
+gamma/tint/сроки ради результата. Установка не является runtime-приёмкой.
+
 ## Подготовлен следующий gate — только own icon extent1.0×/1.5×
 
 [READY_SOURCE, NOT_INSTALLED](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).

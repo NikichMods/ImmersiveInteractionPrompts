@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — own-size1.0×/1.5× probe INSTALLED, RUNTIME_PENDING.**
+По прямому разрешению при закрытой игре установлен source9954b04828706820f94774a95f29cbb10f93629c
+в новый WorldHintSizeProbe. [Хэши, откат и сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Четыре source/installed Lua SHA256 совпали, только own empty enabled.txt включён;
+16 предыдущих IIP-проб отключены.40 старых Mods файлов сохранены,44 baseline
+файла/64 config-save hashes совпали. CombatHUD/SoulsEnemyHUD и mods.txt неизменны,
+откат вне loader. F8 start → один reload/Open → выбрать ракурс → F8/A1.0× →
+F6/B1.5× без движения → F7. Игра не запускалась агентом, guards/код не менялись.
+Runtime и production остаются без приёмки; ниже сохранена история подготовки.
+
 **2026-10-30 — fixed own-hint size calibration READY_SOURCE, NOT_INSTALLED.**
 [Четыре Lua, source/hash-контракты и один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
 Один Masked-компонент; F8 запрашивает A/1.0×, F6 один раз меняет только own
