@@ -1,5 +1,10 @@
 # World Aphes composition integration — BLOCKED on current input-hint reproduction
 
+**Hint follow-up2026-10-30:** [partial runtime proof](../hint-mirror/README.md) of
+live retained MID/controller→keyboard U. Full visual equivalence remains OPEN:
+user saw small/faded/bluish output; no full cycle before visibility-guard stop.
+Full composition remains BLOCKED; no automatic payload expansion.
+
 **Successor2026-10-30:** [hint-only mirror source READY_SOURCE](../hint-mirror/README.md),
 NOT_INSTALLED. The narrow candidate now exists; full composition remains BLOCKED
 until actual hint comparison. Earlier references to a not-yet-authored hint probe

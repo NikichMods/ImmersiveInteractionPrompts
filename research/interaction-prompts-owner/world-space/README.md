@@ -1,5 +1,9 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Latest hint runtime2026-10-30:** [partial PASS](hint-mirror/README.md), disabled.
+Live MID/device4→1 glyph update and guard cleanup ran; pixel/size/color equivalence
+and full composition still open. No new payload or test scheduled by this result.
+
 **Current source2026-10-30:** [native hint mirror READY_SOURCE](hint-mirror/README.md),
 NOT_INSTALLED. One own Image, no second Retainer/source parameter writes; pixel/
 device/current-key acceptance and full composition still open.

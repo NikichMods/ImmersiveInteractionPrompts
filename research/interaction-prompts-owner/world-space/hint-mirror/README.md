@@ -1,11 +1,79 @@
-# Current native hint in own World Image — INSTALLED / RUNTIME_PENDING
+# Current native hint — partial runtime PASS, visual equivalence OPEN
 
-2026-10-30. One bounded research-only candidate, authorized installation recorded
-below; no agent game launch/hot reload. Source supports the operations, **not** final pixel/device
-acceptance. Full Aphes composition/automatic production lifecycle remain BLOCKED.
+2026-10-30. User-run partial result below; probe DISABLED. Native retained-source
+binding/device update and guard cleanup ran. Final pixel/device-cycle acceptance
+is incomplete. Full Aphes composition/automatic production lifecycle remain BLOCKED.
 Reuse [vertical-yaw/F7](../vertical-yaw/README.md) and the accepted Open/host/World
 renderer without repeating their independent investigations. Prior integration
 [blocker and alternatives](../composition/README.md) remain the reason for this test.
+
+## User-run result — 2026-10-30, partial PASS / visual gate OPEN
+
+Exact source7c2aa07b7f33edcd22f69c95ddc1a03191b38da8; installed three Lua hashes
+matched the frozen source values below after exit. User reports seeing the hint
+change correctly from controller glyph to keyboard **U**, with a quick return
+toward controller. User also reports a smaller, faded/semitransparent bluish
+appearance, too small to judge precisely. No frame was supplied for this run.
+Record these as observations, not measured RGB/alpha/size values or an accepted
+visual match. Code does not select F/U or reconstruct the keymap; the glyph comes
+from the native source. No independent FKey/remapping query was logged.
+
+| Moscow time | Technical evidence |
+| --- | --- |
+| 03:48:09.258 | Exact natural Open actor/component/TipHUD match, same validated actor class as earlier. |
+| 03:48:09.282 | PREFLIGHT retained_mid, device4 (XboxController per installed enum), retained=true/global1/phase0-count1/on_phase=true/on_invalidation=false. Source ImageInteractAllowed, existing effect MID/Icon RT ready. Slot38x38, source Icon RT51x51, linear_gamma=false, rt_format3=RTF_RGBA8_SRGB, source_blend5=BLEND_AlphaComposite. |
+| 03:48:09.291–.306 | Own component CREATED; pending→SOURCE_BOUND device4, borrowed resource readback passed. Initial match snapshot RENDER_PENDING; no later own-RT STATE snapshot was taken. |
+| 03:48:10.856–.891 | SOURCE_PENDING generation2 device1 (KeyboardAndMouse), own hidden/old reference cleared, then SOURCE_BOUND. Retainer/child/brush/MID/texture identities and slot/RT metadata unchanged. |
+| 03:48:13.055–.056 | Frame-context visibility guard failed: target no longer visible Screen Open. LOOP_CANCELLED handle3 reason=failure; hint SUMMARY227 source observations/2 generations/bound=true. Yaw226 frames/226 writes, no degeneracy, last error0.000003612deg. STOP CONTRACT_ERROR, matches1/poses1/show228/hooks_remaining0, cleanup queued. |
+| 03:48:13.072 | RELEASED borrowed_resource_reference=false; native COMPONENT_DESTROYED, CLEANED reason=failure/own_widget_holder=false/own_component_alive=false. |
+| 03:48:50.247 | Event loop end; no later probe events. |
+
+The two source generations share MID2247658706304 and Icon RT2242862811392
+(historical process identities, never selectors). Together with the user's glyph
+observation this supports a **live retained native output reference**, not a
+frozen F/key texture. It closes the normal existing-MID getter/bind/rebind/resource
+release path for this one controller→keyboard transition. It does not prove a
+complete keyboard→controller→keyboard cycle, every remapping/device, or final
+retainer/pixel equivalence. The quick return is user-reported but no subsequent
+device4 SOURCE_BOUND was captured before stop. There is no manual/user F7 STOP
+in this run; earlier vertical-yaw F7 PASS stands and is not reopened.
+
+Stop occurred about3.764s after creation, before45s timeout. The guard combines
+source component bVisible/bAddedToScreen and TipHUD visibility/opacity/enabled;
+which predicate changed and why is not recorded. Do not diagnose an input bug,
+range exit, chest activation, or renderer failure from that symptom alone.
+The terminal FAILED is this contract stop, not an established crash/material API
+failure. Native guarded cleanup completed; no RELEASE/CLEANUP_PENDING event.
+
+**Visual gate remains OPEN/BLOCKED for full composition:** current symbol update
+was seen, but user could not resolve the small/faded/bluish appearance. Own slot
+uses the source38x38 logical size; at fixed component scale.25 it spans9.5x9.5
+world units. This is not the same coordinate system as38 Screen UI units or the
+51x51 source RT. Without viewport/FOV/frame measurements, actual screen-pixel
+size cannot be asserted. The observed smallness is consistent with differing
+coordinate systems, not proof of a particular sizing defect.
+
+Source uses AlphaComposite and RGBA8_SRGB; retained OnPaint has explicit
+PreMultipliedAlpha|NoGamma, while own UImage has default paint flags and is drawn
+through the accepted masked World renderer. This is a **concrete hypothesis seam**
+for opacity/color differences, not a diagnosed cause. Own active-mode color was
+white RGBA1 by source. No raw pixel comparison or causal toggle was captured.
+Do not silently fix with tint/gamma/opacity/scale/material changes or declare the
+appearance merely cosmetic and accepted. Full Aphes composition/production stay
+BLOCKED. Next narrow engineering question is source-versus-own paint/alpha/gamma
+and size equivalence, using this saved state; no new payload or repeat run is
+prepared or authorized by recording the result. No need to repeat accepted
+renderer/font/yaw/F7 mechanisms as independent experiments.
+
+Ignored archive outside loader:
+`.local/research/interaction-prompts/world-space/hint-mirror/runtime-20261030T005315Z/`.
+UE4SS log SHA256 `28c4f19be610588b8eee0e5ee12f8757d6ec484773bca4b75da59f176e7e154e`;
+Genesis log SHA256 `3832c69f83a80bb38b4111297fb7271a6e6fc294b24899d0ca726144d6d48249`.
+Raw logs, filtered events, exact three installed Lua/manifest and disable record
+saved. Game already closed. Removed only own enabled.txt; all35 baseline
+mod/loader hashes match and91 current files retain hashes across disable (not
+pre-play save equality). All IIP probes disabled; original installed source,
+other mods/current settings/saves preserved. No agent launch/termination/hot reload.
 
 ## Authorized installation — 2026-10-30
 
@@ -132,7 +200,7 @@ Original MID/Icon remain game-owned. Native validity/identity guards support
 partial-cleanup retry, including an already detached own Image. No immediate
 GPU/native GC-free claim. Late ready callbacks become inert before object reads.
 
-## One future separately authorized test
+## Historical user scenario — partial outcome recorded above
 
 The separately authorized closed-game installation above is ready for one user
 run, with rollback saved and older IIP probes disabled:

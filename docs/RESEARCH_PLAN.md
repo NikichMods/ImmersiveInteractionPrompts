@@ -1,5 +1,16 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий результат — live hint source частично подтверждён, внешний вид открыт
+
+[Сохранённый run](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) подтвердил retained MID/Icon и controller→keyboard U,
+а также guard cleanup. Не повторять эти upstream операции ради перепроверки.
+Полный цикл не записан, small/faded/bluish вид не принят. Следующий отдельный
+узкий вопрос — source/own paint alpha-gamma и размер в разных координатах;
+причина ещё неизвестна. Новая реализация/повторный игровой тест сейчас не
+готовятся. До разбирательства не объявлять полную композицию READY_SOURCE и не
+смешивать это с Aphes/орнаментом. Ранее пройденный F7 gate остаётся принятым.
+
+
 ## Текущий handoff — hint mirror установлен, ожидается пользовательский прогон
 
 Точный7c2aa07 установлен по разрешению с закрытой игрой/откатом. [Один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/README.md):

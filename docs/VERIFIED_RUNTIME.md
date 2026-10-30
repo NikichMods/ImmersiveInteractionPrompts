@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Native hint mirror — partial runtime proof, 2026-10-30
+
+[Exact evidence](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Source7c2aa07/installed three Lua hashes unchanged.
+Existing retained MID/Icon RT read and bound; device4→1 generations1→2, same
+MID/RT. User saw controller glyph become keyboard U; no independent keymap query.
+Source slot38x38, Icon51x51/linear_gamma=false/RGBA8_SRGB3/AlphaComposite5.
+After~3.764s original visible-Screen contract failed; loop cancelled, borrowed
+reference released, native own component destroyed/CLEANED. Reverse transition
+and user F7 not captured; prior vertical F7 acceptance unchanged. Small/faded/
+bluish appearance reported, no screenshot or measured cause; visual match/full
+cycle/full composition not accepted. Archived/disabled,35 old mod/loader and91
+current file hashes preserved. No new code or automatic runtime test.
+
+
 ## Native World hint installation — 2026-10-30, runtime PENDING
 
 Authorized closed-game install of7c2aa07b7f33edcd22f69c95ddc1a03191b38da8.

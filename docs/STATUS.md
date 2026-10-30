@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — hint mirror partial runtime PASS; visual equivalence OPEN, probe DISABLED.**
+[Точные логи и границы](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Active Retainer/global1, Icon RT51x51/slot38x38,
+AlphaComposite5/RGBA8_SRGB3. SOURCE_BOUND device4→1 с тем же MID/RT; пользователь
+увидел корректную смену controller glyph→keyboard U. Обратный переход не записан
+до visibility-guard stop через~3.764s; причина конкретного visibility predicate
+неизвестна. Loop cancelled, own resource RELEASED и native CLEANED прошли.
+Размер/выцветший полупрозрачный голубоватый вид — наблюдение пользователя, не
+визуальная приёмка и не доказанный gamma/alpha диагноз. Этот run не зафиксировал
+F7; ранее принятый vertical F7 остаётся PASS. Логи архивированы, при закрытой игре
+снят только own enabled.txt;35 baseline hashes совпали,91 текущий файл сохранён.
+Новый payload/установка не готовились. Полная композиция/production BLOCKED.
+
+
 **2026-10-30 — native World hint mirror INSTALLED, runtime PENDING.**
 По прямому разрешению пользователя при закрытой игре установлен точный7c2aa07
 в новый ImmersiveInteractionPromptsWorldHintProbe: три Lua и enabled.txt.
