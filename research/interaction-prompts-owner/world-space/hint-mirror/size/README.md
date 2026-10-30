@@ -1,6 +1,6 @@
 # Fixed own-hint size calibration — source candidate
 
-**INSTALLED / RUNTIME_PENDING**, 2026-10-30. Source readiness remains unchanged.
+**OWN_SIZE_1.0_TO_1.5_RUNTIME_PASS / MANUAL_F7_PASS / DISABLED**, 2026-10-30.
 One independent research candidate, no production/VERSION changes.
 Final composition, apparent-size acceptance and production remain **BLOCKED**.
 
@@ -184,4 +184,77 @@ Install/rollback PowerShell parsing passed; rollback was not executed on the
 live install. Independent post-install hashing confirmed all five files.
 
 Agent did not launch/terminate game, hot reload or change old research payloads.
-Runtime size/readability/color/rebind/cleanup acceptance remains PENDING.
+Runtime size/readability/color/rebind/cleanup acceptance was PENDING at handoff.
+
+## Runtime result — 2026-10-30 11:30 Moscow
+
+Exact installed source `9954b04828706820f94774a95f29cbb10f93629c`; all four Lua
+hashes above remained unchanged. The user confirms visible enlargement by F6,
+improved readability and closed game. Both supplied Steam JPEGs are2560×1440.
+This accepts the narrow own-slot change/rendered enlargement and manual cleanup,
+not a final product size, color match or complete lifecycle.
+
+| Event, Moscow time | Technical result |
+| --- | --- |
+| 11:30:46.120 | SAMPLE original1.0; native source38×38, own slot38×38. |
+| 11:30:49 | `20261030113049_1.jpg`, screenshot A/1.0×. |
+| 11:30:55.453 | own_size_switch BEGIN → SIZE_APPLIED1.5, own slot57×57, original_writes0 → END. |
+| 11:30:55.486 | SAMPLE enlarged1.5 and PAIR_READY; same source generation2/view/material/MID/component/RT/settings. |
+| 11:31:00 | `20261030113100_1.jpg`, screenshot B/1.5×. |
+| 11:31:06.751–.768 | F7 reason=user: LOOP_CANCELLED, hooks_remaining0, RELEASED, native COMPONENT_DESTROYED, CLEANED. |
+
+### Measured pair and limits
+
+| Own geometry | A1.0× | B1.5× |
+| --- | --- | --- |
+| Logical slot | 38×38 | 57×57 |
+| World extent | 9.5×9.5 | 14.25×14.25 |
+| Projected slot rectangle, px | 26.7949219×24.6033325 | 40.2382812×36.9034424 |
+| Projected geometric center, px | 1264.46191,543.175842 | 1264.46191,543.175842 |
+| Canvas bounds | (237,45)–(275,83) | (227.5,35.5)–(284.5,92.5) |
+
+Both slots preserve aspect/center and fit within the unchanged512×128 own Canvas.
+No geometric envelope/readback/transform guard failed; frames show the full own
+symbol rather than an apparent clipped element. This is not a glyph-pixel mask
+measurement or original Screen slot size. The source Screen size remains
+UNAVAILABLE; same-pose comparison is visual only.
+
+The recorded camera position/rotation/FOV75/viewport were identical across
+captures. Native source38×38, borrowed MID/Icon/generation2, own component/MID/RT
+identities and stock Masked1 stayed the same. World scale0.25, fixed anchor,
+frame-Yaw, gamma=false, RT flags, white tint/unit opacity and background were
+unchanged. User screenshots keep the native localized action and key hint visible.
+The run logged1851 frame-Yaw writes, zero degeneracy, no FAILED records and no
+cleanup-pending result; these counters are not a fresh FPS/performance benchmark.
+
+SOURCE_BOUND device4→1 occurred **before** A and before enlargement. There was
+**no SOURCE_BOUND after SIZE_APPLIED** in this run. Persistence of1.5 across a
+later rebind therefore remains offline-policy-tested, **not runtime accepted**.
+Do not claim the visual pair demonstrated remapping/controller coverage or
+native behavior after a source-size/MID/texture replacement.
+
+User observation: larger means more readable. Increasing further to about1.7×
+or2× was mentioned **tentatively**; design will be discussed elsewhere. This is
+a deferred design note, not adoption of a new scale or authorization to modify
+the frozen1.5 candidate. No code/size/requirements change follows from that note.
+Color causality and Screen color/alpha equivalence were not established; this
+test changed no color/gamma/material setting and does not diagnose the blue tint.
+
+### Archive and disabled state
+
+Ignored archive `runtime-20261030T083457Z` holds full logs/event extract, original
+JPEGs, installed Lua, marker copy, installed manifest, current-state hashes and
+disable result. SHA256:
+
+- UE4SS.log: `f37f4a6193de9b43e0662abea33bd6e5ea6889d217ebac2518b6bfb6ebfad72e`
+- Genesis.log: `0009de7a33ba50f7cbe0254673719511147eb6f3d76c9dba28b82384748475de`
+- A-1x.jpg: `0f98becfed6ee2a4c3d2a163a516eca409792b57c86cc75966aa2fad44f88157`
+- B-1.5x.jpg: `2a5244232557dd145eef8634cc554d6598366acecc97a824e4c84a872a538f4f`
+
+With game already closed (process/CIM checks), removed **only own enabled.txt**.
+111 other current files and42 historical non-log mod/loader hashes preserved.
+Old probes remain disabled; CombatHUD/SoulsEnemyHUD, settings/saves and Lua bytes
+unchanged. No game launch/termination, hot reload, new payload or automatic retry.
+Local links/archive hashes/Git scope checked; frozen executable tests were not
+rerun for this result-only update. The requested technical stage is complete;
+do not repeat the same1.0→1.5 pair or start a design/color experiment automatically.

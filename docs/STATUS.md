@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — own-size1.0×→1.5× runtime PASS, F7 PASS, probe DISABLED.**
+[Технический результат, кадры и хэши](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Slot38×38→57×57; проекция26.795×24.603→40.238×36.903px, центр одинаковый,
+PAIR_READY. View/source/component/MID/RT/Masked/gamma/tint/opacity неизменны;
+F7 loop-cancel/release/native destroy/CLEANED прошёл без FAILED. Пользователь
+подтвердил увеличение и лучшую читаемость. Runtime rebind после увеличения не
+случился: persistence остаётся офлайн-проверкой.1.7–2× — предварительная заметка
+для отдельного дизайна, не принятое значение/задание. Код и требования не менять.
+Снят только own marker при закрытой игре;111 других файлов/42 baseline hashes
+сохранены. Технический этап завершён, color/design/full production не приняты.
+
 **2026-10-30 — own-size1.0×/1.5× probe INSTALLED, RUNTIME_PENDING.**
 По прямому разрешению при закрытой игре установлен source9954b04828706820f94774a95f29cbb10f93629c
 в новый WorldHintSizeProbe. [Хэши, откат и сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).

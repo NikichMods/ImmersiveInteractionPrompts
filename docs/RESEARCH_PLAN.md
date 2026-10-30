@@ -1,5 +1,15 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий результат — технический size-тест завершён
+
+[Size1.0→1.5 и ручной F7 PASS](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Нативная смена own slot, неизменный центр/сопоставимые условия и видимое увеличение
+подтверждены; пользователь отмечает читаемость. Не повторять этот этап. Rebind
+после1.5 в runtime не наблюдался; не повышать его evidence gate по офлайн-тесту.
+1.7–2× сохранить только как предварительное пожелание: дизайн обсуждается
+отдельно, новой реализации/установки/прогона не готовить. Цвет не диагностирован,
+финальная композиция/production BLOCKED. Текущая проба отключена, source frozen.
+
 ## Текущий handoff — проба размера установлена по разрешению пользователя
 
 [Exact source9954b04 / installed hashes / rollback](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).

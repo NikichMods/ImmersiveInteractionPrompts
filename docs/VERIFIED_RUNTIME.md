@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Own slot1.0→1.5 — bounded runtime/render and F7 PASS, 2026-10-30
+
+[Exact source9954b04, timestamps, log/frame hashes and limits](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Native own SetSize/readback38×38→57×57, PAIR_READY. Projected slot26.7949219×
+24.6033325→40.2382812×36.9034424px at2560×1440, identical projected center.
+Same recorded camera/source generation2/component/MID/RT/Masked/settings; user
+confirms rendered increase/readability. F7 cancelled loop, released resource,
+destroyed component/CLEANED user, no FAILED. No post-enlargement SOURCE_BOUND:
+runtime persistence untested.1.7–2 is deferred tentative design, not accepted.
+Logs/JPEGs archived privately, own marker removed closed-game;111 current files/
+42 historical mod-loader hashes preserved, Lua unchanged. No new design/color/
+production acceptance or automatic follow-up experiment.
+
 ## Own size probe — authorized installation, runtime pending, 2026-10-30
 
 [Exact identity / preservation](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
