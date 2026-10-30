@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий gate — измеренный fixed-pose alpha/material A/B
+
+[Source review завершён](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
+Не повторять принятые binding/device-source/renderer/Yaw/F7 исследования.
+Следующая отдельная подготовка: один own component, исходная Screen-подсказка
+видна; измерить проекцию и реальные RT/gamma/tint/material параметры, сравнить
+Masked и stock Translucent при одинаковых остальных условиях. Проверить края
+отдельно от цвета/просвечивания. Поменять только enum недостаточно из-за explicit
+material override. Никаких случайных gamma/power/tint компенсаций. Если
+Translucent не подходит, остановиться на gate внешнего RGB/alpha/scene path;
+не создавать автоматически custom material. Новый source/runtime probe сейчас
+не готовился. Следующие разделы сохраняют историю handoff, не активный install.
+
 ## Текущий результат — live hint source частично подтверждён, внешний вид открыт
 
 [Сохранённый run](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) подтвердил retained MID/Icon и controller→keyboard F,

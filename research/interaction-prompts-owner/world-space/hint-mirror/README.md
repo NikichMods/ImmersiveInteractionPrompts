@@ -286,11 +286,23 @@ research candidate is justified; if pixels or host material behavior remain
 unprovable from code, use at most one narrowly targeted game comparison.
 Keep current probe and accepted mechanisms frozen; no automatic install/run.
 
+## Source review follow-up — 2026-10-30
+
+[Visual fidelity analysis / exact sources / one proposed A/B](VISUAL_FIDELITY.md):
+SOURCE_REVIEW_COMPLETE, visual equivalence OPEN. The material-brush path selects
+AlphaComposite from the MID itself; missing UImage premultiplied draw flag does
+not switch it to straight-alpha blending. Expected component gamma=false also
+selects gamma1, like NoGamma at this paint stage; actual state remains unlogged.
+Outer Masked coverage and perspective units are confirmed differences. Stock
+Translucent is only a controlled comparator until outer RGB/alpha handling and
+pixels are checked. No new payload or installation; frozen Lua unchanged.
+
 ## Remaining risks and evidence boundary
 
-UImage does not reproduce SRetainerWidget's explicit paint draw flags. Final MID
-may differ in premultiplied-alpha/gamma/color/cropping or update ordering inside
-the World target. Source RT existence/readback does not prove fresh pixels on each
+UImage does not reproduce SRetainerWidget's explicit paint draw flags, but that
+alone is not an alpha/gamma diagnosis; the follow-up traces material-specific
+blending. Outer RT/material/color/cropping and update ordering remain relevant.
+Source RT existence/readback does not prove fresh pixels on each
 device transition; one-frame/native-retainer latency or blank intervals must be
 observed. If unsupported/broken, stop; do not compensate with gamma/material
 changes in this test. Narrow phase/opacity/size/class gates can reject other

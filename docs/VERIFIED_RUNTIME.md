@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Hint visual fidelity — source-only follow-up, 2026-10-30
+
+[Exact source review](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
+No new runtime PASS: actual own RT/gamma/post-process/pixels remain unmeasured.
+Versioned UE4.27 source establishes material-specific AlphaComposite blending,
+expected gamma1 at own UI paint with default gamma=false, explicit material
+override precedence, Masked versus continuous coverage and world-unit projection.
+It does not diagnose the user's pale/blue observation. Frozen hint Lua, installed
+disabled payload, original UI and prior acceptance remain unchanged. One future
+controlled material comparison is proposed, not implemented or authorized here.
+
 ## Native hint mirror — partial runtime proof, 2026-10-30
 
 [Exact evidence](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Source7c2aa07/installed three Lua hashes unchanged.

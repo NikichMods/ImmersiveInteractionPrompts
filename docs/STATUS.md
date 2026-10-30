@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — hint visual source review COMPLETE; visual equivalence OPEN.**
+[Разбор цепочки и один следующий A/B](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
+UI MID сам выбирает AlphaComposite blend; отсутствие premultiplied-флага у Image
+не доказывает double-alpha. При ожидаемом gamma=false этот paint stage уже gamma1;
+слепое включение коррекции не обосновано. Подтверждены отличия внешнего Masked
+coverage и размера:38×38 при scale0.25 =9.5 мировых единиц, не38 экранных pixels.
+Рекомендуются измерение экранных прямоугольников и один fixed-pose A/B Masked ↔
+stock Translucent с согласованными own BlendMode/material. Это план сравнения,
+не доказанное исправление цвета: полный cooked shader graph/фактические own RT
+и gamma/итоговые pixels неизвестны. Новый payload не создавался/не установлен,
+принятые Lua и VERSION неизменны. Полная композиция/production BLOCKED.
+
 **2026-10-30 — hint mirror partial runtime PASS; visual equivalence OPEN, probe DISABLED.**
 [Точные логи и границы](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Active Retainer/global1, Icon RT51x51/slot38x38,
 AlphaComposite5/RGBA8_SRGB3. SOURCE_BOUND device4→1 с тем же MID/RT; пользователь
