@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## Native World hint installation — 2026-10-30, runtime PENDING
+
+Authorized closed-game install of7c2aa07b7f33edcd22f69c95ddc1a03191b38da8.
+[Exact three source/installed hashes and rollback](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Only own WorldHintProbe
+enabled; older IIP probes disabled.35 current mod/loader and55 existing tracked
+config/save files retain hashes,29 historical baseline hashes match. No new game
+run or native hint/device/remapping/alpha-gamma acceptance is claimed.
+
+
 ## Native input hint mirror — SOURCE ONLY, 2026-10-30
 
 [Exact APIs and candidate limits](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) READY_SOURCE / NOT_INSTALLED. Read-only

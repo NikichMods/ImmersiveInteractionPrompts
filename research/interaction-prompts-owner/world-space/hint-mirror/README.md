@@ -1,11 +1,37 @@
-# Current native hint in own World Image — READY_SOURCE / NOT_INSTALLED
+# Current native hint in own World Image — INSTALLED / RUNTIME_PENDING
 
-2026-10-30. One bounded research-only candidate, no installation/game launch or
-hot reload. Source supports preparing the operations, **not** final pixel/device
+2026-10-30. One bounded research-only candidate, authorized installation recorded
+below; no agent game launch/hot reload. Source supports the operations, **not** final pixel/device
 acceptance. Full Aphes composition/automatic production lifecycle remain BLOCKED.
 Reuse [vertical-yaw/F7](../vertical-yaw/README.md) and the accepted Open/host/World
 renderer without repeating their independent investigations. Prior integration
 [blocker and alternatives](../composition/README.md) remain the reason for this test.
+
+## Authorized installation — 2026-10-30
+
+User explicitly requested installation. Exact source commit
+`7c2aa07b7f33edcd22f69c95ddc1a03191b38da8`; source and installed SHA256 match all
+three values below, Lua unchanged. New own directory
+`ImmersiveInteractionPromptsWorldHintProbe` contains Scripts/main.lua,
+Scripts/IIPWorldChild.lua, Scripts/IIPHintSource.lua and empty enabled.txt.
+Only this IIP probe enabled;14 older IIP directories retained disabled. mods.txt
+unchanged; CombatHUD/SoulsEnemyHUD enabled as before.
+
+Game processes absent before/after install. Steam build12996889 and UE4SS83330635
+match baseline; DLL SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+29 historical mod/loader hashes match. All35 pre-existing current mod/loader files
+and55 existing tracked config/save files retain hashes across installation.
+No agent game launch/termination, hot reload, settings/save or other-mod write.
+Production/VERSION unchanged; runtime source route/pixels/device still PENDING.
+
+Ignored backup outside loader:
+`.local/research/interaction-prompts/world-space/hint-mirror/install-20261030T004415Z/`.
+Exact three Lua, initial-state/installed hashes, verified result, pretest UE4SS /
+Genesis logs, loader settings/mods.txt copies and guarded rollback.ps1 retained.
+Rollback validates closed game, exact own target and known file hashes before
+removing only new own files/directories to restore prior absent state. Syntax
+PASS; not executed. Installation identity is not visual/runtime acceptance.
 
 ## Selected mechanism, including the inactive case
 
@@ -108,8 +134,8 @@ GPU/native GC-free claim. Late ready callbacks become inert before object reads.
 
 ## One future separately authorized test
 
-No installation has happened. After source review and separate closed-game install
-with rollback and older IIP probes disabled:
+The separately authorized closed-game installation above is ready for one user
+run, with rollback saved and older IIP probes disabled:
 
 1. Load the usual test save, Ctrl+Alt+F8 once, reload once, approach one natural
    Open without activating it. The original Screen prompt remains the reference.

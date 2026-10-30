@@ -1,5 +1,14 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — hint mirror установлен, ожидается пользовательский прогон
+
+Точный7c2aa07 установлен по разрешению с закрытой игрой/откатом. [Один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/README.md):
+F8→один reload→natural Open→keyboard/controller/keyboard→F7 до30s. F8 на controller
+не нужен и может переключить ввод; source/device изменения записываются сами.
+Сравнить символ/прозрачность с Original Screen, settings специально не менять.
+До результата новая проба runtime PENDING, полная композиция BLOCKED.
+
+
 ## Следующий достаточный gate — один native hint mirror
 
 [READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Один будущий разрешённый прогон с Original

@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — native World hint mirror INSTALLED, runtime PENDING.**
+По прямому разрешению пользователя при закрытой игре установлен точный7c2aa07
+в новый ImmersiveInteractionPromptsWorldHintProbe: три Lua и enabled.txt.
+[Хэши, откат и один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Lua не менялся; source/installed hashes совпали.
+Только новая IIP-проба включена,14 старых отключены.29 исторических mod/loader
+hashes совпали;35 текущих mod/loader и55 существующих tracked config/save файлов
+сохранены по хэшам. UE4SS DLL совпал; backup/manifest/guarded rollback вне loader,
+syntax PASS. Игра не запускалась/не закрывалась агентом, hot reload не применялся.
+Далее keyboard→controller→keyboard→F7 без F8 на controller. Runtime pixel/device/
+current remapping ещё не принят; полная композиция/production BLOCKED.
+
+
 **2026-10-30 — native input-hint World mirror READY_SOURCE, NOT_INSTALLED.**
 [Три Lua, точные контракты/хэши и один тест](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Перед own allocation проверяется
 selected Retainer: при bRetainRender/global1/phase0-count1 и готовом UI MID/Icon RT
