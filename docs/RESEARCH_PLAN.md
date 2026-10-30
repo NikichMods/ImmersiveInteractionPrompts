@@ -1,5 +1,15 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — A/B установлен, ожидается один пользовательский тест
+
+[Exact caf955f / installed hashes / rollback](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Один keyboard Open: F8 start, один ручной reload, остановиться и выбрать ракурс,
+F8 sample A/снимок, F6 один раз/снимок B без движения между ними, F7 cleanup.
+Игру запускает/закрывает пользователь. При early guard stop не продлевать сроки
+и не повторять автоматически. Сначала получить скриншоты/логи этого изменения,
+не возвращаясь к принятым binding/Yaw/renderer исследованиям. Visual gate OPEN,
+production BLOCKED; дальнейшая установка сейчас не требуется.
+
 ## Подготовлен следующий gate — один own material A/B
 
 [READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).

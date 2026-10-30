@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Hint material A/B — authorized installation, runtime pending, 2026-10-30
+
+[Exact installed identity / preservation evidence](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Closed-game installation of sourcecaf955fb271558df1ddd5c991cf5b53217da2ef4:
+four source/installed Lua hashes match plus own empty enabled.txt.15 earlier IIP
+probes disabled; existing40 mod/loader/log and60 config/save hashes preserved.
+Pinned loader DLL unchanged, backups and guarded rollback outside loader.
+Agent did not launch/terminate game or hot reload. This verifies installation
+only; material transition, measured projection and visual A/B remain untested.
+
 ## Hint material A/B — source preparation, 2026-10-30
 
 [New separate candidate / checks / limits](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).

@@ -1,6 +1,7 @@
 # Owned World hint — Masked/Translucent A/B
 
-**READY_SOURCE / NOT_INSTALLED / RUNTIME_NOT_TESTED**, 2026-10-30.
+**INSTALLED / RUNTIME_PENDING**, 2026-10-30. Source readiness is unchanged;
+installation does not establish visual/native material transition acceptance.
 Automatic native Screen-size measurement: **BLOCKED at opaque FGeometry return**;
 the permitted screenshot fallback is used. Own geometric slot projection is
 implemented. Visual equivalence, full composition and production remain BLOCKED.
@@ -101,8 +102,8 @@ existing local research evidence root; no dump or game asset enters Git.
 
 ## One future separately authorized user test
 
-Installation is **not authorized by this document**. A future installation must
-use closed-game identity/rollback checks and enable only this IIP candidate.
+The user subsequently authorized installation; see the exact record below.
+Only this IIP candidate is enabled. The remaining steps are user-operated runtime.
 Choose keyboard and keep it throughout this pair; no new remapping or settings
 changes. The original Screen prompt remains the visible comparison reference.
 
@@ -157,3 +158,32 @@ view/source/gamma changes, missing API/material/RT, cancel/visibility/timeout an
 cleanup. Full suite:253 tests/17 suites PASS (21 new policy tests);
 offline mocks cannot prove native material refresh, engine marshalling, rendered
 pixel size, GPU latency, source geometry, color or Translucent occlusion.
+
+## Authorized installation — 2026-10-30
+
+Installed exact source `caf955fb271558df1ddd5c991cf5b53217da2ef4` in the new
+`ImmersiveInteractionPromptsWorldHintABProbe` loader directory. Four Lua files
+match the table above byte-for-byte; the fifth and only enablement file is empty
+`enabled.txt` (SHA256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`).
+No loader configuration/mods.txt changes, source edits, assets or extra observer.
+
+Get-Process and privileged CIM enumeration confirmed no Genesis/Asterigos process
+before installation; no process was launched or terminated by the agent.
+Installed UE4SS.dll SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`
+matches the earlier baseline; existing log records Git SHA83330635. Target was
+absent;15 old IIP directories have no enablement marker and no active IIP entry
+in mods.txt. CombatHUD/SoulsEnemyHUD enablement and bytes remain unchanged.
+
+Ignored archive `install-20261030T063049Z` under the local hint-mirror/ab evidence
+root contains all36 prior Mods files, loader DLL/settings/log, Genesis log,
+four frozen source copies, planned/verified JSON manifests and guarded rollback.
+All40 existing mod/loader/log hashes and60 config/save hashes matched after
+installation. No settings/save content was modified or restored. Backup copies
+also matched their originals. Rollback restores the previous absent target by
+removing only the five expected own files after process/path/hash checks; it
+refuses unexpected/changed files and does not delete recursively. Both scripts
+passed PowerShell parsing; rollback was not executed against this live install.
+
+Installation verification passed; game runtime, screenshots and material A/B
+remain PENDING. No hot reload, production/VERSION or other mod changes.

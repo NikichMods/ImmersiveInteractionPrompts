@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World hint A/B INSTALLED, RUNTIME_PENDING.**
+По прямому разрешению пользователя при закрытой игре установлен точный
+source`caf955fb271558df1ddd5c991cf5b53217da2ef4` в новый WorldHintABProbe.
+[Установка, хэши, откат и сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Четыре Lua совпали с source SHA256; включён только собственный empty enabled.txt.
+15 прежних IIP-проб отключены, mods.txt/CombatHUD/SoulsEnemyHUD неизменны.
+Откат/резервные копии вне loader;40 прежних файлов и60 config/save hashes
+совпали после установки. Игра не запускалась/не закрывалась агентом. Далее:
+F8 → один reload/Open → остановиться → F8/screenshot A → F6/screenshot B → F7.
+Guards/сроки не ослаблены; early stop оставляет неполную пару. Никакой новой
+визуальной приёмки; production BLOCKED. Ниже сохранена история подготовки.
+
 **2026-10-30 — World hint material A/B READY_SOURCE, NOT_INSTALLED.**
 [Четыре Lua, контракты, хэши и один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
 Один собственный компонент: Masked1 → reflected BlendMode2 + virtual SetMaterial
