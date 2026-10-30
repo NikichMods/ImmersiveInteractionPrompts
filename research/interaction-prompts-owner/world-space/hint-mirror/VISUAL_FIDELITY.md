@@ -4,9 +4,10 @@ Status: **SOURCE_REVIEW_COMPLETE / VISUAL_EQUIVALENCE_OPEN**. This review did no
 create a payload or runtime result. The frozen hint source remains unchanged.
 Full composition and production remain **BLOCKED**.
 
-Subsequent source-only step: [separate A/B candidate](ab/README.md) is prepared,
-not installed. The historical plan below is superseded only by that narrow
-implementation contract; it does not establish new pixels or a corrected color.
+Subsequent [owned material A/B](ab/README.md) completed in-game: the same-pose
+Masked/stock Translucent comparison showed no visible improvement; the probe is
+disabled. Earlier source-only A/B planning sections below are historical, not an
+active install request. The next bounded issue is fixed own-icon apparent size.
 
 ## Question and evidence boundary
 
@@ -28,8 +29,8 @@ accepted fixes here. Exact versioned source is more discriminating.
 These external references refine the **hypotheses**, not the accepted game evidence:
 
 - [Epic UE-32520](https://issues.unrealengine.com/issue/UE-32520) explicitly attributes a Screen-versus-World widget color discrepancy to tone mapping. **Important version limit:** the issue affects UE4.12.3 and is marked Fixed in July 2016; it does not demonstrate that the same defect exists in the pinned Asterigos UE4.27 build.
-- [Epic forum answer by Nick Darnell](https://forums.unrealengine.com/t/umg-3d-widget-color-problem/97035/2) (2017) independently explains that world-rendered widgets pass through the scene tone mapper. That is a pipeline distinction, not a diagnosis of our borrowed Retainer MID or a prescribed material adjustment.
-- [Community World-space UMG report](https://forums.unrealengine.com/t/umg-element-as-widget-component-colors-are-washed-out-in-world-space/422677/2) (2018) describes an apparent size-dependent change in washed-out colors. It is anecdotal and does not prove that scale, texture filtering, antialiasing or tone mapping caused this project's appearance.
+- [Epic forum answer by Nick Darnell](https://forums.unrealengine.com/t/umg-3d-widget-color-problem/97035) (2017) independently explains that world-rendered widgets pass through the scene tone mapper. That is a pipeline distinction, not a diagnosis of our borrowed Retainer MID or a prescribed material adjustment.
+- [Community World-space UMG report](https://forums.unrealengine.com/t/umg-element-as-widget-component-colors-are-washed-out-in-world-space/422677) (2018) describes an apparent size-dependent change in washed-out colors. It is anecdotal and does not prove that scale, texture filtering, antialiasing or tone mapping caused this project's appearance.
 - [Epic UE4.27 post-process materials documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/post-process-materials?application_version=4.27) distinguishes before/after-tonemapping passes, discusses temporal AA jitter, and warns that inverse tone mapping is not an easy general solution. This does not authorize changing the game's post-process settings or installing a new post-process material.
 
 **Post-A/B decision:** the own Masked→stock Translucent comparison [completed without visible improvement](ab/README.md). Keep the established Masked/occlusion baseline. The next independent test should **change only the own icon's fixed World-space extent** at one reference camera pose, against the original Screen hint, preserving source, depth material, RT512x128, component world scale/anchor, Yaw, tint, gamma, ownership and native cleanup. The earlier ~28×24 px figure is the projected **own slot**, not a measurement of the native hint or glyph pixels. Use a same-pose visual comparison for the original when its FGeometry is inaccessible; do not invent a native-size value or use a hard-coded target multiplier as acceptance. Evaluate edge/color visibility again at comparable *apparent* sizes. No distance-dependent scaling, shader changes, gamma/power compensation or post-process installation at this stage. If blue/pale appearance persists, distinguish scene tone mapping, RT sampling/color conventions and small-pixel filtering with a separately bounded evidence gate rather than assuming which one is responsible.
