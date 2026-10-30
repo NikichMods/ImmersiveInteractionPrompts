@@ -1,5 +1,17 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий результат — A/B закрыт без видимого исправления
+
+[Same-source retry](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md):
+native material switch, comparable-state pair и F7 cleanup прошли. Masked→stock
+Translucent не дал заметного улучшения по пользовательским кадрам/отчёту. Не
+повторять тот же тест и не объявлять проблему цвета решённой. Known Masked
+baseline остаётся, новая Translucent occlusion отдельно не принята. Рекомендуемый
+следующий самостоятельный шаг — согласовать проверку только own icon extent на
+одном ракурсе; это не финальный размер/дистанционный scaling и не доказанный
+color fix. Если цвет останется проблемой при сопоставимом размере — отдельно
+обосновать следующий seam, без случайных gamma/tint/shader правок. Проба отключена.
+
 ## Текущий handoff — тот же A/B снова включён по разрешению пользователя
 
 [Source/хэши и запись повторного включения](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).

@@ -1,6 +1,6 @@
 # Owned World hint — Masked/Translucent A/B
 
-**REENABLED_SAME_SOURCE / USER_AUTHORIZED_RETRY_PENDING**, 2026-10-30.
+**A_B_PAIR_RUNTIME_PASS / NO_VISIBLE_IMPROVEMENT / DISABLED**, 2026-10-30.
 First result: MASKED_CAPTURE_PASS / A_B_INCOMPLETE_CAMERA_GUARD, preserved below.
 Source readiness is unchanged. Translucent transition/rendering remains untested;
 the disappearance in screenshot B was native cleanup, not a material result.
@@ -274,3 +274,77 @@ mods.txt entry. Initial rollback remains valid. Ignored
 `reenable-20261030T065306Z` records before/verified state; the first runtime archive
 is preserved. Same user sequence, choose camera before A and hold it through B;
 no acceptance is inferred from reenabling. Game was not launched by the agent.
+
+## Retry result — 2026-10-30 09:57 Moscow
+
+The same sourcecaf955f completed the pair with no payload/guard edits. This
+closes the narrow material-switch/comparable-state test; it does not establish
+visual equivalence to native Screen UI or final material selection.
+
+| Event, Moscow time | Evidence |
+| --- | --- |
+| 09:57:45.547 | SAMPLE masked: component1, stock Masked MIC1, own MID parent/owner validated. |
+| 09:57:49 | Steam `20261030095749_1.jpg`: screenshot **A**, before the switch. |
+| 09:57:56.263 | own_material_switch BEGIN→END: native SetMaterial returned with stock Translucent. |
+| 09:57:56.297 | SAMPLE translucent: component2, MIC blend2, new own MID; PAIR_READY. |
+| 09:57:58 | Steam `20261030095758_1.jpg`: screenshot **B**, after the switch/readback. |
+| 09:58:01.978–.995 | F7 reason=user: loop cancelled, hooks_remaining0, borrowed resource RELEASED, native component destroyed/CLEANED. |
+
+Sample A/B camera position/rotation/FOV75 and viewport2560×1440 were identical
+in the recorded values. Source key/generation2, same own component and RT,
+gamma/tint/opacity/background/geometry all passed the equality checks. The own
+MID identity changed as expected; no second renderer or source material writes.
+Both stock materials read depth-disable=false/two-sided=true. Own slot projection
+was identical: bbox(1242.20068,515.677246)–(1270.19165,539.474243),
+**27.9909668×23.7969971px**. The different footprint from the first run reflects
+its different camera pose; within this pair it did not change. It is geometric
+slot size, not the painted F glyph or a measurement of the native Screen slot.
+
+Gamma=false, RT sRGB=true/force-linear=false/TargetGamma0/format field6, clear and
+BackColor transparent; component/effective tint white, opacity-from-texture1,
+Image/host opacity1 in both samples. No gamma/power/tint/alpha compensation.
+No GPU fence, shader capture or pixel-identity assertion is inferred from the
+readback/timestamps. The two JPEGs contain an animated character/background;
+they are not identical frames or lossless pixel evidence.
+
+The user reports **no visible difference**; both supplied frames show the small
+pale/bluish own F and intact native Screen F/action. This is a useful negative
+result for the proposed fix: **changing only Masked→stock Translucent did not
+visibly remedy the reported appearance in this bounded case**. It does not mean
+all blend modes are identical, all alpha edges are equivalent, or the shared
+Widget3DPassThrough base/RT sampling/scene pipeline is exonerated. Material mode
+alone is not a demonstrated remedy. Size was held constant deliberately; the
+switch was never a sizing correction.
+
+No user confirmation/frame of partial Hilda occlusion under the new Translucent
+surface was supplied. Its depth-test flag is known, but visual occlusion remains
+unaccepted for that mode. Previously accepted Masked occlusion is unchanged.
+Keep the known Masked baseline; do not promote Translucent simply because its
+native update succeeded. Full composition/automatic lifecycle/production stay
+BLOCKED.
+
+### Archived identity / stop boundary
+
+Ignored `runtime-20261030T070257Z`: full logs/event extract, original two JPEGs,
+four installed Lua, marker copy, current-state manifest and disable result.
+Source/installed hashes remain those above. SHA256:
+
+- UE4SS.log: `2acdb0b32027fbb2ad8a0c0f047f9dbb86c518e0bb3b766c9d412b000a43b119`
+- Genesis.log: `100432abad281545af52ec4c097bf9de20274129858c0cdf55ce36193f28cda1`
+- A-Masked.jpg: `75308ebb0b8fbaa98a499c8b8c11f6c34459a011a49e851ba03a63cc4d8f23dc`
+- B-Translucent.jpg: `9101c6b56ed622c8ccfe60f0a31b8c6cd0d28e8c7ce4a6cbfec3a8d4e93ad10f`
+
+After closed-game Get-Process/CIM checks removed only own enabled.txt;105 other
+current files and38 historical non-log mod/loader hashes preserved. Other IIP
+probes remain disabled, CombatHUD/SoulsEnemyHUD/settings/saves unchanged. Lua was
+not replaced, no launch/termination/hot reload, new payload or automatic retry.
+Documentation/local links/archive hashes checked; no need to rerun frozen policy
+tests for a result-only update.
+
+This A/B question is finished; do not repeat the same material comparison.
+Recommended next separate, user-approved step is **own-icon extent calibration**
+against the visible native icon at one reference pose. The small current symbol
+makes subtle edge/color judgment difficult. Enlargement may improve readability
+but is not a proven color fix; no final dimensions/distance-scaling/design are
+adopted here. Color/alpha still needs a separately justified seam if it remains
+objectionable at a comparable visible size. No blind gamma or custom shader.

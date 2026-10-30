@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Hint A/B retry — native switch/pair/F7 PASS; visual fix not demonstrated, 2026-10-30
+
+[Exact timestamps, log/JPEG hashes and scope](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Steam09:57:49=A Masked;09:57:58=B Translucent. BEGIN/END native SetMaterial and
+two own MID parents/enums read back; PAIR_READY. Same camera/source generation2/
+component/RT/settings, slot projection27.9909668×23.7969971px both. User reports no
+visible difference; small pale/blue icon remains, native prompt visible. This
+supports the owned update route and a bounded negative result for blend-mode-only
+correction, not pixel identity, Screen equivalence or universal alpha behavior.
+F7 LOOP_CANCELLED→RELEASED→COMPONENT_DESTROYED/CLEANED reason=user passed. Changed
+Translucent visual occlusion unconfirmed. Closed-game own marker removal only,
+105 current files/38 historical mod-loader hashes preserved. Sourcecaf955f exact
+Lua frozen; full composition/lifecycle/production unaccepted. No further A/B retry.
+
 ## Hint A/B — Masked readout PASS, pair rejected before switch, 2026-10-30
 
 [Exact result, timestamps, hashes and screenshot limits](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).

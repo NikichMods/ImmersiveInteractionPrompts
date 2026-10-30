@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — A/B pair runtime PASS, заметного улучшения нет; probe DISABLED.**
+[Парные записи, порядок кадров и границы](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+09:57:49=A/Masked;09:57:58=B/Translucent. Между ними native switch BEGIN/END,
+новый own MID, BlendMode2 и PAIR_READY. Camera/source/RT/settings совпали;
+проекция slot27.991×23.797px в обоих состояниях. Пользователь не видит отличия,
+маленький голубоватый вид сохранился. Смена режима одна не дала исправления;
+общий base/RT/scene-color path этим не оправдан. F7 native cleanup reason=user
+прошёл. Снят только own marker при закрытой игре;105 других файлов/38 baseline
+hashes сохранены. Lua неизменён. Эту A/B-проверку не повторять. Следующим отдельно
+согласовать только размер own icon; цвет остаётся открыт, production BLOCKED.
+
 **2026-10-30 — same-source A/B REENABLED, повторный тест PENDING.**
 По явному разрешению пользователя возвращён только own empty enabled.txt при
 закрытой игре. Четыре Lua sourcecaf955f и pinned loader неизменны,40 прежних Mods
