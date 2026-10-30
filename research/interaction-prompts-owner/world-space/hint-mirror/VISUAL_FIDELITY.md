@@ -23,6 +23,17 @@ versions are 4.12.5/4.14/4.15. It is not a diagnosis for this UE4.27 topology.
 Historical community gamma/power/tint and material-graph workarounds are not
 accepted fixes here. Exact versioned source is more discriminating.
 
+## Additional Epic precedent and next decision — 2026-10-30
+
+These external references refine the **hypotheses**, not the accepted game evidence:
+
+- [Epic UE-32520](https://issues.unrealengine.com/issue/UE-32520) explicitly attributes a Screen-versus-World widget color discrepancy to tone mapping. **Important version limit:** the issue affects UE4.12.3 and is marked Fixed in July 2016; it does not demonstrate that the same defect exists in the pinned Asterigos UE4.27 build.
+- [Epic forum answer by Nick Darnell](https://forums.unrealengine.com/t/umg-3d-widget-color-problem/97035/2) (2017) independently explains that world-rendered widgets pass through the scene tone mapper. That is a pipeline distinction, not a diagnosis of our borrowed Retainer MID or a prescribed material adjustment.
+- [Community World-space UMG report](https://forums.unrealengine.com/t/umg-element-as-widget-component-colors-are-washed-out-in-world-space/422677/2) (2018) describes an apparent size-dependent change in washed-out colors. It is anecdotal and does not prove that scale, texture filtering, antialiasing or tone mapping caused this project's appearance.
+- [Epic UE4.27 post-process materials documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/post-process-materials?application_version=4.27) distinguishes before/after-tonemapping passes, discusses temporal AA jitter, and warns that inverse tone mapping is not an easy general solution. This does not authorize changing the game's post-process settings or installing a new post-process material.
+
+**Post-A/B decision:** the own Masked→stock Translucent comparison [completed without visible improvement](ab/README.md). Keep the established Masked/occlusion baseline. The next independent test should **change only the own icon's fixed World-space extent** at one reference camera pose, against the original Screen hint, preserving source, depth material, RT512x128, component world scale/anchor, Yaw, tint, gamma, ownership and native cleanup. The earlier ~28×24 px figure is the projected **own slot**, not a measurement of the native hint or glyph pixels. Use a same-pose visual comparison for the original when its FGeometry is inaccessible; do not invent a native-size value or use a hard-coded target multiplier as acceptance. Evaluate edge/color visibility again at comparable *apparent* sizes. No distance-dependent scaling, shader changes, gamma/power compensation or post-process installation at this stage. If blue/pale appearance persists, distinguish scene tone mapping, RT sampling/color conventions and small-pixel filtering with a separately bounded evidence gate rather than assuming which one is responsible.
+
 ## Actual image path
 
 | Boundary | Established fact | Remaining uncertainty |
