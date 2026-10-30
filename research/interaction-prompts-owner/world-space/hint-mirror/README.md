@@ -245,6 +245,47 @@ assess the separate reacquisition/cleanup lifecycle before authoring a new
 research-only candidate. Do not loosen fail-closed safety guards merely to avoid
 user inconvenience.
 
+## External UE4.27 documentation cross-check — 2026-10-30, source-only
+
+Internet research supplied concrete comparison targets, **not** a diagnosis or new
+runtime PASS:
+
+- [Epic UE-35531](https://issues.unrealengine.com/issue/UE-35531) documents
+  washed-out colors with a RetainerBox **inside** a 3D WidgetComponent versus a
+  screen widget (marked Won't Fix; listed affected versions 4.12.5/4.14/4.15).
+  That reproduction is not our topology: our World UImage borrows a game-owned
+  *Screen* Retainer's existing MID; no second Retainer is created. It is evidence
+  that color-space boundaries matter, **not** that this exact engine bug affects
+  Asterigos/UE4.27.
+- [Epic UE4.27 RetainerBox](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/RetainerBox?application_version=4.27)
+  explicitly requires AlphaComposite/premultiplied-alpha handling for correct
+  final transparency. Our observed source uses AlphaComposite and
+  SRetainerWidget PreMultipliedAlpha|NoGamma, while the own widget uses normal
+  UImage paint. Compare the real paint/blending chain, without modifying the
+  game-owned Retainer/MID.
+- [Epic UE4.27 WidgetComponent](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/WidgetComponent?application_version=4.27)
+  documents World render-target-to-material behavior, BlendMode,
+  apply_gamma_correction, DrawSize and displayed quad. Our frozen
+  IIPWorldChild.lua selects stock `Widget3DPassThrough_Masked` and
+  c.BlendMode==1 (Masked), not the source Retainer's AlphaComposite UI paint path.
+  Check actual masked 3D material/target/bApplyGammaCorrection/tint state before
+  treating gamma or alpha as the cause. Do not blindly flip gamma or blend mode.
+- [Epic 4.27 Widget Components](https://dev.epicgames.com/documentation/ja-jp/unreal-engine/widget-components?application_version=4.27)
+  distinguishes Screen from World mesh rendering. A 38x38 Slate slot at
+  component scale 0.25 represents 9.5x9.5 world length units before perspective,
+  **not** a guaranteed 38x38 screen-pixel glyph. Pixel equivalence additionally
+  depends on camera distance, FOV, viewport and DPI/UI scale.
+- [Community discussion](https://forums.unrealengine.com/t/ue4-17-retainer-box-is-washing-colors/405296)
+  describes both gamma and blend-mode workarounds across engine versions;
+  these are version-specific reports, not validated Asterigos fixes.
+
+Next cheapest action: source-only comparison of the *specific* UE4.27
+SRetainerWidget/own UImage/stock Widget3DPassThrough_Masked/WidgetComponent paint
+and gamma path, plus correct size projection. Decide if a minimal isolated
+research candidate is justified; if pixels or host material behavior remain
+unprovable from code, use at most one narrowly targeted game comparison.
+Keep current probe and accepted mechanisms frozen; no automatic install/run.
+
 ## Remaining risks and evidence boundary
 
 UImage does not reproduce SRetainerWidget's explicit paint draw flags. Final MID
