@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — fixed own-hint size calibration READY_SOURCE, NOT_INSTALLED.**
+[Четыре Lua, source/hash-контракты и один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Один Masked-компонент; F8 запрашивает A/1.0×, F6 один раз меняет только own
+CanvasPanelSlot extent на1.5× (38×38→57×57), затем B/F7. Коэффициент отдельный
+от source binding и сохраняется при повторном SOURCE_BOUND; исходный slot не
+меняется. Проверки aspect/center/Canvas envelope/readback, реальная проекция
+своих углов; original Screen pixels остаются UNAVAILABLE, сравнение по кадрам.
+Материал/MID, RT512×128, component scale0.25/anchor/Yaw, gamma/tint/opacity и
+прежние guards/сроки/native cleanup сохранены.1.5 — диагностический вариант,
+не продуктовый размер или color fix. Новый код не установлен, игра не тронута.
+Runtime размер/читабельность/цвет ещё не приняты; production BLOCKED.
+
 **2026-10-30 — A/B pair runtime PASS, заметного улучшения нет; probe DISABLED.**
 [Парные записи, порядок кадров и границы](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
 09:57:49=A/Masked;09:57:58=B/Translucent. Между ними native switch BEGIN/END,

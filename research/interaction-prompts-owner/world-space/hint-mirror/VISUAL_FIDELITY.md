@@ -9,6 +9,11 @@ Masked/stock Translucent comparison showed no visible improvement; the probe is
 disabled. Earlier source-only A/B planning sections below are historical, not an
 active install request. The next bounded issue is fixed own-icon apparent size.
 
+That step now has a separate [1.0×/1.5× size source candidate](size/README.md),
+READY_SOURCE/NOT_INSTALLED. It changes only the owned Canvas slot, preserves
+Masked/RT/scale/anchor/color settings and does not claim a color fix or adopt a
+final product size. Existing material A/B remains completed.
+
 ## Question and evidence boundary
 
 The [partial runtime result](README.md) established a live game-owned hint source

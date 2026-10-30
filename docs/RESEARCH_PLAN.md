@@ -1,5 +1,17 @@
 # План исследования — contextual prompts и письменность
 
+## Подготовлен следующий gate — только own icon extent1.0×/1.5×
+
+[READY_SOURCE, NOT_INSTALLED](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+Следующий отдельно разрешённый игровой тест: F8 start → один reload/Open →
+выбрать ракурс/остановиться → F8/A1.0× → F6/B1.5× без движения → F7. Оригинальный
+Screen hint остаётся видимым. Проверять размер/читабельность/центр/обрезание и
+цвет отдельно, не объявлять увеличение объяснением голубизны. Повторный
+SOURCE_BOUND применяет сохранённый factor; офлайн проверено, native исполнение
+этой ревизии ещё не принято. Не менять component scale/DrawSize/anchor/material/
+gamma или deadlines, не возвращаться к закрытому материал-A/B.1.5 не принят как
+финальный размер; FGeometry и предполагаемые pixels оригинала не использовать.
+
 ## Текущий результат — A/B закрыт без видимого исправления
 
 [Same-source retry](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md):

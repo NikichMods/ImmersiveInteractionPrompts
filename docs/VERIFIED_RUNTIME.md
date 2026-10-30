@@ -1,5 +1,17 @@
 # Verified Runtime — Interaction Prompts
 
+## Own fixed-size calibration — source readiness only, 2026-10-30
+
+[Independent candidate, exact seam and test](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+READY_SOURCE, NOT_INSTALLED; no new runtime PASS. Installed UHT SetSize/GetSize
+plus versioned UE4.27 setter confirm a narrow live own-slot seam. One1.0→1.5
+change with native-source-independent factor, proportional geometry and bounded
+rebind persistence; no live material change. Accepted World/Yaw/source/cleanup
+reused. Geometry/Canvas/readback policy and failure containment checked offline;
+rendered size/center/clipping/color/native rebind persistence remain runtime gates.
+Original Screen size is not measured, only own slot projection. No game files,
+settings, saves, production or VERSION changed. Prior accepted sources frozen.
+
 ## Hint A/B retry — native switch/pair/F7 PASS; visual fix not demonstrated, 2026-10-30
 
 [Exact timestamps, log/JPEG hashes and scope](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
