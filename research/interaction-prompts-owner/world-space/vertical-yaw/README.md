@@ -1,5 +1,8 @@
 # Vertical world-Z yaw — bounded runtime / manual F7 PASS
 
+Integration successor: [World Aphes composition review](../composition/README.md),
+BLOCKED on current hint reproduction. This frozen yaw/F7 result is not reopened.
+
 2026-10-30. User-run vertical yaw / manual F7 PASS recorded below; probe DISABLED.
 Exact source and earlier records remain frozen. Production BLOCKED. Reuse accepted
 Open binding, private host, World renderer/material,

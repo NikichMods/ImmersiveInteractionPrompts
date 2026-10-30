@@ -1,5 +1,19 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий интеграционный блокер — актуальный native input hint
+
+[Обоснование и границы](../research/interaction-prompts-owner/world-space/composition/README.md). Сначала подтвердить read-only воспроизведение
+конечного hint (Retainer effect MID→own Image), не пересобирать keymap и не
+переносить оригинальный Slate. Один будущий hint-only тест на exact Open:
+keyboard→controller→keyboard/current configured Interact→F7. Уже переназначенный
+binding проверить там, где он есть; новых изменений settings не подразумевать.
+Полный World Aphes payload до этого не объявлять READY_SOURCE. Текущая подготовка
+ограничена source review и чистым планом слотов, без нового runtime probe.
+После прохождения hint gate — four-child composition и own-text clipping gate,
+с прежним RT512x128/anchor/scale/material/Yaw. Повторять renderer/font/orientation/
+F7 как самостоятельные принятые эксперименты не требуется.
+
+
 ## Завершённый gate — vertical frame-Yaw и ручной F7 PASS
 
 [Подтверждённый результат](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md):1068 guarded yaw writes, Pitch/Roll0,

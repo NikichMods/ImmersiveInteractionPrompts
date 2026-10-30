@@ -1,5 +1,17 @@
 # Verified Runtime — Interaction Prompts
 
+## World composition follow-up — SOURCE ONLY / BLOCKED, 2026-10-30
+
+[Exact integration findings](../research/interaction-prompts-owner/world-space/composition/README.md). No new runtime result. Original GetText
+provides current Slate value; pinned reflected FText Set marshals via ToFString /
+SetString, not full localization-history copy. Source TipHUD Retainer uses
+TipIconMat/Icon plus scalar t; SRetainerWidget reuses a passed MID and OnPaint
+writes its render target into that MID. A second Retainer sharing it is unsafe
+for original-state preservation. Read-only final-MID Image mirror remains a
+candidate requiring device/current-key/alpha-gamma proof. No complete payload;
+only a pure slot plan,207 offline tests PASS. Existing accepted gates unchanged.
+
+
 ## Vertical frame-yaw / manual F7 — bounded runtime PASS, 2026-10-30
 
 [Exact runtime evidence and limits](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Sourcef1eb635/installed Lua hashes

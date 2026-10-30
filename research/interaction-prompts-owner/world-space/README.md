@@ -1,5 +1,9 @@
 # World-space depth-occlusion study — 2026-10-29
 
+**Current integration2026-10-30:** [World Aphes composition BLOCKED](composition/README.md)
+on live native hint reproduction; pure slot plan only, no executable payload.
+Accepted vertical-yaw/F7/renderer/font results below remain valid.
+
 **Latest2026-10-30:** [vertical frame-yaw / manual F7 bounded PASS](vertical-yaw/README.md),
 probe disabled.1068 guarded writes, user confirmation, own cancellation/native
 cleanup. No repeat requested; final composition/full production lifecycle open.

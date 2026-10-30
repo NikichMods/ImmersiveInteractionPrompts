@@ -1,5 +1,21 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World Aphes composition integration BLOCKED: live input hint.**
+[Source-only review / partial pure plan](../research/interaction-prompts-owner/world-space/composition/README.md). Текст действия можно читать из
+оригинального GetText и обновлять собственный TextBlock текущим локализованным
+значением; pinned FText setter не сохраняет полную string-table history. Прежний
+скопированный F brush был только снимком. RetainerBox_0/TipIconMat добавляет слой
+Icon render-target и hold-параметр t; второй Retainer с оригинальным MID сам писал
+бы в shared Icon — такой путь отвергнут. Own Image с read-only final MID — кандидат,
+его alpha/gamma/актуальность при смене устройства и remapping ещё не доказаны.
+Исполняемый композиционный payload не создан, заглушки F нет. Подготовлен только
+pure slot-envelope512x128 и8 тестов;207 tests/15 suites PASS. Aphes/PNG локальны,
+renderer/anchor/material/Yaw/cleanup и прежние исходники не менялись. Следующий
+достаточный тест после отдельной подготовки/разрешения — узкий hint-only mirror
+keyboard→controller→keyboard, затем F7. Финальный дизайн/full lifecycle/production
+BLOCKED; ничего не устанавливалось и игра не запускалась.
+
+
 **2026-10-30 — vertical frame-Yaw / manual F7 bounded runtime PASS; probe DISABLED.**
 [Точная запись](../research/interaction-prompts-owner/world-space/vertical-yaw/README.md). Пользователь подтвердил почти идеальную работу и F7.
 Один loop handle3,1068 frames/1068 writes за~17.796s, no degeneracy/errors;
