@@ -2,7 +2,7 @@
 
 ## Текущий результат — live hint source частично подтверждён, внешний вид открыт
 
-[Сохранённый run](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) подтвердил retained MID/Icon и controller→keyboard U,
+[Сохранённый run](../research/interaction-prompts-owner/world-space/hint-mirror/README.md) подтвердил retained MID/Icon и controller→keyboard F,
 а также guard cleanup. Не повторять эти upstream операции ради перепроверки.
 Полный цикл не записан, small/faded/bluish вид не принят. Следующий отдельный
 узкий вопрос — source/own paint alpha-gamma и размер в разных координатах;

@@ -3,7 +3,7 @@
 **2026-10-30 — hint mirror partial runtime PASS; visual equivalence OPEN, probe DISABLED.**
 [Точные логи и границы](../research/interaction-prompts-owner/world-space/hint-mirror/README.md). Active Retainer/global1, Icon RT51x51/slot38x38,
 AlphaComposite5/RGBA8_SRGB3. SOURCE_BOUND device4→1 с тем же MID/RT; пользователь
-увидел корректную смену controller glyph→keyboard U. Обратный переход не записан
+увидел корректную смену controller glyph→keyboard F. Обратный переход не записан
 до visibility-guard stop через~3.764s; причина конкретного visibility predicate
 неизвестна. Loop cancelled, own resource RELEASED и native CLEANED прошли.
 Размер/выцветший полупрозрачный голубоватый вид — наблюдение пользователя, не

@@ -11,12 +11,12 @@ renderer without repeating their independent investigations. Prior integration
 
 Exact source7c2aa07b7f33edcd22f69c95ddc1a03191b38da8; installed three Lua hashes
 matched the frozen source values below after exit. User reports seeing the hint
-change correctly from controller glyph to keyboard **U**, with a quick return
+change correctly from controller glyph to keyboard **F**, with a quick return
 toward controller. User also reports a smaller, faded/semitransparent bluish
 appearance, too small to judge precisely. No frame was supplied for this run.
 Record these as observations, not measured RGB/alpha/size values or an accepted
-visual match. Code does not select F/U or reconstruct the keymap; the glyph comes
-from the native source. No independent FKey/remapping query was logged.
+visual match. Code does not select or hardcode F or reconstruct the keymap; the glyph comes
+from the native source. No independent FKey/remapping query was logged. **User correction (2026-10-30):** the observed key was F, not U; U came from speech-to-text transcription. The log records input-device state, not the glyph letter.
 
 | Moscow time | Technical evidence |
 | --- | --- |
@@ -227,6 +227,23 @@ CLEANED, no probe failure and no later updates. Compare actual pixels/user repor
 resource readbacks alone are not visual PASS. Invalid source may refuse before
 own component creation; record its exact gate rather than trying another method.
 No repeating renderer/occlusion/font/yaw/F7 prerequisite studies as separate tests.
+
+## Future user-operated test usability — preference recorded 2026-10-30
+
+The user prefers free observation duration and input order whenever those do not
+compromise safety or the tested assertion. The 5-second blocks and device order
+in the historical scenario were recommended for traceable transitions, not
+restrictions enforced on gameplay. Ctrl+Alt+F8/F7 are keyboard chords that can
+change the game's active input-device indication during controller observation.
+The 45-second bound, 120-second overall watchdog, source/pose/frame budgets and
+strict visible-Open identity guards are real constraints of this research probe.
+They protect bounded native ownership and evidence scope; extending only a timer
+would not prevent the earlier visibility-guard stop. Preserve the frozen tested
+probe. For later visually exploratory work, use a more flexible manual-stop
+procedure where possible; if roaming across prompt targets is genuinely required,
+assess the separate reacquisition/cleanup lifecycle before authoring a new
+research-only candidate. Do not loosen fail-closed safety guards merely to avoid
+user inconvenience.
 
 ## Remaining risks and evidence boundary
 
