@@ -1,6 +1,7 @@
 # Owned World hint — Masked/Translucent A/B
 
-**MASKED_CAPTURE_PASS / A_B_INCOMPLETE_CAMERA_GUARD / DISABLED**, 2026-10-30.
+**REENABLED_SAME_SOURCE / USER_AUTHORIZED_RETRY_PENDING**, 2026-10-30.
+First result: MASKED_CAPTURE_PASS / A_B_INCOMPLETE_CAMERA_GUARD, preserved below.
 Source readiness is unchanged. Translucent transition/rendering remains untested;
 the disappearance in screenshot B was native cleanup, not a material result.
 Automatic native Screen-size measurement: **BLOCKED at opaque FGeometry return**;
@@ -262,3 +263,14 @@ camera pose **before** requesting A, then keep camera/character still through F6
 and B; only then move for changed-material occlusion. The strict guard worked
 as designed; this result calls for no code fix, wider tolerance or longer timeout.
 The pair remains open, not a negative verdict on Translucent or on World-space.
+
+### Same-source retry enablement — 2026-10-30 09:53 Moscow
+
+At the user's explicit request, restored only the empty own enabled.txt after
+closed-game Get-Process/CIM checks. Exact four installed Lua hashes and pinned
+loader DLL match the original installation; no source/config/guard changes.
+All40 existing Mods files retained their hashes; no other IIP marker or active
+mods.txt entry. Initial rollback remains valid. Ignored
+`reenable-20261030T065306Z` records before/verified state; the first runtime archive
+is preserved. Same user sequence, choose camera before A and hold it through B;
+no acceptance is inferred from reenabling. Game was not launched by the agent.

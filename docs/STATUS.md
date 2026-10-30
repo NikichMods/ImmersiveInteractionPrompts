@@ -1,5 +1,12 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — same-source A/B REENABLED, повторный тест PENDING.**
+По явному разрешению пользователя возвращён только own empty enabled.txt при
+закрытой игре. Четыре Lua sourcecaf955f и pinned loader неизменны,40 прежних Mods
+files сохранены, другие IIP-пробы отключены. [Точная запись](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Первый неполный результат/кадры сохранены. Guards/сроки не менялись; выбрать
+ракурс до A, затем не двигаться до B. Установка/повторное включение не приёмка.
+
 **2026-10-30 — Masked capture PASS; A/B INCOMPLETE_CAMERA_GUARD, probe DISABLED.**
 [Лог, кадры, измерения и пределы](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
 A записал проекцию своего slot25.949×25.027px при2560×1440, gamma=false,

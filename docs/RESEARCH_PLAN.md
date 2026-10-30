@@ -1,5 +1,12 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — тот же A/B снова включён по разрешению пользователя
+
+[Source/хэши и запись повторного включения](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+F8 start → один reload/Open → выбрать ракурс и остановиться → F8/A → F6/B без
+движения → F7. Код, guards и сроки прежние; первый camera-guard результат не
+перезаписан. Далее нужен только пользовательский прогон, не новый payload.
+
 ## Текущий результат — A измерен, сравнение материалов ещё не началось
 
 [Точная запись](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
