@@ -1,8 +1,12 @@
 # World hint visual fidelity — source review, 2026-10-30
 
-Status: **SOURCE_REVIEW_COMPLETE / VISUAL_EQUIVALENCE_OPEN**. No new payload,
-installation or runtime result. The frozen hint source remains unchanged.
+Status: **SOURCE_REVIEW_COMPLETE / VISUAL_EQUIVALENCE_OPEN**. This review did not
+create a payload or runtime result. The frozen hint source remains unchanged.
 Full composition and production remain **BLOCKED**.
+
+Subsequent source-only step: [separate A/B candidate](ab/README.md) is prepared,
+not installed. The historical plan below is superseded only by that narrow
+implementation contract; it does not establish new pixels or a corrected color.
 
 ## Question and evidence boundary
 

@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Hint material A/B — source preparation, 2026-10-30
+
+[New separate candidate / checks / limits](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+READY_SOURCE, no installation/run or new runtime acceptance. Confirmed source
+seam: numeric reflected own BlendMode write followed by virtual SetMaterial
+rebuilds own MID and dirties render state. Own slot corners project through
+installed PlayerController API with pinned numeric out-table marshalling.
+Ordinary FGeometry return becomes a reflected-field Lua table and cannot carry
+the unreflected transform/size; original Screen measurement explicitly unavailable.
+Four authored Lua files, one switch, two records; original guards/budgets/native
+cleanup and frozen candidate hashes preserved. Actual gamma/RT/material fields
+are read, not defaulted. Native material refresh/pixels/Translucent occlusion and
+screenshot completeness still require separately authorized runtime evidence.
+
 ## Hint visual fidelity — source-only follow-up, 2026-10-30
 
 [Exact source review](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).

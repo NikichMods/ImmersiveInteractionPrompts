@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-10-30 — World hint material A/B READY_SOURCE, NOT_INSTALLED.**
+[Четыре Lua, контракты, хэши и один сценарий](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Один собственный компонент: Masked1 → reflected BlendMode2 + virtual SetMaterial
+stock Translucent; native путь пересоздаёт только own MID/render state. F8 после
+появления запрашивает A, F6 один раз переключает B; две записи actual RT/gamma/
+material и проекции углов своего slot. Оригинальный Screen pixel-size не получен:
+pinned Lua struct-return теряет неотражённые данные FGeometry. Вместо поддельной
+геометрии — явный UNAVAILABLE и два сопоставимых скриншота. Ни размер, ни gamma/
+tint/anchor/DrawSize/Yaw не меняются. Прежние guards,45s/120s и native cleanup
+сохранены; прежний early visibility stop может не дать закончить пару. Офлайн
+проверки не доказывают Translucent pixels/occlusion. Parent Lua, VERSION и игра
+не менялись; полная композиция/визуальная приёмка/production BLOCKED.
+
 **2026-10-30 — hint visual source review COMPLETE; visual equivalence OPEN.**
 [Разбор цепочки и один следующий A/B](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
 UI MID сам выбирает AlphaComposite blend; отсутствие premultiplied-флага у Image

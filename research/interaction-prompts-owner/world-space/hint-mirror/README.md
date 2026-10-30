@@ -288,6 +288,11 @@ Keep current probe and accepted mechanisms frozen; no automatic install/run.
 
 ## Source review follow-up — 2026-10-30
 
+Next separate [material A/B source candidate](ab/README.md): READY_SOURCE,
+NOT_INSTALLED. Four Lua files; parent candidate remains frozen. Exact own slot
+projection plus two screenshots; original Screen FGeometry measurement is not
+available through the pinned ordinary Lua return path. No new runtime PASS.
+
 [Visual fidelity analysis / exact sources / one proposed A/B](VISUAL_FIDELITY.md):
 SOURCE_REVIEW_COMPLETE, visual equivalence OPEN. The material-brush path selects
 AlphaComposite from the MID itself; missing UImage premultiplied draw flag does

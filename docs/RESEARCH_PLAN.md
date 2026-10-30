@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Подготовлен следующий gate — один own material A/B
+
+[READY_SOURCE, не установлен](../research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+Сохранить keyboard/ракурс: F8 start → один reload/Open → остановиться → F8 sample A
+и screenshot A → F6 → screenshot B → F7. Проекция своей геометрии измеряется;
+original Screen размер — только визуальная оценка снимков, opaque FGeometry не
+round-trip через pinned Lua UFunction return. Два сравнимых состояния и один
+native SetMaterial, без второй регистрации/renderer, gamma/tint компенсации или
+ослабления guard. Если пара не успела до early stop — неполный результат, не
+автоматический повтор. Следующее разрешение относится к установке/игровому тесту;
+статическая готовность не закрывает visual/production gate. Нижние записи —
+история подготовки, не параллельные активные установки.
+
 ## Следующий gate — измеренный fixed-pose alpha/material A/B
 
 [Source review завершён](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
