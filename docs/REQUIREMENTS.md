@@ -59,8 +59,11 @@ SetRenderTranslation на оригинале для этого не требуе
 для ImmersiveInteractionPrompts `Ctrl+Alt+F11` открывает/закрывает панель,
 а внутри активной панели используется **обычный NumPad без модификаторов**.
 HildaSoftLight [source commit 4e0fe21](https://github.com/NikichMods/HildaSoftLight/commit/4e0fe21b4a06b40ee5026b7796796177c2f2f69d)
-использует отдельный `Ctrl+Alt+F10` и обычный NumPad в своём редакторе
-(PREPARED/UNTESTED, без подтверждения combined runtime).
+использует отдельный `Ctrl+Alt+F10` и обычный NumPad в своём редакторе.
+После исходного commit 4e0fe21 выполнен один [69-минутный игровой
+сеанс](https://github.com/NikichMods/HildaSoftLight/blob/research/live-light-tuner/docs/COMPARISON_RESULT_2026-10-30.md)
+на source b392c3c: live-редактирование/сохранения работали, но
+общая production-совместимость и причина UE4SS registry error не приняты.
 Предварительная раскладка для IIP: Num8/2 — выбор параметра; Num4/6 —
 изменение; Num5 — шаг; Num7 — сброс выбранного; Num9 — снимок значений
 в лог; Num0 — выход из режима редактирования/скрыть панель;
@@ -94,9 +97,10 @@ Scene/gameplay контекстом; отсутствие побочных де�
 
 Для IIP рассмотреть source-supported модель одного EngineTick
 с native key polling вместо отдельных input-thread callbacks/handoffs.
-Это выбор архитектурного кандидата, не доказательство совместного поведения:
-HildaSoftLight после коммита 4e0fe21 ещё не прошёл runtime-тест нового
-пути. Подтвердить актуальные UFunctions/ввод и выполнить собственный
+HildaSoftLight впоследствии выполнил один длительный игровой прогон этого
+пути, но его результат не доказывает поведение нового IIP-кандидата,
+отсутствие сторонних перехватов или взаимное исключение двух тюнеров.
+Подтвердить актуальные UFunctions/ввод и выполнить собственный
 ограниченный игровой тест перед приёмкой.
 Поддержать явный STOP/cleanup и проверку утраты игрового контекста;
 при проблеме оставить оригинальный prompt рабочим.
