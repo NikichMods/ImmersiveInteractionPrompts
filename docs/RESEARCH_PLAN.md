@@ -1,5 +1,55 @@
 # План исследования — contextual prompts и письменность
 
+## Production transition — next bounded slice, 2026-11-05
+
+[Production source/evidence audit](STATUS.md#production-readiness--sourceevidence-audit-2026-11-05)
+completed remotely on compact-layout branch, without Codex, host changes or new
+runtime claims. The accepted visual research baseline remains frozen. **Do not
+continue appearance tuning, glow/gamma work or optional scale.** This is an
+integration/lifecycle problem, not a rendering blocker.
+
+**Next ChatGPT-owned source-only slice:** determine the smallest
+production-compatible acquisition/selection mechanism that starts in normal
+gameplay without Ctrl+Alt+F11 + manual reload, follows the *currently active*
+context prompt, and can release or switch own World UI between eligible actors
+without modifying native interaction semantics. Before implementation, compare
+the established BeginPlay actor/component/widget join, CanShow post, native
+visibility and any other already documented owner/event seams in this repo and
+[Asterigos-Research](https://github.com/NikichMods/Asterigos-Research/blob/main/docs/RESEARCH_INDEX.md).
+Identify who chooses the currently displayed target, when it is valid and how
+loss/replacement/map travel are distinguished. A callback name existing is not
+proof it identifies the active target; no fuzzy actor scans or per-frame UObject
+enumeration by default. First choose a bounded supported interaction family;
+generalize only to independently evidenced adjacent families.
+
+**Decision/acceptance boundary before new behavior:** specify whether the
+production presentation is World-only with vanilla Screen fallback or another
+explicitly accepted approach; current research deliberately shows both. Do not
+hide the native TipHUD as an incidental implementation detail. The upper
+technical `OPEN` glyph must also be addressed before multi-action claims;
+lower text continues to come from the actual localized native label, and an
+invented top glyph must never be called a verified translation.
+
+**First exit gate:** evidence-backed owner/state design with explicit source
+locations, observed versus unknown transitions and a minimal safe implementation
+slice. If existing source evidence suffices, implement the own-code portion in a
+new research/development branch with targeted offline tests and frozen candidate
+identity. If a particular native transition cannot be established without the
+installed host, prepare **one narrow user-started local Codex read-only task**
+for only that gap; do not hand off the whole coding/audit job. No installation,
+automatic run, hot reload, save/settings changes, main merge or VERSION release
+until relevant user authorization and game acceptance.
+
+**After the mechanism is proven:** extend supported action types and candidate
+selection only as evidence warrants; test target switching, level/load lifecycle,
+native input/remap and locale, viewport readability and fallback. In parallel,
+plan original-code distribution around the non-redistributable game font and
+private absolute paths; ship no proprietary host asset. Decide explicit
+support envelope and user visual/behavioral acceptance before promotion.
+Optional generalized compatibility/extra settings and renewed color diagnosis
+remain deferred. Do not manufacture a release candidate before the actual
+integration source is READY.
+
 ## Compact-прогон завершён; текущая база обновлена — 2026-11-05
 
 [Сближение/hide-resume/manual STOP PASS](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
