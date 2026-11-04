@@ -1,10 +1,61 @@
 # World style editor — divider weight, button row, brightness comparison
 
-**2026-11-04: READY_SOURCE / INSTALLED; new style/color rendering pending. Production BLOCKED.**
+**2026-11-04: USER_ACCEPTED_RESEARCH / probe DISABLED. Production BLOCKED.**
 Successor to source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` in
 [expanded editor](../live-editor-expanded/README.md). Exact bytes:
 [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json), identified by its containing commit.
 Earlier sources remain frozen; VERSION unchanged, no main/release promotion.
+
+## Accepted research result and recorded values — 2026-11-04
+
+User reports all requested controls worked and accepts the prototype as successful,
+with remaining visual polish. This accepts this research stage on source
+`da830808912b38527fb5088a6543d6a070b5f3f7`, not a production/main/release promotion or
+blanket lifecycle/remapping/type/language/GC acceptance. Work stops here by request.
+
+Exact installed11-file identity matched before archiving. Log: first SHOWN
+18:54:41.3055458 → last SHOWN19:05:45.0532994 Moscow (~663.748s),10 hidden/resume
+returns,11 shown,20 source binds,589 successful layout records,5 recoverable edit
+rejections and2 explicit VALUES. No IIP FAILED/STOP/CLEANED. Host exited normally
+19:05:51.6474755; explicit manual STOP was not exercised in this run and is not
+retroactively claimed. Prior successful cleanup evidence remains separate.
+User frame corroborates the World composition/native Screen coexistence.
+
+NumPad9 VALUES lines1272/19:02:56.5462531 and1443/19:05:13.8033591 exist. Latest
+set matches the last layout. saved=false correctly means log-only, not a game or
+mod settings file. The following is the recorded research/resume baseline, not a
+silently finalized aesthetic or rewritten immutable source default:
+
+| Parameter | Latest recorded value |
+| --- | --- |
+| Upper / lower font |52 /30|
+| Upper tracking |400|
+| Upper / lower outline |3 /3|
+| Vertical gaps |2|
+| Divider Y / length / thickness / opacity |0 /300 /2.5× /1|
+| Button height / relative gap / Y from divider |54 /12 /−3|
+| Upper / lower / divider / button brightness |.7 /.4 /1 /.5|
+
+Archived privately under ignored runtime-20261104T160838Z: log SHA256
+`f9928b5c4f697fab6ece7211140b16beeff09d1d282bcad653056b3fe4f52d95`,
+user PNG SHA256 `3dc419722ff002faac085984f1b53f11c5e1ff9328944ac5942fe492b72cb108`.
+After exit, only the exact own empty enabled.txt was backed up and removed with
+closed-host/payload checks. All IIP probes are disabled; source/config and rollback
+retained.103 other current mod/loader/log and47 config/save files hash-preserved.
+No native cleanup execution is inferred from this marker-only closure.
+
+### Deferred by explicit user request
+
+- Divider is currently the imported stock570×16 ornament texture. A **new, better
+  authored/generated divider texture** is a separate future assignment. Record
+  the idea only: do not generate/rework a texture or start another candidate now.
+- Unexplained halo and washed-out/faded glyphs/F remain undesirable. Brightness
+  controls demonstrated useful tuning but did not establish a cause or a true
+  independent glow/contrast correction. Do not treat the user's overall success
+  as acceptance of that issue; no new investigation or compensation now.
+
+No further active test, new source work, installation, main merge, VERSION bump
+or release is authorized by this stage-closing acceptance alone.
 
 ## Authorized installation — 2026-11-04
 

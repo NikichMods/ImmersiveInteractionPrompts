@@ -1,5 +1,29 @@
 # Verified Runtime — Interaction Prompts
 
+## Style runtime — user accepted research stage; stopped here, 2026-11-04
+
+[Exact identity, log/frame hashes and logged settings](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#accepted-research-result-and-recorded-values--2026-11-04).
+Source da830808912b38527fb5088a6543d6a070b5f3f7/11 installed hashes matched.
+First→last SHOWN~663.748s;10 hidden/resume returns,20 source binds,589 layout,
+5 safe edit rejections,2 explicit VALUES. No IIP FAILED/STOP/CLEANED; normal host
+exit19:05:51 Moscow, manual STOP not demonstrated in this run. User confirms
+controls/rendering worked and considers the research prototype successful while
+remaining dissatisfied with divider artwork and unexplained glow/faded letters/F.
+This is narrow research/UX acceptance, not production or complete lifecycle proof.
+
+Latest NumPad9 at19:05:13.8033591: fonts52/30, tracking400, outlines3/3, gap2;
+dividerY0/length300/thickness2.5/opacity1; hint54/gap12/Y−3; brightness.7/.4/1/.5
+(upper/lower/divider/hint). Values preserved in report, immutable source defaults
+unchanged. saved=false is expected log-only output. Frame and raw log remain private.
+Only verified own empty marker removed closed-game after archiving, all IIP disabled;
+103 other mod/loader/log and47 config/save files hash-preserved. Payload/rollback
+retained, no source/game/settings/save change or game process control.
+
+Next work explicitly deferred: separate better divider texture generation task;
+unresolved halo/brightness/fidelity mechanism. Neither is implemented/investigated
+further here. Source/offline318/23 result remains; no new executable changes/tests.
+
+
 ## Style editor installed — 2026-11-04, new appearance pending
 
 Source `da830808912b38527fb5088a6543d6a070b5f3f7` installed with host closed.

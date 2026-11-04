@@ -1,5 +1,21 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — USER_ACCEPTED_RESEARCH; этап завершён, probe DISABLED.**
+[Принятый результат и точные17 параметров](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#accepted-research-result-and-recorded-values--2026-11-04).
+Source `da830808912b38527fb5088a6543d6a070b5f3f7`; пользователь подтверждает работу
+и успешность прототипа, с оставшейся визуальной полировкой. Лог без IIP FAILED:
+10 возвратов,589 layout,5 recoverable rejection,2 NumPad9. Последняя запись
+19:05:13 совпадает с последним layout; сохранена как research/resume baseline.
+Manual STOP в этом сеансе не выполнен, не объявлять его PASS. При закрытой игре
+снят только собственный marker; исходники/config/откат сохранены, все IIP-пробы
+отключены.103 других mod/loader/log и47 config/save файлов хэш-сохранены.
+Новая текстура разделителя — отдельное будущее задание, сейчас только записать.
+Непонятный ореол/блеклость/F — открытый нежелательный вопрос, не решённый яркостью.
+Дальнейшая работа остановлена по запросу. Production BLOCKED, VERSION/main/релизы
+не менялись; принятие research-этапа не является разрешением на stable promotion.
+
+## История выполненных шагов
+
 **2026-11-04 — style-кандидат INSTALLED, новый визуальный тест PENDING.**
 Source `da830808912b38527fb5088a6543d6a070b5f3f7`, own WorldStyleProbe;
 [идентичность и сценарий](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#authorized-installation--2026-11-04).

@@ -6,7 +6,7 @@ Contextual world-object prompts will gain a visually prominent upper line in fit
 
 Examples: pick up, open, read, descend; other context actions only when supported by the verified presentation path.
 
-**Status: research; production gate BLOCKED. No production build or release exists.** Native Aphes text through a private transient UFont passed OPEN→READ and manual cleanup in one TipHUD prompt, with user visual confirmation. The probe is disabled. Composition, wider lifecycle/compatibility and production action mapping remain open. Native-array observation/UEPseudo work stays deferred; technical glyph strings are not verified Aphes translations.
+**Status: user-accepted research prototype; production gate BLOCKED. No production build or release exists.** One World-space Open prompt with native Aphes header, ornament, localized action, current input hint and live editor completed its research stage on2026-11-04. The probe is disabled. [Result and recorded settings](research/interaction-prompts-owner/world-space/live-editor-style/README.md) preserve the exact source and remaining questions: better divider artwork, unexplained halo/faded appearance, wider action/lifecycle/compatibility support. Technical glyph strings are not verified Aphes translations.
 
 - [Requirements](docs/REQUIREMENTS.md)
 - [Status](docs/STATUS.md)
