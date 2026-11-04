@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — visual glow acceptable / color correction DEFERRED; next: compact layout.**
+[Принятое решение и границы следующего кандидата](REQUIREMENTS.md#визуальная-допустимость-свечения-и-приоритет-компактности--решение-2026-11-05).
+Текущий World-space вид со слабым свечением пользователь считает визуально
+допустимым; корневая причина блеклости/ореола неизвестна, эффект не объявлен
+намеренным. Не тратить сейчас дополнительные циклы Codex на gamma/sRGB/материалы/
+постобработку. Следующий source-only research successor — сблизить вертикальные
+строки и разделитель с учетом прозрачных полей PNG256×32 и реальных видимых
+границ, сохранить проверку пересечений и rollback; взять принятые17 NumPad9
+значений из REQUIREMENTS. Общий масштаб — лишь при простом и доказанном
+механизме, иначе отложить. Source51b9f26, существующая установка, manifest,
+VERSION/main и прочие моды без изменений; production BLOCKED. Новая ветка/
+кандидат/установка в этом статусном решении ещё не созданы.
+
 **2026-11-05 — diagnostic snapshot и явный NumMultiply STOP PASS.**
 [Сеанс source51b9f26, поля снимка, точный лог и границы](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#user-run--snapshot-and-manual-stop-pass-2026-11-05).
 13 installed hashes совпали; снимок один,4 scope, complete=true. Own1024×512:
