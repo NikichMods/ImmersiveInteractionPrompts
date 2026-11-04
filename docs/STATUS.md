@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — первый editor run: короткий показ, visibility STOP; successor READY_SOURCE.**
+[Фактический результат](../research/interaction-prompts-owner/world-space/live-editor/README.md#first-user-run--brief-appearance-one-shot-visibility-stop-2026-11-04):
+ожидаемая надпись появилась, через~0.944s old visible-Screen guard окончательно
+остановил пробу; таймер не сработал.56 frame-Yaw writes, editor/current-key audit,
+private font/PNG/layout прошли до остановки; loop/resource/native cleanup CLEANED.
+Полная визуальная приёмка/тюнинг не состоялись. Причина самого изменения native
+visibility неизвестна; одноразовая STOP-политика объясняет невозврат при refocus.
+[Новый session source](../research/interaction-prompts-owner/world-space/live-editor-session/README.md)
+сохраняет ту же композицию и настройки при обычном скрытии/повторном показе того же
+сундука. Таймеры и счётные лимиты теста сняты по прямому указанию пользователя;
+identity/resource/STOP/cleanup guards сохранены. Полная offline suite301/21 PASS;
+actual hide/resume и новый игровой тест ещё не приняты, production BLOCKED.
+
+
 **2026-11-04 — World editor candidate INSTALLED, RUNTIME_PENDING.**
 По прямому разрешению пользователя при закрытой игре установлен source
 `c2e36f90d82540bd3e23f25648e16a54c53699b8` в новый WorldEditorProbe.

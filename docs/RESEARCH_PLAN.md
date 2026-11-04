@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий этап — повторяемый session-кандидат без тестовых дедлайнов
+
+2026-11-04: первый полный editor source показался на~0.944s и завершился на
+ordinary visibility guard, не таймере; очистка подтверждена логом. Повторять
+одноразовую пробу незачем. [Новый источник](../research/interaction-prompts-owner/world-space/live-editor-session/README.md)
+проверен offline301/21: own hidden→warm→shown, те же ресурсы и параметры, без
+временных/счётных STOP. Дальше — закрытая безопасная установка нового exact source,
+отключение старой own-пробы с rollback; пользователь сам запускает игру и проверяет
+несколько уходов/возвратов к тому же сундуку, затем спокойно настраивает и явно
+останавливает NumMultiply. Actual recurring visibility/render/controls остаются
+непроверенными; никакого production/main/release продвижения до приёмки.
+
+
 ## Текущий handoff — World editor установлен, ожидается пользовательский прогон
 
 2026-11-04: source `c2e36f90d82540bd3e23f25648e16a54c53699b8`, installed hashes и

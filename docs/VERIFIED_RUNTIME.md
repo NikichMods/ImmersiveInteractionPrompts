@@ -1,5 +1,29 @@
 # Verified Runtime — Interaction Prompts
 
+## First World editor run / recurring-session source — 2026-11-04
+
+[Exact first-run evidence](../research/interaction-prompts-owner/world-space/live-editor/README.md#first-user-run--brief-appearance-one-shot-visibility-stop-2026-11-04).
+Installed source c2e36f9 and11 hashes unchanged. User saw expected inscription;
+composition16:19:39.0474837 → visibility guard16:19:39.9911388 Moscow (~0.944s).
+56 vertical-yaw writes, font/donor/PNG/layout and native50-key/editor audit passed.
+Loop cancelled, own references/children released, native component destroyed,
+CLEANED16:19:40.0084476. No timer expiration, tuning action or manual STOP observed.
+Exact changed visibility field/movement not identified; no crash/cleanup failure
+in this IIP sequence. Log SHA25690a5b5bc868b0610aae77afc96655406fb50dc56688544872cf671f0db847e83,
+archived locally under runtime-20261104T132320Z. This is partial runtime evidence,
+not sustained combined rendering/controls/UX acceptance.
+
+[Successor](../research/interaction-prompts-owner/world-space/live-editor-session/README.md):
+READY_SOURCE, no test timers/count ceilings; same selected actor/component/font/
+ornament retained while hidden, borrowed hint cleared/re-sampled before showing.
+Original normal visibility/fade is presentation, native identity/resource failures
+remain terminal. Current50-key audit/input controls/material/RT/anchor unchanged.
+301 tests/21 files PASS including11 actual lifecycle regression groups; byte-equal
+resource/panel/tuning/input modules reuse previous checks. Offline models do not
+prove recurring native hide/show. Next sufficient evidence is one user-run repeated
+focus-away/return and untimed tuning session on the same chest; production BLOCKED.
+
+
 ## World editor — authorized installation only, 2026-11-04
 
 Source `c2e36f90d82540bd3e23f25648e16a54c53699b8` installed with host closed after

@@ -8,6 +8,24 @@ that manifest is the candidate's Git identity; VERSION remains 0.1.0 metadata.
 The frozen manifest describes the original source-only handoff; the subsequent
 authorized installation is recorded below. No release or runtime acceptance exists.
 
+## First user run — brief appearance, one-shot visibility stop, 2026-11-04
+
+Exact installed source `c2e36f90d82540bd3e23f25648e16a54c53699b8` and11 installed
+hashes match. User reports the expected inscription appeared briefly then vanished
+and could not return. Log lines889–904: original visible-Screen guard failed
+16:19:39.9911388 Moscow, approximately0.944s after composition creation; not45s
+or120s timeout. Loop cancellation, resource release, native component destruction
+and CLEANED16:19:40.0084476 all completed without cleanup failure.56 frame-Yaw
+writes, layout/import/private font donor check and editor/current50-key audit
+were reached. No actual tuning actions/manual STOP or sustained rendering accepted.
+Exact field/camera movement behind the visibility change is not established.
+Archived log SHA256 `90a5b5bc868b0610aae77afc96655406fb50dc56688544872cf671f0db847e83`,
+ignored `.local/research/interaction-prompts/world-space/live-editor/runtime-20261104T132320Z`.
+The one-shot STOP policy explains why later refocus could not recreate the prompt.
+User adopts an unlimited same-target session with reversible hide/show;
+[successor source and verification](../live-editor-session/README.md). Original
+source/manifest below are frozen history, not a claim that its behavior was accepted.
+
 ## Authorized installation — 2026-11-04
 
 At16:08:49 Moscow, with host verified absent, exact source

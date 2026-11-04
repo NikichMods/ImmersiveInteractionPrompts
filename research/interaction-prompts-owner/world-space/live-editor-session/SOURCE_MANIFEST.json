@@ -1,0 +1,24 @@
+{
+  "status": "READY_SOURCE",
+  "installation": "NOT_INSTALLED",
+  "base_commit": "a7d00873badceef21c6d0886cc0435138d7b8adc",
+  "predecessor_source": "c2e36f90d82540bd3e23f25648e16a54c53699b8",
+  "branch": "research/interaction-prompts-owner",
+  "session": "same-target-reversible-visibility-no-test-deadlines",
+  "files": {
+    "Scripts/IIPComposition.lua": "0b5667961b83725bee4b03b22bed614d6bc0ca41f5091f990071d12013988b53",
+    "Scripts/IIPHintSource.lua": "1881c7a69beb69a40bf99cc7cb29ec763b4609c1877161aaf0e8ddc15b1e431b",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "3e08b17e09182e3f5886b98effd59cf97da97484bb676579c833fc3125f3756a",
+    "Scripts/IIPTuning.lua": "841da144952c9939539f081da3f03c2c3b92deee170c49f8b775b8f5aea486a3",
+    "Scripts/IIPWorldChild.lua": "a0f81deff3a30d4ef3c61584ca33ccaadba9a7824b3bb5840c1da34ee6d6150a",
+    "Scripts/main.lua": "d47346b669396bf4f18c961148dd1acd89c0a4f5e8ee344f2528ddafb690b0ed",
+    "IIPLiveConfig.example.lua": "155871bad3a8e8fe30f53401b2a5f21fffbdfe3208fe2140111c8c86834dddbd"
+  },
+  "external_resource_sha256": {
+    "Aphes.ttf": "443fcae9fd3d3588a259d6c7746145b6c2a343cfb0c2f572fb330234c0f90ed0",
+    "ele_loctitleline.png": "901b72602a69a535e6a3d54bce2a13f18d0badc20d59abfca351eec70161e668"
+  }
+}
