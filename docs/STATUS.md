@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — World editor candidate INSTALLED, RUNTIME_PENDING.**
+По прямому разрешению пользователя при закрытой игре установлен source
+`c2e36f90d82540bd3e23f25648e16a54c53699b8` в новый WorldEditorProbe.
+[Установка и короткий сценарий](../research/interaction-prompts-owner/world-space/live-editor/README.md#authorized-installation--2026-11-04).
+Девять Lua source/installed SHA256 совпали, private config и own empty enabled
+проверены;17 прежних IIP-проб отключены.63 прежних mod/loader/log и42 config/save
+файла сохранены и хэш-проверены. Rollback вне loader. Игра не запускалась и не
+завершалась агентом; hot reload не выполнялся. Source/guards/бюджеты неизменны.
+Далее пользовательский45s run: Ctrl+Alt+F11 → один reload/Open → NumPad → Num9 →
+NumMultiply. Штатный Screen prompt остаётся видимым; HildaSoftLight editor закрыт.
+Installation PASS не означает runtime/visual acceptance; production BLOCKED.
+
+
 **2026-11-04 — полный World prompt + live editor: READY_SOURCE, NOT_INSTALLED.**
 [Кандидат, source manifest, setters/ownership и короткий будущий тест](../research/interaction-prompts-owner/world-space/live-editor/README.md).
 Один собственный World-компонент: Aphes OPEN, stock ornament, актуальное прочитанное

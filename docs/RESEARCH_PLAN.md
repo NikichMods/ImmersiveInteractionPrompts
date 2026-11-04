@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий handoff — World editor установлен, ожидается пользовательский прогон
+
+2026-11-04: source `c2e36f90d82540bd3e23f25648e16a54c53699b8`, installed hashes и
+безопасность установки подтверждены; код/сроки не менялись.
+[Установка, rollback и сценарий](../research/interaction-prompts-owner/world-space/live-editor/README.md#authorized-installation--2026-11-04).
+Достаточно одного natural Open: NumLock on, HildaSoftLight editor закрыт;
+Ctrl+Alt+F11 → один reload → подойти к Open → Num6/7, Num2/6, Num9 → Num0,
+Ctrl+Alt+F11 → NumMultiply до45s timeout. Штатная Screen-подсказка остаётся.
+Затем агент читает/архивирует доступный локальный лог и сопоставляет source/installed
+identity; пользователь сообщает визуальный результат. До этого не готовить новую
+пробу и не считать установку runtime-приёмкой.
+
+
 ## Текущий этап — World prompt + live editor подготовлен source-only
 
 **2026-11-04: READY_SOURCE, NOT_INSTALLED; runtime и production BLOCKED.**

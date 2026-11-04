@@ -1,11 +1,34 @@
 # World prompt + live editor — source-only research candidate
 
-**2026-11-04: READY_SOURCE / NOT_INSTALLED / RUNTIME_PENDING. Production BLOCKED.**
+**2026-11-04: source READY_SOURCE; authorized installation PASS / RUNTIME_PENDING. Production BLOCKED.**
 One candidate on `research/interaction-prompts-owner`, based on
 `9d8ad982a680d275a80c1ead0005fb0dbe6a9581`. Exact source bytes and external resource
 identities: [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json). The commit containing
 that manifest is the candidate's Git identity; VERSION remains 0.1.0 metadata.
-There is no new enabled marker, installed payload, release or runtime acceptance.
+The frozen manifest describes the original source-only handoff; the subsequent
+authorized installation is recorded below. No release or runtime acceptance exists.
+
+## Authorized installation — 2026-11-04
+
+At16:08:49 Moscow, with host verified absent, exact source
+`c2e36f90d82540bd3e23f25648e16a54c53699b8` was installed under the new
+`ImmersiveInteractionPromptsWorldEditorProbe`. Nine Lua source/installed hashes
+match SOURCE_MANIFEST; private IIPLiveConfig.lua SHA256
+`7cfb0566b1142060b309142bba678adcc53ec2041af3955aeec1efda35e55b9b` plus empty
+enabled.txt verified,11 files total.17 older IIP probes stay disabled.
+Existing63 mod/loader/log files and42 config/save files were backed up and
+hash-preserved; mods.txt/other mods/pinned loader unchanged. TTF/PNG match
+manifest hashes and remain external. Private pretest logs, backups, before/installed/
+verified manifests and guarded rollback are under ignored
+`.local/research/interaction-prompts/world-space/live-editor/install-20261104T130849Z`.
+Rollback syntax passed; not executed. It disables only this exact own marker with
+closed-host/path/hash checks, retaining source files. No game launch/termination,
+hot reload, source/guard/deadline or save/settings changes. Runtime pending.
+
+Next: user launches normally, NumLock on and HildaSoftLight editor closed;
+Ctrl+Alt+F11 → one manual reload → approach natural Open → tune/log/close/reopen →
+NumMultiply before the retained45s timeout. The numbered procedure below is the
+prepared user-run scenario, now authorized for this installed exact source.
 
 ## Question and sufficient result
 
@@ -143,11 +166,10 @@ full output remains ignored under `.local/live-editor-all-tests.txt`.
 These tests establish source policy and mocked integration, **not native Slate
 measurement, rendering, keyboard capture, GC or visual acceptance**.
 
-## Next sufficient runtime step — separate permission required
+## User-run scenario for the installed candidate
 
-No installation/launch/termination/hot reload was performed. A future authorized
-installation must verify closed host, source manifest, private resource hashes,
-rollback outside loader paths and installed hashes; leave older IIP probes disabled.
+The authorized installation is complete as recorded above. The user launches the
+game; no agent launch/termination/hot reload was performed. Older IIP probes remain disabled.
 
 1. With HildaSoftLight editor closed and NumLock on, Ctrl+Alt+F11, one manual
    reload, approach one natural Open. Original Screen prompt must remain visible;

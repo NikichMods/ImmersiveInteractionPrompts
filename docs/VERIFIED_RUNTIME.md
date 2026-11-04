@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## World editor — authorized installation only, 2026-11-04
+
+Source `c2e36f90d82540bd3e23f25648e16a54c53699b8` installed with host closed after
+explicit authorization. [Exact installation record](../research/interaction-prompts-owner/world-space/live-editor/README.md#authorized-installation--2026-11-04).
+Nine authored Lua hashes match SOURCE_MANIFEST; private config and empty own
+marker verified (11 installed files).17 prior IIP probes disabled,63 prior
+mod/loader/log and42 config/save files unchanged by hash. Pinned UE4SS DLL and
+external TTF/PNG hashes match. Backup/guarded marker-only rollback outside loader;
+rollback syntax verified, rollback not executed. No source change, host launch,
+termination, settings/save change or hot reload. Runtime controls, combined
+rendering/cleanup and user acceptance remain pending; production BLOCKED.
+
+
 ## World composition + editor — source/offline only, 2026-11-04
 
 **READY_SOURCE / NOT_INSTALLED / RUNTIME_PENDING; production BLOCKED.**
