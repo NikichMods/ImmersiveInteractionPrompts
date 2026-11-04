@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Compact successor installed — native run pending, 2026-11-05
+
+Source `2981375afadb968fb272eeab33aab8d384e639ef`, separate own CompactLayoutProbe;
+[installed identity and limits](../research/interaction-prompts-owner/world-space/compact-layout/README.md#authorized-installation--2026-11-05).
+Closed-host installation authorized by the task correction,12 files hash-verified,
+22 old IIP probes disabled by switching only own activation flags. Old51b9f26
+non-marker payload/config unchanged;115 other mod/loader/log and46 config/save
+files preserved. External rollback prepared, syntax checked. No process control,
+hot reload or native test; compact rendering/input/STOP await one user session.
+
 ## Compact layout — source readiness, runtime pending, 2026-11-05
 
 [Exact candidate/gate/source contracts and procedure](../research/interaction-prompts-owner/world-space/compact-layout/README.md).

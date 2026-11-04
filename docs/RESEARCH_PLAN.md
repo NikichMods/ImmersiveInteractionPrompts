@@ -2,10 +2,15 @@
 
 ## Подготовлен compact-layout — 2026-11-05
 
+Source2981375 уже установлен по поправке пользователя;
+[identity/rollback](../research/interaction-prompts-owner/world-space/compact-layout/README.md#authorized-installation--2026-11-05).
+Следующий шаг — один пользовательский run, дополнительных исходников/установки
+до фактического результата не требуется. Новый runtime/визуальный PASS не заявлен.
+
 [READY_SOURCE и сценарий](../research/interaction-prompts-owner/world-space/compact-layout/README.md):
 alpha-envelope + полные native text metrics, gap0, прежний отказ на−3 снят,
-реальные пересечения/bounds и rollback сохранены. Full345/25 PASS. Далее
-разрешённая пользователем безопасная установка и один run для сближения/
+реальные пересечения/bounds и rollback сохранены. Full345/25 PASS. Установка
+выполнена; далее один run для сближения/
 hide-show/Num9/NumMultiply. Масштаб не задерживает этап и отложен; цветовая
 ветка закрыта по принятому визуальному решению, не повторять снимок/A-B.
 

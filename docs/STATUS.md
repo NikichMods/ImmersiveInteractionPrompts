@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — compact-layout INSTALLED, RUNTIME_PENDING.**
+Source `2981375afadb968fb272eeab33aab8d384e639ef`
+[установлен после пользовательской поправки](../research/interaction-prompts-owner/world-space/compact-layout/README.md#authorized-installation--2026-11-05).
+12 installed hashes проверены; включён только CompactLayoutProbe,22 прежние
+IIP-пробы отключены. У старого51b9f26 изменён только activation marker: Lua/PNG/
+private config/source/manifest сохранены.115 других mod/loader/log и46 config/
+save файлов хэш-сохранены, внешний rollback подготовлен; игра закрыта и не
+запускалась/не завершалась агентом. Далее один пользовательский Open/run для
+gap0/divider_y ниже−2, реального overlap rejection, hide/show, Num9 и NumMultiply.
+345/25 offline PASS не заменяют игровой приёмки; VERSION/main прежние.
+
 **2026-11-05 — compact-layout READY_SOURCE, NOT_INSTALLED.**
 [Кандидат, evidence-gate, manifest и один будущий run](../research/interaction-prompts-owner/world-space/compact-layout/README.md).
 Ветка research/compact-world-layout от f2bc83d; source51b9f26/его установка

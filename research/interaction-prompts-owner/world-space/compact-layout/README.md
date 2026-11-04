@@ -1,6 +1,6 @@
 # Compact World layout — research successor
 
-**2026-11-05: READY_SOURCE / NOT_INSTALLED / RUNTIME_PENDING.**
+**2026-11-05: READY_SOURCE / INSTALLED / RUNTIME_PENDING.**
 Candidate ID `compact-world-layout-20261105`, branch `research/compact-world-layout`.
 Base `f2bc83d76804b1085f4f9faebd70544e27188869`; frozen predecessor source
 `51b9f265c8b6d6b79ff48513a51a84087eeee6be` in
@@ -101,6 +101,27 @@ state. Independent alpha/text interval checks cover accepted/rejected layouts
 over font/outline/length/thickness/gap/offset boundaries. Old source/manifest and
 unchanged resource seams are hash-checked; mocks are not native rendering proof.
 Full log is ignored at `.local/compact-layout-all-tests.txt`.
+
+## Authorized installation — 2026-11-05
+
+User's task correction authorized immediate installation after preparation.
+Exact source `2981375afadb968fb272eeab33aab8d384e639ef` installed at02:04 Moscow
+(`install-20261104T230433Z`, UTC archive identity) in own separate
+`ImmersiveInteractionPromptsCompactLayoutProbe`. All12 installed hashes verified:
+nine Lua, authored PNG, private config, own empty enabled marker. Config SHA256
+`392119383062c42068d76eae45ee0fc90a4e02ed46e99f33757c59b85632f46c`.
+PNG remains the exact approved SHA; config points to its installed copy and the
+existing private Aphes.ttf. Source manifest remains frozen at READY_SOURCE.
+
+Only activation flags were switched: old DividerColorProbe enabled.txt archived
+and removed; new marker enabled. All22 prior IIP probes are now disabled. The
+predecessor's ten Lua/PNG/private config (all12 non-marker files) remain byte-for-
+byte unchanged, as do its source and manifest.115 other mod/loader/log files
+and46 Config/SaveGames files are hash-preserved; backups/rollback are outside
+loader in the ignored installation archive. Rollback syntax checked, not run;
+it disables the new marker and re-enables the exact old payload after hash checks.
+No game launch/termination/hot reload or foreign-mod/settings/save edits occurred.
+Installation PASS does not prove native compact layout or this candidate's cleanup.
 
 After authorized closed-host installation with exact hashes and external rollback,
 one user-started run: close HildaSoftLight editor; Ctrl+Alt+F11 → one manual reload
