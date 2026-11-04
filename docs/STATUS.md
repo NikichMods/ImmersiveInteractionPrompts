@@ -1,5 +1,21 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — узкий color-pipeline audit COMPLETE, source-only; no fix or game changes.**
+[Техническая проверка, версионные источники, неопределённости и следующий
+минимальный шаг](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#color-pipeline-audit--2026-11-04-source-only-no-runtime-writes).
+Проверены native Retainer gamma/alpha, собственная UMG-композиция, создание
+RT через UWidgetComponent и эффективный stock Masked material против исходников
+UE4.27. Явно неверного переключателя гаммы/двойного умножения alpha не найдено;
+actual World RT SRGB/format/TargetGamma, финальный cooked material graph и
+scene/postprocess output не доказаны. HDR/Emissive остаётся обоснованной
+гипотезой, но не установленной причиной засветки. Gamma/tint/материал
+наугад не менять; повторять A/B Masked↔Translucent не нужно. Следующий
+достаточный шаг только при отдельном продолжении — user-started local Codex
+read-only inspection **сохранённых** логов/UHT/cooked metadata; runtime
+capture лишь если необходимых полей нет и после отдельного разрешения.
+Старый accepted Style source, marker DISABLED, production BLOCKED и отдельная
+задача художественного divider без изменений.
+
 **2026-11-04 — USER_ACCEPTED_RESEARCH; этап завершён, probe DISABLED.**
 [Принятый результат и точные17 параметров](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#accepted-research-result-and-recorded-values--2026-11-04).
 Source `da830808912b38527fb5088a6543d6a070b5f3f7`; пользователь подтверждает работу
