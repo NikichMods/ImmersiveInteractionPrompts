@@ -1,5 +1,23 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — полный World prompt + live editor: READY_SOURCE, NOT_INSTALLED.**
+[Кандидат, source manifest, setters/ownership и короткий будущий тест](../research/interaction-prompts-owner/world-space/live-editor/README.md).
+Один собственный World-компонент: Aphes OPEN, stock ornament, актуальное прочитанное
+локализованное действие и read-only native hint; отдельная экранная панель с10
+относительными настройками. Ctrl+Alt+F11 — arm/toggle; NumPad только при открытой
+панели, Num9 — лог без файла, NumMultiply — полный STOP. Собственный layout сохраняет
+настроенный размер при смене native source. Frame-Yaw без углового порога, native
+cleanup, прежние guards/бюджеты и исходный Screen TipHUD сохранены.
+Полная offline suite:290 тестов/20 файлов, PASS; это не игровая приёмка.
+Native input/source contracts и игровые ресурсы проверены по имеющимся источникам;
+runtime-аудит текущих mapping/registry и новый игровой прогон ещё не выполнены.
+Одновременные редакторы IIP/HildaSoftLight не поддерживаются. Причина бледного
+World-hint неизвестна, gamma/tint/material не подбирались. VERSION/main/релизы и
+установленная игра не менялись. Следующий достаточный шаг — отдельно разрешённые
+безопасная установка и один45-секундный combined test; production остаётся BLOCKED.
+
+## История предыдущих этапов
+
 **2026-10-30 — выбран этап полной World-space композиции с live-тюнером; SOURCE NOT PREPARED.**
 [Принятая граница и UX](REQUIREMENTS.md#live-настройка-полной-world-space-композиции--решение-2026-10-30):
 четыре собственных элемента (Aphes, разделитель, текущая локализованная нижняя

@@ -1,5 +1,52 @@
 # Verified Runtime — Interaction Prompts
 
+## World composition + editor — source/offline only, 2026-11-04
+
+**READY_SOURCE / NOT_INSTALLED / RUNTIME_PENDING; production BLOCKED.**
+[Owning report](../research/interaction-prompts-owner/world-space/live-editor/README.md)
+and [exact SHA256 manifest](../research/interaction-prompts-owner/world-space/live-editor/SOURCE_MANIFEST.json).
+Base9d8ad982a680d275a80c1ead0005fb0dbe6a9581; candidate identity is the commit
+containing the manifest, with per-file hashes checked offline. No semantic version
+increase, installation, game launch/termination, hot reload or accepted-source rebuild.
+
+Source reuses private Template font/donor isolation, stock ornament import,
+separate World host, frame-Z-Yaw, native hint resource and delayed-loop cleanup.
+Installed UHT and retained UE4.27 TextBlock/SlateFontInfo/CanvasPanelSlot/InputCore
+sources support the exact typed setters.10 parameters change only four owned
+children; own prepass/desired extents gate fixed512×128 bounds. Lower GetText display
+value refreshes without hard-coded RU localization; only proven Open/Interact25
+binding is supported. FText namespace/history preservation is not claimed.
+Hint source refresh cannot reset own tuned size. No original TipHUD setters or
+shared resource mutations, no guessed gamma/tint/material corrections.
+
+A separate owned viewport editor uses Ctrl+Alt+F11 and panel-scoped native FKey
+held-edge NumPad polling in the existing frame loop. Registry/current50 keyboard
+mapping collisions fail closed; held-at-open keys seeded; no repeat/input consumption,
+focus/input-mode changes or automatic file writes. Installed HildaSoftLight uses
+matching native polling names and overlaps bare NumPad: simultaneous editors remain
+unsupported. No runtime registry/getter execution for this candidate is claimed.
+
+Full `python tools/test.py`: **290 tests across20 executable test files PASS**,
+including12 actual composition/World/panel/input policy tests and3 actual extracted
+resource tests. Mock coverage includes all controls, reset/steps, close/reopen and
+closed-panel inactivity, localization/resource changes with tuned-size persistence,
+invalid source/overflow, partial creation, release failure/retry, expired deadline,
+context loss and retired callback inertness. The actual new resource module checks
+font isolation/donor preservation and once-only import using existing mocks.
+Raw output `.local/live-editor-all-tests.txt`; local source audit records exact input
+hashes, no proprietary resources included in Git. Offline native APIs are mocked:
+combined engine rendering/Slate measurement, glyphs/fidelity, controls, occlusion,
+real cleanup/GC/full lifecycle and visual acceptance remain unverified.
+
+Next gate: separately authorize closed-host installation/rollback/hash verification,
+then one natural Open combined run using the report's short scenario. Original
+Screen prompt must stay visible. Existing45s World/120s outer/12000-frame and
+acquisition budgets unchanged. Do not repeat isolated1.0→1.5 or Masked→Translucent
+experiments. STOP cancels loop before releasing UI/resources and native component;
+failed release retains hidden holders for explicit cleanup retry.
+
+## История предыдущих этапов
+
 ## Own slot1.0→1.5 — bounded runtime/render and F7 PASS, 2026-10-30
 
 [Exact source9954b04, timestamps, log/frame hashes and limits](../research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).

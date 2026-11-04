@@ -1,5 +1,9 @@
 # World Aphes composition integration — BLOCKED on current input-hint reproduction
 
+**Superseded source status, 2026-11-04:** [one integrated World/editor candidate](../live-editor/README.md)
+is now READY_SOURCE, NOT_INSTALLED. The earlier report below remains historical;
+full World visual fidelity, combined runtime and production are still unaccepted.
+
 **Hint follow-up2026-10-30:** [partial runtime proof](../hint-mirror/README.md) of
 live retained MID/controller→keyboard F. Full visual equivalence remains OPEN:
 user saw small/faded/bluish output; no full cycle before visibility-guard stop.

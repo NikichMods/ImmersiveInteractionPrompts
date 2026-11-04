@@ -1,25 +1,29 @@
 # План исследования — contextual prompts и письменность
 
-## Следующий этап — единый research-only World prompt + live tuner (согласован)
+## Текущий этап — World prompt + live editor подготовлен source-only
 
-[Принятый UX и границы](REQUIREMENTS.md#live-настройка-полной-world-space-композиции--решение-2026-10-30):
-один собственный World WidgetComponent и четыре owned элемента (Aphes,
-разделитель, текущий localized action и live/native input hint), плюс отдельная
-временная viewport-панель параметров. Вход/выход IIP Ctrl+Alt+F11; обычный
-NumPad действует только во время редактирования. HildaSoftLight использует
-Ctrl+Alt+F10; оба одновременно открытых тюнера могут обработать одни клавиши.
-Не вводить cross-mod глобальное состояние/библиотеку без отдельного evidence gate.
+**2026-11-04: READY_SOURCE, NOT_INSTALLED; runtime и production BLOCKED.**
+[Один кандидат, exact manifest, подтверждённые setters и сценарий](../research/interaction-prompts-owner/world-space/live-editor/README.md).
+Вопрос source-интеграции закрыт на уровне исходников/offline-моделей: четыре own
+элемента, независимая панель,10 относительных параметров, current localized value
+и native hint refresh, frame-Yaw, отказоустойчивый cleanup и отсутствие original
+UI writes. Полная suite290/20 PASS не является доказательством отрисовки в игре.
+Причина голубоватого native World-hint открыта, компенсаций/новых A/B нет.
 
-Следующая достаточная работа локального Codex: восстановить реальный checkout,
-переиспользовать проверенные собственные UMG/font/PNG/World/Hint/cleanup seams,
-сначала установить точные setters и final-writer/containment, затем подготовить
-один минимальный source-only кандидат полной композиции с редактируемыми
-типографикой/интервалами/разделителем/размером кнопки и тестами отказов.
-Если отдельная регулировка технически BLOCKED, не заменять её опасным
-обходом и не блокировать готовые независимые параметры. Установку и игровой
-прогон согласовать отдельно. Старые size1.0→1.5 и Masked→Translucent
-сравнения не повторять; причина бледного World-icon остаётся неизвестной.
-Production, полный lifecycle и визуальная приёмка OPEN/BLOCKED.
+Следующий достаточный шаг требует отдельного разрешения: при закрытой игре
+установить exact candidate с rollback вне loader и installed hashes; затем один
+natural Open, Ctrl+Alt+F11/NumPad edit→log→close→reopen→NumMultiply cleanup в
+сохранённом45s бюджете. HildaSoftLight editor закрыт, NumLock включён; оригинальный
+Screen prompt виден и рабочий. Проверить четыре World элемента и actual native
+контроль/cleanup; device switch — если доступен в этом же ограниченном сценарии.
+Текущие mapping/registry проверяет кандидат fail-closed при открытии; raw polling
+двух редакторов registry не видит. Настройки не сохраняются автоматически.
+Нет разрешения на установку, запуск/закрытие игры или hot reload в этом source-only
+этапе. Более широкий lifecycle, типы действий, языки и окончательный дизайн —
+дальнейшие gates после фактического combined результата, не программа новых проб
+до него. Ни VERSION, ни main/релизы не изменять.
+
+## История предыдущих этапов
 
 ## Текущий результат — технический size-тест завершён
 
