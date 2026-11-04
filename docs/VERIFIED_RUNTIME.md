@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Authored divider + color snapshot successor — source-only, 2026-11-05
+
+[Candidate/manifest/one-session procedure](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md).
+READY_SOURCE, NOT_INSTALLED. Approved authored256×32 PNG replaces only own
+ornament import; full-envelope geometry uses32/256 with new300/1× defaults.
+One guarded visible-state readout attempts actual component/own RT/effective MID
+and same-session Retainer/Icon fields, with bounded readiness checks and no
+source mutation. Optional missing fields are UNAVAILABLE, RHI format UNKNOWN;
+ownership/SlateUI mismatches remain fatal. Offline333/24 PASS (15 new cases),
+frozen predecessor hashes retained. No new native import/render/color/STOP
+acceptance; no game/installation/settings/save/foreign-mod change. It prepares
+the missing metadata capture, not a gamma/material fix or stable promotion.
+
 ## Color archive coverage — read-only audit, 2026-11-04
 
 [Field/value matrix, evidence identities and minimal missing capture](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#local-archive-audit--2026-11-04-read-only).

@@ -1,0 +1,28 @@
+{
+  "status": "READY_SOURCE",
+  "installation": "NOT_INSTALLED",
+  "branch": "research/divider-color-snapshot",
+  "candidate": "divider-color-snapshot-20261105",
+  "base_commit": "7ff9d6eebfd678d7abada1f16d149e5e02c5ed99",
+  "predecessor_source": "da830808912b38527fb5088a6543d6a070b5f3f7",
+  "files": {
+    "Scripts/IIPColorSnapshot.lua": "d57c69b62cd431b6084b642e243c9abe63a6968661c08bef4db2be08c7237179",
+    "Scripts/IIPComposition.lua": "e6ed2793cc7bad06c914f422edda9b975148a7d803e09cba8fe21f1ddcfafac6",
+    "Scripts/IIPHintSource.lua": "8343bdf1efcb689a0a121719baa75d87a849e3d23f3a2164569542ca337a7b5e",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "e94f0c069b76b999acb104962604a0b99486c1516135609ea288804123f7d3c3",
+    "Scripts/IIPTuning.lua": "b5460cdbe6f5b519ad4a391c88b04e22df9cb1120376cea6efc8335d6af604fd",
+    "Scripts/IIPWorldChild.lua": "e9b9a2fe477411fcc293a2f107ea3dc405d7c511a73e8034dfedab1238a75312",
+    "Scripts/main.lua": "d47346b669396bf4f18c961148dd1acd89c0a4f5e8ee344f2528ddafb690b0ed",
+    "IIPLiveConfig.example.lua": "da9a1bac2e3d3fd3fdbb7c7ee91a9d914d249faf568dd8416cf40a4c1dfa9127"
+  },
+  "authored_asset": {
+    "path": "assets/dividers/aphes_divider_256x32.png",
+    "sha256": "b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969"
+  },
+  "external_resource_sha256": {
+    "Aphes.ttf": "443fcae9fd3d3588a259d6c7746145b6c2a343cfb0c2f572fb330234c0f90ed0"
+  }
+}

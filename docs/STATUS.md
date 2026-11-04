@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — authored divider + one color snapshot: READY_SOURCE / NOT_INSTALLED.**
+[Один новый кандидат, manifest и сценарий](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
+на ветке `research/divider-color-snapshot`, непосредственно после asset7ff9d6e
+и research audit adedeef; принятый Style da83080 не изменён. PNG256×32 с точным
+утверждённым SHA, старт length300/thickness1×, полный слот37.5; остальные15
+source-defaults Style сохранены. Диагностика один раз при ready-visible own RT:
+component/RT/MID и native Retainer/Icon, optional UNAVAILABLE, RHI UNKNOWN.
+Охранные ошибки identity/ownership остаются STOP. Full offline333/24 PASS,
+из них15 новых; это не native render/visual/cleanup acceptance. Прототип не
+установлен/не включён, игра и её окружение не менялись. Далее отдельно разрешённая
+closed-game установка с hash/внешним rollback и один пользовательский сеанс.
+Рисунок принят; World-прочтение/ореол/реальные метаданные ещё не проверены.
+Production BLOCKED, VERSION/main/releases без изменений.
+
 **2026-11-04 — read-only проверка локальных color-доказательств COMPLETE.**
 [Матрица значений, точные архивы и граница выводов](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#local-archive-audit--2026-11-04-read-only).
 В октябрьских512×128 A/B и size-логах реально записаны own sRGB=true,

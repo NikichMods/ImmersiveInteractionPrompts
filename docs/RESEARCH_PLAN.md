@@ -1,6 +1,15 @@
 # План исследования — contextual prompts и письменность
 
-## Этап завершён; дальнейшая работа сейчас не выполняется
+## Текущий шаг — один преемник с PNG и диагностикой, 2026-11-05
+
+По новому заданию подготовлен [authored divider + color snapshot](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md):
+READY_SOURCE/NOT_INSTALLED. Дальше только отдельно разрешённая безопасная
+установка и один сеанс для разделителя/толщины/небольшого движения/hide-show/
+NumPad9/явного NumMultiply и однократного RT/MID-снимка. Не повторять архивный
+аудит, Masked/Translucent A/B и не исправлять цвет наугад. Дизайн PNG принят;
+World-рендер, runtime readback и новый cleanup ещё не проверены.
+
+## История: этап завершён, работа остановлена 2026-11-04
 
 2026-11-04: пользователь принял source da83080 как успешный исследовательский
 World-space прототип с live-редактором. [Итог/параметры/остаточные вопросы](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#accepted-research-result-and-recorded-values--2026-11-04)
