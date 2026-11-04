@@ -67,7 +67,7 @@ assert(result and not result.shown and not result.ready)
 local rec=get()
 set(P.text,"Text",{ToString=function()return "" end})
 local result=sample(rec);assert(result.shown and not result.ready)
-set(P.text,"Text",{ToString=function()return "Open\nNow" end})
+set(P.text,"Text",{ToString=function()return "Open\\nNow" end})
 result=sample(rec);assert(result.shown and not result.ready)
 ''')
 
@@ -112,7 +112,7 @@ assert(r==nil and why=="not_ready_widget")
         self.case('''
 local rec=get();sample(rec)
 assert(LoadAsset==nil and StaticConstructObject==nil)
-assert(RegisterHook==nil and RegisterBeginPlayPostHook==nil)
+assert(type(RegisterHook)=="function" and RegisterBeginPlayPostHook==nil)
 assert(S.registered==0 and S.pose_reads==0)
 ''')
 
