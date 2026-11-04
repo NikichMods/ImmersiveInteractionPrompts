@@ -116,5 +116,43 @@ assert(type(RegisterHook)=="function" and RegisterBeginPlayPostHook==nil)
 assert(S.registered==0 and S.pose_reads==0)
 ''')
 
+    def test_open_source_to_arbiter_handover(self):
+        lua = LuaRuntime(unpack_returned_tuples=True)
+        lua.execute(FIXTURE)
+        lua.execute(EXTRA)
+        policy = (ROOT / "research/interaction-prompts-owner/world-space/auto-target/IIPTargetPolicy.lua").read_text(
+            encoding="utf-8"
+        )
+        lua.execute("Selector=(function()\n" + policy + "\nend)()")
+        lua.execute(r"""
+Q=pair(2)
+set(Q.text,"GetText",function()return Q.text.Text end)
+set(Q.component,"bVisible",false)
+local pa=get()
+local qa=assert(A.acquire(Q.actor))
+local s=Selector.new(4)
+assert(Selector.register(s,pa.actor,pa.component,pa.widget))
+assert(Selector.register(s,qa.actor,qa.component,qa.widget))
+local function tick()
+  local a=assert(A.snapshot(pa,native_alive,hint_visible))
+  local b=assert(A.snapshot(qa,native_alive,hint_visible))
+  assert(Selector.observe(s,{a,b}))
+  return Selector.next(s)
+end
+assert(tick().kind=="none")
+local first=tick()
+assert(first.kind=="bind" and first.actor==pa.actor)
+Selector.bound(s,first.ticket)
+set(P.component,"bVisible",false)
+set(Q.component,"bVisible",true)
+local release=tick()
+assert(release.kind=="release" and release.actor==pa.actor)
+assert(tick().kind=="wait") -- Must not bind Q while A is still owned.
+Selector.released(s,release.ticket)
+assert(tick().kind=="none")
+local second=tick()
+assert(second.kind=="bind" and second.actor==qa.actor)
+""")
+
 if __name__ == "__main__":
     unittest.main()
