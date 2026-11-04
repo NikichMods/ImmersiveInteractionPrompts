@@ -1,0 +1,24 @@
+{
+  "status": "READY_SOURCE",
+  "installation": "NOT_INSTALLED",
+  "base_commit": "857337d321a2543ffee7bddf149ecbf7ad7883c5",
+  "predecessor_source": "19d35a5a0238a3b228f7058bfcd7234e647ede7e",
+  "branch": "research/interaction-prompts-owner",
+  "session": "divider-thickness-button-height-and-explicit-per-element-brightness-comparison",
+  "files": {
+    "Scripts/IIPComposition.lua": "e6ed2793cc7bad06c914f422edda9b975148a7d803e09cba8fe21f1ddcfafac6",
+    "Scripts/IIPHintSource.lua": "78ba7d71c32855e48b62f4c8a1e97d3ab332ba66f1b248eb40a2d1a4f7fce348",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "3e08b17e09182e3f5886b98effd59cf97da97484bb676579c833fc3125f3756a",
+    "Scripts/IIPTuning.lua": "01610c4b34bee7d54c904d6724f483e27c3e37d5005d48c31ae3b9d383d36398",
+    "Scripts/IIPWorldChild.lua": "c53f734fc3a347006129d90554c4d8b5cfc36cea10d6577e9b9a5f614d76045a",
+    "Scripts/main.lua": "d47346b669396bf4f18c961148dd1acd89c0a4f5e8ee344f2528ddafb690b0ed",
+    "IIPLiveConfig.example.lua": "155871bad3a8e8fe30f53401b2a5f21fffbdfe3208fe2140111c8c86834dddbd"
+  },
+  "external_resource_sha256": {
+    "Aphes.ttf": "443fcae9fd3d3588a259d6c7746145b6c2a343cfb0c2f572fb330234c0f90ed0",
+    "ele_loctitleline.png": "901b72602a69a535e6a3d54bce2a13f18d0badc20d59abfca351eec70161e668"
+  }
+}

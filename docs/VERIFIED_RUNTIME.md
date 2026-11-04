@@ -1,5 +1,28 @@
 # Verified Runtime — Interaction Prompts
 
+## Expanded user-run / style comparison source — 2026-11-04
+
+[Runtime evidence](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#user-run--large-font-editing--recurring-presentation-passed-narrowly):
+source19d35a5/11 hashes match, ~492.066s first→last SHOWN,12 hidden/resume cycles,
+16 source binds,202 successful layouts,5 rollback rejections,2 explicit value logs.
+No IIP FAILED/STOP/CLEANED; manual cleanup not exercised before normal host exit.
+User frame corroborates composition/editor/native Screen coexistence. Last values
+52/30, tracking400, gap7, divider240/1 and hint54/gap64. No blanket style/performance/
+GC acceptance. Exact log/frame hashes in the report, proprietary frame stays local.
+
+[Style successor](../research/interaction-prompts-owner/world-space/live-editor-style/README.md)
+adds independent divider height factor, divider-relative button Y,17-field paged
+panel, four neutral RGB brightness multipliers and optional own lower black outline.
+Native setters already supported; brightness final-writer handling survives
+retainer/device/MID/inactive-source refresh without modifying source or alpha.
+Full offline318 tests/23 files PASS; actual new rendering/color effect pending.
+Existing source shows shared Unlit/Emissive World surface, no examined separate
+per-child glow parameter; upper shadow0/outline0 and default transparent text shadow
+are not a diagnosis of the observed halo. Scene bloom/faded-F causality unproved.
+RGB dimming was explicitly chosen for comparison, not called glow suppression or
+independent contrast. No global post-process/material/gamma changes or old A/B retry.
+
+
 ## Expanded editor installation — 2026-11-04, runtime pending
 
 Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` installed with host closed;

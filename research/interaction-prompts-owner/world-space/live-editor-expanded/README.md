@@ -6,6 +6,25 @@ source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`. Prior sources stay frozen.
 [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) pins9 Lua files and config example;
 the commit containing it is the source identity. VERSION unchanged, no release.
 
+## User run — large-font editing / recurring presentation passed narrowly
+
+Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` and11 installed hashes match.
+2026-11-04 Moscow: first SHOWN18:25:21.2753563 → last SHOWN18:33:33.3413709,
+~492.066s.12 hidden/resume returns,13 shown,16 native source binds,202 LAYOUT,
+5 EDIT_REJECTED and2 Num9 VALUES. No IIP FAILED/STOP/CLEANED. Overlap edits reverted
+without stopping; fonts/parameters applied and preserved across repeated focus
+return. User's frame shows expanded composition/editor and original Screen prompt.
+Host exited normally18:33:36.2135491; explicit manual STOP/cleanup remains untested
+in this run. No overall aesthetic/performance/full-lifecycle acceptance inferred.
+Last values52/30, tracking400, outline0, gap7, dividerY0/length240/opacity1,
+hint54/gap64. User requests thickness/button-Y and appearance comparison controls;
+[next style candidate](../live-editor-style/README.md) owns that change.
+
+Archived privately: log SHA256
+`348f4fbb397aef22a90efd4cc086d52aaa760ca95ded3a27c7d68a86ef8f8e78`,
+user PNG SHA256 `64fe50595fbc7eedeabcc7fa6d32ddf93034324dbbba66ca96727c2307cdb547`,
+ignored runtime-20261104T153816Z. No raw frame distributed.
+
 ## Authorized installation — 2026-11-04
 
 At18:21:59 Moscow, exact source `19d35a5a0238a3b228f7058bfcd7234e647ede7e`

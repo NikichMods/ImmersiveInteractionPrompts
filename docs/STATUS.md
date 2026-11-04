@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — expanded run без ошибок; style controls READY_SOURCE.**
+[Точный результат](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#user-run--large-font-editing--recurring-presentation-passed-narrowly):
+~492s,12 возвратов,202 успешных layout,5 recoverable rejection,2 Num9; IIP FAILED
+и STOP отсутствуют. Новый кадр показывает композицию и штатный Screen prompt.
+Пользователь вышел без manual STOP, поэтому эта очистка в сеансе не проверена.
+[Следующий style source](../research/interaction-prompts-owner/world-space/live-editor-style/README.md):
+независимая толщина линии, button Y от уровня divider, четыре brightness для
+осознанного сравнения и optional lower outline0. Старт52/30/tracking400 и прочие
+последние значения, новая пробная толщина2×; яркости1. Панель17 параметров с9-row
+window. Полная offline318/23 PASS; actual новый стиль/яркости ещё не приняты.
+Причина ореола/выцветания F неизвестна; отдельного доказанного glow/contrast seam
+нет. Материал/gamma/глобальные настройки не менялись, production BLOCKED.
+
+
 **2026-11-04 — Expanded editor INSTALLED, RUNTIME_PENDING.**
 Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e`, own WorldExpandedProbe;
 [установка/сценарий](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#authorized-installation--2026-11-04).
