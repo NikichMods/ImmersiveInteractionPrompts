@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — style-кандидат INSTALLED, новый визуальный тест PENDING.**
+Source `da830808912b38527fb5088a6543d6a070b5f3f7`, own WorldStyleProbe;
+[идентичность и сценарий](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#authorized-installation--2026-11-04).
+11 файлов проверены, предыдущая Expanded отключена;20 старых IIP-проб неактивны.
+93 остальных mod/loader/log и46 config/save хэш-сохранены, rollback вне loader.
+Игра закрыта; запуска/завершения/hot reload агент не выполнял. Четыре яркости1,
+optional lower outline0; старт52/30 и последние настройки, линия пробно2×,
+button Y0=divider center. Панель17 параметров с прокруткой9 строк. Offline318/23
+PASS; native новые стили/снижение ореола/читаемость и explicit manual STOP ещё
+не приняты. Истинная раздельная glow/contrast коррекция остаётся открытой.
+
+
 **2026-11-04 — expanded run без ошибок; style controls READY_SOURCE.**
 [Точный результат](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#user-run--large-font-editing--recurring-presentation-passed-narrowly):
 ~492s,12 возвратов,202 успешных layout,5 recoverable rejection,2 Num9; IIP FAILED

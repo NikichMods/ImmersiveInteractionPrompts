@@ -1,5 +1,19 @@
 # Verified Runtime — Interaction Prompts
 
+## Style editor installed — 2026-11-04, new appearance pending
+
+Source `da830808912b38527fb5088a6543d6a070b5f3f7` installed with host closed.
+[Exact record](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#authorized-installation--2026-11-04):
+9 source/installed Lua hashes match manifest, private config and own marker verify;
+11 installed files. Previous own Expanded marker disabled after validation, its
+source/config retained;20 prior IIP probes disabled.93 other mod/loader/log and46
+config/save files hash-preserved, backup/rollback outside loader. No launch,
+termination, hot reload or global material/gamma/post-process/settings/save writes.
+All brightness defaults1, lower outline0, divider trial2× and button divider Y0.
+Source/offline318/23 PASS; actual per-element dimming/contour rendering, halo/faded-F
+response and this candidate's manual STOP/cleanup remain awaiting user observation.
+
+
 ## Expanded user-run / style comparison source — 2026-11-04
 
 [Runtime evidence](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#user-run--large-font-editing--recurring-presentation-passed-narrowly):

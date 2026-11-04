@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Пользовательский прогон — установлен Style editor
+
+2026-11-04: exact source `da830808912b38527fb5088a6543d6a070b5f3f7`
+[установлен/хэш-проверен](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#authorized-installation--2026-11-04),
+прежняя Expanded отключена. Дальше дополнительная source-подготовка не нужна:
+пользователь запускает, Ctrl+Alt+F11 → один reload/Open; сравнивает толщину линии,
+button Y и четыре яркости отдельно, возвращая1 для исходной интенсивности. Num8/2
+сам прокручивает17 параметров. Optional Action outline0 — отдельная проверка
+читаемости. Num9 логирует набор, явный NumMultiply закрывает пробу; агент читает
+локальный лог и сверяет новую installed identity. Не выдавать dimming за настоящий
+контраст/доказанную glow-коррекцию. Без таймера и без production продвижения.
+
+
 ## Текущий этап — style controls после успешного expanded run
 
 2026-11-04: повторять исправление таймера/focus/overflow не нужно — новый лог

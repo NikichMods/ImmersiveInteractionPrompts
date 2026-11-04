@@ -6,6 +6,10 @@ source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`. Prior sources stay frozen.
 [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) pins9 Lua files and config example;
 the commit containing it is the source identity. VERSION unchanged, no release.
 
+**Installation superseded:** this exact source/config is retained, its own marker
+disabled and the [Style editor](../live-editor-style/README.md) installed. New
+style/color behavior remains unaccepted; prior runtime evidence is preserved.
+
 ## User run — large-font editing / recurring presentation passed narrowly
 
 Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` and11 installed hashes match.

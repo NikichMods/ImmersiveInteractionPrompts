@@ -1,10 +1,27 @@
 # World style editor — divider weight, button row, brightness comparison
 
-**2026-11-04: READY_SOURCE; new style/color rendering pending. Production BLOCKED.**
+**2026-11-04: READY_SOURCE / INSTALLED; new style/color rendering pending. Production BLOCKED.**
 Successor to source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` in
 [expanded editor](../live-editor-expanded/README.md). Exact bytes:
 [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json), identified by its containing commit.
 Earlier sources remain frozen; VERSION unchanged, no main/release promotion.
+
+## Authorized installation — 2026-11-04
+
+At18:50:11 Moscow, exact source `da830808912b38527fb5088a6543d6a070b5f3f7`
+installed into new ImmersiveInteractionPromptsWorldStyleProbe with host closed.
+Nine authored Lua installed hashes match source manifest; private config SHA256
+`7cfb0566b1142060b309142bba678adcc53ec2041af3955aeec1efda35e55b9b` and empty own
+marker verified,11 files total. Previous WorldExpanded source/config unchanged,
+only its verified own marker disabled after new payload verification.20 older IIP
+probes disabled; only new Style enabled.93 other prior mod/loader/log files and46
+config/save files hash-preserved;94-file baseline includes intentionally disabled
+old own marker. Pinned loader/external resources unchanged. Private pretest logs,
+before/installed/verified records, backups and guarded rollback ignored under
+`.local/research/interaction-prompts/world-space/live-editor-style/install-20261104T155011Z`.
+Rollback syntax verified, not executed. No host launch/termination/hot reload,
+other-mod/settings/save modification. New native style/color effects still pending;
+frozen manifest's NOT_INSTALLED records source handoff, not current installation.
 
 ## Verified preceding run and user's choices
 
