@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — diagnostic snapshot и явный NumMultiply STOP PASS.**
+[Сеанс source51b9f26, поля снимка, точный лог и границы](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#user-run--snapshot-and-manual-stop-pass-2026-11-05).
+13 installed hashes совпали; снимок один,4 scope, complete=true. Own1024×512:
+sRGB=true/TargetGamma0/force-linear=false/format6/override2; native51×51:
+sRGB=false/TargetGamma1/force-linear=false/format3/override2. MID/SlateUI проверены,
+RHI/причина ореола не установлены. LOOP_CANCELLED→STOP reason=user/hooks0→
+RELEASED→COMPONENT_DESTROYED→CLEANED, без FAILED/CLEANUP_PENDING.
+161 layout,2 hide/resume,8 recoverable overlap-rejection. Последние17 значений
+Num9 [приняты как будущая база](REQUIREMENTS.md#новая-база-настроек-и-будущая-компактность--2026-11-05).
+Следующие пожелания: сильнее сблизить строки; общий масштаб — если просто/
+надёжно. Сейчас только лог/фиксация: новый код/кандидат/установка не выполняются,
+старый payload/config/marker неизменны. Игра закрыта, production BLOCKED.
+
 **2026-11-05 — divider/color кандидат INSTALLED, RUNTIME_PENDING.**
 По явному разрешению пользователя source `51b9f265c8b6d6b79ff48513a51a84087eeee6be`
 [установлен при закрытой игре](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#authorized-installation--2026-11-05).

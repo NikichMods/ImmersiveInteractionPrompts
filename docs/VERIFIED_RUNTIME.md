@@ -1,5 +1,20 @@
 # Verified Runtime — Interaction Prompts
 
+## Divider/color runtime — one snapshot and explicit user STOP PASS, 2026-11-05
+
+[Exact evidence, observed matrix and limits](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#user-run--snapshot-and-manual-stop-pass-2026-11-05).
+Source51b9f26/all13 installed hashes match; completed log SHA256
+`47b8602c9cff68661bcd08c18856f8b72bc7c760b55e503b32a4f0d6ec29735d`.
+One four-scope snapshot: own1024×512/sRGB true/TargetGamma0/linear false/RT enum6/
+override2; native51×51/sRGB false/TargetGamma1/linear false/RT enum3/override2;
+own MID owner/Masked parent/SlateUI binding and effective white/unit parameters
+verified. RHI format remains unknown; no color cause is inferred. Manual user
+STOP cancelled loop, removed hooks, released resources and destroyed component
+with CLEANED; no FAILED/CLEANUP_PENDING/post-cleanup render activity.161 layouts,
+2 hide/resume returns,8 safe overlap edit rejections. Last VALUES adopted as
+next defaults by user, current frozen source/config unchanged. No new engine
+benchmark, broad lifecycle, final visual acceptance or production promotion.
+
 ## Divider/color successor installed — runtime pending, 2026-11-05
 
 Exact source `51b9f265c8b6d6b79ff48513a51a84087eeee6be`, installed separately in

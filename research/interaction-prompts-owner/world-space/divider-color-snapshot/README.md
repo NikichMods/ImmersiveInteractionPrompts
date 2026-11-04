@@ -1,6 +1,7 @@
 # Authored divider + one World color snapshot
 
-**2026-11-05: INSTALLED / RUNTIME_PENDING.** Source readiness remains verified.
+**2026-11-05: SNAPSHOT_AND_MANUAL_STOP_PASS / LAYOUT_REFINEMENT_DEFERRED.**
+Installed source is frozen; visual-final/production acceptance is not inferred.
 Candidate `divider-color-snapshot-20261105`, branch `research/divider-color-snapshot`.
 Exact source/asset/config-template hashes: [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json);
 its containing Git commit identifies the exact candidate. History is linear:
@@ -12,6 +13,54 @@ This self-contained successor follows the prior candidate layout. Accepted Style
 source `da830808912b38527fb5088a6543d6a070b5f3f7` and its manifest are untouched.
 main/Composition/Panel/InputAudit/KeyboardBindings are byte-identical to Style.
 VERSION0.1.0/main/releases are unchanged; no semantic version is consumed.
+
+## User run — snapshot and manual STOP PASS, 2026-11-05
+
+Exact installed source `51b9f265c8b6d6b79ff48513a51a84087eeee6be`, all13 installed
+hashes still match. User reports test complete and game closed; process check
+found no host. Log archived privately at `runtime-20261104T222302Z`, SHA256
+`47b8602c9cff68661bcd08c18856f8b72bc7c760b55e503b32a4f0d6ec29735d`.
+Genesis log ends normally at01:20:00 Moscow. Raw logs/config/installed identity
+remain ignored, no proprietary dump/resource is published.
+
+**One complete metadata snapshot** at01:17:02.821, lines828–831: four scopes
+with id1, native final line `complete=true`, no repeated capture after edits or
+hide/resume. Values below are actual same-session reads, not constructor defaults.
+
+| Scope | Observed values | Remaining limit |
+| --- | --- | --- |
+| Own component | gamma correction=false, BlendMode1/Masked, background transparent, tint white, OpacityFromTexture1 | Does not prove final scene color. |
+| Own RT |1024×512, sRGB=true, TargetGamma0, force-linear=false, RenderTargetFormat enum6, OverrideFormat enum2, clear RGBA0 | Numeric enum fields, RHI pixel format still UNKNOWN. |
+| Own MID | Outer=own component, Parent=stock Masked MIC, SlateUI=own RT, effective tint RGBA1, BackColor RGBA0, OpacityFromTexture1 | Cooked sampling/unpremultiplication/shader arithmetic remain unknown. |
+| Native Retainer/Icon |retained=true; Icon51×51, sRGB=false, TargetGamma1, force-linear=false, format enum3, override enum2, clear RGBA0; MID Outer=Transient package, Parent=TipIconMat, blend5/AlphaComposite; retainer opacity1, child tint white | Internal renderer gamma and unestablished effective Tint/Back/Opacity parameter contracts explicitly UNAVAILABLE; RHI UNKNOWN. |
+
+This closes the missing own1024×512/native paired metadata capture. Their
+different sRGB/TargetGamma values are consistent with the distinct previously
+reviewed paths; the readout alone does **not** establish a faulty conversion,
+actual gamma exponent, HDR target or cause/fix for pale/blue/halo appearance.
+No gamma/tint/format/material A/B or compensation was performed.
+
+**Explicit NumMultiply STOP passed:** LOOP_CANCELLED handle4 at01:19:45.7607625;
+STOP reason=user/MATCHED with hooks_remaining0; borrowed hint and composition
+resources RELEASED, COMPONENT_DESTROYED, then CLEANED reason=user at
+01:19:45.7779371 with own_widget_holder=false/own_component_alive=false.
+No IIP FAILED/CLEANUP_PENDING and no layout/show/snapshot after CLEANED.
+YAW_SUMMARY records9669 writes, Pitch/Roll0, no degenerate horizontal direction;
+this is not a performance benchmark or broad lifecycle acceptance.
+
+Three SHOWN/two HIDDEN→RESUMING cycles,161 successful layouts,8 recoverable edit
+rejections, one VALUES. All8 rejections are `Divider overlaps upper text` when
+trying divider_y−3 at gap2;−2 restored and session continued. This supports the
+user's request for a future closer layout, not a reason to bypass guards now.
+The import's256×32 TEXTURE_BOUND and once-only resource path completed.
+
+Last NumPad9 at01:19:38.8447113 (line1012) matches final layout1011. User explicitly
+adopts these17 values as the [next candidate's baseline](../../../../docs/REQUIREMENTS.md#новая-база-настроек-и-будущая-компактность--2026-11-05).
+No source/manifest/private installed config was rewritten: `saved=false` was
+log-only. Future tighter vertical spacing is requested; optional uniform scale
+is conditional on a simple reliable mechanism. No successor is prepared now,
+and no final divider/halo/production acceptance is inferred. The installed
+marker remains unchanged/enabled; runtime STOP cleaned the session, not files.
 
 ## Scope and readiness
 

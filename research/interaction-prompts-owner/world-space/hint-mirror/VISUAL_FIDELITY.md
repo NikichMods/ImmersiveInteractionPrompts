@@ -4,6 +4,16 @@ Status: **SOURCE_REVIEW_COMPLETE / VISUAL_EQUIVALENCE_OPEN**. This review did no
 create a payload or runtime result. The frozen hint source remains unchanged.
 Full composition and production remain **BLOCKED**.
 
+**2026-11-05 runtime follow-up:** the requested paired own1024×512/native
+metadata capture [completed once on source51b9f26](../divider-color-snapshot/README.md#user-run--snapshot-and-manual-stop-pass-2026-11-05).
+Own sRGB=true/TargetGamma0/force-linear=false/RT enum6/override2 and native
+sRGB=false/TargetGamma1/force-linear=false/RT enum3/override2 are now observed,
+along with own MID owner/Masked parent/SlateUI/effective parameters. Thus the
+archive audit's latest-instance metadata gap below is **closed**, not an active
+request for another capture. RHI pixel format/shader arithmetic/scene-color cause
+remain unknown; different pipeline metadata alone is not a diagnosed error or
+permission for a gamma/tint/material fix. This run also passed explicit STOP.
+
 Subsequent [owned material A/B](ab/README.md) completed in-game: the same-pose
 Masked/stock Translucent comparison showed no visible improvement; the probe is
 disabled. Earlier source-only A/B planning sections below are historical, not an
