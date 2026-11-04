@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Color archive coverage — read-only audit, 2026-11-04
+
+[Field/value matrix, evidence identities and minimal missing capture](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#local-archive-audit--2026-11-04-read-only).
+Existing October512×128 A/B and size snapshots establish own sRGB=true,
+TargetGamma0/force-linear=false, transparent clear/background, unit component/MID
+tint/opacity and correct SlateUI binding. RenderTargetFormat6 does not measure
+the custom pixel/RHI format. Accepted Style1024×512 log has no own STATE/RT/MID
+readout; its42 gamma/format records describe native Icon51×51/format3 only.
+Old instance values and cooked/CDO defaults cannot be promoted to Style runtime
+values. No concrete color-conversion conflict or minimal fix established;
+no runtime action/new mod/executable change. Metadata capture remains separate,
+not permission to repeat the closed material A/B or enable the disabled prototype.
+
 ## Style runtime — user accepted research stage; stopped here, 2026-11-04
 
 [Exact identity, log/frame hashes and logged settings](../research/interaction-prompts-owner/world-space/live-editor-style/README.md#accepted-research-result-and-recorded-values--2026-11-04).

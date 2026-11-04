@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — read-only проверка локальных color-доказательств COMPLETE.**
+[Матрица значений, точные архивы и граница выводов](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#local-archive-audit--2026-11-04-read-only).
+В октябрьских512×128 A/B и size-логах реально записаны own sRGB=true,
+TargetGamma0, force-linear=false, transparent clear, white/unit component/MID.
+RenderTargetFormat6 — поле enum, не доказанный GPU/HDR-формат. В принятом
+Style1024×512 own RT/MID-снимка нет;42 записи format3 относятся к native Icon.
+Конкретный цветовой конфликт и минимальная правка не доказаны. Архивный шаг
+закрыт; минимально недостаёт отдельно разрешённого read-only снимка точного
+Style RT/MID и native Retainer, без нового тестового мода. Ничего не запускалось,
+не устанавливалось и не включалось; executable source неизменен, production BLOCKED.
+
 **2026-11-04 — узкий color-pipeline audit COMPLETE, source-only; no fix or game changes.**
 [Техническая проверка, версионные источники, неопределённости и следующий
 минимальный шаг](../research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md#color-pipeline-audit--2026-11-04-source-only-no-runtime-writes).
@@ -9,10 +20,9 @@ UE4.27. Явно неверного переключателя гаммы/дво
 actual World RT SRGB/format/TargetGamma, финальный cooked material graph и
 scene/postprocess output не доказаны. HDR/Emissive остаётся обоснованной
 гипотезой, но не установленной причиной засветки. Gamma/tint/материал
-наугад не менять; повторять A/B Masked↔Translucent не нужно. Следующий
-достаточный шаг только при отдельном продолжении — user-started local Codex
-read-only inspection **сохранённых** логов/UHT/cooked metadata; runtime
-capture лишь если необходимых полей нет и после отдельного разрешения.
+наугад не менять; повторять A/B Masked↔Translucent не нужно. Этот
+архивный шаг выполнен и уточнён выше; runtime capture лишь для недостающих
+полей и после отдельного разрешения.
 Старый accepted Style source, marker DISABLED, production BLOCKED и отдельная
 задача художественного divider без изменений.
 

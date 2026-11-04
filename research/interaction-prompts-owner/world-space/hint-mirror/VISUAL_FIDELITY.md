@@ -51,6 +51,11 @@ observed in that session. This branch is **not** a diagnosed bug.
 
 ### Decision and cheapest next discriminating evidence
 
+**Follow-up completed:** the [local archive audit below](#local-archive-audit--2026-11-04-read-only)
+recovers actual October values, but not the accepted Style instance's RT/MID
+readback. The proposed archive inspection is no longer pending; only the
+separately authorized live metadata capture remains a possible next step.
+
 **Do not** change `ApplyGammaCorrection`, `SRGB`, `TargetGamma`,
 `bForceLinearGamma`, `Tint`, `OpacityFromTexture`, outer material,
 global bloom/exposure or post-process by trial and error; do not repeat the
@@ -78,6 +83,92 @@ sampling, whose correction has a materially larger cost. Natural Hilda
 occlusion, original TipHUD/native hints, clean ownership and the accepted
 research prototype remain preserved. The divider texture/mipmap work remains
 a separate task.
+
+## Local archive audit — 2026-11-04 (read-only)
+
+**ARCHIVE_REVIEW_COMPLETE / LATEST_RT_READBACK_MISSING / PATCH_BLOCKED.**
+Question: do already retained values establish a concrete color conversion
+conflict that permits a minimal owned-component correction? **No.** Actual
+October metadata is recoverable, including gamma/tint/clear values; the accepted
+November Style run did not capture the equivalent own RT/MID snapshot. Distinct
+Screen/World settings are not by themselves an erroneous conversion.
+
+Evidence keys (all raw inputs remain ignored/private):
+
+- **S**: accepted source `da830808912b38527fb5088a6543d6a070b5f3f7`,
+  `world-space/live-editor-style/runtime-20261104T160838Z/UE4SS-runtime.log` under
+  `.local/research/interaction-prompts/`; lines781/829 (native source),820
+  (own creation),1272/1443 (explicit settings). SHA256
+  `f9928b5c4f697fab6ece7211140b16beeff09d1d282bcad653056b3fe4f52d95`.
+- **A**: [completed A/B](ab/README.md), source
+  `caf955fb271558df1ddd5c991cf5b53217da2ef4`,
+  `world-space/hint-mirror/ab/runtime-20261030T070257Z/UE4SS.log`, lines795/799.
+  SHA256 `2acdb0b32027fbb2ad8a0c0f047f9dbb86c518e0bb3b766c9d412b000a43b119`.
+- **Z**: [completed size test](size/README.md),
+  `world-space/hint-mirror/size/runtime-20261030T083457Z/UE4SS.log`, lines794/798.
+  SHA256 `f37f4a6193de9b43e0662abea33bd6e5ea6889d217ebac2518b6bfb6ebfad72e`.
+- **U**: installed `uht-run/UHTHeaderDump` declarations, specifically Engine
+  `Texture.h`, `TextureRenderTarget.h`, `TextureRenderTarget2D.h`,
+  `ETextureRenderTargetFormat.h`, `MaterialInstance{,Dynamic}.h` and UMG
+  `WidgetComponent.h`. Declarations establish fields/signatures, not instance
+  values; generated `.cpp` constructors/stub methods are not engine execution.
+- **C/E**: existing cooked `world-space/materials/Widget3DPassThrough{,_Masked}.json`
+  and the pinned UE4.27 source files listed below. All12 entries in the existing
+  `visual-fidelity/source-hashes.json` match, including those cooked exports.
+  This authenticates the saved inputs, not their shader completeness or engine
+  byte identity. All nine Style Lua files still match the accepted source.
+
+| Parameter | Established value | Evidence | Unknown / applicability limit |
+| --- | --- | --- | --- |
+| Own RT `sRGB` (reflected spelling; engine `SRGB`) | **true observed** on512×128 | A795/799; Z794/798 | No value for Style1024×512. |
+| Own RT `TargetGamma` / `bForceLinearGamma` | **0 / false observed** | A; Z | Style values and resource-effective display gamma not captured;0 is not a measured gamma exponent. |
+| Own RT format | **RenderTargetFormat=6**, `RTF_RGBA16f`, observed enum field | A; Z; U enum | No captured `OverrideFormat`, `GetFormat()` result, Slate recommended pixel format or RHI format. Do not call this an observed HDR/float target. |
+| Own RT clear / component background | **RGBA(0,0,0,0)** observed | A; Z | Style not read back; UE source transparent default is not its measurement. |
+| Component gamma / material mode | **bApplyGammaCorrection=false**, World0, Masked1, two-sided, depth-disable=false | A; Z; S creation guards in [IIPWorldChild.lua](../live-editor-style/Scripts/IIPWorldChild.lua) | S proves configured World/Masked/two-sided/depth contract at creation; gamma=false is only the unchanged source/CDO expectation for S. |
+| Effective own MID / texture | A: component-owned MID parent Masked, then Translucent; Z: Masked; **SlateUI equals own RT** | A/Z sample assertions and logs | S explicitly installs Masked, but no effective MID parent/SlateUI readback was logged. |
+| Component / effective MID parameters | **TintColorAndOpacity=(1,1,1,1)**, **OpacityFromTexture=1**, effective **BackColor=(0,0,0,0)** | A; Z; C cached defaults independently agree | Actual S component/MID parameters unknown. Cooked SlateUI default WhiteSquareTexture is not the live binding. |
+| Own child tint / opacity | A/Z Image white, Image/host RenderOpacity1; S last logged RGB brightness **.7/.4/1/.5** (upper/lower/divider/hint), divider alpha1 | A; Z; S1443; [composition source](../live-editor-style/Scripts/IIPComposition.lua) | S settings are intentional per-child dimming, not a measured outer MID tint or diagnosis of the original pale/blue symptom. |
+| Native Retainer Icon RT / material | **51×51**, **force-linear=false**, **RenderTargetFormat=3=RTF_RGBA8_SRGB**, **MID blend5=AlphaComposite**; retained=true/global1 | S781/829; A; Z; U enum | Native instance `sRGB`, `TargetGamma`, clear, override/RHI format and pixels were not recorded. |
+| Native Retainer gamma contract | Source explicitly selects gamma-space renderer; update branch assigns **SRGB=false, TargetGamma=1**; transparent clear; final NoGamma/PreMultipliedAlpha | E: SRetainerWidget130–171,570–590 | Source-contract values, not observed native fields. The different own values do not prove an extra/missing conversion. |
+| Cooked outer shader | Masked MIC overrides blend/two-sided; parent Unlit/Emissive; cached parameters match names above | C; A/Z depth-disable=false readback | Expression name `MaterialExpressionMultiply_6`, empty resource list and null expression pointer do not reveal sampling, unpremultiplication or gamma arithmetic. Effective clip threshold remains unmeasured. |
+
+**Coverage check:** S has zero `IIP_WORLD_HINT event=STATE`, `rt_srgb=`,
+`rt_linear=`, `rt_gamma=`, `rt_clear=` or `effective_tint=` records. Its42
+`linear_gamma=false rt_format=3` records belong to **native Icon**, not own RT.
+Creation logs report draw1024×512; they are not a post-allocation RT-field read.
+Older512×128 A/Z snapshots corroborate one another but cannot fill those gaps.
+
+**UE4.27 interpretation:** the saved WidgetComponent source initially calls
+`InitCustomFormat(..., GetSlateRecommendedColorFormat(), false)` and binds the
+result to SlateUI; its resize/clear-change branch explicitly uses PF_B8G8R8A8.
+It does not call `FWidgetRenderer::CreateTargetFor`. Thus the enum6 readback
+cannot identify the chosen pixel format, and copying the other factory's gamma
+settings is unsupported. Native Retainer gamma-space paint, own renderer gamma
+flag and RT texture encoding are separate boundaries. The known Masked coverage
+difference and completed negative Translucent A/B do not diagnose RGB hue/halo.
+
+**Decision:** no concrete erroneous color conversion or parameter value is
+established. A minimal local fix remains **not justified**; gamma/tint/format/
+material edits would be a new hypothesis. No executable code, installation,
+game process, graphics settings, saves, foreign mod or source Retainer changed.
+No new general host contract was discovered beyond already shared R-006/R-016
+evidence; this instance/archive coverage belongs to this repository.
+
+**Smallest missing check, not executed:** one separately authorized read-only
+metadata snapshot of the exact Style component **after** its own RT exists,
+paired with the native Retainer in the same visible state: component gamma,
+background/tint/opacity, own/native `sRGB`, `TargetGamma`, force-linear,
+RenderTargetFormat, **OverrideFormat**, clear/extent; effective MID Outer/Parent
+and `K2_GetTextureParameterValue("SlateUI")`, vector TintColorAndOpacity/BackColor,
+scalar OpacityFromTexture. U declares these fields/getters; A/Z already exercised
+the getter route. U does **not** declare a reflected `GetFormat()` on this RT:
+record only OverrideFormat/RenderTargetFormat if no independently verified
+pixel-format inspection exists, leaving RHI format unknown. No invented getter,
+new test mod, renderer, A/B or shader reconstruction is needed for this check.
+The current prototype is disabled; such a live snapshot is outside this task's
+authorization. Even a complete metadata snapshot only closes the metadata gap;
+if it exposes no conflicting conversion, scene processing/material sampling
+remain hypotheses rather than a reason to adjust another switch.
 
 ## Question and evidence boundary
 
