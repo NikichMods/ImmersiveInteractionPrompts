@@ -1,5 +1,30 @@
 # Verified Runtime — Interaction Prompts
 
+## Untimed session runtime / expanded-source follow-up — 2026-11-04
+
+[Exact recurring-session result](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#user-run--recurring-visibility-worked-tuning-exceeded-old-canvas):
+source dbd1a03/11 installed hashes matched; two native hide/resume/show cycles
+with same component, fresh source MID/RTs, device4→1 and actual font edit dispatch.
+Last successful values upper36/lower23. Layout bound512×128 failed18:09:52.4785787
+Moscow after~82.305s/4778 yaw writes; loop and native resource/component cleanup
+completed18:09:52.4944528. No timeout/manual STOP. Log SHA256
+e73b3789925ba6de7672c1ade44e7f50d58b369de9e2377f9dacebf939596778 retained privately.
+User reports menu/text disappearing; no broader visual acceptance inferred.
+
+[Expanded source](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md)
+uses existing pre-registration own SetDrawSize seam1024×512, scale.25/pivot.5/
+anchor+32Z unchanged; coordinate rebasing preserves physical position at identical
+settings. Source-readback guards updated; actual larger RT not yet runtime-proven.
+Initial fonts48/28, ranges20–96/16–64; other relative ranges widened for that canvas.
+Expected fit rejection during an explicit same-content edit restores scalar tuning
+snapshot through real own Font setters/prepass and verifies restored layout before
+slot commit. Panel reports rejection and session continues. Unsupported source,
+measurement/setter/rollback failures still stop. No broad exception swallowing.
+Full offline309 tests/22 files PASS; new integration covers large fonts/DrawSize,
+world-baseline math, rollback/repeated rejection/hidden edits and true failures.
+Actual expanded rendering/metrics/performance and rollback UX await user run.
+
+
 ## Session successor — installed exact source, runtime pending, 2026-11-04
 
 Source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d` installed with host closed.

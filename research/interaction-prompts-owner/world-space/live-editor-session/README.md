@@ -7,6 +7,23 @@ frozen. This candidate's [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) records al
 Lua bytes and external resource hashes; its containing commit identifies source.
 VERSION remains initial0.1.0 metadata, no release/main promotion.
 
+## User run — recurring visibility worked; tuning exceeded old canvas
+
+Exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d` and11 installed hashes
+matched. Native log18:08:30.173 initial SHOWN,18:08:32.902 HIDDEN →18:08:35.137
+SHOWN,18:08:37.002 HIDDEN →18:08:37.337 SHOWN; same component, native MID/RTs
+refreshed. Device4→1 source rebind completed18:08:43.219. Upper32→36 and lower22→23
+were applied through own layout. At18:09:52.4785787 Moscow a new layout exceeded
+512×128 and triggered terminal STOP; own native cleanup CLEANED18:09:52.4944528.
+4778 yaw writes over~82.305s; no timeout/manual STOP. User reports the panel and
+text disappeared; subjective large-font quality/acceptance remains unestablished.
+Log SHA256 `e73b3789925ba6de7672c1ade44e7f50d58b369de9e2377f9dacebf939596778`,
+ignored runtime-20261104T151437Z. This proves two bounded recurring native
+presentation cycles and actual tuning dispatch, not complete lifecycle acceptance.
+User explicitly asks to enlarge work area/font ranges; the
+[expanded successor](../live-editor-expanded/README.md) also rejects ordinary bad
+edits without killing the session. This source remains frozen.
+
 ## Authorized installation — 2026-11-04
 
 At16:32:58 Moscow, exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`

@@ -1,5 +1,18 @@
 # План исследования — contextual prompts и письменность
 
+## Текущий этап — расширить поверхность и не завершать сессию на плохой настройке
+
+2026-11-04: прежний recurring mechanism сработал дважды в native run, затем
+тюнинг упёрся в512×128. Проблема локализована в границе собственного Canvas,
+не в таймере/focus lifecycle. По запросу пользователя подготовлен
+[expanded source](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md):
+1024×512, крупные шрифтыдо96/64, recoverable edit rejection. Full offline309/22
+PASS. Дальше установить exact successor с сохранением предыдущего payload,
+пользователь сам запускает и настраивает крупный текст без дедлайна; проверить
+нативную большую поверхность/метрики, сохранение UI при ограничении и NumMultiply.
+Не повторять отдельные hint-size/material эксперименты; production не продвигать.
+
+
 ## Пользовательский прогон — установлен untimed WorldSession
 
 2026-11-04: exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`
