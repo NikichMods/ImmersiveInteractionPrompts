@@ -1,0 +1,27 @@
+{
+  "status": "READY_SOURCE",
+  "installation": "NOT_INSTALLED",
+  "branch": "research/compact-world-layout",
+  "candidate": "compact-world-layout-20261105",
+  "base_commit": "f2bc83d76804b1085f4f9faebd70544e27188869",
+  "predecessor_source": "51b9f265c8b6d6b79ff48513a51a84087eeee6be",
+  "files": {
+    "Scripts/IIPComposition.lua": "244f57825ae89cf79d2a0f549bb0e7ee05994f908e841c46863589cbb9c09b98",
+    "Scripts/IIPHintSource.lua": "8343bdf1efcb689a0a121719baa75d87a849e3d23f3a2164569542ca337a7b5e",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "e94f0c069b76b999acb104962604a0b99486c1516135609ea288804123f7d3c3",
+    "Scripts/IIPTuning.lua": "02f48f875db8186bd9b64ef771739e79247e00edba6be0bc4ab6b7ef955a795f",
+    "Scripts/IIPWorldChild.lua": "bda867bd69b881b4c99b12f8103c9372f65eb37f2b02e977cd7d74fde4b619b7",
+    "Scripts/main.lua": "d47346b669396bf4f18c961148dd1acd89c0a4f5e8ee344f2528ddafb690b0ed",
+    "IIPLiveConfig.example.lua": "da9a1bac2e3d3fd3fdbb7c7ee91a9d914d249faf568dd8416cf40a4c1dfa9127"
+  },
+  "authored_asset": {
+    "path": "assets/dividers/aphes_divider_256x32.png",
+    "sha256": "b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969"
+  },
+  "external_resource_sha256": {
+    "Aphes.ttf": "443fcae9fd3d3588a259d6c7746145b6c2a343cfb0c2f572fb330234c0f90ed0"
+  }
+}

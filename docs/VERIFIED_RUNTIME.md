@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Compact layout — source readiness, runtime pending, 2026-11-05
+
+[Exact candidate/gate/source contracts and procedure](../research/interaction-prompts-owner/world-space/compact-layout/README.md).
+READY_SOURCE/NOT_INSTALLED: adopted17 defaults, native measured text envelope
+with outline once, guarded alpha interval7–25/32, gap min0, former−3 false
+rejection removed, real overlap/RT/button bounds and rollback retained.
+UE4.27 source contract is not a pixel-alpha measurement or proof of host byte
+identity. Offline345/25 PASS (12 new), no new native render/cleanup acceptance.
+World/native/resource/input seams preserved; no scale/gamma/material change.
+
 ## Divider/color runtime — one snapshot and explicit user STOP PASS, 2026-11-05
 
 [Exact evidence, observed matrix and limits](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#user-run--snapshot-and-manual-stop-pass-2026-11-05).

@@ -22,6 +22,10 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 
 This module will have its own version and independently installable payload if implementation proves feasible.
 
+The [compact-layout research successor](research/interaction-prompts-owner/world-space/compact-layout/README.md)
+is source-ready for closer text/divider spacing while retaining overlap/bounds
+checks. Its new World-space layout awaits user testing; production remains blocked.
+
 The approved [authored divider and one color-metadata snapshot](research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
 now have a separately installed research successor whose one metadata snapshot
 and manual STOP passed. Closer vertical layout remains requested; final visual

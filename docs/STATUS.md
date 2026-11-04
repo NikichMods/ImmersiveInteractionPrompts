@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — compact-layout READY_SOURCE, NOT_INSTALLED.**
+[Кандидат, evidence-gate, manifest и один будущий run](../research/interaction-prompts-owner/world-space/compact-layout/README.md).
+Ветка research/compact-world-layout от f2bc83d; source51b9f26/его установка
+сохранены.17 новых source-defaults взяты из принятого Num9. Guarded alpha7–25/32
+вместо полного PNG при проверке расстояний; full native TextBlock metrics без
+двойного outline. gap0 и divider_y−3 теперь допустимы, реальные overlap/bounds
+по-прежнему отвергаются с rollback; широкая верхняя строка проверяется против
+кнопки. Full offline345/25 PASS,12 новых случаев. Масштаб отложен, цветовое
+логирование завершённого эксперимента удалено из нового преемника; ни цвет,
+ни World-поза не менялись. Пользователь разрешил последующую установку сразу
+после подготовки; игровой render/новая компактность ещё не приняты.
+
 **2026-11-05 — visual glow acceptable / color correction DEFERRED; next: compact layout.**
 [Принятое решение и границы следующего кандидата](REQUIREMENTS.md#визуальная-допустимость-свечения-и-приоритет-компактности--решение-2026-11-05).
 Текущий World-space вид со слабым свечением пользователь считает визуально
