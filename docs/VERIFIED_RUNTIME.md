@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Compact runtime — spacing/hide-resume/manual STOP PASS, 2026-11-05
+
+[Exact session, intervals and limits](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
+Source2981375/all12 installed hashes match, log SHA256
+`f2cc24a824b031465906ba00317e15af68c5b232a391c1b9d23874ebd3e544c7`.
+130 layouts (97 gap0/Y−6), nonnegative guarded clearances; one real upper/divider
+overlap request rejected/restored without stopping. One same-component hide/
+resume retained all17 recorded settings and reused resources. User STOP cancelled
+loop/removed hooks/released resources/destroyed component, CLEANED confirmed;
+no FAILED/CLEANUP_PENDING/post-cleanup layout.12754 frame-Yaw writes, no benchmark.
+Last VALUES explicitly adopted as next defaults; source/config/marker unchanged.
+No new universal text-ink proof, other-target/lifecycle or production acceptance.
+
 ## Compact successor installed — native run pending, 2026-11-05
 
 Source `2981375afadb968fb272eeab33aab8d384e639ef`, separate own CompactLayoutProbe;

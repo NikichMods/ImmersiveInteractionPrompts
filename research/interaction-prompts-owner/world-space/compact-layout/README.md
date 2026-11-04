@@ -1,6 +1,7 @@
 # Compact World layout — research successor
 
-**2026-11-05: READY_SOURCE / INSTALLED / RUNTIME_PENDING.**
+**2026-11-05: COMPACT_LAYOUT_HIDE_RESUME_MANUAL_STOP_PASS (bounded).**
+Source/installed payload remain frozen; no production/final visual promotion.
 Candidate ID `compact-world-layout-20261105`, branch `research/compact-world-layout`.
 Base `f2bc83d76804b1085f4f9faebd70544e27188869`; frozen predecessor source
 `51b9f265c8b6d6b79ff48513a51a84087eeee6be` in
@@ -10,6 +11,49 @@ and approved asset hashes; its containing source commit identifies the candidate
 No VERSION/main/release change. User subsequently authorized immediate installation
 after successful preparation/tests, superseding this task's original no-install
 boundary; installation is separately recorded below when actually completed.
+
+## User run — compact spacing, hide/resume and manual STOP PASS, 2026-11-05
+
+Source `2981375afadb968fb272eeab33aab8d384e639ef`; all12 installed hashes match.
+User closed the host after testing; process check found no running game. Private
+archive `runtime-20261104T231905Z`, UE4SS log SHA256
+`f2cc24a824b031465906ba00317e15af68c5b232a391c1b9d23874ebd3e544c7`.
+Genesis log ends with normal exit02:18:32 Moscow. Raw log/config/identity remain
+ignored; no host data is published. Installed files/config/marker unchanged.
+
+**Compactness mechanism PASS:**130 successful layouts, including97 with gap0
+and divider_y−6. At final layout971: native upper slot height90, lower desired
+extent178×54, divider slot46.875, guarded alpha height26.3672, upper guarded
+clearance4.25391 and lower clearance0. All logged clearances are nonnegative.
+Zero lower clearance means guarded envelopes meet, not that glyph/alpha ink
+overlaps; reserved fringe/text guards remain. This is logged layout/readback
+evidence, not a screenshot or pixel-perfect ink-bounds measurement.
+
+One real-overlap rejection at02:15:49.6333801 (line870): request
+gap0/divider_y−10/thickness1 was rejected as `Divider overlaps upper text` and
+restored−6, with `session_continues=true`. No blind bypass or terminal failure.
+Later thickness1.25 applied successfully. No color snapshot was repeated.
+
+**Hide/resume PASS:** HIDDEN02:18:14.3098722 → RESUMING02:18:15.3099354 →
+SHOWN02:18:15.3443217, same_component=true. Native hint freshly re-bound;
+the resumed layout971 retains all17 values from the earlier NumPad9 line966.
+Only one import/texture binding/component allocation: retained composition
+was reused rather than reconstructed. This proves one same-target return,
+not other objects, map travel or complete lifecycle.
+
+**Explicit NumMultiply STOP PASS:** LOOP_CANCELLED handle4 at02:18:28.5428313;
+STOP reason=user/MATCHED at02:18:28.5429431 with hooks_remaining0;
+hint/composition RELEASED, COMPONENT_DESTROYED, CLEANED reason=user at
+02:18:28.5595689 with own_widget_holder=false/own_component_alive=false.
+No IIP FAILED/CLEANUP_PENDING and no layout/show after CLEANED.
+YAW_SUMMARY:12754 writes, no degenerate direction, Pitch/Roll0; no FPS benchmark.
+
+Last NumPad9 at02:18:02.0935155 (line966) is explicitly adopted by the user as
+the [current next-candidate baseline](../../../../docs/REQUIREMENTS.md#актуальная-база-после-compact-layout-прогона--2026-11-05).
+It supersedes the older51b9f26 tuning baseline for future implementation only;
+the frozen source defaults and installed config are not rewritten. No new build,
+installation, scale control, color experiment, stable merge or release in this
+review. Final visual acceptance is not inferred from the log alone.
 
 ## Question, mechanism and evidence gate
 

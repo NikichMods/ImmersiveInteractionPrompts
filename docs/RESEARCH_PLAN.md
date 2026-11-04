@@ -1,11 +1,22 @@
 # План исследования — contextual prompts и письменность
 
+## Compact-прогон завершён; текущая база обновлена — 2026-11-05
+
+[Сближение/hide-resume/manual STOP PASS](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
+Повторный run ради этих же гейтов не нужен. Последние17 NumPad9 значений
+[приняты как текущая база следующего кандидата](REQUIREMENTS.md#актуальная-база-после-compact-layout-прогона--2026-11-05).
+Сейчас только разобрать и сохранить результат: без нового кода/установки;
+source2981375 и installed payload/config/marker остаются прежними. Нет отдельного
+разрешения на production-продвижение; масштаб и color-work не возобновляются.
+
+## История подготовки compact-layout
+
 ## Подготовлен compact-layout — 2026-11-05
 
 Source2981375 уже установлен по поправке пользователя;
 [identity/rollback](../research/interaction-prompts-owner/world-space/compact-layout/README.md#authorized-installation--2026-11-05).
-Следующий шаг — один пользовательский run, дополнительных исходников/установки
-до фактического результата не требуется. Новый runtime/визуальный PASS не заявлен.
+На момент установки следующим шагом был один пользовательский run; его узкий
+технический результат теперь записан выше.
 
 [READY_SOURCE и сценарий](../research/interaction-prompts-owner/world-space/compact-layout/README.md):
 alpha-envelope + полные native text metrics, gap0, прежний отказ на−3 снят,

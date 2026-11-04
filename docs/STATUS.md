@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — compact-layout: сближение, hide/resume и NumMultiply STOP PASS.**
+[Source2981375, точный лог/метрики и границы](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
+Все12 installed hashes совпали;130 layout,97 из них gap0/Y−6, один корректный
+overlap rejection с восстановлением. HIDDEN→RESUMING→SHOWN на том же компоненте,
+последние17 значений сохранены. LOOP_CANCELLED→STOP reason=user/hooks0→RELEASED→
+COMPONENT_DESTROYED→CLEANED, без FAILED/CLEANUP_PENDING. Последний Num9
+[закреплён как актуальная будущая база](REQUIREMENTS.md#актуальная-база-после-compact-layout-прогона--2026-11-05):
+tracking350, gap0, dividerY−6/thickness1.25, hintGap10, brightness.6/.5/.5/.5,
+остальные значения в таблице. Новый код/установка не выполнялись, marker/config/
+payload прежние; host закрыт. Финальная визуальная приёмка/production не следуют
+автоматически; общий масштаб и цветовая коррекция не открываются этим результатом.
+
 **2026-11-05 — compact-layout INSTALLED, RUNTIME_PENDING.**
 Source `2981375afadb968fb272eeab33aab8d384e639ef`
 [установлен после пользовательской поправки](../research/interaction-prompts-owner/world-space/compact-layout/README.md#authorized-installation--2026-11-05).

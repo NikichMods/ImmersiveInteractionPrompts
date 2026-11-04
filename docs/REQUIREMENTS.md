@@ -1,9 +1,36 @@
 # Требования — Immersive Interaction Prompts
 
+## Актуальная база после compact-layout прогона — 2026-11-05
+
+Пользователь просит сделать базовыми последние17 значений NumPad9 из прогона
+source `2981375afadb968fb272eeab33aab8d384e639ef`. VALUES записаны02:18:02.0935155
+МСК (строка966); все17 совпадают с последним применённым layout971 после
+hide/resume. [Доказательство и границы результата](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
+Эта таблица **заменяет предыдущую базу source51b9f26 для будущего кандидата**.
+Замороженные исходники/manifest и installed config2981375 остаются неизменными;
+`saved=false` был записью в лог, а не автоматическим сохранением настроек в файл.
+
+| Параметры актуальной будущей базы | Значения |
+| --- | --- |
+| upper_size / lower_size |50 /30|
+| tracking / outline / lower_outline |350 /3 /3|
+| gap / divider_y |0 /−6|
+| divider_width / divider_thickness / divider_alpha |300 /1.25 /1|
+| hint_size / hint_gap / hint_y |50 /10 /0|
+| upper_brightness / lower_brightness |0.6 /0.5|
+| divider_brightness / hint_brightness |0.5 /0.5|
+
+Лог подтверждает применение compact-параметров, одно корректное hide/resume,
+штатный отказ реального overlap с rollback и явный manual STOP/cleanup.
+Это не автоматическая финальная визуальная/production-приёмка. Сейчас только
+разбор результата и сохранение базы; новый кандидат/переустановка не требуются.
+Условный общий масштаб остаётся отложенным, цветовое исследование не открывать.
+
 ## Компактный преемник — реализация и границы, 2026-11-05
 
 [Новый кандидат compact-layout](../research/interaction-prompts-owner/world-space/compact-layout/README.md)
-использует все17 принятых ниже значений без подбора новой яркости/цвета.
+использует17 стартовых значений из прежней базы source51b9f26 ниже; актуальная
+будущая база после его прогона приведена выше. Нового подбора цветового пути нет.
 Строки сохраняют полные native DesiredSize с обводкой и небольшим guard;
 разделитель учитывается по alpha bbox8–24 из32 строк с однопиксельным source
 запасом7–25. Полный PNG-slot/текст/кнопка остаются в RT. Не добавлять outline
