@@ -1,5 +1,79 @@
 # План исследования — contextual prompts и письменность
 
+## Автоматическое обнаружение и переключение цели — source-only review, 2026-11-05
+
+**SOURCE_ROUTE_REVIEW_COMPLETE / NO_NEW_RUNTIME_ACCEPTANCE.** Перепроверены текущие
+`compact-layout/Scripts/main.lua`, `IIPWorldChild.lua`, `IIPHintSource.lua`,
+[Open join](../research/interaction-prompts-owner/open-binding/beginplay-probe/README.md),
+[route comparison](../research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md),
+[CanShow runtime](../research/interaction-prompts-owner/can-show-state/README.md)
+и [канонические host findings](VERIFIED_RUNTIME.md#1-подтверждённый-ui-owner-и-цепочка).
+Сохранённый успешный Run source2981375 не расширяется до новых объектов.
+
+**Два разных owner-условия:**
+
+1. `BaseGameEventObject_BP_C:ReceiveBeginPlay` (script post) уже доказал
+   приобретение одного Open actor→ExtendedWidget→TipHUD после ручной загрузки
+   и совпадение по identity при `TipHUD_C:CanShow`. Это связь объектов,
+   **не доказательство**, что каждый callback `CanShow` означает фактически
+   выбранную игроком цель: return bool не передан Lua script post;948
+   callbacks для3 live widgets в прежнем опыте не означают948 показов.
+   `widget.Outer` принадлежит GameInstance, а не интерактивному актору.
+2. У текущего research source есть жёсткий `msgTag=Open / ActionName=25`,
+   `phase=bound` фиксирует одну цель, отбрасывает остальных кандидатов,
+   `automatic_retarget=false`. Per-frame World проверяет только native
+   visibility/source ownership текущей цели. При смене цели нет протокола
+   восстановления списка и transfer; не следует просто выбирать последний
+   `CanShow` или ближайший актор.
+
+**Новый проверенный исходниками UE4SS путь для автоматического lifecycle:**
+
+- В точном [UE4SS LuaMod.cpp @83330635](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L2565)
+  `RegisterBeginPlayPostHook` регистрирует callback без поиска загруженной
+  игровой UFunction; dispatcher [6602–6617](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L6602)
+  передаёт `AActor*` в callback.
+  `RegisterEndPlayPreHook` [2593–2612](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L2593)
+  и [6619–6635](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L6619)
+  передаёт актор + причину; это source-level кандидат для cleanup/level loss.
+- `RegisterHook` по-прежнему требует уже resident `TipHUD_C:CanShow`
+  UFunction [4242–4248](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L4242).
+  Дополнительно [NotifyOnNewObject, 2304–2366](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp#L2304)
+  умеет регистрировать callback по имени класса без `UFunction`; допустим
+  только как *кандидат* на bounded естественный trigger резидентности, с
+  проверкой exact class/порядка и однократной регистрации. Не force-load,
+  не вызывать игровые методы для создания события.
+- Наличие данных API в версии UE4SS и C++ callback-контракт **не доказывают**
+  что game-specific обработка `TipHUD` полностью завершена в момент
+  глобального `BeginPlayPost`, что он достигает всех relevant actor-классов
+  или что нужные объекты уже не созданы до загрузки мода. Это отдельный
+  readiness-гейт. Не считать `EndPlay` подтверждённым в данном host без run.
+
+**Минимальный дизайн-кандидат к следующей source-only реализации ChatGPT:**
+при старте мода bounded global BeginPlay/EndPlay callbacks с дешёвым exact
+type/ancestor guard; сохранение *только* проверенных primitive owner identities
+(actor/component/widget), без FindAllOf/мирового сканирования или per-frame
+actor enumeration. Инициализацию после callback выполнять в безопасной фазе
+при фактической готовности widget (без повторного BeginPlay/InitWidget).
+Проверенный `CanShow` оставлять информационным событием и сверять
+native component+widget visibility, effective input mode и соответствие
+identity; если кандидатов0 или несколько неоднозначных — не создавать новую
+World подсказку, штатный Screen остаётся. Для единственного подтверждённого
+текущего target предусмотреть state machine hide→release/switch→show и
+cancellation при EndPlay/смене уровня. Любой native Screen hide/замена и
+подмена Top `OPEN` для других действий запрещены до отдельных UX/semantic
+решений. Начальный scope — доказанный Open; Take/Check имеют static
+общий owner-путь, но ещё не runtime proof; Ladder/Descend не подтверждены.
+
+**Что может решить следующий один игровой прогон, если source-only гейты
+пройдены:** приход глобального BeginPlay/EndPlay на нужном owner; ready-тайминг
+`TipHUD`; *однозначность* native visible/selected при двух рядом стоящих
+объектах, переход focus A→B→none и возврат, без мнимых показов на каждый
+`CanShow`. Если не существует наблюдаемого признака выбранной цели — STOP
+и новый ограниченный owner/event вопрос, а не автоматический global scan.
+Следующий исполнитель исходников и offline tests — ChatGPT; local Codex только
+для отдельно разрешённого installed-host разрыва. Никакого нового кандидата,
+установки, runtime-теста, `main`/`VERSION` или игры в этом source-only шаге.
+
 ## Production transition — next bounded slice, 2026-11-05
 
 [Production source/evidence audit](STATUS.md#production-readiness--sourceevidence-audit-2026-11-05)
