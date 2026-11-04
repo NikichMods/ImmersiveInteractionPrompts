@@ -7,6 +7,10 @@ frozen. This candidate's [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) records al
 Lua bytes and external resource hashes; its containing commit identifies source.
 VERSION remains initial0.1.0 metadata, no release/main promotion.
 
+**Installation superseded:** previous session source/config retained; own enabled
+marker disabled after the [expanded candidate](../live-editor-expanded/README.md)
+was installed. The old runtime evidence below remains historical.
+
 ## User run — recurring visibility worked; tuning exceeded old canvas
 
 Exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d` and11 installed hashes

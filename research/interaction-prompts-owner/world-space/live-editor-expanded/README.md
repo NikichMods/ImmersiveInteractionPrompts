@@ -1,10 +1,29 @@
 # Expanded World editor — large fonts and rejected-edit rollback
 
-**2026-11-04: READY_SOURCE, native expanded rendering pending; production BLOCKED.**
+**2026-11-04: READY_SOURCE / INSTALLED, native expanded rendering pending; production BLOCKED.**
 Successor to [untimed session](../live-editor-session/README.md), exact predecessor
 source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`. Prior sources stay frozen.
 [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) pins9 Lua files and config example;
 the commit containing it is the source identity. VERSION unchanged, no release.
+
+## Authorized installation — 2026-11-04
+
+At18:21:59 Moscow, exact source `19d35a5a0238a3b228f7058bfcd7234e647ede7e`
+installed into new ImmersiveInteractionPromptsWorldExpandedProbe with host closed.
+Nine authored Lua match source manifest; private config SHA256
+`7cfb0566b1142060b309142bba678adcc53ec2041af3955aeec1efda35e55b9b` and empty
+own enabled marker verified,11 installed files. Former WorldSession source/config
+retained unchanged, its verified own marker disabled after new payload verification.
+All19 older IIP probes disabled; only new Expanded enabled.83 other preexisting
+mod/loader/log files and45 config/save files hash-preserved;84-file baseline includes
+intentionally removed own marker. Pinned loader and external resource hashes match.
+Private before/installed/verified manifests, pretest logs, backups and guarded
+rollback are ignored under
+`.local/research/interaction-prompts/world-space/live-editor-expanded/install-20261104T152159Z`.
+Rollback syntax checked, not executed. No game launch/termination, hot reload,
+other-mod/settings/save change. Expanded native RT/font rendering/fit rejection
+still pending user run. Frozen manifest's NOT_INSTALLED records the source handoff;
+installation did not rewrite the source/manifest bytes.
 
 ## Observed failure and user's decision
 

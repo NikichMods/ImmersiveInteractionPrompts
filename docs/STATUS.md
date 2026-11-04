@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — Expanded editor INSTALLED, RUNTIME_PENDING.**
+Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e`, own WorldExpandedProbe;
+[установка/сценарий](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#authorized-installation--2026-11-04).
+11 файлов проверены; прежняя WorldSession отключена,19 старых IIP-проб неактивны.
+83 остальных mod/loader/log файлов и45 config/save сохранены по хэшам, rollback
+вне loader. Игра закрыта, не запускалась/не завершалась агентом, hot reload нет.
+Текущий кандидат1024×512 с начальными48/28 и диапазонамиupper20–96/lower16–64;
+неподходящая ручная компоновка отклоняется без закрытия редактора. Offline309/22
+PASS; actual большая поверхность/крупные шрифты/сообщение о пределе ещё не приняты.
+Далее один обычный run: Ctrl+Alt+F11/reload/Open, крупные размеры и hide/return,
+Num9 и NumMultiply без тестового таймера. Production остаётся BLOCKED.
+
+
 **2026-11-04 — recurring hide/show подтверждён логом; расширенный редактор READY_SOURCE.**
 [Session run](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#user-run--recurring-visibility-worked-tuning-exceeded-old-canvas):
 два HIDDEN→RESUMING→SHOWN с тем же компонентом, device4→1 rebind, upper32→36 и

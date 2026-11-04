@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Expanded editor installation — 2026-11-04, runtime pending
+
+Source `19d35a5a0238a3b228f7058bfcd7234e647ede7e` installed with host closed;
+[exact installation record](../research/interaction-prompts-owner/world-space/live-editor-expanded/README.md#authorized-installation--2026-11-04).
+9 authored Lua installed hashes match manifest; private config/empty marker verify,
+11 files total. Previous own WorldSession marker intentionally disabled; source/
+config retained.19 prior IIP probes disabled.83 other preexisting mod/loader/log and
+45 config/save files hash-preserved; backup/guarded rollback outside loader.
+No launch/termination/hot reload or other-mod/settings/save/source modification.
+Expanded RT/large-font rendering, native metrics and recoverable fit-rejection UX
+not executed by agent and remain pending user evidence; offline309/22 PASS only.
+
+
 ## Untimed session runtime / expanded-source follow-up — 2026-11-04
 
 [Exact recurring-session result](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#user-run--recurring-visibility-worked-tuning-exceeded-old-canvas):
