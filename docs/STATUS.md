@@ -1,5 +1,65 @@
 # Статус Immersive Interaction Prompts
 
+## Production readiness — source/evidence audit, 2026-11-05
+
+**REMOTE_SOURCE_AUDIT_COMPLETE / RESEARCH_PASS / PRODUCTION_BLOCKED.** This is
+a source-and-repository audit, not new installed-runtime proof or approval to
+install. Evidence baseline: research/compact-world-layout HEAD
+`8e5ddda598857404e638626ebce1ca09b166038f`, frozen tested
+source `2981375afadb968fb272eeab33aab8d384e639ef`, its [run and limits](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05),
+current REQUIREMENTS and shared Asterigos-Research index. No code, game,
+installed files, versions, third-party resources or main branch changed.
+
+**Verified on the narrow tested path:** one own World WidgetComponent/vertical
+frame-Yaw, natural Hilda occlusion, one native localized action and borrowed
+current input-hint source, authored PNG, bounded compact layout with rollback,
+same-object hide/resume, explicit manual STOP/cleanup. Reported offline
+345 tests/25 suites PASS for the frozen source. Neither that suite count nor
+logged yaw writes is a production/performance/other-action acceptance.
+
+**Current-contract blockers (evidenced by exact current source):**
+
+1. `compact-layout/Scripts/main.lua`: Ctrl+Alt+F11 arms the research hook,
+   `reload_manually_once=true`; no automatic ordinary-play activation.
+   `relations()` requires `msgTag=Open` and `ActionName=25`; candidate acquisition
+   filters the same Open tag. Once matched it commits to one actor/widget and
+   `automatic_retarget=false`. No general target handover or re-arm path.
+2. `IIPComposition.lua` initializes upper font text to literal technical `OPEN`
+   and refreshes lower text from stock `TextBlock_89`. There is no accepted
+   per-action upper-glyph mapping or validated Take/Read/Descend producer chain.
+   The technical upper text is not a verified Aphes-language translation.
+3. One same-target hide/resume and manual cleanup passed; focus changes to
+   different actors, map travel, shutdown/reinitialization, input mode changes
+   and wider visibility/progression states have no accepted end-to-end contract.
+   Guarded fail-closed behavior is useful but not automatic continuity.
+4. Original Screen TipHUD intentionally remains visible throughout research;
+   final duplicate-prompt presentation/vanilla fallback policy is unresolved.
+   Do not hide or modify the host UI without an agreed UX and verified reversible
+   mechanism.
+5. Installable distribution is not prepared: research-only Lua and temporary
+   editor/probe entry, private absolute-path IIPLiveConfig, game-derived Aphes.ttf
+   excluded from public artifacts by LICENSING. Need a lawful user-side resource
+   resolution/install/disable/rollback mechanism and tested packaging before release.
+6. Acceptance still needs representative interaction families, RU and another
+   available locale, keyboard/controller and switching/remap, target loss/return,
+   long localized strings, resolution/readability and host/other-mod invariants.
+   Exact supported envelope to be accepted explicitly. No `.github/workflows`
+   present in this research tree; offline tests exist but hosted CI/status is
+   not claimed.
+
+**Not current blockers by themselves:** accepted slight glow (color correction
+DEFERRED), optional overall scale, unknown host builds without a support claim,
+theoretical compatibility machinery, unrelated gameplay mods and re-running
+completed A/B or manual STOP tests.
+
+**Next sufficient action:** ChatGPT-owned *source-only* integration design,
+starting with current target acquisition/automatic re-targeting and verified
+native owner/visibility seams, consulting [RESEARCH_PLAN](RESEARCH_PLAN.md#production-transition--next-bounded-slice-2026-11-05).
+Do not build a generalized scanning framework or new local probe before
+reusing accepted evidence. Codex only for an essential installed-host check.
+Research source, installed marker, defaults and `main` unchanged; no production
+release authorized.
+
 **2026-11-05 — compact-layout: сближение, hide/resume и NumMultiply STOP PASS.**
 [Source2981375, точный лог/метрики и границы](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).
 Все12 installed hashes совпали;130 layout,97 из них gap0/Y−6, один корректный
