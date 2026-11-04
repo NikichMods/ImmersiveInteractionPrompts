@@ -10,7 +10,9 @@ SVG — редактируемый исходник, непрозрачный da
 Новый [source-only преемник Style](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
 объединяет её проверку и однократный read-only снимок own/native RT/MID в одном
 будущем сеансе. Это явно возобновляет только данный узкий этап; installation,
-enable, запуск/завершение игры и hot reload сейчас не разрешены.
+enable, запуск/завершение игры и hot reload в source-only задании не разрешались.
+Позже пользователь отдельно разрешил установку: [выполненная установка](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#authorized-installation--2026-11-05)
+не является разрешением на запуск/завершение игры, hot reload или приёмкой.
 
 Стартовые длина300/толщина1× сохраняют новый PNG aspect; полный слот37.5 высок,
 видимая область существенно тоньше. Унаследованные2.5× к новой текстуре не

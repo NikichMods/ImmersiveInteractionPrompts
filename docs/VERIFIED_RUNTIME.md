@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Divider/color successor installed — runtime pending, 2026-11-05
+
+Exact source `51b9f265c8b6d6b79ff48513a51a84087eeee6be`, installed separately in
+own DividerColorProbe with host closed after explicit user permission.
+[Installed identity and boundary](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#authorized-installation--2026-11-05):
+13 files verified against source/asset/private config hashes;21 old IIP probes
+disabled.103 existing mod/loader/log and46 config/save files hash-preserved,
+rollback outside loader and syntax checked. No executable source change, game
+process control or hot reload. Actual import/render/snapshot/manual STOP/visual
+acceptance remain untested; installation PASS is not a runtime PASS.
+
 ## Authored divider + color snapshot successor — source-only, 2026-11-05
 
 [Candidate/manifest/one-session procedure](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md).

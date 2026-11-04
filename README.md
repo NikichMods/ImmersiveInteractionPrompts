@@ -23,8 +23,8 @@ Examples: pick up, open, read, descend; other context actions only when supporte
 This module will have its own version and independently installable payload if implementation proves feasible.
 
 The approved [authored divider and one color-metadata snapshot](research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
-now have a source-only research successor. It is not installed or visually
-accepted in World space; no color fix or production release is claimed.
+now have a separately installed research successor awaiting its user run.
+World-space visual acceptance, a color fix and a production release are not claimed.
 
 ## Independent repository
 

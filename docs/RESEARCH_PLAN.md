@@ -2,9 +2,14 @@
 
 ## Текущий шаг — один преемник с PNG и диагностикой, 2026-11-05
 
+Кандидат source51b9f26 уже отдельно разрешённо установлен и хэш-проверен;
+[identity/ограничения](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#authorized-installation--2026-11-05).
+Следующий шаг — один пользовательский сеанс по сценарию кандидата; дальнейшая
+подготовка/переустановка до нового фактического результата не требуется.
+
 По новому заданию подготовлен [authored divider + color snapshot](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md):
-READY_SOURCE/NOT_INSTALLED. Дальше только отдельно разрешённая безопасная
-установка и один сеанс для разделителя/толщины/небольшого движения/hide-show/
+Исходная source-only подготовка завершена, установка выполнена. Далее один
+сеанс для разделителя/толщины/небольшого движения/hide-show/
 NumPad9/явного NumMultiply и однократного RT/MID-снимка. Не повторять архивный
 аудит, Masked/Translucent A/B и не исправлять цвет наугад. Дизайн PNG принят;
 World-рендер, runtime readback и новый cleanup ещё не проверены.

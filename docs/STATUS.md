@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-05 — divider/color кандидат INSTALLED, RUNTIME_PENDING.**
+По явному разрешению пользователя source `51b9f265c8b6d6b79ff48513a51a84087eeee6be`
+[установлен при закрытой игре](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md#authorized-installation--2026-11-05).
+13 installed hashes проверены:10 Lua, новый PNG, private config, own empty marker.
+21 прежняя IIP-проба отключена;103 существующих mod/loader/log и46 config/save
+файлов сохранены и хэш-проверены. Внешний rollback подготовлен; старый Style
+payload/config сохранён. Игра не запускалась/не завершалась, hot reload не было.
+Далее один пользовательский run: Ctrl+Alt+F11, manual reload/Open, новый рисунок/
+толщина/небольшое движение/hide-show, Num9 и явный NumMultiply. RT/MID-снимок и
+visual/manual cleanup ещё не проверены; production BLOCKED, VERSION/main прежние.
+
 **2026-11-05 — authored divider + one color snapshot: READY_SOURCE / NOT_INSTALLED.**
 [Один новый кандидат, manifest и сценарий](../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
 на ветке `research/divider-color-snapshot`, непосредственно после asset7ff9d6e

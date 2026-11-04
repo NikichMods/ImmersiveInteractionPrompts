@@ -1,6 +1,6 @@
 # Authored divider + one World color snapshot
 
-**2026-11-05: READY_SOURCE / NOT_INSTALLED / RUNTIME_PENDING.**
+**2026-11-05: INSTALLED / RUNTIME_PENDING.** Source readiness remains verified.
 Candidate `divider-color-snapshot-20261105`, branch `research/divider-color-snapshot`.
 Exact source/asset/config-template hashes: [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json);
 its containing Git commit identifies the exact candidate. History is linear:
@@ -114,10 +114,34 @@ Established host fixtures are reused; policy/API-contract tests do **not** prove
 UE rendering or GC. Full output remains ignored in
 `.local/divider-color-snapshot-all-tests.txt`.
 
+## Authorized installation — 2026-11-05
+
+User explicitly authorized installation after the source handoff. At01:11 Moscow
+(`install-20261104T221116Z`, UTC archive identity), exact source
+`51b9f265c8b6d6b79ff48513a51a84087eeee6be` was installed in a distinct own
+`ImmersiveInteractionPromptsDividerColorProbe` directory with host closed.
+All13 installed hashes verified: ten Lua files, authored PNG, private config and
+own empty enabled marker. PNG matches the manifest; config points to that installed
+PNG and the existing private Aphes.ttf. Installed config SHA256:
+`0303ceb251fb8c3b09189a088ace1877c2c9f140c6bfa2f27891755035aaa885`.
+
+All21 prior IIP candidates remain disabled, with payload/config preserved;
+no old marker needed removal or reactivation.103 existing mod/loader/log files
+and46 Config/SaveGames files were copied outside loader and hash-preserved.
+UE4SS DLL matches the pinned hash. Verified rollback and exact installed manifest
+are private under the ignored installation archive; rollback's syntax and path/
+hash guards were checked, but rollback was not executed. It disables only this
+new own marker and returns to the prior all-disabled IIP state, retaining payload.
+No game launch/termination, hot reload, settings/save/foreign-mod change occurred.
+Native load, new import/rendering, snapshot and manual STOP remain **PENDING**.
+Frozen source manifest still describes its original source-only handoff; it was
+not rewritten to represent installation or runtime acceptance.
+
 ## One future test and installation boundary
 
-**No installation/enable, game launch/termination, hot reload, graphics/save or
-foreign-mod change occurred.** Previous IIP markers remain untouched.
+The following preparation boundary is historical; the separately authorized
+installation above is complete. Game launch/termination, hot reload, graphics/
+save or foreign-mod changes were not performed. Previous IIP markers are untouched.
 Private config is prepared in the ignored local candidate directory; tracked
 [example](IIPLiveConfig.example.lua) contains placeholders. No installation
 script/marker is handed out as deployment authorization.

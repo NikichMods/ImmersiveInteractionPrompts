@@ -1,6 +1,6 @@
 # Minimal braided divider — research visual asset
 
-Authored ornament for the two-line world-space interaction prompt in *Asterigos: Curse of the Stars*. This is an **approved design** (2026-11-05), not a tested or installed World-space mod payload.
+Authored ornament for the two-line world-space interaction prompt in *Asterigos: Curse of the Stars*. This is an **approved design** (2026-11-05); the research successor is installed and awaits its World-space user test.
 
 ## Files
 
@@ -14,7 +14,7 @@ The design is deliberately monochrome and flat: white ~3 px shaft, ~1 px dark ou
 
 The [source-only successor](../../research/interaction-prompts-owner/world-space/divider-color-snapshot/README.md)
 replaces the research prototype's imported **stock 570×16 ornament** with this
-authored transparent PNG; installation and in-game testing remain pending.
+authored transparent PNG; authorized installation is complete, in-game testing remains pending.
 The latest accepted research editor values are recorded in [live-editor-style](../../research/interaction-prompts-owner/world-space/live-editor-style/README.md): divider length 300 and vertical multiplier 2.5, among other settings. These refer to the old source texture and **must not be copied blindly** to the new image.
 
 The asset geometry and alpha are checked offline; its sampling, world-space apparent pixel thickness, subpixel shimmer and halo/faded appearance are **not** runtime-verified. The mod's original localized action, native hint and interaction behavior must remain unchanged. Approval of the drawing does not establish World-space visual acceptance, readiness to install, VERSION change, or permission to merge experimental runtime behavior into `main`.
