@@ -14,6 +14,71 @@ READY_SOURCE/NOT_INSTALLED. It changes only the owned Canvas slot, preserves
 Masked/RT/scale/anchor/color settings and does not claim a color fix or adopt a
 final product size. Existing material A/B remains completed.
 
+## Color-pipeline audit — 2026-11-04 (source-only, no runtime writes)
+
+**STATIC_CHAIN_REVIEW_COMPLETE / COLOR_CAUSE_UNPROVED / PATCH_BLOCKED.**
+User authorized a bounded investigation of pale/haloed World UI after the
+accepted `da830808912b38527fb5088a6543d6a070b5f3f7` style run. This section
+updates the decision on the *latest* 1024x512 World component; older 512x128,
+Masked/Translucent and size experiments remain historical and closed.
+No game launch, installation, test payload, settings/save change or production
+code change occurred. The separate divider-artwork task is out of scope.
+
+### Engine and owner/writer cross-check
+
+The below conclusions are source-contract level against
+[public UE4.27 mirror](https://github.com/AlexMercer-MA/UnrealEngine-4.27/tree/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e),
+**not a proof** of exact engine bytes or cooked material graph in the installed
+Asterigos Steam 1.09 host.
+
+| Stage | Established source behavior | What it does *not* prove |
+| --- | --- | --- |
+| Native Screen `SRetainerWidget` | `UpdateWidgetRenderer` explicitly writes gamma-space; retainer RT is `RTF_RGBA8_SRGB`, with `TargetGamma=1` and `SRGB=false` in that branch; final SRetainer paint uses `PreMultipliedAlpha | NoGamma`. [SRetainerWidget.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Slate/SRetainerWidget.cpp) | Does not mean that borrowing the final MID into our own Image yields pixel-equivalent RGB/alpha after a second render. |
+| Our own UMG | [Current composition](../live-editor-style/Scripts/IIPComposition.lua) builds own TextBlocks, ornament Image, read-only borrowed native hint Image. RGB-only brightness is applied to owned children, alpha kept separately; upper shadow is explicitly disabled and lower outline is optionally black. | No evidence of accidental extra text glow, nor independent ability to change halo without reducing glyph RGB. |
+| World `UWidgetComponent` target | [WidgetComponent.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp) constructor defaults `bApplyGammaCorrection=false`, `Masked`, transparent background. On *initial allocation*, `UpdateRenderTarget` uses Slate's recommended format with `InitCustomFormat(size, format, false)`; the renderer is constructed from the gamma flag. [Current source](../live-editor-style/Scripts/IIPWorldChild.lua) sets draw size1024x512 before registration and does not explicitly override gamma or the RT format. | The **actual** own RT `SRGB`, `bForceLinearGamma`, `TargetGamma`, `GetFormat`/`RenderTargetFormat`, clear, and Slate recommended pixel format have not been captured together at runtime. `false` is the InitCustomFormat force-linear argument; it is **not** proof of any final sampled gamma exponent. |
+| World material/MID | The source explicitly selects `Widget3DPassThrough_Masked`, verifies stock masked/two-sided, depth test enabled and component-owned MID. UE4.27 `UpdateMaterialInstanceParameters` sets `SlateUI`, `TintColorAndOpacity`, `OpacityFromTexture`. [IIPWorldChild.lua](../live-editor-style/Scripts/IIPWorldChild.lua) | No reconstructed pixel-shader expression graph / exact premultiplied-alpha compensation. Changing the `BlendMode` enum without the effective material cannot solve that gap. Prior *real-game* stock Masked vs stock Translucent A/B produced no visible improvement. |
+| Scene and display | UE4.27 [filmic tonemapper documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/color-grading-and-filmic-tonemapper?application_version=4.27) states that exposure/tonemapping can alter emissive colors and saturation; ordinary Screen UI and emissive World UI do not follow identical paths. | Not proof that scene exposure, bloom or temporal AA is causing this specific halo/washed-out F. |
+
+Additional nuance: `FWidgetRenderer::CreateTargetFor` explicitly assigns
+`SRGB`, `TargetGamma`, and a force-linear choice for its own factory
+([WidgetRenderer.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Slate/WidgetRenderer.cpp)).
+`UWidgetComponent::UpdateRenderTarget` **does not call that factory**; copying
+its settings into our World target without source/runtime evidence would be an
+unsupported fix. The engine has a separate branch for reallocating an existing
+RT (`PF_B8G8R8A8`), but the accepted style candidate allocates the1024x512
+component before registration; no RT reallocation or format switch has been
+observed in that session. This branch is **not** a diagnosed bug.
+
+### Decision and cheapest next discriminating evidence
+
+**Do not** change `ApplyGammaCorrection`, `SRGB`, `TargetGamma`,
+`bForceLinearGamma`, `Tint`, `OpacityFromTexture`, outer material,
+global bloom/exposure or post-process by trial and error; do not repeat the
+finished Masked-vs-Translucent test. A production change is **BLOCKED**:
+final color writer/consumer and the Asterigos-specific pixel values/material
+graph remain insufficiently evidenced.
+
+The next sufficient **read-only** step is for user-started local Codex, only
+if/when proceeding: recover the actual worktree and accepted local archives;
+first inspect previously captured logs/UHT declarations/cooked material exports
+without running the host. Extract a concise, non-proprietary field/value matrix
+for the *own* World RT (`SRGB`, force-linear, target gamma, pixel/RT format,
+clear color), World component gamma, effective material parent/parameters,
+and native source-retainer target (to the extent already recorded).
+Distinguish values genuinely observed from constructor/source defaults; do
+not invent absent UHT getters, reconstruct proprietary shader assets or
+commit raw host exports. If essential runtime fields remain unavailable,
+report that blocker and propose **one** separately authorized, bounded
+read-only metadata capture rather than building a new renderer/A-B harness.
+
+Only if these values establish a plausible local conversion mismatch should
+a minimal *owned-component* research A/B candidate be considered; otherwise
+the remaining candidate is scene HDR/tonemapping/Emissive or unknown material
+sampling, whose correction has a materially larger cost. Natural Hilda
+occlusion, original TipHUD/native hints, clean ownership and the accepted
+research prototype remain preserved. The divider texture/mipmap work remains
+a separate task.
+
 ## Question and evidence boundary
 
 The [partial runtime result](README.md) established a live game-owned hint source
