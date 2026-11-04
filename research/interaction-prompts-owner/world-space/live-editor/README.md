@@ -8,6 +8,10 @@ that manifest is the candidate's Git identity; VERSION remains 0.1.0 metadata.
 The frozen manifest describes the original source-only handoff; the subsequent
 authorized installation is recorded below. No release or runtime acceptance exists.
 
+**Superseded installation:** after this run the exact old source was retained,
+its marker disabled and the [untimed session successor](../live-editor-session/README.md)
+installed. Its repeated native hide/resume remains runtime-pending.
+
 ## First user run — brief appearance, one-shot visibility stop, 2026-11-04
 
 Exact installed source `c2e36f90d82540bd3e23f25648e16a54c53699b8` and11 installed

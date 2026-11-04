@@ -1,5 +1,17 @@
 # План исследования — contextual prompts и письменность
 
+## Пользовательский прогон — установлен untimed WorldSession
+
+2026-11-04: exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`
+[установлен и проверен](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#authorized-installation--2026-11-04),
+предыдущая own-проба отключена. Дальнейшая source-подготовка перед этим тестом
+не нужна. Пользователь запускает игру: NumLock, закрытый HildaSoftLight editor,
+Ctrl+Alt+F11 → один reload → natural Open → несколько focus-away/return к тому
+же сундуку → спокойная настройка/Num9 → NumMultiply. Таймера и счётного дедлайна
+нет. Агент затем читает доступный лог, сверяет новую установленную идентичность и
+HIDDEN/RESUMING/SHOWN/STOP/cleanup; пользователь даёт визуальную оценку.
+
+
 ## Текущий этап — повторяемый session-кандидат без тестовых дедлайнов
 
 2026-11-04: первый полный editor source показался на~0.944s и завершился на

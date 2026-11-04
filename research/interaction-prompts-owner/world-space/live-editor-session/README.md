@@ -1,11 +1,31 @@
 # World editor session — reversible same-target visibility
 
-**2026-11-04: READY_SOURCE; runtime hide/resume pending. Production BLOCKED.**
+**2026-11-04: READY_SOURCE / INSTALLED; runtime hide/resume pending. Production BLOCKED.**
 Successor to the exact [first editor candidate](../live-editor/README.md),
 source `c2e36f90d82540bd3e23f25648e16a54c53699b8`. That source and manifest remain
 frozen. This candidate's [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) records all
 Lua bytes and external resource hashes; its containing commit identifies source.
 VERSION remains initial0.1.0 metadata, no release/main promotion.
+
+## Authorized installation — 2026-11-04
+
+At16:32:58 Moscow, exact source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`
+installed into new ImmersiveInteractionPromptsWorldSessionProbe with host closed.
+Nine Lua installed hashes match source manifest; private config SHA256
+`7cfb0566b1142060b309142bba678adcc53ec2041af3955aeec1efda35e55b9b` and own empty
+marker verified,11 installed files. Former WorldEditorProbe exact Lua/config remain
+unchanged but its own enabled.txt is removed after new payload verification.
+All18 earlier IIP probes disabled, only new WorldSession enabled.73 other prior
+mod/loader/log and44 config/save files unchanged by hash. The74-file before-baseline
+includes the intentionally disabled previous own marker. TTF/PNG/pinned loader
+hashes unchanged. Backups/logs and before/installed/verified manifests are ignored
+under `.local/research/interaction-prompts/world-space/live-editor-session/install-20261104T133258Z`.
+Guarded rollback is outside loader, syntax checked, not executed; it disables new
+probe and can restore the exact previous marker after payload/path/closed-host checks.
+No game launch/termination, hot reload, other-mod/settings/save change. New native
+hide/resume and editing session remain awaiting user run; no runtime PASS claimed.
+The manifest's NOT_INSTALLED field records the original source handoff, not current
+installed state; frozen source bytes and manifest were not rewritten on installation.
 
 ## Observed defect and adopted behavior
 

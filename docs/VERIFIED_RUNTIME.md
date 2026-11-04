@@ -1,5 +1,18 @@
 # Verified Runtime — Interaction Prompts
 
+## Session successor — installed exact source, runtime pending, 2026-11-04
+
+Source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d` installed with host closed.
+[Installation record](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#authorized-installation--2026-11-04):
+9 authored Lua hashes match frozen manifest; private config and own empty marker
+verified. Only former own WorldEditor marker removed, new WorldSession enabled;
+18 previous IIP probes disabled.73 other existing mod/loader/log files and44
+config/save files hash-preserved.74-file before-baseline includes the intentionally
+removed old marker. Backup/guarded rollback outside loader; no game process control,
+hot reload, save/settings or source modification. Source-level/full offline301/21
+PASS remains distinct from actual recurring visibility acceptance, still pending.
+
+
 ## First World editor run / recurring-session source — 2026-11-04
 
 [Exact first-run evidence](../research/interaction-prompts-owner/world-space/live-editor/README.md#first-user-run--brief-appearance-one-shot-visibility-stop-2026-11-04).

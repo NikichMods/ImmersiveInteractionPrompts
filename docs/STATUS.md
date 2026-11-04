@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+**2026-11-04 — session-кандидат INSTALLED, повторный hide/show RUNTIME_PENDING.**
+Source `dbd1a033be6ee860caf0aef93cb304652c0cbb9d`, новый WorldSessionProbe;
+[установка/сценарий](../research/interaction-prompts-owner/world-space/live-editor-session/README.md#authorized-installation--2026-11-04).
+Девять Lua, private config и enabled marker проверены (11 файлов); старая
+WorldEditor-проба отключена, ещё17 старых IIP остаются отключёнными.73 остальных
+mod/loader/log файлов и44 config/save файлов сохранены по хэшам; изменение
+предыдущего собственного marker намеренное, rollback подготовлен вне loader.
+Игра закрыта, не запускалась/не завершалась агентом, hot reload отсутствует.
+Новые time/count guards не добавлялись, runtime-показ/редактор без дедлайна.
+Следующий достаточный шаг: тот же natural Open, несколько уходов/возвратов,
+настройка в удобном темпе, Num9 лог и явный NumMultiply STOP. Actual recurring
+native rendering/controls ещё не приняты, production BLOCKED.
+
+
 **2026-11-04 — первый editor run: короткий показ, visibility STOP; successor READY_SOURCE.**
 [Фактический результат](../research/interaction-prompts-owner/world-space/live-editor/README.md#first-user-run--brief-appearance-one-shot-visibility-stop-2026-11-04):
 ожидаемая надпись появилась, через~0.944s old visible-Screen guard окончательно
