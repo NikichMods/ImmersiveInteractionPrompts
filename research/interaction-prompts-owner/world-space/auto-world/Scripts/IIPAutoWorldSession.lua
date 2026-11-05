@@ -57,7 +57,8 @@ function M.start(deps,api,emit)
         if not ok then
             trace("PUMP_FAULT","reason="..short(result).." unrecoverable_in_loop=true")
             stop("world_pump_exception")
-            if done_clean() then terminal("stopped_clean")
+            local read_ok,clean=pcall(done_clean)
+            if read_ok and clean then terminal("stopped_clean")
             else terminal("cleanup_unconfirmed_manual_host_exit_required") end
             return
         end
@@ -69,9 +70,17 @@ function M.start(deps,api,emit)
             return
         end
         if status.fault and not s.stopping then stop("World_handoff_fault") end
-        if s.stopping and done_clean() then
-            terminal("stopped_clean")
-            return
+        if s.stopping then
+            local read_ok,clean=pcall(done_clean)
+            if not read_ok then
+                trace("EMPTY_READBACK_FAULT","own_resource_state_unknown=true")
+                terminal("cleanup_unconfirmed_manual_host_exit_required")
+                return
+            end
+            if clean then
+                terminal("stopped_clean")
+                return
+            end
         end
         if result=="cleaned" or result=="bound_hidden" or
             result=="resumed" or result=="hidden_before_release" then
