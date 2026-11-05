@@ -226,6 +226,9 @@ function M.new(renderer,emit)
                     local ok=invoke("hide")
                     if ok~=true then
                         if ok~=nil then fail("hide_not_confirmed")end
+                        -- A native hide fault must not retry the same setter
+                        -- every frame; prioritize the release/cleanup barrier.
+                        s.phase="release_required"
                         return "hide_failed"
                     end
                     s.phase="hidden"
