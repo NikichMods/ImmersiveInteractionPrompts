@@ -47,6 +47,7 @@ function M.start(api,source,emit)
         active=true,ended=false,reason="running",handle=nil,
         begin_calls=0,end_calls=0,map_calls=0,samples=0,joined=0,
         records={},pending={},by_widget={},by_component={},visible_paths_logged={},
+        native_visibility={},
         registered=0,pending_count=0,ids={},serial=0,
         order={},dirty=true,cursor=1,last="not_sampled",
         choice=nil,streak=0
@@ -68,7 +69,7 @@ function M.start(api,source,emit)
         end
         -- No verified global-hook unregistrar. Captured callbacks remain inert.
         s.records={};s.pending={};s.ids={};s.by_widget={};s.by_component={}
-        s.visible_paths_logged={}
+        s.visible_paths_logged={};s.native_visibility={}
         s.registered=0;s.pending_count=0;s.order={}
         trace("STOP","reason="..short(reason).." begins="..s.begin_calls..
             " joined="..s.joined.." ends="..s.end_calls.." maps="..s.map_calls..
@@ -102,6 +103,7 @@ function M.start(api,source,emit)
         end
         s.ids[key]=nil
         s.visible_paths_logged[key]=nil
+        s.native_visibility[key]=nil
         invalidate()
     end
     local function register(rec,from)
@@ -183,7 +185,7 @@ function M.start(api,source,emit)
         guarded("LoadMapPre",function()
             s.map_calls=s.map_calls+1
             s.records={};s.pending={};s.by_widget={};s.by_component={}
-            s.visible_paths_logged={}
+            s.visible_paths_logged={};s.native_visibility={}
             s.registered=0;s.pending_count=0;s.ids={}
             s.order={};s.cursor=1;s.last="not_sampled"
             invalidate()
@@ -241,6 +243,17 @@ function M.start(api,source,emit)
                                 "snapshot action/owner identity changed")
                             rows[#rows+1]=row
                             local label=tostring(owner_id(key))..":"..row.action
+                            local last=s.native_visibility[key]
+                            if not last or last.shown~=row.shown or last.ready~=row.ready then
+                                s.native_visibility[key]={shown=row.shown,ready=row.ready}
+                                if row.shown or (last and last.shown) then
+                                    trace("OWNER_VISIBILITY","owner="..owner_id(key)..
+                                        " action="..row.action..
+                                        " shown="..tostring(row.shown)..
+                                        " ready="..tostring(row.ready)..
+                                        " observed_only=true")
+                                end
+                            end
                             if row.shown then
                                 if not s.visible_paths_logged[key] then
                                     s.visible_paths_logged[key]=true
@@ -274,9 +287,18 @@ function M.start(api,source,emit)
                 else s.choice=unique;s.streak=1 end
                 state=(s.streak>=2 and "unique_observed:" or "warming:")..unique
             end
-            local details="state="..state.." scanned="..scanned.." total="..n..
-                " ready_owners="..list(ready).." shown_owners="..list(shown)..
-                " hidden_owners="..list(hidden).." pending_owners="..list(pending)
+            local details
+            if incomplete then
+                -- Partial rotated batches are not comparable simultaneous snapshots.
+                -- Do not emit a false show/hide transition merely because
+                -- a different batch was scanned on the next tick.
+                details="state=incomplete_snapshot total="..n..
+                    " max_reads="..READS_PER_SAMPLE.." no_unique_target_claim=true"
+            else
+                details="state="..state.." scanned="..scanned.." total="..n..
+                    " ready_owners="..list(ready).." shown_owners="..list(shown)..
+                    " hidden_owners="..list(hidden).." pending_owners="..list(pending)
+            end
             if details~=s.last then
                 s.last=details
                 trace("SELECTION",details.." sample="..s.samples..
