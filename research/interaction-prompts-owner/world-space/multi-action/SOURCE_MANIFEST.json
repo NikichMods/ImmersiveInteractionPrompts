@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "1780f0a8230149135b61bafcdb81c61e2f1d4e36",
+  "files": {
+    "Scripts/main.lua": "b747364d0911e535522896ceb6a353a96899358047e840a1cee7c788a763d921",
+    "Scripts/IIPInteractionEvents.lua": "87a3926a2b41a60018724765551818c0aab4799f4ce03b253f613f1c291dc21a",
+    "Scripts/IIPInteractionSource.lua": "39f7da52a1297937c3866d9a55d2ff73639a5a45eed2fdb5c9bfe3903cf5850c",
+    "Scripts/IIPOpenVisibility.lua": "c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806"
+  },
+  "ciRun": 42069984702,
+  "offlineTests": 403,
+  "offlineFiles": 31
+}

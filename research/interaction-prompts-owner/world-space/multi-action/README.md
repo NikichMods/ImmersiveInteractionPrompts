@@ -1,5 +1,19 @@
 # Multi-action read-only native prompt observer — 2026-11-05
 
+## Local payload preparation
+
+The four Lua files match the tested source `1780f0a8230149135b61bafcdb81c61e2f1d4e36`
+byte for byte. Local verification passed 403 tests across 31 files. The installed
+UE4SS hash matches the prior 83330635 runtime. The observer samples up to 48
+owners per sweep and runs at the user's pace through normal game exit.
+[Source and SHA-256 manifest](SOURCE_MANIFEST.json).
+
+The prepared destination is a separate MultiActionProbe. CompactLayoutProbe is
+the active IIP probe at preflight. Its complete installed payload and marker
+have a hash-verified backup outside UE4SS under `multi-action/prepare-1780f0a`.
+The switch and rollback operate on the two IIP activation markers after a
+closed-host check. Installation awaits explicit user authorization.
+
 **SOURCE-ONLY / NO INSTALLATION / NO LIVE Take/Check ACCEPTANCE.**
 
 This is a **new, separate, read-only** research successor on
