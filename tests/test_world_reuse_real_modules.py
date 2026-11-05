@@ -85,4 +85,33 @@ assert(S.comp.p~=first and S.imports==2 and S.panel==nil)
 assert(R.cleanup("switch",4) and R.empty())
 assert(S.released==2)
 """)
+ def test_failed_unbind_blocks_second_component_until_verified_cleanup(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+S.detach_fail=true
+assert(R.cleanup("change",2)==false)
+assert(not R.empty())
+assert(not pcall(R.create,owner("Take"),3))
+assert(S.imports==1)
+S.detach_fail=false
+assert(R.cleanup("retry",2) and R.empty())
+assert(R.create(owner("Take"),3))
+assert(S.imports==2)
+assert(R.cleanup("done",4) and R.empty())
+""")
+
+ def test_all_seventeen_adopted_layout_values_are_used(self):
+  self.case(r"""
+local tuning=require("IIPTuning")
+assert(#tuning.fields==17)
+local t=tuning.new()
+local expected={
+ upper_size=50,lower_size=30,tracking=350,outline=3,lower_outline=3,
+ gap=0,divider_y=-6,divider_width=300,divider_thickness=1.25,
+ divider_alpha=1,hint_size=50,hint_gap=10,hint_y=0,
+ upper_brightness=0.6,lower_brightness=0.5,
+ divider_brightness=0.5,hint_brightness=0.5
+}
+for k,v in pairs(expected)do assert(t[k]==v,k)end
+""")
 if __name__=="__main__":unittest.main()
