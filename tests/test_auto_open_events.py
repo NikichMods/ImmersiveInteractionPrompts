@@ -48,7 +48,7 @@ class OpenAutoEvents(unittest.TestCase):
         lua=LuaRuntime(unpack_returned_tuples=True)
         lua.execute(FIXTURE)
         for name,code in SOURCES.items():
-            lua.execute(name.removeprefix("IIP") + "=(function()\n" + code + "\nend)()")
+            lua.execute({"IIPOpenSource":"Source","IIPTargetPolicy":"Policy", "IIPOpenEvents":"Events"}[name] + "=(function()\n" + code + "\nend)()")
         lua.execute(RIG)
         lua.execute(setup)
         lua.execute(body)
