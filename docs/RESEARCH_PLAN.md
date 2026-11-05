@@ -1,6 +1,37 @@
 # План исследования — contextual prompts и письменность
 
-## После MultiActionProbe runtime PASS — следующий source-only World lifecycle gate, 2026-11-06
+## World handoff controller complete — next source-only renderer step
+
+`research/world-owner-handoff` implements a pure single-owner lifecycle
+controller and a primitive event-observer bridge. Its checked sequence is
+hide/retain on same-owner focus loss, and, for different owners,
+hide → native cleanup → independently confirmed empty → RELEASED(ticket)
+→ two fresh complete unique snapshots → bind. Incomplete, ambiguous,
+faulted or stale snapshots never authorize a new World owner.
+
+[CI 42126709589](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42126709589)
+on `bff0d3cb5e023e8c97b7d577404f5e380f64b923` passed
+422 offline tests across 33 scripts. This is mock evidence only;
+no new game activity or installation was performed.
+
+**Remaining source blocker:** the frozen compact World renderer is
+one-shot. Its module-global `import_attempted` refuses a second
+ornament import; native names use second-resolution timestamps and
+automatic `create()` opens the editor. Native resource lifetime and
+repeated World allocation are not established. Do not bypass these
+guards, fabricate a CLEANED acknowledgement, or modify frozen source.
+
+**Next sufficiently bounded work:** a separate research-only,
+reentrant World renderer adapter satisfying the controller's
+`empty/create/hide/resume/refresh/cleanup` contract. Derive from
+the verified compact host/resource methods, preserve the accepted
+17 layout defaults, native localized action and button hint,
+and prove sequential own allocation, release and error containment
+offline before requesting a host trial. The current source-only
+coordinator is not an installable World candidate.
+[Details](../research/interaction-prompts-owner/world-space/owner-handoff/README.md).
+
+## История: следующий source-only World lifecycle gate, 2026-11-06
 
 **Автоматическое приобретение Open/Take/Check и корректное удаление owner через
 EndPlay подтверждены в игре.** [Точный отчёт и ограничения](../research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06):
