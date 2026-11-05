@@ -1,5 +1,52 @@
 # Статус Immersive Interaction Prompts
 
+## Multi-action observer — ChatGPT source + CI, 2026-11-05
+
+**SOURCE_AND_OFFLINE_TESTS_PASS / NOT_INSTALLED / RUNTIME_TAKE_CHECK_UNKNOWN.**
+Source developed in `research/multi-action-observer` from
+`research/auto-open-events` `74ec3a4247feed0be9c8bf8788f5839c6cad20ae`.
+[Independent research candidate and boundaries](../research/interaction-prompts-owner/world-space/multi-action/README.md).
+The earlier game run established normal-load `Open` detection:
+six ready native Open actor/component/TipHUD owners and two
+same-owner shown/hidden episodes. `Take`/`Check` remain **static BP
+contract only**, not new live acceptance. Bonfires, arbitrary Interact
+and Ladder/Descend are excluded.
+
+New source: read-only `IIPInteractionSource.lua` supports exact
+`Open`/`Take`/`Check` tags and native localized text,
+`IIPInteractionEvents.lua` observes these owners across
+BeginPlayPost/EndPlayPre/LoadMapPre; a new standalone `main.lua`
+registers the global hooks. Native visibility reader is copied
+unchanged. No World UI, actor/game/control/save/settings writes,
+CanShow return override, or policy bind/release commands.
+
+**No session-time deadline, total BeginPlay/sample count or hard
+eight-actor cap.** Each 30-frame observation checks at most48
+known candidates; when the full owner set cannot be observed in one
+callback, it explicitly logs `incomplete_snapshot` and makes **no
+unique-owner claim**. Unexpected identity contradictions still
+stop safely. Logs are change-oriented, with owner details and native
+localized action captured on first actual visibility. This follows
+the adopted no-timer decision in `docs/REQUIREMENTS.md` and
+updated DevRules.
+
+**CI:** [run42069367766](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069367766)
+at source+tests `29cfc67e188ea5bd4127695fbcc579bd2f3c47a5`
+(**403 offline tests /31 test scripts PASS**, including18 new
+multi-action/entrypoint scenarios). Later source-independent
+documentation edits do not change this code evidence.
+
+**Next gate:** separately approved user-started local installation
+of a new exact, hash-guarded read-only candidate to establish
+`Take`/`Check` ready/visible behavior and different-owner
+Open↔Take↔Check focus in natural gameplay. The previous
+AutoOpenEventsProbe was disabled and the accepted
+CompactLayoutProbe restored after Codex's closed-host rollback;
+**no installed file or activation marker changed** in this
+GitHub-only source step. Reusable World component teardown,
+rebind and native Screen UX remain independent production
+blockers; `main`/`VERSION` stable branch unchanged.
+
 ## Auto Open observer — результат одного прогона
 
 Source `db89283` автоматически обнаружил шесть владельцев Open при обычной
@@ -10,14 +57,14 @@ UNKNOWN. LoadMapPre и EndPlayPre пришли, удаление уже заре
 отменой. После архивирования восстановлен CompactLayoutProbe.
 [Точный результат и границы](../research/interaction-prompts-owner/world-space/auto-target/README.md#normal-load-runtime-result--2026-11-05).
 
-## Локальная подготовка Auto Open observer
+## История: локальная подготовка Auto Open observer (закрыта)
 
 Проверен установленный UE4SS. Подготовлена отдельная пятифайловая диагностика
 с идентификаторами владельцев и логом видимого, скрытого и ожидающего набора.
 Локально прошли 385 тестов в 29 файлах. Пользователь разрешил установку source
 `db89283747f2e25c206b1fc762b68aeabdbcb771` и переключение маркера.
 Пять Lua-файлов и маркер проверены по SHA-256 после установки при закрытой игре.
-Сохранены хэши 175 существующих файлов. Активен AutoOpenEventsProbe.
+Сохранены хэши 175 существующих файлов. На этапе установки был активен AutoOpenEventsProbe; после прогона он отключён, CompactLayoutProbe восстановлен.
 Игровые A/B и lifecycle результаты ожидают одного пользовательского прогона.
 [Точный payload и сценарий](../research/interaction-prompts-owner/world-space/auto-target/README.md#local-runtime-candidate).
 
