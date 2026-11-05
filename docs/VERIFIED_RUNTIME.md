@@ -1,5 +1,13 @@
 # Verified Runtime — Interaction Prompts
 
+## Multi-action native observation — bounded runtime, 2026-11-06
+
+`1780f0a` joined Open 6, Take 18 and Check 10 with ready TipHUD at
+BeginPlayPost. Complete sweeps matched three distinct visible owners
+and zero between approaches. EndPlay removed every joined owner by exit.
+One additional reported Open interval remains unmatched.
+[Exact session and limitations](../research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06).
+
 ## Automatic Open acquisition — bounded runtime, 2026-11-05
 
 Source `db89283747f2e25c206b1fc762b68aeabdbcb771`, six installed hashes verified.

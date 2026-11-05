@@ -1,5 +1,36 @@
 # Multi-action read-only native prompt observer — 2026-11-05
 
+## Runtime result — 2026-11-06
+
+Steam 1.09/build 12996889, UE4.27, UE4SS 83330635. Source
+`1780f0a8230149135b61bafcdb81c61e2f1d4e36`, installation `f3212f6`.
+All four installed Lua hashes and the marker matched before rollback.
+Private archive `runtime-20261105T224845Z` contains the full logs and installed
+manifest. UE4SS.log SHA-256
+`5f767ab83417bb8701aae5b1dfe39c3934278d92b373c200632d97d757e0fb35`.
+Genesis.log SHA-256
+`453bed403a1f5011d85b0ae4044f99f34933a9dbfcaae95a82da09a982d67a27`.
+Genesis recorded normal exit at 01:48:14 Moscow.
+
+| Gate | Result |
+| --- | --- |
+| Discovery and readiness | **PASS** in this session. 34 distinct joins at BeginPlayPost: Open 6, Take 18, Check 10. All logged `ready_at=beginplay`. Pending recovery **NOT_TESTED**. |
+| Native text | **PASS** for the three sampled owners. Open #10 displayed «Открыть», Check #3 «Проверить», Take #19 «Взять». The user described the pickup as «подобрать». Exact display of that word is **UNKNOWN**. |
+| Visibility and owner changes | **PASS** for sampled distinct owners separated by withdrawal. UE4SS lines 763–790 show #10 → #3 → #19 → #3 → #10 with zero shown owners between and after. Each visible interval reached two complete sweeps with one shown/ready owner out of 33. |
+| Additional approach and selection | **UNKNOWN** for the third «Открыть» reported by the user, which has no separate logged interval. Its absence has no established cause. A direct handoff without withdrawal and the game's authoritative selection remain **UNKNOWN**. |
+| Lifecycle | **PASS** for EndPlay eviction. Owner #2 left during load (line 696), then 33 distinct owners left on normal exit and the registry reached zero (lines 791–823). Three LoadMapPre events occurred before acquisition. Clearing a populated registry on travel **NOT_TESTED**. |
+| Safety and log scope | No identity fault, Lua exception, stale-owner fallback, incomplete sweep or observer STOP appears in the archived log. 34 joins, 34 owner removals, 10 visibility changes and 20 selection transitions were logged. The host exited normally. |
+
+The reported order was Open, Check, pickup, Check, Open, Open, with withdrawal
+between approaches. Five intervals correlate in order. The final reported Open
+has no independently matched owner ID. Sampling every 30 frames limits the
+claim to recorded states. The visibility evidence covers registered owners in
+these complete sweeps.
+
+After archiving, rollback restored the original CompactLayoutProbe marker.
+Its 12 original file hashes matched across the payload and restored marker.
+MultiActionProbe is disabled and its payload is retained.
+
 ## Local payload preparation
 
 The four Lua files match the tested source `1780f0a8230149135b61bafcdb81c61e2f1d4e36`

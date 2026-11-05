@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## MultiActionProbe — результат прогона 2026-11-06
+
+`1780f0a` автоматически обнаружил 34 готовых владельца Open/Take/Check.
+Пять эпизодов видимости сменили три разных ID через отход. Последний
+сообщённый эпизод «Открыть» остался без отдельной записи. EndPlay удалил
+34 записи, включая 33 при штатном выходе. CompactLayoutProbe восстановлен.
+[Доказательства, хэши и границы](../research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06).
+
 ## MultiActionProbe установлен
 
 Пользователь разрешил установку `1780f0a` и временное переключение маркера
