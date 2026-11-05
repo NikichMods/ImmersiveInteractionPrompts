@@ -74,6 +74,8 @@ probe();begin(P);begin(T);begin(C)
 tick(2);assert(has("state=unique_observed:1:Open"))
 set(P.component,"bVisible",false);set(T.component,"bVisible",true)
 tick(2);assert(has("state=unique_observed:2:Take"))
+assert(has("event=VISIBLE_OWNER owner=2 action=Take"))
+assert(has("observed_only=true"))
 set(T.component,"bVisible",false);set(C.component,"bVisible",true)
 tick(2);assert(has("state=unique_observed:3:Check"))
 set(C.component,"bVisible",false);tick()
@@ -131,6 +133,23 @@ tick(3)
 assert(observer.status().registered==55 and observer.status().active)
 assert(has("state=incomplete_snapshot") and has("total=55"))
 assert(not has("state=unique_observed:") and S.cancelled==0)
+""")
+
+    def test_visible_owner_logged_even_after_join_detail_throttle(self):
+        self.case(r"""
+probe()
+for i=1,50 do
+ local a=i==1 and P or action_pair(i,"Take","Взять")
+ set(a.component,"bVisible",i==50)
+ begin(a)
+end
+tick(2)
+assert(observer.status().active and observer.status().registered==50)
+assert(has("event=JOIN_DETAIL_SUPPRESSED"))
+assert(has("event=VISIBLE_OWNER"))
+assert(has("action=Take") and has("text="))
+assert(has("state=incomplete_snapshot"))
+assert(not has("state=unique_observed:"))
 """)
 
     def test_pending_supported_widget_waits_without_manual_beginplay(self):
