@@ -8,12 +8,14 @@ on:
       - research/multi-action-observer
       - research/world-owner-handoff
       - research/world-renderer-reuse
+      - research/automatic-world-session
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
       - 'research/interaction-prompts-owner/world-space/multi-action/**'
       - 'research/interaction-prompts-owner/world-space/owner-handoff/**'
       - 'research/interaction-prompts-owner/world-space/world-reuse/**'
+      - 'research/interaction-prompts-owner/world-space/auto-world/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
