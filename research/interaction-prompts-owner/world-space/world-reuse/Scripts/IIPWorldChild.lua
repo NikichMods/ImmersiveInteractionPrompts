@@ -2,6 +2,7 @@
 -- One owned native World renderer. No asset authoring or original UI writes.
 local Hint=require("IIPHintSource")
 local Composition=require("IIPComposition")
+local Resources=require("IIPResources")
 local Tuning=require("IIPTuning")
 local Panel=require("IIPPanel")
 local Audit=require("IIPInputAudit")
@@ -17,6 +18,7 @@ local preparation_attempted=false
 local refresh_attempted=false
 local assets_refreshed=false
 local load_attempted={}
+local world_serial=0
 local function log(e,s)print("IIP_WORLD_HINT event="..e.." "..(s or "").."\n")end
 local function step(name,fn,...)
  log("PHASE","name="..name.." edge=BEGIN")
@@ -153,7 +155,8 @@ function M.refresh_assets()
  log("ASSETS_READY","executor=EngineTick host_loads="..(load_attempted.host and "1" or "0")
   .." material_loads="..(load_attempted.material and "1" or "0").." no_gc_root_added=true")
 end
-function M.pending()return state~=nil or Panel.pending() or Composition.pending()end
+function M.pending()return state~=nil or Panel.pending() or Composition.pending() or Hint.pending() or Resources.has_live_lease()end
+function M.empty()return not M.pending()end
 function M.target_alive(a,c,w)return alive(a) and alive(c) and alive(w)end
 function M.cleanup(reason)
  if not state then return true end
@@ -182,7 +185,9 @@ function M.cleanup(reason)
   if alive(w)then step("cleanup_host_release",function()w:RemoveFromParent()end);assert(not w:IsInViewport() and not valid(w:GetParent()),"own host still attached")end
  end)
  if #errors>0 then log("CLEANUP_PENDING",table.concat(errors," | "));return false end
- state=nil;log("CLEANED","reason="..reason.." own_widget_holder=false own_component_alive=false gc_not_forced=true")
+ state=nil
+ Resources.cycle_cleaned()
+ log("CLEANED","reason="..reason.." own_widget_holder=false own_component_alive=false gc_not_forced=true")
  return true
 end
 function M.validate()
@@ -342,7 +347,8 @@ function M.poll_editor(w)
  if action=="log"then log("VALUES",Tuning.snapshot(settings).." saved=false")end
  if action then Panel.text(Tuning.text(settings))end
 end
-function M.create(actor,source,w,onstop)
+function M.create(actor,source,w,onstop,action)
+ assert(action=="Open" or action=="Take" or action=="Check","unsupported World action")
  assert(state==nil and assets_refreshed,"one refreshed own World composition only")
  Hint.preflight(w)
  log("PHASE","name=create edge=BEGIN")
@@ -371,7 +377,8 @@ function M.create(actor,source,w,onstop)
  local s={active=true,presentation="warming",onstop=onstop,follow=FOLLOW_CAMERA,polls=0,writes=0,degenerate=0,last_yaw=initial_yaw,initial_yaw=initial_yaw,camera=ref(cam),initial_distance=distance,actor=ref(actor),source=ref(source),original=ref(w),actor_root=ref(actor.RootComponent),
   original_tree=ref(w.WidgetTree),original_text=ref(w.TextBlock_89),anchor=anchor,position=position,material=ref(stock)}
  state=s
- local name="IIP_WorldTest_"..os.time()
+ world_serial=world_serial+1
+ local name="IIP_WorldAuto_"..world_serial
  assert(not valid(StaticFindObject(path(actor).."."..name)),"own component name collision")
  local c=step("component_construct",StaticConstructObject,component_class,actor,FName(name),EObjectFlags.RF_Transient)
  assert(alive(c) and cls(c)=="/Script/UMG.WidgetComponent" and same(c:GetOuter(),actor)
@@ -400,18 +407,41 @@ function M.create(actor,source,w,onstop)
  log("PHASE","name=private_ui edge=BEGIN")
  local tree,root,main,value=own_tree(host);s.tree,s.root=ref(tree),ref(root)
  assert(not same(tree,w.WidgetTree),"original tree alias");main:SetVisibility(1);host.bIsFocusable=false
- Composition.start(host,root,w,name,settings)
+ Composition.start(host,root,w,name,settings,action)
  host:SetVisibility(2) -- Warm own content while hidden, including the native hint.
  log("PHASE","name=private_ui edge=END")
  step("finish_component",function()actor:FinishAddComponent(c,true,transform)end) -- Manual attachment; no root promotion; configure before native registration.
  s.registered=true -- Own lifecycle phase, not an invented reflected IsRegistered getter.
  assert(same(actor.RootComponent,find(s.actor_root)) and not valid(c:GetAttachParent()) and c:GetWidgetSpace()==0,"manual registration/root contract")
  step("verify_original",original,s)
- M.toggle_editor()
+ -- The ordinary interaction must not open the editor automatically.
  log("PHASE","name=create edge=END")
  log("CREATED","component="..string.format("%q",path(c)).." native_registration_requested=true scale=0.25"
   .." draw=1024x512 physical=256x128 offset_world_z=32 fixed_position=true vertical_yaw=true camera_distance="..string.format("%.3f",distance)
   .." expected_rotation_pyr="..string.format("%.9g,%.9g,%.9g",rot.Pitch,rot.Yaw,rot.Roll))
 
+end
+function M.hide()
+ assert(state and state.active,"hide without World owner")
+ local host=find(state.host);assert(alive(host),"own host unavailable")
+ if state.presentation~="hidden" then
+  host:SetVisibility(1);Composition.pause();state.presentation="hidden"
+  log("HIDDEN","reason=coordinator resources_retained=true")
+ end
+ return true
+end
+function M.resume()
+ assert(state and state.active,"resume without World owner")
+ if state.presentation=="hidden" then
+  local host=find(state.host);assert(alive(host),"own host unavailable")
+  host:SetVisibility(2);state.presentation="warming";settings.dirty=true
+ end
+ M.update_orientation()
+ return true
+end
+function M.refresh()
+ assert(state and state.active,"refresh without World owner")
+ M.update_orientation()
+ return true
 end
 return M
