@@ -7,11 +7,13 @@ on:
       - research/auto-open-events
       - research/multi-action-observer
       - research/world-owner-handoff
+      - research/world-renderer-reuse
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
       - 'research/interaction-prompts-owner/world-space/multi-action/**'
       - 'research/interaction-prompts-owner/world-space/owner-handoff/**'
+      - 'research/interaction-prompts-owner/world-space/world-reuse/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
