@@ -19,8 +19,8 @@ the research main/renderer and are **not** a runnable/installed mod.
 from exact code+combined-test commit
 `97283bb6ebe4a1bf8a2d8ceb37adeb125b7cd27e`:
 Python3.12 + lupa2.8, `python tools/test.py`, **370 tests/27 scripts PASS**,
-including24 new policy/adapter/combined tests (15 selector +9 adapter, of which
-one combined). This is a tested Lua policy, **not** a game/UE4SS render or
+including 25 new policy/adapter tests (15 selector + 10 adapter,
+including one combined handover case). This is a tested Lua policy, **not** a game/UE4SS render or
 target-switch acceptance.
 
 **Decisive missing runtime facts:** whether effective native source/widget
