@@ -276,8 +276,10 @@ bound("A")
 R.fail_hide=true
 scan(row("A",false))
 assert(H.pump()=="hide_failed")
-assert(H.status().fault and H.status().phase=="shown")
--- The next attempt cannot get stuck in a failing hide loop after fault.
+assert(H.status().fault and H.status().phase=="release_required")
+assert(H.pump()=="cleaned" and not R.owned)
+assert(H.pump()=="disabled" and R.created==1)
+-- The failed native hide is never retried or mistaken for a safe new bind.
 """)
 
 if __name__=="__main__":
