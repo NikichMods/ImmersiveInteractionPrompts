@@ -77,7 +77,7 @@ function M.start(api,source,emit,sink)
         s.registered=0;s.pending_count=0;s.order={}
         trace("STOP","reason="..short(reason).." begins="..s.begin_calls..
             " joined="..s.joined.." ends="..s.end_calls.." maps="..s.map_calls..
-            " samples="..s.samples.." hooks_inert=true native_writes=0")
+            " samples="..s.samples.." hooks_inert=true source_native_writes=0")
     end
     local function guarded(kind,fn)
         if not s.active then return end
@@ -340,7 +340,7 @@ function M.start(api,source,emit,sink)
     else
         trace("ARMED","actions=Open,Take,Check automatic=true interval_frames="..
             FRAMES.." max_native_reads_per_sample="..READS_PER_SAMPLE..
-            " duration=until_host_exit_or_explicit_stop no_world_component=true")
+            " duration=until_host_exit_or_explicit_stop read_only_collector=true")
     end
     return {stop=stop,status=function()
         return {
