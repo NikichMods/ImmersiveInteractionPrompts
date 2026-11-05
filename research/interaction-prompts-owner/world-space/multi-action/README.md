@@ -61,7 +61,10 @@ limiting game-thread work. Up to 40 JOIN events include detailed paths,
 then repeated initial-owner detail is throttled; an actually visible
 owner's action, path and localized text are logged on its first
 observation, even beyond the join-detail threshold.
-State transitions are logged on change, not every frame.
+Per-owner native visibility changes are logged independently, including
+hidden-after-visible transitions. Rotating partial sweeps log only the
+incomplete state and genuine owner transitions: merely scanning a different
+batch does not manufacture a hide/show or spam logs every tick.
 
 When more than 48 identities exist, the observer rotates through them
 across ticks and marks every such sample `incomplete_snapshot`.
