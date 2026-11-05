@@ -1,5 +1,41 @@
 # Статус Immersive Interaction Prompts
 
+## Auto Open lifecycle — event observer source + CI PASS, 2026-11-05
+
+**AUTOMATIC_READ_ONLY_OBSERVER_READY_SOURCE / NOT_INSTALLED / PRODUCTION_BLOCKED.**
+Branch `research/auto-open-events` based on
+`research/auto-open-target-policy` `f5c7e4d89519f9d1e088e90506cf23e337e7da78`.
+[Owner/selection/event observer](../research/interaction-prompts-owner/world-space/auto-target/README.md#automatic-ue4ss-lifecycle-observer--source-only-2026-11-05)
+now uses global `RegisterBeginPlayPostHook` and `RegisterEndPlayPreHook`
+to discover/remove native Open actor identities automatically, plus
+`RegisterLoadMapPreHook` for map-boundary reset, *all read-only*.
+A bounded 30-frame loop rechecks at most8 previously observed Open
+identities, including pending post-BeginPlay widget initialization.
+No manual F11 arm, native CanShow return guess, global actor scan,
+native action/TipHUD write, World creation or synthetic release ack.
+
+**Source/test identity:** commit
+`eb251161d067482fca362f0a418eb736a449f491`;
+[CI run42003357042](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42003357042)
+executed `python tools/test.py`: **385 tests /29 test scripts PASS**,
+including12 event-lifecycle and3 standalone visibility/entrypoint cases.
+This proves offline Lua policy/wiring against mocks, **not** global hook
+delivery, actual Asterigos actor selection, endplay/map ordering, native
+performance, visual output or installed runtime. Docs-only subsequent commits
+do not retroactively change the tested source. The accepted frozen compact
+World source and its actual user-run proof remain separate and unchanged.
+
+**Remaining decisive gate:** a separately authorized, one-session
+user-started local Codex **read-only** observer installation/test with
+known Open A→B→none, exact component/widget IDs, pending/ready transitions,
+native visibility and endplay/map events; confirm actual single-current-target
+semantics, not merely callback frequency. Until then no multi-object World
+binding, original TipHUD suppression or production release. Installed research
+marker is not touched by these GitHub edits. A separate static/runtime gate
+must establish repeatable World resource lifecycle before enabling retargeting.
+Current `main`/`VERSION`, game, other mods, settings and saves unchanged.
+No new game-level runtime fact to promote to Asterigos-Research.
+
 ## Auto Open-target policy — ChatGPT-only offline implementation, 2026-11-05
 
 **OFFLINE_POLICY_AND_OPEN_ADAPTER_PASS / RUNTIME_NOT_TESTED / PRODUCTION_BLOCKED.**
