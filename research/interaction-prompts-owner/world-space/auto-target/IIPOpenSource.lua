@@ -41,6 +41,27 @@ local function resolve(r)
     return o
 end
 
+-- Only immutable primitive actor identity can cross an asynchronous boundary.
+-- This route is safe for EndPlay even if actor-owned components are already
+-- detached: unlike acquire(), it does not require the prompt or argument.
+function M.actor_identity(actor)
+    if not valid(actor) or not inherited(actor, BASE) then return nil end
+    if actor:HasAnyFlags(EObjectFlags.RF_ClassDefaultObject | EObjectFlags.RF_ArchetypeObject) then
+        return nil
+    end
+    local r=ref(actor)
+    return {key=key(r),ref=r}
+end
+
+function M.resolve_actor(identity)
+    assert(type(identity)=="table" and type(identity.ref)=="table"
+        and identity.key==key(identity.ref), "invalid actor identity")
+    local actor=resolve(identity.ref)
+    if not actor then return nil end
+    assert(inherited(actor,BASE), "actor hierarchy changed")
+    return actor
+end
+
 -- Global BeginPlay supplies arbitrary actors. Unsupported actors are ignored.
 -- For a supported Open actor, absence of an initialized widget is NOT_READY,
 -- not permission to call InitWidget, ReceiveBeginPlay or other native setters.
