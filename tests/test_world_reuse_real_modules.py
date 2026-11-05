@@ -4,6 +4,7 @@ import unittest
 from test_ui_child import LuaRuntime, ROOT
 from test_world_live_editor import FIXTURE, EXTRA, CONTEXT, ORIENTATION, FRAMES, HINT_FIXTURE, LIVE
 from test_compact_layout import MEASURED
+from test_world_editor_style import STYLE
 
 BASE=ROOT/"research/interaction-prompts-owner/world-space/world-reuse"
 SOURCES={p.stem:p.read_text(encoding="utf8") for p in (BASE/"Scripts").glob("*.lua")}
@@ -49,7 +50,7 @@ function owner(action)return {actor="A",component="A.C",widget="A.W",action=acti
 class WorldReuseRealModules(unittest.TestCase):
  def case(self,code):
   L=LuaRuntime(unpack_returned_tuples=True)
-  L.execute(FIXTURE+EXTRA+CONTEXT+ORIENTATION+FRAMES+HINT_FIXTURE+LIVE+MEASURED)
+  L.execute(FIXTURE+EXTRA+CONTEXT+ORIENTATION+FRAMES+HINT_FIXTURE+LIVE+MEASURED+STYLE)
   for n,source in SOURCES.items():
    if n=="main":continue
    L.execute('package.preload["'+n+'"]=function()\n'+
