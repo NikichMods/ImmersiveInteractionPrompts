@@ -23,7 +23,7 @@ game files or installed activation markers.
   `BaseLoot_BP` (`msgTag=Open`) and `BaseDocumentObject`
   (`msgTag=Check`) use descendants of `BaseGameEventObject_BP`
   with the same `ExtendedWidget`/TipHUD argument chain.
-  [Verified owner inventory](../../../docs/VERIFIED_RUNTIME.md#1-подтверждённый-ui-owner-и-цепочка).
+  [Verified owner inventory](../../../../docs/VERIFIED_RUNTIME.md#1-подтверждённый-ui-owner-и-цепочка).
   This is *not* live verification of those two additional actions in the
   installed game, nor support for every placed object/class.
 - `Ladder/Descend`, bonfires and arbitrary `Interact` are **excluded**
