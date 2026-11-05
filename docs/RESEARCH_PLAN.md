@@ -1,5 +1,42 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий gate после automatic Open event observer, 2026-11-05
+
+**ChatGPT completed current source-only slice.** [Auto-event code and
+limits](../research/interaction-prompts-owner/world-space/auto-target/README.md#automatic-ue4ss-lifecycle-observer--source-only-2026-11-05),
+[run42003357042](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42003357042)
+(`eb251161d067482fca362f0a418eb736a449f491`, 385/29 offline PASS).
+Separate `research/auto-open-events` branch is **not installed**; frozen
+World candidate, stable branch and game unchanged.
+
+**Nearest decisive unknown is now native:** Does the global BeginPlayPost
+callback fire *after or before* the verified Open actor's `TipHUD` is ready?
+Can bounded pending→joined observation recover it? When gameplay moves across
+two known Open prompts A→B→none, does the complete set of native visibly
+shown owner components uniquely identify the actually chosen object, or
+are multiple components concurrently shown? Does EndPlayPre/map pre
+invalidate the corresponding identities safely? The event-seam reader
+proves none of this by mock tests.
+
+**Only sufficient next trial:** after separate permission, user-started local
+Codex prepares hash-guarded **one distinct read-only probe** with the five
+source files; verify host closed, existing installed IIP/other mods unchanged,
+explicit rollback and no dual active IIP owners. The user launches game,
+loads normally, approaches A, B and neither, optionally normal map travel,
+then exits normally; Codex only collects and commits compact conclusions
+and evidence hashes. On any contract fault, ambiguous owner, over-budget,
+or missing callback, STOP and do not add alternate scans/native writers.
+No auto installation, game process/saves/settings manipulation, hot reload,
+or release authorization inferred from this document.
+
+**If supported A→B→none selection is shown:** ChatGPT next develops
+a *new* own-only, repeatable World lifecycle successor with strict
+release-cleaned-before-bind (not a simulated ack) and exact action/widget
+resources, then separate in-game visual acceptance. If not, revisit only
+the missing authoritative active-owner seam. Vanilla Screen fallback and
+upper Aphes semantics remain explicit unapproved production questions.
+Glow/overall scale stay deferred.
+
 ## После offline Open-target policy — next runtime boundary (2026-11-05)
 
 [Новый исходный policy/owner bridge](../research/interaction-prompts-owner/world-space/auto-target/README.md)
