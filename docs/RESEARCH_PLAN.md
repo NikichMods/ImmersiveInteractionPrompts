@@ -1,6 +1,50 @@
 # План исследования — contextual prompts и письменность
 
-## World handoff controller complete — next source-only renderer step
+## После World reuse CI PASS — следующий интеграционный source gate
+
+В `research/world-renderer-reuse` реализована отдельная
+повторно используемая World-композиция и адаптер владения:
+сохранены 17 актуальных визуальных параметров, оригинальные
+локализованные подписи и input hints. Новый World-host
+не создаётся до подтверждённой очистки предыдущего;
+обычный hide/resume одного owner не создаёт ресурс заново.
+Пройден [CI42130699221](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42130699221):
+430 офлайн-тестов/35 наборов PASS на `4963296`.
+Протоколы ресурсов проверены на UE4SS-моделях, реальная GC
+и второй World-host в игре остаются UNKNOWN.
+[Реализация и границы](../research/interaction-prompts-owner/world-space/world-reuse/README.md).
+
+**Следующий достаточный шаг — source-only auto entrypoint**,
+связывающий текущие проверенные read-only Open/Take/Check source
+и event observer, primitive `IIPWorldHandoffBridge`,
+`IIPWorldHandoff` и `IIPWorldRenderer`.
+Передавать в native renderer только свежие проверенные UObject,
+не хранить их после цикла; подключать собственный World UI
+только по двум последовательным *полным* уникальным штатным
+снимкам. Выполнять native World operations исключительно на
+проверенной игровой границе; никакие события BeginPlay/EndPlay
+не вызывают создания/удаления UI напрямую.
+После `cleanup` требовать отдельный readback `empty=true`
+до `RELEASED(ticket)`. При partial creation/failure
+сохранять блокировку второго bind. Не заменять оригинальный
+Screen prompt и не изменять штатное управление.
+
+Добавить офлайн end-to-end тесты нормальной смены
+Open→нет→Take→нет→Check, same-owner hide/resume,
+многих native owners, map/EndPlay и ошибок partial create/
+cleanup, отсутствие двойного WorldComponent, отсутствие
+навязанных таймеров/лимитов событий. Сохранить разделение
+незавершённых runtime гейтов и source-only доказательств.
+
+**Никакой автоматической установки:** после зелёного CI и
+проверенной идентичности исходников потребуется отдельное
+разрешение и локальный Codex для host-closed install,
+reversible rollback, реального A→none→B теста и визуальной
+приёмки. Прямой A→B, карта с уже наполненным реестром и
+авторитетный выбранный движком объект остаются NOT_TESTED
+или UNKNOWN по последнему runtime отчёту.
+
+## История: World handoff controller complete — source-only renderer step
 
 `research/world-owner-handoff` implements a pure single-owner lifecycle
 controller and a primitive event-observer bridge. Its checked sequence is
