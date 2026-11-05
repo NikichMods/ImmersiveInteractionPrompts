@@ -1,6 +1,43 @@
 # План исследования — contextual prompts и письменность
 
-## После локального Auto Open прогона, 2026-11-05
+## После multi-action source — native handoff gate, 2026-11-05
+
+**Source-only slice delivered by ChatGPT.**
+[Read-only Open/Take/Check candidate](../research/interaction-prompts-owner/world-space/multi-action/README.md)
+on `research/multi-action-observer` with
+[CI 42069367766](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069367766)
+at `29cfc67e188ea5bd4127695fbcc579bd2f3c47a5`:
+403 tests/31 scripts PASS. No game/user acceptance or installed change.
+
+**New evidence boundary:** normal-load `Open` actor→TipHUD acquisition
+already passed for six objects; `Take` and `Check` currently share
+the *static* BaseGameEventObject_BP owner path only.
+For next native observation use **naturally available different
+actions** (Open → Check → Take → no prompt) and compare the displayed
+native prompt against actor ID/action/text and the **complete** visible
+owner set, without requesting two nearby Open chests or using game
+progression as setup. If more than48 relevant owners are registered,
+the source explicitly reports incomplete snapshots; do not claim
+uniqueness or increase sampling by guessed global scans.
+
+The next user-started local Codex task, **only after separate permission**,
+is to verify installed environment, close host/rollback and install a
+new independently frozen hash-verified read-only payload, then collect
+one ordinary user-paced gameplay run and concise evidence. Codex does
+not redesign the action observer or write World/UI code. No manual
+reload/arm, hot reload, forced object spawn or save/config mutation.
+Restore the previous installed source after evidence capture.
+
+**When the live different-owner selection seam is accepted**, ChatGPT
+next evaluates repeatable own World-component cleanup/creation and
+the one-at-a-time `release`→`CLEANED`→`bind` protocol. Previous compact
+renderer only passed same-owner hide/resume and explicit teardown,
+not A→B rebind. Preserve native action/hint/localization, interaction
+behavior, original Screen prompt until separate UX decision, and
+no unverified Aphes translations. Bonfire and Ladder remain unsupported.
+Do not return to speculative timed probes.
+
+## История: после локального Open-only прогона, 2026-11-05
 
 Обычная загрузка дала шесть готовых Open-владельцев через BeginPlayPost.
 Два зарегистрированных эпизода видимости относятся к одному владельцу.
