@@ -1,5 +1,38 @@
 # Статус Immersive Interaction Prompts
 
+## Reentrant World renderer source-only — OFFLINE PASS, 2026-11-06
+
+**REPEATED_OWN_COMPONENT_TESTS_PASS / ENTRYPOINT_NOT_INTEGRATED /
+NOT_INSTALLED / RUNTIME_A_TO_B_UNKNOWN.** The new isolated
+`research/world-renderer-reuse` fork reuses the approved compact
+four-element World composition and all 17 accepted defaults.
+`IIPWorldRenderer.lua` satisfies the existing ownership controller
+renderer API; the unfrozen `IIPWorldChild.lua` exposes native
+hide/resume/refresh and allows sequential allocation only after
+confirmed own-child, WorldComponent, host and ornament lease cleanup.
+The private component/font names are unique within the Lua session,
+and normal interaction does not open the calibration editor.
+
+**CI PASS:** [42130699221](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42130699221)
+on source/test SHA `49632960719808bcc2673cb81af5b0f3f23bf464`,
+**430 tests /35 scripts**. Tested the real forked WorldChild,
+Composition, HintSource and Tuning under native host mocks,
+including sequential World components and an interrupted cleanup.
+The mock importer does not prove real UE4 resource re-import/GC or
+actual A→B World ownership/visual acceptance.
+
+**Next source gate:** new automatic main.lua tying together
+`IIPInteractionSource`, read-only event observer
+`IIPInteractionEvents` from `owner-handoff`,
+`IIPWorldHandoffBridge`, `IIPWorldHandoff` and this
+`IIPWorldRenderer`, with verified game-thread resolving and pump,
+fail-closed cleanup and offline end-to-end tests.
+No integrated installable candidate, hash manifest or game acceptance
+yet. Source-only technical status and remaining proof boundary:
+[World reuse research](../research/interaction-prompts-owner/world-space/world-reuse/README.md).
+Frozen previous packages and the restored CompactLayoutProbe
+were not modified. No game launch, install or settings/save change.
+
 ## World owner handoff source-only — CI PASS, 2026-11-06
 
 **PURE_LUA_HANDOFF_AND_EVENT_GLUE_PASS / REAL_REENTRANT_WORLD_BLOCKED /
