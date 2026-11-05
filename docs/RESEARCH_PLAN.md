@@ -1,5 +1,47 @@
 # План исследования — contextual prompts и письменность
 
+## После offline Open-target policy — next runtime boundary (2026-11-05)
+
+[Новый исходный policy/owner bridge](../research/interaction-prompts-owner/world-space/auto-target/README.md)
+подготовлен силами ChatGPT в ветке `research/auto-open-target-policy`.
+[CI run41937982403](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/41937982403)
+на исходном code+test `97283bb6`:370/27 offline PASS. Это
+**не** новый runtime mod/candidate; его модули пока не подсоединены к
+старому однократному `main.lua`. Замороженный source2981375 и установленный
+CompactLayoutProbe не трогать.
+
+1. **Следующий достаточный source-only этап (ChatGPT):** выбрать минимальный
+   жизненный цикл регистрации глобальных BeginPlayPost/EndPlayPre и получения
+   готового `TipHUD`, опираясь на pinned UE4SS83330635 и принятый Open join.
+   Определить безопасный источник **полного** наблюдения актуальных
+   зарегистрированных Open-candidates, не делая FindAllOf/world scans,
+   последнего-CanShow selector или дорогого per-frame обхода. Проверить
+   ресурсную/переиспользуемую жизненную модель current WorldChild перед
+   созданием второго компонента; fail-closed и acknowledgement после native
+   `CLEANED` уже смоделированы в policy.
+2. **Доказательство, которое может потребовать локальной среды:** когда рядом
+   объекты A/B, является ли native effective `source.bVisible && bAddedToScreen`
+   + показанный `TipHUD` однозначным сигналом *выбранного* объекта?
+   При A→B→none — сколько виджетов действительно одновременно видны,
+   каков их owner identity и готовы ли они к global BeginPlayPost? Простое
+   `CanShow` не возвращает в Lua исходный bool. Если source-only не отвечает,
+   один narrow read-only user-started Codex test, а не передача разработки.
+3. После положительного gate подключать policy к **новому** research-source
+   successor (не менять frozen старый): простая one-owner World-композиция,
+   строго один pending transition за раз; для retarget сначала native teardown
+   с подтверждением, затем bind; оригинальный TipHUD остаётся видимым,
+   недоказанные классы не поддерживать. Измерять нормальный startup, целевой
+   handover, target loss, map change, input hint/device и собственные ресурсы
+   на пользовательском run только после отдельной авторизации установки.
+4. Финальная production-приёмка: решённый пользовательский UX
+   native Screen/World fallback; настоящий Aphes semantic mapping либо
+   явно нейтральная верхняя строка; поддержка Take/Check только после
+   положительной owner+text/hint связки; отдельный лестничный путь;
+   lawful private game font dependency + installable packaging + CI/UX gates.
+
+Не возобновлять gamma/glow/scale, не менять game controls, локализацию,
+старые версии, `main` или другие моды в рамках этого этапа.
+
 ## Автоматическое обнаружение и переключение цели — source-only review, 2026-11-05
 
 **SOURCE_ROUTE_REVIEW_COMPLETE / NO_NEW_RUNTIME_ACCEPTANCE.** Перепроверены текущие
