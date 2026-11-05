@@ -1,5 +1,40 @@
 # Open target arbitration — source-only integration foundation
 
+## Normal-load runtime result — 2026-11-05
+
+**Automatic acquisition PASS. Distinct-target selection UNKNOWN.**
+Steam 1.09 / build 12996889, UE4.27, UE4SS 83330635. The installed source was
+`db89283747f2e25c206b1fc762b68aeabdbcb771`; installation was recorded at
+`5bfe99ec1bcf2d247a14352a751048c2e8824967`. Five Lua hashes and the empty marker
+matched before rollback. The loader hash was
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+Archived privately under `runtime-20261105T163031Z`. UE4SS.log SHA-256
+`676937dcc0eeb4a2f954b40a27a19b843775495f8892f8d89e9c5296f62af9f7`;
+Genesis.log SHA-256
+`52fdb94bfda31fe446457f1cf1075a1fbd43ba0c6d79d128788d80e254c170fa`.
+The host exited normally at 19:29:45 Moscow time.
+
+| Question | Observed result |
+| --- | --- |
+| Automatic acquisition | Startup armed all three global hooks. Natural load joined six distinct Open actor/component/TipHUD triples at samples 77–78, UE4SS lines 696–702. |
+| Widget readiness | All six logged `ready_at=beginplay`. There were zero pending owners. Retry recovery remains untested in the host. |
+| Native visibility | The user reported Open → Check → Take → Open → Check → Take → Take. The observer covers Open. In the log, owner 1 was the sole shown and ready owner at samples 125–126 and 147–148. The five others were hidden. All six were hidden at samples 130 and 149. Lines 744–749 show `none → 1 → none → 1 → none` across the observed approaches. |
+| Lifecycle | Three LoadMapPre callbacks were recorded before the six joins. 659 EndPlayPre callbacks occurred before stop. No tracked `OWNER_ENDED` occurred, and no map reset was observed with a populated registry. Tracked owner eviction and travel after acquisition remain untested. |
+| Stop and safety | At 19:27:46 the observation budget stopped the loop after 240 completed samples and one budget-check tick. Cancellation succeeded. STOP reported 5,020 BeginPlay calls, six joins, 659 EndPlay calls, three map callbacks, inert hooks and zero native writes. No observer identity fault or Lua exception beyond the planned budget stop appeared. |
+
+The two logged Open intervals agree with the reported presence of Open prompts.
+Both resolve to owner 1, so the log cannot establish a handoff between distinct
+objects or disambiguation when both are eligible. The smallest missing evidence
+is a correlated native observation of two independently identified Open
+objects, with different owner IDs and the complete visible set at A, B and
+neither. A direct A→B transition is relevant if the route offers one naturally.
+The report has no observation of the scene after the budget stop.
+
+After archiving the closed session, the temporary activation was rolled back.
+The observer marker is absent and CompactLayoutProbe is active with its
+verified original payload and marker. The disabled observer payload remains
+available for reproducing this exact test.
+
 ## Local runtime candidate
 
 The [payload manifest](SOURCE_MANIFEST.json) identifies five Lua files. Local

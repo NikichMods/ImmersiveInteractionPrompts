@@ -1,5 +1,15 @@
 # План исследования — contextual prompts и письменность
 
+## После локального Auto Open прогона, 2026-11-05
+
+Обычная загрузка дала шесть готовых Open-владельцев через BeginPlayPost.
+Два зарегистрированных эпизода видимости относятся к одному владельцу.
+Для проверки A→B нужны два независимо различимых объекта «Открыть» и две
+разные привязки owner ID, сопоставленные с увиденными подсказками.
+Для проверки удаления записи нужен EndPlay или LoadMapPre после регистрации
+владельцев. Эта работа ограничилась одним сеансом и завершённым откатом.
+[Результат и идентичность](../research/interaction-prompts-owner/world-space/auto-target/README.md#normal-load-runtime-result--2026-11-05).
+
 ## Следующий gate после automatic Open event observer, 2026-11-05
 
 **ChatGPT completed current source-only slice.** [Auto-event code and

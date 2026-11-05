@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Automatic Open acquisition — bounded runtime, 2026-11-05
+
+Source `db89283747f2e25c206b1fc762b68aeabdbcb771`, six installed hashes verified.
+Normal load delivered global BeginPlayPost with six ready Open actor/component/
+TipHUD identities. Two unique shown/ready intervals both resolved to owner 1,
+with all six hidden between and afterward. Distinct target selection remains
+UNKNOWN. Three LoadMapPre and 659 EndPlayPre callbacks were recorded, with
+no observed eviction of a joined owner. The observation budget ended the
+loop with confirmed cancellation. CompactLayoutProbe was restored afterward.
+[Session evidence, hashes and remaining gate](../research/interaction-prompts-owner/world-space/auto-target/README.md#normal-load-runtime-result--2026-11-05).
+
 ## Compact runtime — spacing/hide-resume/manual STOP PASS, 2026-11-05
 
 [Exact session, intervals and limits](../research/interaction-prompts-owner/world-space/compact-layout/README.md#user-run--compact-spacing-hide-resume-and-manual-stop-pass-2026-11-05).

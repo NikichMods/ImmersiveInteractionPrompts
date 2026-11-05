@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Auto Open observer — результат одного прогона
+
+Source `db89283` автоматически обнаружил шесть владельцев Open при обычной
+загрузке. Все шесть TipHUD готовы в BeginPlayPost. Дважды виден только владелец
+№1, после каждого эпизода видимых Open-владельцев ноль. Межобъектный A→B остаётся
+UNKNOWN. LoadMapPre и EndPlayPre пришли, удаление уже зарегистрированного
+владельца в этом сеансе не наблюдалось. Лимит остановил цикл с подтверждённой
+отменой. После архивирования восстановлен CompactLayoutProbe.
+[Точный результат и границы](../research/interaction-prompts-owner/world-space/auto-target/README.md#normal-load-runtime-result--2026-11-05).
+
 ## Локальная подготовка Auto Open observer
 
 Проверен установленный UE4SS. Подготовлена отдельная пятифайловая диагностика
