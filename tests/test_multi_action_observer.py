@@ -133,6 +133,9 @@ tick(3)
 assert(observer.status().registered==55 and observer.status().active)
 assert(has("state=incomplete_snapshot") and has("total=55"))
 assert(not has("state=unique_observed:") and S.cancelled==0)
+local before=#S.logs
+tick(200) -- Rotating partial batches must not log pseudo-hide every tick.
+assert(observer.status().active and #S.logs-before<8)
 """)
 
     def test_visible_owner_logged_even_after_join_detail_throttle(self):
