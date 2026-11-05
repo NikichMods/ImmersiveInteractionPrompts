@@ -5,9 +5,11 @@ on:
     branches:
       - research/auto-open-target-policy
       - research/auto-open-events
+      - research/multi-action-observer
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
+      - 'research/interaction-prompts-owner/world-space/multi-action/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
