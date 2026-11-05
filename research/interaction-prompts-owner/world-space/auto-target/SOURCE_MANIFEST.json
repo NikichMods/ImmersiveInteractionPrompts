@@ -1,0 +1,14 @@
+{
+  "candidate": "auto-open-events-local-observer",
+  "base": "34bba3c6fa12af254f2d5d16d3df61cebdbf5e1a",
+  "files": {
+    "Scripts/IIPOpenEvents.lua": "97489a926b29817be0a6efbd35257d5002e80c1724f954a48c19e3d3e9365f2d",
+    "Scripts/IIPOpenSource.lua": "c8eb3251ac538d0a671699b9ea2381bb08e0fc8b6c0e912dde52ab19fc7e1020",
+    "Scripts/IIPOpenVisibility.lua": "c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806",
+    "Scripts/IIPTargetPolicy.lua": "c60885a67e06eb9f3049246281bb8c1b27475f9742c0aa4b526c73bf741e1d24",
+    "Scripts/main.lua": "e29ceefb49efbc83874e591be11b0dcf8b246eca6e95845f109bc0debe4d41d4"
+  },
+  "runtime": "PENDING",
+  "offline_tests": 385,
+  "offline_files": 29
+}

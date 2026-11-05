@@ -53,11 +53,12 @@ function M.actor_identity(actor)
     return {key=key(r),ref=r}
 end
 
-function M.resolve_actor(identity)
+function M.resolve_actor(identity,native_alive)
     assert(type(identity)=="table" and type(identity.ref)=="table"
         and identity.key==key(identity.ref), "invalid actor identity")
     local actor=resolve(identity.ref)
     if not actor then return nil end
+    if native_alive and not native_alive(actor) then return nil end
     assert(inherited(actor,BASE), "actor hierarchy changed")
     return actor
 end

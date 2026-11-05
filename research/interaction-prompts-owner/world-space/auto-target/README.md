@@ -1,5 +1,38 @@
 # Open target arbitration — source-only integration foundation
 
+## Local runtime candidate
+
+The [payload manifest](SOURCE_MANIFEST.json) identifies five Lua files. Local
+review matched the installed UE4SS DLL to the pinned 83330635 baseline.
+The pinned dispatchers wrap the BeginPlay actor and EndPlay actor/reason in
+RemoteUnrealParam. The observer unwraps only the actor, and the LoadMapPre
+callback leaves its return unset. The previous in-game owner and Retainer
+checks support these identity reads. The natural callback order and native
+target correlation await the user run.
+
+The original observer logged only a count during ambiguity. This candidate
+assigns session owner IDs and records actor/component/widget paths once at join,
+with callback versus retry timing. A selection transition logs the shown,
+ready, hidden and pending owner sets. Pending owners invalidate the streak
+of complete observations. A native validity check guards a retry before
+reading the actor's owner chain. The original frame/sample/candidate budgets
+apply. At 120 FPS 240 samples every 30 frames cover roughly one minute from
+observer startup. Menu time counts toward that window.
+
+Local full suite passed with **385 tests across 29 files**. The historical CI
+run 42003357042 applies to eb251161, before this evidence logging change.
+Runtime status is **AWAITING_INSTALL_PERMISSION**. Proposed activation uses
+a separate AutoOpenEventsProbe directory and temporarily disables the
+CompactLayoutProbe marker. The local handoff preserves the exact original
+marker and payload hashes for rollback outside UE4SS.
+
+After the switch, start the game normally, load the save and approach Open A,
+leave it, approach Open B and leave both. Pause briefly while each prompt
+is visible and note the order and any simultaneous prompts. Use a natural
+A-to-B transition or location change if readily available. Exit normally.
+Use the visible prompts and logged owner sets together. A missing observation
+or an ambiguous owner remains unresolved.
+
 ## Automatic UE4SS lifecycle observer — source-only, 2026-11-05
 
 **EVENT_SOURCE_AND_OFFLINE_TESTS_PASS / NOT_INSTALLED / NO_UE4SS_RUNTIME_ACCEPTANCE.**

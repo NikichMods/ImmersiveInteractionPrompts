@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Локальная подготовка Auto Open observer
+
+Проверен установленный UE4SS. Подготовлена отдельная пятифайловая диагностика
+с идентификаторами владельцев и логом видимого, скрытого и ожидающего набора.
+Локально прошли 385 тестов в 29 файлах. Ожидается явное разрешение на установку
+и временное отключение маркера CompactLayoutProbe. Игровые A/B и lifecycle
+результаты ожидают одного пользовательского прогона.
+[Точный payload и сценарий](../research/interaction-prompts-owner/world-space/auto-target/README.md#local-runtime-candidate).
+
 ## Auto Open lifecycle — event observer source + CI PASS, 2026-11-05
 
 **AUTOMATIC_READ_ONLY_OBSERVER_READY_SOURCE / NOT_INSTALLED / PRODUCTION_BLOCKED.**
