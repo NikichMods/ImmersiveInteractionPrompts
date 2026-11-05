@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+## Следующая работа: собственный World lifecycle после MultiActionProbe PASS
+
+Игровой прогон `1780f0a` закрыл обнаружение и EndPlay для трёх
+семейств `Open/Take/Check`. Следующий шаг — **source-only**
+интеграция однозначного наблюдаемого владельца с собственным World
+компонентом: hide/resume для прежнего владельца, а для нового
+`release → подтверждённый CLEANED → fresh snapshot → bind`.
+Повторный A→B World lifecycle **не проверен в игре**; прямой переход
+без выхода из зоны и authoritative selected-target **UNKNOWN**.
+Новый runtime-кандидат не устанавливался, замороженный
+CompactLayoutProbe/остальные моды не изменялись.
+[Точный план и safety gate](RESEARCH_PLAN.md#после-multiactionprobe-runtime-pass--следующий-source-only-world-lifecycle-gate-2026-11-06).
+
 ## MultiActionProbe — результат прогона 2026-11-06
 
 `1780f0a` автоматически обнаружил 34 готовых владельца Open/Take/Check.
@@ -8,17 +21,17 @@
 34 записи, включая 33 при штатном выходе. CompactLayoutProbe восстановлен.
 [Доказательства, хэши и границы](../research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06).
 
-## MultiActionProbe установлен
+## История: MultiActionProbe был установлен, затем отключён
 
 Пользователь разрешил установку `1780f0a` и временное переключение маркера
 CompactLayoutProbe. При закрытой игре сверены четыре Lua-файла и новый маркер.
-Сохранены хэши 181 существующего файла. Игровые наблюдения Open, Take и Check
-ожидают пользовательского сеанса.
+Сохранены хэши 181 существующего файла. Этот этап ожидал пользовательского прогона; прогон завершён 2026-11-06
+и исходный CompactLayoutProbe восстановлен, см. текущий статус выше.
 [Манифест и границы](../research/interaction-prompts-owner/world-space/multi-action/README.md#local-payload-preparation).
 
-## Multi-action observer — ChatGPT source + CI, 2026-11-05
+## История: multi-action observer — ChatGPT source + CI, 2026-11-05
 
-**SOURCE_AND_OFFLINE_TESTS_PASS / NOT_INSTALLED / RUNTIME_TAKE_CHECK_UNKNOWN.**
+**ИСТОРИЧЕСКОЕ SOURCE-ONLY СОСТОЯНИЕ ДО ПРОГОНА** (ныне Take/Check подтверждены в настоящей игре, см. верхний runtime-раздел).
 Source developed in `research/multi-action-observer` from
 `research/auto-open-events` `74ec3a4247feed0be9c8bf8788f5839c6cad20ae`.
 [Independent research candidate and boundaries](../research/interaction-prompts-owner/world-space/multi-action/README.md).
