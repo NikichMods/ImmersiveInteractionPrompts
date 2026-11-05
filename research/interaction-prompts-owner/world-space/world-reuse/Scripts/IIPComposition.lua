@@ -33,7 +33,8 @@ local function child(s,kind,role,name)
 end
 function M.prepare()Resources.prepare()end
 function M.pending()return state~=nil end
-function M.start(host,root,w,name,settings)
+function M.start(host,root,w,name,settings,action)
+   assert(action=="Open" or action=="Take" or action=="Check", "unsupported native action family")
  assert(not state,"one composition only")
  state={host=ref(host),tree=ref(host.WidgetTree),root=ref(root),original=ref(w),settings=settings}
  local s=state
@@ -45,7 +46,7 @@ function M.start(host,root,w,name,settings)
  lower:SetJustification(1)
  local upper=child(s,"TextBlock","upper",name.."_Aphes")
  upper:SetFont(lower.Font);Resources.font(upper)
- upper:SetText(FText("OPEN"));upper:SetJustification(1)
+ upper:SetText(FText(string.upper(action)));upper:SetJustification(1)
  upper:SetShadowOffset({X=0,Y=0});upper:SetShadowColorAndOpacity({R=0,G=0,B=0,A=0})
  upper:SetColorAndOpacity({SpecifiedColor={R=1,G=1,B=1,A=1},ColorUseRule=0})
  local divider=child(s,"Image","divider",name.."_Ornament");Resources.ornament(divider,w)
@@ -53,7 +54,7 @@ function M.start(host,root,w,name,settings)
  -- Hidden participates in prepass, Collapsed does not. Host stays hidden until World setup finishes.
  for _,role in ipairs({"upper","lower","divider"})do find(s[role]):SetVisibility(2)end
  settings.dirty=true;M.update(w)
- log("CREATED","children=4 original_writes=0 technical_upper=OPEN")
+ log("CREATED","children=4 original_writes=0 technical_upper="..string.upper(action).." translation_unverified=true")
 end
 local function owned(s,role)
  local o=find(s[role]);assert(valid(o) and same(o:GetOuter(),find(s.tree)) and same(o:GetParent(),find(s.root)),"own composition child changed: "..role)
