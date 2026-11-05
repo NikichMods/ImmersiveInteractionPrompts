@@ -5,8 +5,8 @@
 **Source-only slice delivered by ChatGPT.**
 [Read-only Open/Take/Check candidate](../research/interaction-prompts-owner/world-space/multi-action/README.md)
 on `research/multi-action-observer` with
-[CI 42069367766](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069367766)
-at `29cfc67e188ea5bd4127695fbcc579bd2f3c47a5`:
+[CI 42069984702](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069984702)
+at `1780f0a8230149135b61bafcdb81c61e2f1d4e36`:
 403 tests/31 scripts PASS. No game/user acceptance or installed change.
 
 **New evidence boundary:** normal-load `Open` actor→TipHUD acquisition
