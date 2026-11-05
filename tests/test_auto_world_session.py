@@ -15,12 +15,12 @@ MOCK=r"""
 S.game=true;S.hooks={};S.cancelled={};S.world_ops={}
 W={owned=false,created=0,cleans=0,prepared=0,assets=0,hides=0,
    resumes=0,refreshes=0,shown=false,fail_create=false,fail_cleanup=false,
-   active=0,max_active=0,actions={}}
+   active=0,max_active=0,actions={},fail_empty=false}
 function ops(msg)S.world_ops[#S.world_ops+1]=msg end
 local world={
  prepare=function()W.prepared=W.prepared+1 end,
  refresh_assets=function()W.assets=W.assets+1 end,
- empty=function()return not W.owned end,
+ empty=function()if W.fail_empty then error("own state unknown")end;return not W.owned end,
  create=function(actor,component,widget,request_stop,action)
   assert(actor and component and widget and not W.owned,"overlapping World host")
   W.owned=true;W.active=W.active+1;W.max_active=math.max(W.max_active,W.active)
@@ -189,6 +189,19 @@ assert(session.status().terminal and not session.status().active)
 assert(has("cleanup_blocked") and not has("event=HANDOFF_RELEASED"))
 assert(S.cancelled[77]==1 and S.cancelled[88]==1)
 frame(20);assert(W.created==1)
+""")
+
+    def test_bridge_fault_with_unknown_own_state_cancels_without_retry(self):
+        self.case(r"""
+W.fail_empty=true
+Bridge.pump=function()error("bridge control fault")end
+frame()
+assert(session.status().terminal and not session.status().active)
+assert(has("cleanup_unconfirmed_manual_host_exit_required"))
+assert(S.cancelled[77]==1 and S.cancelled[88]==1)
+local before=#S.logs
+frame(50)
+assert(#S.logs==before and W.created==0)
 """)
 
     def test_explicit_stop_cleans_then_disarms_while_engine_callbacks_inert(self):
