@@ -222,6 +222,7 @@ function M.pause(image)
  state.bound=nil;state.pending=nil;state.stable=0;state.size=nil
  log("SUSPENDED","borrowed_reference=false will_resample_on_resume=true")
 end
+function M.pending()return state~=nil end
 function M.ready()return state~=nil and state.bound~=nil end
 function M.readback_source(w)
  assert(state and matches(w,state.original),"diagnostic source owner changed")
