@@ -31,6 +31,13 @@ return {
 """
 SETUP=r"""
 S.game=true
+local factory=S.objects["/Script/UMG.WidgetBlueprintLibrary:Create"]
+local create_once=getmetatable(factory).__call
+getmetatable(factory).__call=function(...)
+ local host=create_once(...)
+ S.host=host;S.panel=nil
+ return host
+end
 set(P.actor,"FinishAddComponent",function(_,c,manual,t)
  assert(manual and c==S.comp and c.widget==S.host)
  assert(c.draw.X==1024 and c.draw.Y==512)
@@ -65,7 +72,7 @@ assert(R.create(owner("Open"),1))
 assert(S.created==1 and S.imports==1 and S.host.Visibility==2)
 assert(R.resume() and R.refresh())
 assert(R.cleanup("switch",2) and R.empty())
-assert(S.released==1 and S.comp.pending and not S.panel.viewport)
+assert(S.released==1 and S.comp.pending and S.panel==nil)
 """)
 
  def test_second_owner_uses_sequential_components_and_no_editor(self):
@@ -74,7 +81,7 @@ assert(R.create(owner("Open"),1))
 local first=S.comp.p
 assert(R.cleanup("switch",2))
 assert(R.create(owner("Take"),3))
-assert(S.comp.p~=first and S.imports==2 and not S.panel.viewport)
+assert(S.comp.p~=first and S.imports==2 and S.panel==nil)
 assert(R.cleanup("switch",4) and R.empty())
 assert(S.released==2)
 """)
