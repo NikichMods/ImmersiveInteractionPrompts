@@ -120,6 +120,7 @@ function M.snapshot(record, native_alive, hint_visible)
         and argument.ActionName==25, "interaction action source changed")
     local shown=source.bVisible==true and source.bAddedToScreen==true
     local ready=false
+    local native_text=nil
     if shown then
         local visible=hint_visible(w)
         shown=visible==true
@@ -127,11 +128,12 @@ function M.snapshot(record, native_alive, hint_visible)
             local b=w.TextBlock_89
             assert(valid(b) and cls(b)=="/Script/UMG.TextBlock","original action text missing")
             local text=b:GetText():ToString()
+            native_text=type(text)=="string" and text or nil
             ready=type(text)=="string" and #text>0 and #text<=512
                 and not text:find("[\r\n]")
         end
     end
     return {actor=record.actor,component=record.component,widget=record.widget,
-        action=record.action,shown=shown,ready=ready}
+        action=record.action,shown=shown,ready=ready,native_text=ready and native_text or nil}
 end
 return M
