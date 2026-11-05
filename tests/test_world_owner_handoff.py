@@ -199,8 +199,10 @@ assert(not has("RELEASED") and R.created==1)
 R.fail_cleanup=false
 H.retry_cleanup()
 assert(H.pump()=="cleaned" and not R.owned)
-scan(row("A",false),row("B",true));scan(row("A",false),row("B",true))
--- Cleanup failed once -> terminal fault, no automatic second allocation.
+-- Cleanup failed once -> terminal fault, even after explicit cleanup retry;
+-- no new observations can authorize another allocation in this session.
+local snapshot,why=H.observe({row("A",false),row("B",true)},true)
+assert(snapshot==nil and why=="disabled")
 assert(H.pump()=="disabled" and H.status().fault~=nil and R.created==1)
 """)
 
