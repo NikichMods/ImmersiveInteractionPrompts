@@ -14,7 +14,9 @@ local function unwrap(x)
 end
 local function label(result,pending)
     if pending>0 then return "unresolved_open_owner" end
-    if result.eligible then return "eligible:"..result.eligible end
+    if result.eligible then
+        return (result.stable>=2 and "eligible:" or "warming:")..result.eligible
+    end
     return result.reason
 end
 local function sorted_keys(t)
@@ -198,7 +200,8 @@ function M.start(api,source,policy,emit)
     return {stop=stop,status=function()
         return {active=s.active,reason=s.reason,begin_calls=s.begin_calls,
             samples=s.samples,joined=s.joined,ends=s.end_calls,maps=s.map_calls,
-            pending=count()-s.selector.count,registered=s.selector.count,last=s.last}
+            pending=s.ended and 0 or count()-s.selector.count,
+            registered=s.ended and 0 or s.selector.count,last=s.last}
     end}
 end
 return M
