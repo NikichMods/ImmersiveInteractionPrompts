@@ -1,6 +1,55 @@
 # План исследования — contextual prompts и письменность
 
-## После multi-action source — native handoff gate, 2026-11-05
+## После MultiActionProbe runtime PASS — следующий source-only World lifecycle gate, 2026-11-06
+
+**Автоматическое приобретение Open/Take/Check и корректное удаление owner через
+EndPlay подтверждены в игре.** [Точный отчёт и ограничения](../research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06):
+`1780f0a` увидел 34 готовые связки (Open6/Take18/Check10), пять
+эпизодов одного видимого/готового владельца из 33 с переходом
+`Open#10 → Check#3 → Take#19 → Check#3 → Open#10` **через уход из зоны**;
+34 EndPlay-удаления к штатному выходу. Реальные строки этих трёх действий
+проверены. Последний сообщённый `Open` не имеет отдельной записи:
+причина UNKNOWN. Прямой A→B без состояния «никого» и map-reset
+уже наполненного реестра NOT_TESTED. Установленный MultiActionProbe
+отключён, CompactLayoutProbe восстановлен; это не новый runtime
+acceptance World-рендерера.
+
+**Следующий достаточный самостоятельный шаг ChatGPT:**
+на новой research-ветке изучить фактический `IIPWorldChild.lua`,
+`IIPComposition.lua`, `IIPHintSource.lua`, native resource cleanup,
+`IIPTargetPolicy.lua` и принятую композицию. Подготовить отдельную
+source-only адаптацию для многократного own-component жизненного цикла:
+сохранять ресурсы только при hide/resume **того же владельца**;
+при уходе к другому владельцу сначала скрывать и освобождать
+собственный World UI; выдавать `released(ticket)` **только после
+подтверждённого `CLEANED`**, а затем требовать новую полную свежую
+visibility-снимок и устойчивую однозначную цель перед `bind`.
+Ошибки частичного создания/освобождения не должны разрешать вторую
+аллоцированную композицию. Сохранять native localized action/input hint,
+original TipHUD, существующий собственный визуальный дизайн и принятые
+layout-настройки; не переключать native действия/ввод/сохранения.
+
+Не внедрять произвольные таймеры и total-event caps (уже принято
+в `docs/REQUIREMENTS.md`); ограничивать только стоимость проверок
+и количество подробных сообщений. Старый компактный research-кандидат,
+его installed bytes, `main`/`VERSION` и другие моды неприкосновенны.
+Начать с офлайн-тестов A→none→B, B→none→A, hide/resume, EndPlay/map,
+недействительных UObject и cleanup-failure; не представлять это как
+host acceptance. Экспериментальный прямой A→B и совпадение native
+chosen-owner остаются отдельным игровым гейтом, если алгоритм
+предполагает такой переход. Не требовать двух соседних сундуков:
+подтверждённые семейства действий уже доступны естественно.
+
+**Граница решения:** доказанные 33-owner complete snapshots покрывают
+только тот конкретный уровень/сеанс; `incomplete_snapshot` или
+несколько одновременно видимых native подсказок должны оставлять
+`UNKNOWN`, а не запускать создание World-компонента. Популяризацию
+нового билдa или установку до явного разрешения не проводить.
+Вопрос об экранном дублировании оригинального TipHUD/его suppression
+отдельно решать по согласованному UX, не делать скрытые native writes.
+Верхние глифы не считать переводом Aphes.
+
+## История: после multi-action source — native handoff gate, 2026-11-05
 
 **Source-only slice delivered by ChatGPT.**
 [Read-only Open/Take/Check candidate](../research/interaction-prompts-owner/world-space/multi-action/README.md)
