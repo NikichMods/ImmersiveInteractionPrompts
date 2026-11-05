@@ -1,6 +1,45 @@
 # Статус Immersive Interaction Prompts
 
-## Следующая работа: собственный World lifecycle после MultiActionProbe PASS
+## World owner handoff source-only — CI PASS, 2026-11-06
+
+**PURE_LUA_HANDOFF_AND_EVENT_GLUE_PASS / REAL_REENTRANT_WORLD_BLOCKED /
+NOT_INSTALLED / PRODUCTION_BLOCKED.**
+New independent `research/world-owner-handoff` from
+`research/multi-action-observer` `d0d72b07d9dd1b3fe390fc311966840544865aa1`.
+
+[`IIPWorldHandoff.lua`](../research/interaction-prompts-owner/world-space/owner-handoff/IIPWorldHandoff.lua)
+implements single-owner retain/hide/resume and
+`hide → cleanup → independently confirmed empty → CLEANED → RELEASED(ticket)`
+before another owner can bind. It requires **two fresh complete
+unique-native-visible snapshots after release**. An incomplete/
+ambiguous sweep never selects a target. Partial creation, EndPlay/map,
+bad identity and cleanup failures cannot grant overlapping World
+allocations. Cleanup failure blocks the session; explicit retry
+does not silently resume automation. No arbitrary timer/event count.
+The forked read-only event adapter and bridge pass **primitive owner
+facts** into the pure coordinator; no native writes occur in hooks.
+A renderer must still be injected and pumped from a separately
+verified game-thread boundary.
+
+[CI 42126709589](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42126709589)
+at code/test SHA `bff0d3cb5e023e8c97b7d577404f5e380f64b923`:
+**422 offline tests /33 files PASS** (19 new handoff/bridge tests).
+This is Lua state-machine/mock acceptance **only**, not native UE4
+allocation, render, GC or automatic A→B acceptance.
+
+**Native next gate:** the frozen `compact-layout` source is
+**one-shot**: `IIPResources` refuses a second ornament import;
+World/module initialization is one-time; `os.time()`-based component/
+font names may collide within a second; `create` automatically opens
+the tuning editor. Safe repeated native World allocations and resource
+lifetimes require a separate source-only renderer successor and game
+validation, not reuse of the frozen source by simply calling `create`
+again. [Source evidence and exact boundary](../research/interaction-prompts-owner/world-space/owner-handoff/README.md).
+Old CompactLayoutProbe remains the restored active installed
+IIP research candidate. No source `main`/`VERSION`, game files,
+activation markers or other mods were changed by ChatGPT.
+
+## История: перед source-only World handoff — MultiActionProbe PASS
 
 Игровой прогон `1780f0a` закрыл обнаружение и EndPlay для трёх
 семейств `Open/Take/Check`. Следующий шаг — **source-only**
