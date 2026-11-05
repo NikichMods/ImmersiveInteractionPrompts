@@ -2,6 +2,7 @@
 -- Reused private font/ornament seams; no shared font mutation; authored divider PNG is distributed.
 local M={}
 local ttf_filename,png_filename,import_attempted
+local font_serial=0 -- One unique name per module lifetime, not per os.time second.
 local FONT="/Script/Engine.Font"
 local DONOR="/Game/Fonts/EBGaramond-SemiBold_Font.EBGaramond-SemiBold_Font"
 local function log(e,s)print("IIP_COMPOSITION_RESOURCE event="..e.." "..(s or "").."\n")end
@@ -142,7 +143,8 @@ local function configure_font(label)
             and font_class:GetFullName() == "Class " .. FONT, "Font class NOT_LOADED")
         local font_outer = donor:GetOuter() -- Same resident-package Outer contract as the completed creation probe.
         assert(valid(font_outer) and class(font_outer) == "Class /Script/CoreUObject.Package", "font package unavailable")
-        local font_name = "IIP_AphesFont_" .. tostring(os.time())
+        font_serial=font_serial+1
+        local font_name = "IIP_AphesAutoFont_" .. tostring(font_serial)
         local copy_path = path(font_outer) .. "." .. font_name
         assert(not valid(StaticFindObject(copy_path)), "private font name collision")
         copy = StaticConstructObject(font_class,font_outer,FName(font_name),EObjectFlags.RF_Transient,
@@ -189,6 +191,15 @@ function M.prepare()
  end
  ttf_filename,png_filename=c.filename,c.separator_filename
  check_file();validate_png()
+end
+-- Each new own image owns its imported transient PNG until its Brush is
+-- cleared. Do not reset import_attempted while an own tree is alive.
+function M.has_live_lease()return import_attempted==true end
+function M.cycle_cleaned()
+    -- Called only by World after full verified child/component/host cleanup.
+    -- Native GC lifetime cannot be inferred from dropping Lua references.
+    import_attempted=false
+    log("LEASE_RELEASED","ornament_reimport_allowed_on_next_owner=true")
 end
 M.font=configure_font
 M.ornament=configure_line
