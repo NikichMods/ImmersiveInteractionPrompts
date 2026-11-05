@@ -75,7 +75,10 @@ class AutomaticWorldSession(unittest.TestCase):
         for name in NAMES:
             L.execute(name+"=(function()\n"+SOURCES[name]+"\nend)()")
         L.execute(RIG)
-        L.execute('AutoSession=IIPAutoWorldSession')
+        L.execute('Source=IIPInteractionSource;Events=IIPInteractionEvents;'
+                  'Handoff=IIPWorldHandoff;Bridge=IIPWorldHandoffBridge;'
+                  'Renderer=IIPWorldRenderer;Target=IIPWorldTarget;'
+                  'AutoSession=IIPAutoWorldSession')
         L.execute(setup)
         L.execute(MOCK)
         L.execute(body)
