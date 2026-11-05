@@ -1,6 +1,43 @@
 # Статус Immersive Interaction Prompts
 
-## Reentrant World renderer source-only — OFFLINE PASS, 2026-11-06
+## Auto World source integration — offline PASS, 2026-11-06
+
+**SOURCE_AND_CI_PASS / NOT_INSTALLED / REAL_GAME_WORLD_HANDOFF_UNKNOWN.**
+The branch `research/automatic-world-session` contains a complete,
+separately named source-only candidate. It joins Open/Take/Check
+observation, native owner revalidation, handoff state machine and
+reusable four-element World rendering.
+
+[CI 42133071798](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42133071798)
+passed **446 tests in 38 suites** at
+`5af99f7f6710eb81ab838d6fa0d6a9a6c500e373`.
+Seventeen co-located Lua scripts have an exact SHA-256
+[`SOURCE_MANIFEST.json`](../research/interaction-prompts-owner/world-space/auto-world/SOURCE_MANIFEST.json),
+checked independently in CI. Last Lua edit:
+`1bf1cd2cb0b8a17a739d9de8a5cb2b23e9445ae5`.
+
+Two engine-thread loops run independently: native read-only 30-frame
+observation and own World UI 1-frame pump. Owner changes require
+confirmed cleanup and fresh complete native snapshots. Incomplete
+or ambiguous observations cannot bind a target. No automatic editor,
+manual arm, arbitrary lifetime timer or event caps. Original
+Screen TipHUD, localized action and button hints are preserved.
+
+**Not accepted in UE4:** repeated native component creation,
+real resource import/GC, real A-to-B World ownership, direct A-to-B
+without withdrawal, in-game presentation and end-user UX.
+Technical upper labels are not verified Aphes-world translations.
+The user-owned `IIPLiveConfig.lua` and local authored resources
+remain external. The already installed CompactLayoutProbe, frozen
+sources, `main`, `VERSION`, game, saves and settings are unchanged.
+
+**Next gate:** separate explicit authorization for local Codex
+closed-host install/rollback and normal user-operated Open, Take,
+Check runtime and visual test. See
+[full candidate notes](../research/interaction-prompts-owner/world-space/auto-world/README.md).
+Offline tests are not production or real-game acceptance.
+
+## История: Reentrant World renderer source-only — OFFLINE PASS, 2026-11-06
 
 **REPEATED_OWN_COMPONENT_TESTS_PASS / ENTRYPOINT_NOT_INTEGRATED /
 NOT_INSTALLED / RUNTIME_A_TO_B_UNKNOWN.** The new isolated
