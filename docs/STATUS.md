@@ -30,8 +30,8 @@ localized action captured on first actual visibility. This follows
 the adopted no-timer decision in `docs/REQUIREMENTS.md` and
 updated DevRules.
 
-**CI:** [run42069367766](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069367766)
-at source+tests `29cfc67e188ea5bd4127695fbcc579bd2f3c47a5`
+**CI:** [run42069984702](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42069984702)
+at source+tests `1780f0a8230149135b61bafcdb81c61e2f1d4e36`
 (**403 offline tests /31 test scripts PASS**, including18 new
 multi-action/entrypoint scenarios). Later source-independent
 documentation edits do not change this code evidence.
