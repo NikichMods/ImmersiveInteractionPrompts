@@ -21,10 +21,13 @@ observer startup. Menu time counts toward that window.
 
 Local full suite passed with **385 tests across 29 files**. The historical CI
 run 42003357042 applies to eb251161, before this evidence logging change.
-Runtime status is **AWAITING_INSTALL_PERMISSION**. Proposed activation uses
-a separate AutoOpenEventsProbe directory and temporarily disables the
-CompactLayoutProbe marker. The local handoff preserves the exact original
-marker and payload hashes for rollback outside UE4SS.
+Runtime status is **INSTALLED / USER_RUN_PENDING**. With explicit permission,
+source `db89283747f2e25c206b1fc762b68aeabdbcb771` was installed with the host
+closed. All five Lua hashes and the empty marker match the prepared payload.
+The CompactLayoutProbe marker was temporarily disabled. The installed record
+preserves 175 pre-existing file hashes. The old payload, marker backup,
+exact installed identity and rollback are stored privately under
+`auto-target/prepare-db89283` outside UE4SS.
 
 After the switch, start the game normally, load the save and approach Open A,
 leave it, approach Open B and leave both. Pause briefly while each prompt
