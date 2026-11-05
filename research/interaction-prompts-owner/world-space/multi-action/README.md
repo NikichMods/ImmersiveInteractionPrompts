@@ -11,8 +11,11 @@ owners per sweep and runs at the user's pace through normal game exit.
 The prepared destination is a separate MultiActionProbe. CompactLayoutProbe is
 the active IIP probe at preflight. Its complete installed payload and marker
 have a hash-verified backup outside UE4SS under `multi-action/prepare-1780f0a`.
-The switch and rollback operate on the two IIP activation markers after a
-closed-host check. Installation awaits explicit user authorization.
+After explicit authorization the four Lua files and empty marker were installed
+and verified with the host closed. The switch temporarily disabled the
+CompactLayoutProbe marker and preserved the hashes of 181 existing files.
+The installed manifest and rollback are in the private preparation archive.
+The native Open/Take/Check run is pending.
 
 **SOURCE-ONLY / NO INSTALLATION / NO LIVE Take/Check ACCEPTANCE.**
 

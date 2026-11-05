@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## MultiActionProbe установлен
+
+Пользователь разрешил установку `1780f0a` и временное переключение маркера
+CompactLayoutProbe. При закрытой игре сверены четыре Lua-файла и новый маркер.
+Сохранены хэши 181 существующего файла. Игровые наблюдения Open, Take и Check
+ожидают пользовательского сеанса.
+[Манифест и границы](../research/interaction-prompts-owner/world-space/multi-action/README.md#local-payload-preparation).
+
 ## Multi-action observer — ChatGPT source + CI, 2026-11-05
 
 **SOURCE_AND_OFFLINE_TESTS_PASS / NOT_INSTALLED / RUNTIME_TAKE_CHECK_UNKNOWN.**
