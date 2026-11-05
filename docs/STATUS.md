@@ -1,5 +1,44 @@
 # Статус Immersive Interaction Prompts
 
+## Auto Open-target policy — ChatGPT-only offline implementation, 2026-11-05
+
+**OFFLINE_POLICY_AND_OPEN_ADAPTER_PASS / RUNTIME_NOT_TESTED / PRODUCTION_BLOCKED.**
+[Research source, exact seams and missing runtime proof](../research/interaction-prompts-owner/world-space/auto-target/README.md).
+New `research/auto-open-target-policy` branch from the audited
+`7438fa763859457f7897f9d3e8452b0ddc870c51`. ChatGPT authored two
+**new**, separate Lua modules: `IIPTargetPolicy.lua` (complete-snapshot
+candidate arbitration, fail-closed identity guards, EndPlay/world invalidation,
+atomic release-ack→bind handover) and `IIPOpenSource.lua` (read-only exact
+Open actor↔component↔TipHUD acquisition and fresh native screen/hint/action
+readback). The frozen compact World prototype, its configuration/manifest and
+installed marker are untouched. These new modules are **not wired** into
+the research main/renderer and are **not** a runnable/installed mod.
+
+**Automated evidence:** GitHub Actions
+[run41937982403](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/41937982403)
+from exact code+combined-test commit
+`97283bb6ebe4a1bf8a2d8ceb37adeb125b7cd27e`:
+Python3.12 + lupa2.8, `python tools/test.py`, **370 tests/27 scripts PASS**,
+including24 new policy/adapter/combined tests (15 selector +9 adapter, of which
+one combined). This is a tested Lua policy, **not** a game/UE4SS render or
+target-switch acceptance.
+
+**Decisive missing runtime facts:** whether effective native source/widget
+visibility uniquely identifies the actively selected world interaction when
+two nearby actors qualify; whether global BeginPlayPost reports the supported
+Open actors after their widget is ready (or needs a bounded readiness event);
+and EndPlay/map teardown delivery. Pinned UE4SS event APIs exist, but are not
+yet wired/game-proven. Do not guess target from the last CanShow call.
+Existing single-creation World renderer/resource lifecycle would need an
+independently verified repeatable teardown/rebind route.
+
+**Next:** ChatGPT-owned minimal read-only event/visibility integration design
+and offline verification; only request one user-started local Codex probe if a
+specific indispensable selection/initialization property cannot be established
+from existing records/source. No production/vanilla Screen suppression or
+runtime installation authorized. `main`/`VERSION`, native game and other mods
+unchanged; slight glow and optional overall scale remain deferred.
+
 ## Production readiness — source/evidence audit, 2026-11-05
 
 **REMOTE_SOURCE_AUDIT_COMPLETE / RESEARCH_PASS / PRODUCTION_BLOCKED.** This is
