@@ -46,7 +46,7 @@ function M.start(api,source,emit)
     local s={
         active=true,ended=false,reason="running",handle=nil,
         begin_calls=0,end_calls=0,map_calls=0,samples=0,joined=0,
-        records={},pending={},by_widget={},by_component={},
+        records={},pending={},by_widget={},by_component={},visible_paths_logged={},
         registered=0,pending_count=0,ids={},serial=0,
         order={},dirty=true,cursor=1,last="not_sampled",
         choice=nil,streak=0
@@ -68,6 +68,7 @@ function M.start(api,source,emit)
         end
         -- No verified global-hook unregistrar. Captured callbacks remain inert.
         s.records={};s.pending={};s.ids={};s.by_widget={};s.by_component={}
+        s.visible_paths_logged={}
         s.registered=0;s.pending_count=0;s.order={}
         trace("STOP","reason="..short(reason).." begins="..s.begin_calls..
             " joined="..s.joined.." ends="..s.end_calls.." maps="..s.map_calls..
@@ -100,6 +101,7 @@ function M.start(api,source,emit)
             s.pending_count=s.pending_count-1
         end
         s.ids[key]=nil
+        s.visible_paths_logged[key]=nil
         invalidate()
     end
     local function register(rec,from)
@@ -181,6 +183,7 @@ function M.start(api,source,emit)
         guarded("LoadMapPre",function()
             s.map_calls=s.map_calls+1
             s.records={};s.pending={};s.by_widget={};s.by_component={}
+            s.visible_paths_logged={}
             s.registered=0;s.pending_count=0;s.ids={}
             s.order={};s.cursor=1;s.last="not_sampled"
             invalidate()
@@ -239,6 +242,14 @@ function M.start(api,source,emit)
                             rows[#rows+1]=row
                             local label=tostring(owner_id(key))..":"..row.action
                             if row.shown then
+                                if not s.visible_paths_logged[key] then
+                                    s.visible_paths_logged[key]=true
+                                    trace("VISIBLE_OWNER","owner="..owner_id(key)..
+                                        " action="..row.action..
+                                        " actor="..string.format("%q",rec.refs.actor.path)..
+                                        " text="..string.format("%q",row.native_text or "")..
+                                        " shown=true observed_only=true")
+                                end
                                 shown[#shown+1]=label
                                 if row.ready then ready[#ready+1]=label end
                             else hidden[#hidden+1]=label end
