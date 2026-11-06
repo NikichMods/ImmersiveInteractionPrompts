@@ -28,6 +28,49 @@ The event observer marks one `active_owner` and samples one queued candidate per
 
 **Conclusion:** No additional unconditional all-owner polling and no invented global `ProcessEvent`/`SetVisibility` hooks. Do not promote either architecture. The existing evidence alone cannot choose World safely. Research Screen S1 composition/one-native-prompt integration next; preserve World as conditional preference and avoid silently changing its depth behavior.
 
+## Epic UE4.27 mechanisms — external documentation check (2026-11-06)
+
+The **official Unreal Engine 4.27** documentation identifies standard building
+blocks but **no engine-wide automatically maintained current interactive
+world-actor accessor**. This is a documentation scope finding, not a claim
+about every plugin or game's private C++ implementation.
+
+| Documented UE4.27 API/pattern | What it establishes | Asterigos implication / limit |
+| --- | --- | --- |
+| [Blueprint Actor Begin/End Overlap](https://dev.epicgames.com/documentation/unreal-engine/blueprint-events?application_version=4.27), [Setting Up Input on an Actor](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-input-on-an-actor?application_version=4.27) | Collision triggers can notify the actor when the player enters/leaves an interaction area; Epic uses a chest/nearby-light example. | Good candidate for cheap *eligibility* transition; multiple overlapping triggers do not establish which one has priority or prove that this game uses them. |
+| [Line Trace By Channel](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-a-single-line-trace-raycast-by-channel?application_version=4.27), [Traces Overview](https://dev.epicgames.com/documentation/unreal-engine/traces-overview?application_version=4.27) | A trace can return a hit actor/component. Epic explicitly demonstrates line-trace use in an Event Tick; shape traces and object filtering also exist. | A possible focused target signal *if the game calls a trace and its actual hit is forwarded to interaction arbitration*; running our own guessed raycast would create a potentially divergent selector rather than read the game's current choice. |
+| [Blueprint Interface interaction guide](https://dev.epicgames.com/documentation/unreal-engine/interface-quick-start-guide?application_version=4.27) | Different actor types can expose the same `Interact` operation. | A dispatch/behavior contract, **not** a native chosen-object getter. |
+| [Widget Interaction Component](https://dev.epicgames.com/documentation/en-us/unreal-engine/widget-interaction-component?application_version=4.27) | UI pointer/hover simulation for interactive WidgetComponents, with `GetHoveredWidgetComponent`, hit testing and simulated clicks. | **False friend**: hovering a clickable Slate/UMG widget is not the gameplay selection of lootboxes/documents unless Asterigos demonstrably routes its interactions through that component; no such game evidence exists. |
+| [Widget Component API](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/WidgetComponent?application_version=4.27) | UMG can be drawn in screen space or as a world-rendered surface via an actor's WidgetComponent. | Supports why the stock native Screen TipHUD already follows its actor location but does not get Hilda depth occlusion; renderer space itself does not reveal the selection manager. |
+
+**Prioritization (hypotheses, not established game facts):** (A) overlap
+gates entry/exit into an eligible candidate set; (B) optional trace/facing/
+distance decision resolves priority; (C) a Genesis-specific manager or
+owner-local native method updates ExtendedWidget/TipHUD. The actual game
+might use A, B, C in combination or none of these exact patterns.
+
+**Revised narrow source-search order if World authority is necessary:**
+start with existing accepted Open/Take/Check actor+TipHUD+ExtendedWidget
+ownership; trace backwards through **actual Asterigos Blueprint callsites**
+for native prompt visibility and `CanShow`. In that reachable callgraph,
+identify first the actual Begin/End Actor/Component Overlap event consumers,
+any `LineTraceByChannel`/Kismet trace/shape-trace call consumers and actual
+Interact action dispatcher, then any demonstrated Genesis writer/selector.
+For each possible signal prove the concrete sender→decision→selected owner/
+widget→show/hide route, distinguish candidate-eligibility transitions from
+final priority, and check whether an **already committed** reflected
+property/function can read its result cheaply without causing another trace.
+Do not guess a global selected-target field, indiscriminately hook every
+overlap or ProcessEvent, reproduce the game's selector from approximate
+distance/direction, or install a new probe based solely on generic Epic
+tutorials.
+
+**Exit condition:** identify an exact traced authoritative read-only
+seam with class/member/value provenance and testable unique-target
+invariant **or** document the last inspected writer edge and remaining
+unavailable native/private evidence. Then re-evaluate World versus
+native-owned Screen S1, without silently treating Screen as accepted World.
+
 ## Only if World remains the needed visual outcome: one narrow local static evidence gap
 
 The committed repository does **not** contain the private cooked bytecode/SDK/installed-host artifacts needed to identify the actual **final writer** of selected-object state. That is an access gap, **not evidence of nonexistence**.
