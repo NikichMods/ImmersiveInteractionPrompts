@@ -1,5 +1,23 @@
 # План исследования — contextual prompts и письменность
 
+## Current target authority — bounded source audit completed, 2026-11-06
+
+Reviewed the current indexed CanShow observer, source owner/snapshot contracts,
+the former full-visibility policy and source/runtime reports. **No established
+authoritative engine-selected owner** was found in the *committed evidence*.
+This is not a proof of absence from private cooked/native game code.
+[Decision and smallest remaining static gap](research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
+
+Do **not** infer selected-target uniqueness from six correlated shows or
+85 sparse full audits; do not raise 34-owner sweep frequency to compensate.
+Next independently useful remote task: source-design review of **S1 inside
+native TipHUD**, preserving original localized lower action/button and one
+visual prompt, with World occlusion tradeoff still explicit. If World depth is
+still required, hand off only the narrow **local static final-writer search**
+described in the study; no runtime probe/install is approved by this review.
+Production World and Screen S1 remain BLOCKED.
+
+
 ## Event correlation observer — игровой прогон завершён
 
 Получен быстрый сигнал-кандидат для шести наблюдавшихся показов Open/Take/Check.

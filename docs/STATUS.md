@@ -1,5 +1,28 @@
 # Статус Immersive Interaction Prompts
 
+## Current selected target seam — existing-evidence audit, 2026-11-06
+
+**NO_ESTABLISHED_AUTHORITATIVE_SELECTED_OWNER / CANSHOW_INDEXED_CANDIDATE_RUNTIME_PASS / WORLD_PROMOTION_BLOCKED.**
+
+Source/runtime reports and current Lua adapters were reviewed at `d5e6def`.
+The 528 matched CanShow callbacks and six one-frame sampled shows prove a fast
+candidate signal, **not** the native final selected actor or all-frame exclusivity.
+Neither the existing BeginPlay chain, ExtendedWidget visibility, SetShow, nor
+SetupTipMessage2 is a demonstrated authoritative selector. A 60-frame sparse
+audit cannot certify intervening states. No game or local-only host exports were
+inspected in this source-only review.
+[Exact mechanism comparison and minimum static gap](research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
+
+**Next sufficient source step:** examine a *single native TipHUD* Screen S1
+composition/one-prompt ownership design using already observed child primitives.
+S1 would inherit host selection/show/hide but sacrifice Hilda's depth occlusion;
+it is still a conditional fallback requiring visual approval, not an adopted
+production implementation. If preserving true World occlusion is essential,
+a narrowly bounded local static final-writer trace is necessary before any
+further World selector test. Native suppression, resource lifecycle and actual
+frame-time remain independent BLOCKED gates. No code or installation changed.
+
+
 ## Event correlation observer — игровой прогон и откат, 2026-11-06
 
 Шесть показов Open/Take/Check с возвратами подтверждены через один кадр
