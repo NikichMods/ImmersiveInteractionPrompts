@@ -1,5 +1,27 @@
 # Статус Immersive Interaction Prompts
 
+## One visible prompt — requirement confirmed, implementation BLOCKED
+
+The user requires the final UI to **visually replace** the default
+interaction prompt: one presentation only for Open/Take/Check, never
+simultaneous separate native Screen and own World/Screen prompts.
+The stock TipHUD's selection/CanShow, action localization, input
+hint/remapping, native show/hide and interaction behavior **must still
+work**. [Source-grounded rendering/signal distinction](../research/interaction-prompts-owner/world-space/event-driven/README.md#5a-native-screen-suppression-must-preserve-event-evidence).
+
+Current `IIPOpenVisibility.visible` explicitly checks the original
+TipHUD/TextBlock/Retainer/icon `Visibility` and `RenderOpacity`.
+Making any of these Hidden/transparent would cause the **current
+observer to miss the native visible state**. Whether such writes
+also interfere with native CanShow/other host logic is UNKNOWN;
+do not blindly change them. World visual-only suppression has
+not been proved. Screen S1 may instead recompose one native
+TipHUD using its original localized lower row/hint and private
+upper/divider; prior additive child tests do not prove full
+replacement. The next read-only diagnostic intentionally leaves
+stock visuals shown as a control; the *later* integration must
+pass a separate no-duplicate + safe restoration runtime gate.
+
 ## Native event fast-path — source review, 2026-11-06
 
 **CANSHOW_SCRIPT_CALLBACK_RUNTIME_PASS /
