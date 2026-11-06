@@ -1,6 +1,14 @@
 # План исследования — contextual prompts и письменность
 
-## Current target authority — bounded source audit completed, 2026-11-06
+## Current target authority — local static audit completed, 2026-11-06
+
+Финальный источник выбора не установлен. Если World требует такого
+источника, ближайшая узкая проверка — проследить native
+`GameGlobal:GetLastInteractObject` до хранилища и его писателя. Это отличит
+выбор до нажатия от следа уже выполненного взаимодействия.
+[Локальный статический отчёт](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#local-static-follow-up--2026-11-06).
+
+## History: Current target authority — bounded source audit, 2026-11-06
 
 Reviewed the current indexed CanShow observer, source owner/snapshot contracts,
 the former full-visibility policy and source/runtime reports. **No established

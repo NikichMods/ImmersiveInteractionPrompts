@@ -1,6 +1,14 @@
 # Статус Immersive Interaction Prompts
 
-## Current selected target seam — existing-evidence audit, 2026-11-06
+## Current selected target — local static result, 2026-11-06
+
+В локальных Blueprint-экспортах и UHT найдены два отражённых getter объекта
+и `ShowTipEvent(bool)`. Связь с финальным выбором штатной подсказки
+не установлена. Граница проходит через native Genesis: обновление
+состояния взаимодействия, показ компонента и родительский `CanShow`.
+[Статическая цепочка и один следующий шаг](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#local-static-follow-up--2026-11-06).
+
+## History: Current selected target seam — existing-evidence audit, 2026-11-06
 
 **NO_ESTABLISHED_AUTHORITATIVE_SELECTED_OWNER / CANSHOW_INDEXED_CANDIDATE_RUNTIME_PASS / WORLD_PROMOTION_BLOCKED.**
 

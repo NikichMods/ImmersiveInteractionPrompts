@@ -1,5 +1,70 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Local static follow-up — 2026-11-06
+
+**Result B.** The local evidence identifies exact reflected candidates, but
+does not link any of them to the final prompt winner. The missing edge is
+the native Genesis code that updates interaction state and causes the
+stock `ExtendedWidgetComponent` to show or hide. A fast World selector
+cannot yet use any of these candidates as authoritative.
+
+### Traced boundaries
+
+| Stage | Static evidence | Limit |
+| --- | --- | --- |
+| Association at initialization | `BaseGameEventObject_BP` owns `ExtendedWidget` and `TipHUDArgument`. Its ubergraph enters BeginPlay at 92, gets the widget at 102, casts to `TipHUD_C` at 144 and copies `HoldPress` at 219. | Association of one actor with one widget. Global BeginPlayPost indexing was performed by the earlier observer. The game's own candidate-registration logic is not exposed by this graph. |
+| Eligibility | `InteractObjectFunctionLibrary_C:InteractObject_IsCanInteract` casts the supplied actor to `BaseGameEventObject` (0), reads `IsActive && IsCanInteract` (79), and returns false on a failed cast (185 → 196). | A Boolean about one supplied object. No proven caller in the prompt selection chain. |
+| Range and facing | Generated Genesis declarations expose `GenesisCharacter:SetInterActionDetectBoxComponent(UBoxComponent*)`, `PlayerActionComponent.InteractObjectDetectTickInterval`, `GameEventObject_AimInteractComponent.InteractAngle`, and character-overlap component classes. | Evidence of available mechanisms. No executable link from these declarations to the tested Open/Take/Check owners, actual direction source, threshold, trace, or tie-break. The user's distance/body-facing report remains a gameplay observation. |
+| Selection/update boundary | `MainGameInstance_BP_C:TestInteractDebugState` calls native `GameGlobal:SetInteractDebugState` at 131. Diagnostic labels at 466/578/658 distinguish skipping `UpdateInteractAction`, skipping object detection, and skipping interaction-component show/hide. | These are debug labels and a real setter call, not recovered native implementation. No ordering or writer for a single winner follows from the labels. |
+| UI gate and presentation | `TipHUD_C:CanShow` calls native parent `ExtendedUserWidget:CanShow` at 0 and ANDs it with the input-mode gate at 20/50/81/119. The native parent body and its stock caller are unresolved. TipHUD Tick writes its own debug opacity at 1127/1147. The proxy at 713 calls `SetupTipMessage2` for content. | Widget-local gate, debug opacity and content setup establish no native object ranking or actor→show command. |
+| Action dispatch | Open `BaseLoot_BP`, Take `BaseLoot2_BP`, Check `BaseDocumentObject` receive `InteractBeginEvent(caller, objectAction, interactComponent)`. Each wrapper dispatches at 54 into its respective graph at 2787, 1087 or 3363. The parent forwards the inherited event at 261. | These are consumers of an already supplied interaction. They do not establish the pre-input prompt target or which native caller selected it. |
+
+### Exact reflected candidates
+
+- `/Script/Genesis.GameGlobal:GetLastInteractObject` and
+  `/Script/Genesis.GameGlobal:GetDoingInteractObject` are declared static
+  `BlueprintPure` functions taking `AGenesisCharacter*` and returning
+  `ABaseGameEventObject*`. Their signatures make a direct reflected
+  read plausible without walking all owners. Names and flags do not
+  establish the value's lifetime, null/clear behavior, cost or whether
+  it tracks selection before input. The dump's generated C++ bodies
+  returning null are stubs and provide no game behavior evidence.
+- `/Script/Genesis.BaseGameEventObject:ShowTipEvent` is declared as
+  `BlueprintImplementableEvent void(bool Show)`. It is an actor-local
+  candidate notification. Neither a natural producer nor an executable
+  override was located in the retained corpus. Reflection alone does not
+  establish callback delivery through UE4SS, or a global unique winner.
+
+### Scope and reproducibility
+
+Verified the installed shipping executable against the established Steam
+1.09/build 12996889 SHA-256
+`ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`.
+Used the retained CUE4Parse 1.2.2 UE4.27 exports and the installed UE4SS
+UHT dump. Literal reference search across **304 retained bytecode exports**
+found no references to the two object getters, `ShowTipEvent` or
+`CheckInteractCondition`. The spatial-pattern search located overlap
+in climb/ladder exports and a debug trace, with no reachable edge from
+them to the tested prompt chain. This corpus is bounded. Native callers,
+unexported assets and other spatial implementations remain open.
+
+| Local evidence identifier | SHA-256 |
+| --- | --- |
+| `GameGlobal.h` | `a6d1b5c0828e0bcc188f05fa8e29e5e58d618c08731d4bc9fd0ba8b3c4925023` |
+| `BaseGameEventObject.h` | `f18758d5bd186a84eee122d3ecb63ee92c13b35d74f38ed08c01c5ea5911cb00` |
+| `MainGameInstance_BP--TestInteractDebugState.bytecode.json` | `10e43e369e90623e75f8f25333339ccadb890af355a5a798b28707f1fc3ff188` |
+| `InteractObjectFunctionLibrary--InteractObject_IsCanInteract.bytecode.json` | `144d2d642d0977f7e60b50f62ba84a40b07eeaa5f8b1e60d574a4586b511eaa5` |
+| `TipHUD--CanShow.bytecode.json` | `39cfc83d79b6e20b086aceb44dab96f9e5797ef6cbde980e0a5457bae9bbd605` |
+
+**One next check, if World needs this authority:** trace the native
+`GetLastInteractObject` implementation in the exact shipping binary to
+the state it reads and the writer of that state. The decisive distinction
+is whether it is updated by prompt detection before input and cleared on
+loss of focus, or written only by interaction execution. This can rule the
+getter in or out for a later read-only correlation test. No probe prepared.
+
+## Earlier committed-evidence audit
+
 **Scope:** source/document audit only. Parent revision [`d5e6def`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/d5e6def72863bf617366cc973fb8f588860c2404) is the bounded in-game CanShow correlation result. No installed game, local private SDK/assets/logs, new UE4SS probe, renderer, host write or performance experiment was accessed or performed here. This is a finding about **available committed evidence**, not a whole-game proof that an authoritative selector does not exist.
 
 **Question:** Is there an **already demonstrated, cheaply readable authoritative current selected actor/widget**, independent of a global 34-owner visibility sweep, which could safely authorize the World renderer's one active prompt?
