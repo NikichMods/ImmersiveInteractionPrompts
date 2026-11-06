@@ -114,4 +114,73 @@ local expected={
 }
 for k,v in pairs(expected)do assert(t[k]==v,k)end
 """)
+ def test_fourth_host_recovers_from_absent_with_one_exact_load(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+assert(R.cleanup("to_Check",2))
+assert(R.create(owner("Check"),3))
+assert(R.cleanup("to_Take",4))
+assert(R.create(owner("Take"),5))
+assert(R.cleanup("to_Check",6))
+local old=S.objects[HOST]
+local fresh=make(HOST,"Class")
+set(fresh,"type",function()return "UClass"end)
+set(fresh,"GetSuperStruct",function()return old:GetSuperStruct()end)
+S.objects[HOST]=nil
+local loads=0
+function LoadAsset(p)
+ assert(p==HOST and S.game)
+ loads=loads+1
+ S.objects[HOST]=fresh
+ return fresh,true,true
+end
+assert(R.create(owner("Check"),7))
+assert(loads==1 and S.created==4)
+assert(has("event=HOST_RECOVERY_ATTEMPT") and has("event=HOST_RECOVERED"))
+assert(S.imports==4)
+assert(R.cleanup("final",8) and R.empty() and S.released==4)
+""")
+
+ def test_absent_host_failed_exact_reload_fails_closed_without_second_component(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+assert(R.cleanup("switch",2))
+S.objects[HOST]=nil
+local tries=0
+function LoadAsset(p)
+ assert(p==HOST)
+ tries=tries+1
+ return nil,false,false
+end
+assert(not pcall(R.create,owner("Take"),3))
+assert(tries==1 and S.created==1 and not R.empty())
+assert(has("HOST_RECOVERY_RESULT") and not has("HOST_RECOVERED"))
+assert(R.cleanup("failed_create",4) and R.empty())
+""")
+
+ def test_host_identity_mismatch_does_not_load_or_substitute(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+assert(R.cleanup("switch",2))
+local wrong=make(HOST,"/Script/Engine.Material")
+S.objects[HOST]=wrong
+local tries=0
+function LoadAsset(p)tries=tries+1;error("unexpected guessed load")end
+assert(not pcall(R.create,owner("Take"),3))
+assert(tries==0 and S.created==1)
+assert(R.cleanup("bad_class",4) and R.empty())
+""")
+
+ def test_missing_stock_material_never_uses_host_recovery(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+assert(R.cleanup("switch",2))
+S.objects[MASK]=nil
+local tries=0
+function LoadAsset(p)tries=tries+1;error("unexpected material fallback")end
+assert(not pcall(R.create,owner("Check"),3))
+assert(tries==0 and S.created==1)
+assert(R.cleanup("material_missing",4) and R.empty())
+""")
+
 if __name__=="__main__":unittest.main()
