@@ -1,6 +1,65 @@
 # План исследования — contextual prompts и письменность
 
-## AutoWorld successor: исходники готовы, следующий гейт игровой — 2026-11-06
+## Быстрая реакция на штатную подсказку — event proof, 2026-11-06
+
+После пересмотра целевых UX/производительности **следующий
+достаточный гейт — доказать native event→visible связь**, а
+не запускать очередной вариант из 17 World Lua, который
+опрашивает все 34 объекта каждые три кадра.
+[Точный source-only аудит с приоритетом
+доказательств](../research/interaction-prompts-owner/world-space/event-driven/README.md).
+
+**Подтверждённое:** `TipHUD_C:CanShow` Blueprint post callback
+срабатывает естественно в игре и выдаёт identity виджета;
+один Open был сопоставлен с актором по BeginPlay/CanShow,
+а глобальный BeginPlayPost получил Open6/Take18/Check10
+при обычной загрузке. Возможен O(1) Lua индекс
+widget→owner без полного native-sweep на каждом событии.
+**НЕ подтверждено:** CanShow = selected-target/show/hide
+или точное время, одновременная видимость только одного
+TipHUD, полнота сигнала для Take и Check. Native SetShow
+вернул 0 callback в прежнем тесте; не повторять его
+идентично. Не использовать native SetupTipMessage2 arrays
+без pinned UEPseudo ABI. Ошибка старого четвёртого World
+host и ресурсное владение — отдельная проблема.
+
+**Следующее самостоятельное source-only задание:** отдельный
+малый read-only `CanShow`/BeginPlay identity-correlation
+observer, а не World мод и не native UI patch. Использовать
+только exact known script hook/normal global BeginPlay,
+EndPlay/map, примитивные IDs, nil return. При callback
+переносить в следующий подтверждённый game-thread pulse
+кандидата; проверять *один* TipHUD/его native action/
+screen-membership/readiness. Показ/скрытие реальной штатной
+подсказки сопоставлять по кадрам, не угадывать native bool.
+Отдельная редкая полноценная диагностика всех owner
+показывает ложные кандидаты/пропущенные переходы —
+**не часть предполагаемого дешёвого финального пути**;
+если >48/неполный снимок, статус UNKNOWN.
+Вывести компактные события и счётчики, без user-visible
+World UI и без автоматического game launch/hot reload.
+Test cases: Open→нет→Take→нет→Check→нет→возврат,
+map/EndPlay, unmatched callbacks, duplicate widget ID,
+сбой/отсутствие CanShow, полная vs неполная аудит-выборка,
+сохранение native control/UI. Off-line tests проверяют
+policy, не latency/performance.
+
+**Итоговая развилка:** только если реальный event покрывает
+эти естественные переходы и нет неоднозначности,
+реализовать fast-path World selection c native собственным
+single-component cleanup и измерить cost. Если событие
+редкое/позднее/ненадёжное или нельзя установить
+global selected-owner без тяжёлого аудита, перейти к
+**Screen fallback S1 (собственные дети штатного TipHUD)**
+как более простой native-owned show/hide путь.
+Отдельный фиксированный HUD Canvas S2 потребует своего
+доказанного выбора цели; позиция 50%/78% — только
+предыдущий испытанный baseline, не новое принятие.
+**Новый игровой тест только по отдельному разрешению через
+user-started local Codex**. До него изменять активный
+CompactLayoutProbe, saves/settings и другие моды нельзя.
+
+## История: AutoWorld successor: исходники готовы, следующий гейт игровой — 2026-11-06
 
 После отказа AutoWorld `be1827d` сравнили (a) повторное создание
 actor-owned World-компонента с точной повторной загрузкой пропавшего
