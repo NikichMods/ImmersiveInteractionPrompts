@@ -1,6 +1,16 @@
 # Статус Immersive Interaction Prompts
 
-## Auto World source integration — offline PASS, 2026-11-06
+## AutoWorld — игровой результат и откат, 2026-11-06
+
+Open → Check → Take отрисовались, Open пережил отход и возврат. Лог подтвердил
+освобождение старого компонента до следующего создания. При повторном Check
+класс World-хоста оказался `ABSENT_NULL` на четвёртом создании. Диагностика
+завершилась через `stopped_clean`. Причина исчезновения класса неизвестна.
+Вид трёх подсказок пользователю приемлем, задержка неприемлема для финальной
+версии. AutoWorld отключён, CompactLayoutProbe восстановлен и проверен.
+[Точные события, хэши и матрица](../research/interaction-prompts-owner/world-space/auto-world/README.md#runtime-result--2026-11-06).
+
+## История: Auto World source integration — offline PASS, 2026-11-06
 
 **SOURCE_AND_CI_PASS / NOT_INSTALLED / REAL_GAME_WORLD_HANDOFF_UNKNOWN.**
 The branch `research/automatic-world-session` contains a complete,

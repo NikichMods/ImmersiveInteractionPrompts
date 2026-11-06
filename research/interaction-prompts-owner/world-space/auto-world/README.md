@@ -1,13 +1,42 @@
 # Automatic Open / Take / Check World composition — 2026-11-06
 
-**SOURCE_ONLY_OFFLINE_PASS / NOT_INSTALLED / RUNTIME_WORLD_HANDOFF_UNKNOWN /
-NO_PRODUCTION_ACCEPTANCE.**
+**RUNTIME_THREE_BINDS_PASS / REPEATED_REBIND_AND_LATENCY_FAIL /
+COMPACT_PROBE_RESTORED / NO_PRODUCTION_ACCEPTANCE.**
 
 This is an independently frozen source snapshot on
 `research/automatic-world-session`, derived from
 `research/world-renderer-reuse` `89e174430fe63c1c6392aa113adc4cc2dad17655`.
-Neither the frozen CompactLayoutProbe nor the installed game, saves,
-settings, activation markers, other mods, `main` or `VERSION` were changed.
+The frozen source was installed temporarily for the run below.
+
+## Runtime result — 2026-11-06
+
+Normal Steam 1.09/build 12996889, UE4.27 and UE4SS 83330635 session.
+Source `1bf1cd2cb0b8a17a739d9de8a5cb2b23e9445ae5`, CI/manifest commit
+`5af99f7f6710eb81ab838d6fa0d6a9a6c500e373`, handoff HEAD `41ed7126`.
+All 17 installed Lua hashes and the separate local config matched before
+rollback. AutoWorld was disabled after normal exit, and all 12 recorded
+CompactLayoutProbe files including its enabled marker were verified.
+Exact raw logs are archived locally outside UE4SS.
+
+- UE4SS.log SHA-256 `a26798de7ce3403900ea81b8b9ff48edc6bf22519f58dab08a3a15731f6121ae`.
+- Genesis.log SHA-256 `b45a1005fd58daaeda52757596e5b32a85763955ecb73a728d32515a5ebc2d09`.
+
+| Check | Result |
+| --- | --- |
+| First display for three actions | **PASS** in this run. Log order was Open #10 (BOUND ticket 1, line 824), Check #3 (ticket 3, line 902), Take #19 (ticket 5, line 968). The user saw all three and found their appearance acceptable. |
+| Same-owner return | **PASS** for Open. Hide and return reused the first component without a new allocation (lines 831–842). |
+| Handoff and duplicate ownership | **PASS** for the recorded transfers. Native destroy with pending-kill check and empty own holders preceded CLEANED → RELEASED for tickets 2/4/6 (lines 851–863, 917–929, 982–994), before the next create attempt. Three distinct components were created with no overlapping own leases in the trace. Global enumeration of components and eventual GC remain **UNKNOWN**. |
+| Private resource reuse | **PASS** for two rebuilds. Font configuration/bind and 256×32 PNG import/texture bind succeeded on all three created compositions (lines 808–813, 886–891, 952–957). The fourth attempt failed before these stages. |
+| Continued operation | **FAIL**. Returning from Take #19 to Check #3 released Take successfully. The fourth create found the host class `ABSENT_NULL` at `before_create` and raised `NOT_LOADED: resource changed after refresh` (lines 997–1004). This stopped the session. The reason the class became unavailable, including any role of GC, remains **UNKNOWN**. |
+| Containment and exit | **PASS** for the observed fault. Observer cancelled, terminal empty cleanup/release acknowledged (ticket 8), pump cancelled and `TERMINAL reason=stopped_clean` logged (lines 1005–1011). Genesis.log lines 3853–3856 record normal exit with status 0. Cleanup triggered by ordinary exit while still bound was **NOT_TESTED**. |
+| Responsiveness | **FAIL** against the user's final UX requirement. First sampled native shown → World SHOWN took 0.576 s (Open), 1.563 s (Check) and 1.568 s (Take), and Open return took 0.531 s. The logged 30-frame sample period was about 0.5 s. Owner changes waited for confirmation and then two fresh samples after release (about 1 s), before create. These intervals exclude time before the first sampled visibility and pixel presentation after SHOWN. |
+| Native TipHUD and localized text | **PASS** for read-only source and matching visible native text → World layout for «Открыть», «Проверить», «Взять». Trace reports zero original UI writes. Continuous visual preservation of the original Screen prompt is **UNKNOWN** from this report. |
+| Native input hint and gameplay | **PASS** for read-only native hint binding on all three builds and the Open return. Pixel equivalence is **UNKNOWN**. Device switching, executing each interaction and direct A→B without withdrawal were **NOT_TESTED**. |
+
+`OPEN/TAKE/CHECK` are technical upper labels with unverified Aphes translation.
+This run leaves two independent gates open: host-class availability across
+repeated handoffs and acceptable appearance latency. No successor is selected
+by this evidence.
 
 ## Outcome and boundaries
 
@@ -92,7 +121,7 @@ A direct A→B without withdrawing, populated-map travel and
 authoritative native selected-target identity were not established
 in the previous host runtime.
 
-## Before any locally authorized installation
+## Original pre-installation checklist
 
 - Recover the actual game/UE4SS environment under DevRules and
   repository `AGENTS.md`. Do not assume this source matches a
@@ -118,8 +147,3 @@ in the previous host runtime.
   no overlap, default 17-value visual layout, and ordinary exit.
   Classify observed vs unknown. Do not claim World acceptance
   based only on mock logs.
-
-The next sufficient gate is **authorized in-game repeated World
-allocation and visual acceptance**. No installed payload,
-test log or new common host discovery was produced in this
-GitHub-only source step.

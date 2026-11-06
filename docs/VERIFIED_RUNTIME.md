@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## AutoWorld — real handoffs and terminal host lookup failure, 2026-11-06
+
+Three World binds, two successful rebuilds after release and one same-owner
+Open resume. A third handoff released the previous component, then the fourth
+create stopped at `before_create` with host `ABSENT_NULL`. Terminal cleanup
+completed. Missing host cause and eventual GC remain unknown. Appearance
+latency failed the user's final UX requirement. CompactLayoutProbe restored.
+[Exact session, timings and limits](../research/interaction-prompts-owner/world-space/auto-world/README.md#runtime-result--2026-11-06).
+
 ## Multi-action native observation — bounded runtime, 2026-11-06
 
 `1780f0a` joined Open 6, Take 18 and Check 10 with ready TipHUD at
