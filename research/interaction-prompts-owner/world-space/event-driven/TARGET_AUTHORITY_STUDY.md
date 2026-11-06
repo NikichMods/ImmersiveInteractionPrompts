@@ -31,13 +31,14 @@ The event observer marks one `active_owner` and samples one queued candidate per
 ## User-observed selection envelope — 2026-11-06
 
 **User visual report (not independently instrumented):** A native interaction
-prompt appears only when Hilda is **close** to an object **and oriented/facing
-toward it**. Being close with her back to the object does not show the prompt;
-facing it from far away also does not show the prompt. This is evidence of
-**distance + facing dependence in the observable result**, not of how or where
-the game computes those conditions. No angle/distance threshold, camera-versus-
-character orientation source, occlusion criterion or native final writer is
-established.
+prompt appears only when Hilda is **close** to an object **and her character body
+is facing toward it**. Being close with her back to the object does not show
+the prompt; facing it from far away also does not show the prompt. The user
+explicitly clarified that **Hilda's body orientation, not camera orientation**,
+is what matters in their observed gameplay. This establishes a body-facing +
+distance dependence *at the observed UX level*, not the internal comparison or
+the engine's exact source field. The numeric angle/distance thresholds,
+occlusion criterion and native final writer remain unknown.
 
 The conditions are consistent with several materially different mechanisms:
 - overlap/proximity creates an eligible set, while an independent direction
@@ -54,23 +55,26 @@ recreating the selector from approximate distance/yaw: such a copy may disagree
 about priorities, thresholds, collision, camera/body rotation and eligibility.
 
 **Source-search refinement:** From the verified interaction actor/TipHUD chain,
-follow actual show/CanShow callers and the player/interaction dispatcher; inspect
-reachable `OnComponentBeginOverlap`, `OnComponentEndOverlap`, actor overlap,
-`LineTrace`/`SphereTrace`/other trace functions, `GetActorForwardVector`,
-`DotProduct`/angle comparisons, distance/radius checks and native Genesis
-predicates. The goal is the **final selected actor/widget writer** or existing
-read-only event/field, not just an intermediate proximity predicate. Check
-body-forward versus camera-forward only if the real call chain reveals one;
-the current report cannot distinguish them.
+follow actual show/CanShow callers and the player/interaction dispatcher;
+prioritize **Hilda/pawn actor-forward or movement-facing vectors** and their
+combination with object-relative direction, distance and native prompt state.
+Inspect reachable `OnComponentBeginOverlap`, `OnComponentEndOverlap`, actor
+overlap, `LineTrace`/`SphereTrace`/other trace functions,
+`GetActorForwardVector`, `DotProduct`/angle comparisons, distance/radius checks
+and native Genesis predicates. The goal remains the **final selected
+actor/widget writer** or existing read-only event/field, not merely an
+intermediate eligibility predicate. Do not assume the literal
+`GetActorForwardVector` API is used: animation/control-facing could be stored
+or computed elsewhere. A camera-only trace would not by itself explain the
+reported dependence on body direction; the exact game callchain still decides.
 
-**Minimal discriminating gameplay observation, only if later justified:**
-without changing gameplay configuration or scripting interactions, near a known
-object rotate the **camera while Hilda's body stays oriented** (if the controls
-allow), then rotate the character facing without changing distance; optionally
-pass continuously from A to an adjacent B. Record what actually appears. The
-first comparison may distinguish camera-forward from actor-forward; the second
-tests direct handoff/target priority. Neither by itself identifies a code API.
-No new game session, installation or test has been requested by this audit.
+**Minimal remaining discriminating gameplay observation, only if later justified:**
+the body-vs-camera question is already resolved for the user's observation and
+must not be repeatedly requested. If a game test later becomes necessary,
+observe a continuous A→B transition between adjacent eligible interactables
+without leaving proximity, to test selection priority and simultaneous native
+visibility. It still would not identify a native API on its own. No new game
+session, installation or test has been requested by this audit.
 
 ## Epic UE4.27 mechanisms — external documentation check (2026-11-06)
 
