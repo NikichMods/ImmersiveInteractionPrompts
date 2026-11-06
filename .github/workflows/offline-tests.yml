@@ -10,6 +10,7 @@ on:
       - research/world-renderer-reuse
       - research/automatic-world-session
       - research/auto-world-residency-latency
+      - research/event-correlation-probe
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
@@ -18,6 +19,7 @@ on:
       - 'research/interaction-prompts-owner/world-space/world-reuse/**'
       - 'research/interaction-prompts-owner/world-space/auto-world/**'
       - 'research/interaction-prompts-owner/world-space/auto-world-successor/**'
+      - 'research/interaction-prompts-owner/world-space/event-driven/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
