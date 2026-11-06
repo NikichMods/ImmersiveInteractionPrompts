@@ -6,7 +6,7 @@ Reviewed the current indexed CanShow observer, source owner/snapshot contracts,
 the former full-visibility policy and source/runtime reports. **No established
 authoritative engine-selected owner** was found in the *committed evidence*.
 This is not a proof of absence from private cooked/native game code.
-[Decision and smallest remaining static gap](research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
+[Decision and smallest remaining static gap](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
 
 Do **not** infer selected-target uniqueness from six correlated shows or
 85 sparse full audits; do not raise 34-owner sweep frequency to compensate.

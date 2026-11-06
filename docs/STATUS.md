@@ -11,7 +11,7 @@ Neither the existing BeginPlay chain, ExtendedWidget visibility, SetShow, nor
 SetupTipMessage2 is a demonstrated authoritative selector. A 60-frame sparse
 audit cannot certify intervening states. No game or local-only host exports were
 inspected in this source-only review.
-[Exact mechanism comparison and minimum static gap](research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
+[Exact mechanism comparison and minimum static gap](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md).
 
 **Next sufficient source step:** examine a *single native TipHUD* Screen S1
 composition/one-prompt ownership design using already observed child primitives.
