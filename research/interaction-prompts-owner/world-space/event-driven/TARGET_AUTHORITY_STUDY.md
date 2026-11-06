@@ -1,5 +1,62 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Genesis reflected API inventory — 2026-11-07
+
+**No verified reflected source for the selected pre-input TipHUD owner.**
+The broad inventory surfaced one generic actor getter, concrete
+interaction-volume templates and several presentation endpoints. These
+are different parts of the chain. The shipped binary and UHT corpus
+are from the Steam 1.09/build 12996889, UE4.27 x64 baseline used below.
+
+### Coverage and reproducibility
+
+- Scanned all **568 Genesis Public headers** in the retained UE4SS UHT
+  dump. Counted **1,782 UFUNCTIONs, 2,618 UPROPERTYs, 130 UCLASSes,
+  278 USTRUCTs and 143 UENUMs**. Checked that each function/property
+  annotation yielded one declaration ending at a semicolon. SHA-256 of
+  sorted UTF-8 `filename sha256\n` rows:
+  `b050e240984c4737acdfd3aafee7cec696ea67f10805f71459ab0573906509c4`.
+- Parsed **33 retained package export JSONs**, with **304 Function exports,
+  201 generated-class member properties and 14 generated classes**
+  (10 Blueprint and 4 Widget Blueprint). Function parameters and locals
+  are excluded from the property count. Used the **304 retained bytecode
+  JSONs** for exact reference checks on shortlisted declarations.
+- First pass matched header owner plus declaration, or Blueprint export
+  and member names, case-insensitively. Stems: `interact|current|last|doing|
+  active|focus|target|select|candidat|aim|detect|near|closest|range|distanc|
+  angle|tip|prompt|widget|show|visib|action|overlap`. This yielded 448
+  native function and 676 property hits, plus 60 Blueprint functions,
+  44 member properties and five generated classes. Then reviewed
+  actor/component/widget return and out types and the context of each
+  promising owner. Combat lock-on, AI targeting, camera, climbing,
+  NPC dialogue and generic spatial helpers were separated unless an
+  interaction-prompt edge was present. The corpus excludes unexported
+  Blueprint packages and unreflected native state.
+
+### Shortlist by responsibility
+
+Native owners in the table are under `/Script/Genesis`. Listed native
+members are reflected declarations; runtime availability, cost and
+hook delivery require separate evidence.
+
+| Responsibility | Member or component | Evidence and limit |
+| --- | --- | --- |
+| Discovery | `GenesisCharacter:SetInterActionDetectBoxComponent(UBoxComponent*)`; `PlayerActionComponent.InteractObjectDetectTickInterval: float` | Configuration of a detection box and cadence by declaration. Neither exposes candidates or a winner. |
+| Discovery | `GameEventObject_InteractAreaComponent`, `GameEventObject_InteractTriggerAreaComponent` (box); `GameEventObject_AimInteractComponent.InteractAngle: float`; character-overlap component family | Actual exported templates: `BaseLoot_BP` (Open) has `InteractLookArea` of the area type and `InteractTriggerArea` of the trigger type; `BaseLoot2_BP` (Take) has `InteractTriggerArea_NoAlign` of the **area** type, with `CharacterAction=pick up`; `BaseDocumentObject` (Check) has `GameEventObject_InteractArea` of the area type. The names of template variables alone can mislead. Their native consumers, facing test and priority remain unknown. The aim/overlap classes are alternatives in the inventory, with no demonstrated use by these templates. |
+| Eligibility and selection | `BaseGameEventObject:CheckInteractCondition(AActor*) → bool`; `GameGlobal:CheckInteractCondition(AActor*, const TArray<FInteractCondition>&) → bool`; object `IsActive` / `IsCanInteract: bool` | The retained Blueprint helper reads the two flags at offset 79. Single-object predicates are not a winning-actor source. `GameGlobal:GetNearestObjectFromArray(AActor*, const TArray<AActor*>&) → AActor*` takes a caller-supplied set and has no traced stock prompt callsite. |
+| Selection / state | `GameGlobal:GetActionTarget(AGenesisCharacter*) → AActor*` (BlueprintPure), paired with `SetActionTarget(AGenesisCharacter*, AActor*) → void` | Strongest new declaration by return shape. The setter makes explicit that an action target can be supplied, but the inventory does not establish who writes the value, its lifetime, or whether detection writes it before input. No exact getter/setter reference in retained Blueprint bytecode. `GetLockOnTarget` and AI target caches are separate leads with no prompt connection. |
+| Execution state | `GameGlobal:GetLastInteractObject` and `GetDoingInteractObject`, both `(AGenesisCharacter*) → ABaseGameEventObject*`; `GetToDoInteractActionPressTimer(float&) → float`; `BaseGameScriptObject:EventObjectInteractBegin/End/Fail(AActor*, AActor*, FName) → void` | Native trace below identifies Last as execution history and Doing as the distinct execution slot cleared on End. TipHUD reads the timer in its hold-progress graph. Script events are execution-shaped declarations with no proven prompt callback path. None supplies current pre-input selection. |
+| Presentation | `BaseGameEventObject:ShowTipEvent(bool) → void` (BlueprintImplementableEvent); `ExtendedWidgetComponent:SetShow(bool,float,float) → void` | Strongest actor-local notification and component command by signature. No exact retained Blueprint caller for either. Prior SetShow runtime saw registration and zero callbacks; direct native dispatch remains possible. Neither signature proves exclusivity. |
+| Presentation / lookup | `ExtendedWidgetComponent.SenderActor: AActor*`, `NewUserWidget: UUserWidget*`; `SetArrayData(AActor*,int32)`; `GameGlobal:GetUserWidget(AGenesisCharacter*, AActor*) → UUserWidget*`; `ExtendedUserWidget:CanShow() → bool` | Component-local state and widget lookup with an explicit actor input. The actual Blueprint initialization at 102 calls inherited `WidgetComponent:GetUserWidgetObject`, a different method. `TipHUD_C:CanShow` calls its native parent and applies an input-mode gate. Existing runtime proved rapid widget/owner correlation, without proving an authoritative selected actor. |
+
+**One next check, separately scoped:** trace the **native caller of
+`ExtendedWidgetComponent:SetShow` in the stock interaction path**, using
+the component command as the anchor and following the true/false producer
+back to its owner reference. This can discriminate a shared winner from
+per-object show/hide. The direct caller must first be established; a
+reflected thunk or old zero-callback result is insufficient. That check
+has not been started in this inventory.
+
 ## Native GetLastInteractObject — 2026-11-06
 
 **Result B: reject this getter as the pre-input TipHUD target.** It resolves

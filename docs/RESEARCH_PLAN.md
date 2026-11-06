@@ -1,5 +1,12 @@
 # План исследования — contextual prompts и письменность
 
+## Current target authority — API inventory completed, 2026-11-07
+
+Следующая отдельная проверка, если нужна World-цель, — найти штатного
+native-вызывающего `ExtendedWidgetComponent:SetShow` и источник его
+аргумента показа. Это различит единственного победителя и независимый
+показ по объектам. [Карта деклараций и ограничения](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#genesis-reflected-api-inventory--2026-11-07).
+
 ## Current target authority — GetLastInteractObject closed, 2026-11-06
 
 Native-трассировка закрыла getter как кандидат для выбора до нажатия.

@@ -1,5 +1,12 @@
 # Статус Immersive Interaction Prompts
 
+## Genesis interaction API inventory — 2026-11-07
+
+Инвентаризация отражённых объявлений и Blueprint-метаданных не выявила
+доказанного источника текущей цели. `GetActionTarget` остаётся общим getter
+без связи с TipHUD. Для Open/Take/Check подтверждены конкретные шаблоны
+зон взаимодействия. [Карта и следующий шаг](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#genesis-reflected-api-inventory--2026-11-07).
+
 ## GetLastInteractObject — native static rejection, 2026-11-06
 
 Getter читает слабую ссылку на объект из веток выполнения взаимодействия,
