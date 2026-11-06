@@ -1,6 +1,59 @@
 # Статус Immersive Interaction Prompts
 
-## AutoWorld — игровой результат и откат, 2026-11-06
+## AutoWorld successor — source-only PASS, 2026-11-06
+
+**EXACT_HOST_RECOVERY_AND_FAST_OBSERVER_OFFLINE_PASS /
+NOT_INSTALLED / REAL_WORLD_RETRY_AND_FRAME_TIME_UNKNOWN /
+PRODUCTION_BLOCKED.**
+
+Separate branch `research/auto-world-residency-latency` forks **all 17**
+source files of the immutable runtime-tested, failed
+`auto-world/` candidate `be1827d`. The original candidate and installed
+CompactLayoutProbe are unchanged.
+
+**Architecture re-evaluation after failed native acceptance:** retain
+sequential **actor-owned** World components with proven
+`CLEANED → RELEASED → fresh unique owner → BOUND`.
+Do **not** repurpose/reparent a component from actor A onto actor B
+without a verified native ownership lifecycle. At a clean new create
+boundary, if the exact previously live World host class is missing
+(`ABSENT_NIL`/`ABSENT_NULL`), the successor attempts **one**
+`LoadAsset` call on the verified game-thread callback and validates
+returned class, fresh path/address and `UserWidget` ancestry.
+No GC-root/fallback/loop; failures remain terminal. The first-game
+disappearance cause including GC remains **UNKNOWN**.
+
+**Responsiveness trial:** native read-only complete owner sampling
+interval reduced from **30 to 3 frames**, retaining the
+**48 records per call** bound, two stable complete unique snapshots
+and the one-frame World rendering pump. This is about **10× more**
+sampling work per second at a given FPS: real frame-time cost
+and user responsiveness still require a game run. No artificial
+time/event cap, no takeover of original TipHUD, no alteration of
+localization, native hint, input semantics or 17 visual defaults.
+
+[CI 42209313867](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42209313867)
+at code/test commit `d48ca6032ab75dec29eec16be4c7a6a741930ac2`
+**473 offline tests / 42 suites PASS**.
+This includes the real new Lua World module at the fourth attempt
+with simulated exact `ABSENT_NULL`, rejected wrong/absent assets,
+the accelerated normal-load entrypoint, A→B lifecycle and error
+containment. The 17-file SHA-256
+[`SOURCE_MANIFEST.json`](../research/interaction-prompts-owner/world-space/auto-world-successor/SOURCE_MANIFEST.json)
+is independently checked in CI.
+[Exact rationale, constraints and next gate](../research/interaction-prompts-owner/world-space/auto-world-successor/README.md).
+
+**Next sufficient step:** after fresh explicit user approval,
+user-started local Codex performs a closed-game, hash-verified,
+rollback-safe installed trial. User operates the game through the
+previous Take→Check (fourth host) failure path and additional
+rebinds, judges perceived responsiveness **and frame-time/FPS
+impact**, then exits normally; logs and hashes determine PASS/FAIL.
+No runtime claims from offline CI and no promotion to `main` yet.
+No game, installed mod, saves, config, release artifact or other
+NikichMods project was modified by this GitHub-only work.
+
+## История: AutoWorld — игровой результат и откат, 2026-11-06
 
 Open → Check → Take отрисовались, Open пережил отход и возврат. Лог подтвердил
 освобождение старого компонента до следующего создания. При повторном Check
