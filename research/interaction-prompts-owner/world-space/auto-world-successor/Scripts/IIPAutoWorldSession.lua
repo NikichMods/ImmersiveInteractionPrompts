@@ -113,7 +113,7 @@ function M.start(deps,api,emit)
         terminal("session_registration_failed")
         trace("UNAVAILABLE",short(err))
     else
-        trace("ARMED","actions=Open,Take,Check source_sample_frames=30"..
+        trace("ARMED","actions=Open,Take,Check source_sample_frames=3"..
             " renderer_pump_frames=1 no_timers=true"..
             " native_original_UI_writes=0 manual_reload=false")
     end
