@@ -1,5 +1,41 @@
 # Статус Immersive Interaction Prompts
 
+## Event correlation observer — source-only CI PASS, 2026-11-06
+
+**READ_ONLY_OBSERVER_AND_ENTRYPOINT_OFFLINE_PASS / CANSHOW_TO_VISIBLE_GAME_EDGE_UNKNOWN /
+NATIVE_EXCLUSIVITY_UNKNOWN / NOT_INSTALLED / PRODUCTION_BLOCKED.**
+
+An independent `research/event-correlation-probe` branch now contains the
+standalone, four-file, read-only `event-driven/Scripts` recipe.
+It uses the already proven Open/Take/Check BeginPlay owner chain,
+lazy exact `TipHUD_C:CanShow` Blueprint post-hook and indexed
+widget→owner candidates. It reads at most one queued event candidate
+plus one active owner per frame; a separately labelled 60-frame
+**diagnostic** full-owner audit (max 48) detects missing events,
+ambiguity and incomplete native snapshots. It does **not** select
+a production target, create World UI, hide/alter native TipHUD,
+replace CanShow, force-load host assets or change saves/settings.
+
+**Exact tested source/test commit:** [`f03c571`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/f03c571f8fba9c88994a00f56daaa0ad54d95355).
+[CI 42219818296](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42219818296):
+**488 Python/Lua tests in 44 files PASS**, including 12 correlation
+and 3 entrypoint tests. Strict mock/offline only: event delivery and
+order on real Take/Check, authoritative selected target, actual
+frame-time/FPS cost and source visual suppression all remain UNKNOWN.
+Existing `auto-world-successor`, installed CompactLayoutProbe,
+`main`, VERSION and active game were not changed.
+
+**Next sufficient gate:** separately authorized, closed-host, user-started
+local Codex installation of the exact research source and natural
+Open→leave→Take→leave→Check→leave→return run, logging event-to-visible
+frames and an independent frametime/perception check. Restore existing
+installed probe with verified closed-host rollback. If event coverage or
+exclusive target cannot be proven cheaply, examine native TipHUD
+Screen-child S1 instead of increasing global native polling. Even
+positive event results leave the independent single-visible-prompt
+suppression/restore gate and World resource lifecycle unaccepted.
+[Probe source, boundaries and test recipe](../research/interaction-prompts-owner/world-space/event-driven/PROBE.md).
+
 ## One visible prompt — requirement confirmed, implementation BLOCKED
 
 The user requires the final UI to **visually replace** the default

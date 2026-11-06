@@ -3,6 +3,8 @@
 Baseline: `research/event-driven-target-study` commit `6aa2ba33cf9c070293141f7d8079aa472df1db10`.
 Branch: `research/event-correlation-probe`. Research-only. **NOT INSTALLED / NOT ACCEPTED**.
 
+**Offline proof:** source and tests [`f03c571`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/f03c571f8fba9c88994a00f56daaa0ad54d95355); [CI run 42219818296](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42219818296), 488 tests / 44 Python files PASS. No installed game or runtime acceptance.
+
 ## What this tests
 
 - Read-only native BeginPlay owner acquisition for Open/Take/Check (the previously

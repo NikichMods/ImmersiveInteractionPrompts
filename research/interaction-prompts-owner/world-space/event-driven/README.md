@@ -1,5 +1,13 @@
 # Cheap native prompt events vs full owner scans — bounded research (2026-11-06)
 
+> **Продолжение source-only исследования (2026-11-06):**
+> [read-only event-correlation probe](PROBE.md), ветка
+> `research/event-correlation-probe`, source/tests
+> [`f03c571`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/f03c571f8fba9c88994a00f56daaa0ad54d95355),
+> [CI 42219818296](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42219818296)
+> (488 tests / 44 files PASS). Нет установленного/игрового результата.
+> Ни один World-кандидат и native TipHUD не изменены.
+
 **EXISTING_NATIVE_CALLBACK_CONFIRMED / EVENT_TO_VISIBLE_EDGE_UNKNOWN /
 CURRENT_OWNER_EXCLUSIVITY_UNKNOWN / SOURCE_STUDY_ONLY / NOT_INSTALLED.**
 

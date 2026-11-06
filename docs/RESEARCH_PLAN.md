@@ -1,5 +1,27 @@
 # План исследования — contextual prompts и письменность
 
+## Event correlation observer — исходники проверены, игровой этап не разрешён
+
+Ветка `research/event-correlation-probe`, проверенный код и тесты
+[`f03c571`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/f03c571f8fba9c88994a00f56daaa0ad54d95355):
+[CI 42219818296](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42219818296)
+**488 тестов / 44 файла PASS**. Новый наблюдатель сопоставляет событие
+`CanShow` с реальным read-only `snapshot` только индексированного
+кандидата, держит отдельный одновладельческий контроль скрытия и
+отмечает неполные/неоднозначные редкие аудиты всех зарегистрированных
+владельцев. Проверено на mock Lua и точке входа, **не в игре**.
+
+Следующий этап уже **не** написание очередной World-перерисовки
+и не ускорение 34-owner polling: только отдельно разрешённый
+локальный read-only runtime probe с Open→нет→Take→нет→Check→нет→возврат,
+логами событий и сравнением реального frame-time/читаемости;
+исходный TipHUD должен оставаться видимым. Инструкции и границы:
+[PROBE.md](../research/interaction-prompts-owner/world-space/event-driven/PROBE.md).
+После него решать World fast path или native TipHUD Screen S1.
+Подавление штатной подсказки — отдельный обязательный гейт.
+До разрешения игровой установки никаких изменений активного
+CompactLayoutProbe, `main`, VERSION, сохранений или настроек.
+
 ## Визуальная замена штатной подсказки — самостоятельный обязательный гейт
 
 Пользователь уточнил: **не должно одновременно показываться две
