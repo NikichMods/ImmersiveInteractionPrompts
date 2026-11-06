@@ -1,0 +1,38 @@
+{
+  "candidate": "auto-world-residency-latency-source-only",
+  "source_commit": "2a454f26ee311df64d591c118fe20c58e2cef602",
+  "status": "SOURCE_ONLY_NOT_INSTALLED_RUNTIME_UNVERIFIED",
+  "expected_script_count": 17,
+  "checksum_algorithm": "SHA-256 of exact Lua file bytes",
+  "runtime_acceptance": "PENDING",
+  "retained_external_resources": [
+    "IIPLiveConfig.lua with user-controlled font and separator_filename",
+    "user-authored local divider PNG and authorized font"
+  ],
+  "behavior_gates": [
+    "native Open/Take/Check read-only",
+    "three-frame source scans at most 48 owners",
+    "two complete snapshots for unique owner",
+    "own-component CLEANED before BOUND",
+    "one exact host class reload per absent rebind"
+  ],
+  "files": {
+    "Scripts/IIPAutoWorldSession.lua": "4ee0a9ffd80616ffbeea96931c1de8ead63c06d23d43d5f0e524644317310969",
+    "Scripts/IIPComposition.lua": "71acb4707758e1a2f95d74fc85d4e0bd2748dfce88cf38a1c1f64f37bea4305b",
+    "Scripts/IIPHintSource.lua": "c33e1d6bf9cf1d6c15966658de648ce90e7e161ff544561fe170547e6bceb475",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPInteractionEvents.lua": "134b2d50564b5d72176793a28b53e981fc7bf49bd2aa101d3ba3cd21b1e93bb3",
+    "Scripts/IIPInteractionSource.lua": "39f7da52a1297937c3866d9a55d2ff73639a5a45eed2fdb5c9bfe3903cf5850c",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPOpenVisibility.lua": "c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "c1a870f6ad21f724e72188914675d9743e84431050fb5a22a4e0f8f38567b814",
+    "Scripts/IIPTuning.lua": "043e5e8c82dc055c788d895f749e1f95b23afdd329757ecef23216c9f4bcdc6a",
+    "Scripts/IIPWorldChild.lua": "b6dd411510f47f4ed5b81cc492e219db4073c972af747361a0d390b88ec90ebc",
+    "Scripts/IIPWorldHandoff.lua": "8d25bbfee9228bfa5667b990b0e152c5152d6269eead87d7cf76e19ad70d1e54",
+    "Scripts/IIPWorldHandoffBridge.lua": "53461bd0f52f703bf6e722b33ed8bda61cc3523d039191b043dd35ab25ab506c",
+    "Scripts/IIPWorldRenderer.lua": "5a78f04778ee3f3f6894f1936f9ad0213c1fd7781414c9c4fa07e4eab8db3792",
+    "Scripts/IIPWorldTarget.lua": "91df2a1ce7ee61917ae9da1d067ada196ffe87f70f9851b710af10392089f0ce",
+    "Scripts/main.lua": "a9ea63afb8a5fa6d36b9c19bfabc2348077909afaea86b41e36585c875bca4fb"
+  }
+}
