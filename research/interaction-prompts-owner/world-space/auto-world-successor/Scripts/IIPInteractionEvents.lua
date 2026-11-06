@@ -4,7 +4,10 @@
 -- A fixed per-tick work budget limits native reads; incomplete sweeps are
 -- explicitly non-authoritative and cannot select a target.
 local M={}
-local FRAMES=30
+-- First responsive candidate: one full bounded owner sweep every 3 game frames.
+-- This is an observation *cadence*, not a gameplay time limit. Real host
+-- performance must be measured before accepting it for production.
+local FRAMES=3
 local READS_PER_SAMPLE=48
 local DETAIL_JOINS=40
 
