@@ -3,13 +3,13 @@
 import unittest
 from test_ui_child import LuaRuntime, ROOT
 from test_beginplay_join import FIXTURE
-from test_multi_action_observer import RIG
 
 BASE=ROOT/"research/interaction-prompts-owner/world-space/event-driven/Scripts"
 SOURCE=(BASE/"IIPInteractionSource.lua").read_text(encoding="utf-8")
 OBS=(BASE/"IIPEventCorrelation.lua").read_text(encoding="utf-8")
 RIG2=r"""
 S.game=true;S.cb={};S.cancelled=0;S.hook_attempts=0
+function wrap(o)return {get=function()return o end}end
 set(P.text,"GetText",function()return P.text.Text end)
 function probe()
  local api={
