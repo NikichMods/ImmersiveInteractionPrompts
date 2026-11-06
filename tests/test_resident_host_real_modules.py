@@ -141,6 +141,36 @@ assert(S.imports==4)
 assert(R.cleanup("final",8) and R.empty() and S.released==4)
 """)
 
+ def test_exact_absent_null_ue4ss_wrapper_is_recovered(self):
+  self.case(r"""
+assert(R.create(owner("Open"),1))
+assert(R.cleanup("switch",2))
+local old=S.objects[HOST]
+local replacement=make(HOST,"Class")
+set(replacement,"type",function()return "UClass"end)
+set(replacement,"GetSuperStruct",function()return old:GetSuperStruct()end)
+S.objects[HOST]=nil
+local stub=make("/Absent.Null.Host","Class")
+set(stub,"live",false)
+set(stub,"GetAddress",function()return 0 end)
+local regular_lookup=StaticFindObject
+function StaticFindObject(p)
+ if p==HOST and S.objects[HOST]==nil then return stub end
+ return regular_lookup(p)
+end
+local calls=0
+function LoadAsset(p)
+ assert(p==HOST)
+ calls=calls+1
+ S.objects[HOST]=replacement
+ return replacement,true,true
+end
+assert(R.create(owner("Check"),3))
+assert(calls==1 and S.created==2)
+assert(has("state=ABSENT_NULL one_exact_load=true"))
+assert(R.cleanup("final",4) and R.empty())
+""")
+
  def test_absent_host_failed_exact_reload_fails_closed_without_second_component(self):
   self.case(r"""
 assert(R.create(owner("Open"),1))
