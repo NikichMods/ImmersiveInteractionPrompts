@@ -77,9 +77,34 @@ local function resolve_asset(p,name)
  return fresh
 end
 local function asset(p)
- local o,status=inspected(p,p==HOST and "host" or "material","before_create")
- assert(status=="LIVE","NOT_LOADED: resource changed after refresh: "..p)
- return o -- Lookup only during allocation/configuration; load attempt is consumed earlier.
+ local name=p==HOST and "host" or "material"
+ local o,status=inspected(p,name,"before_create")
+ if status=="LIVE"then return o end
+ -- The original run created three hosts, then the fourth HOST lookup
+ -- returned ABSENT_NULL. A previously verified class can be reloaded
+ -- exactly ONCE at this allocation boundary, on the game thread.
+ -- This is not a root, a GC guarantee or an unlimited retry mechanism.
+ if p==HOST and (status=="ABSENT_NULL" or status=="ABSENT_NIL") then
+  assert(prepared and assets_refreshed and state==nil,
+   "HOST_RECOVERY_NOT_PERMITTED: no clean allocation boundary")
+  log("HOST_RECOVERY_ATTEMPT","state="..status.." one_exact_load=true no_gc_root_added=true")
+  local loaded,found,did_load=step("recover_host_class",LoadAsset,HOST)
+  local returned=resource_state(loaded,HOST)
+  log("HOST_RECOVERY_RESULT","found="..tostring(found).." did_load="..tostring(did_load).." state="..returned)
+  assert(found==true and did_load==true and returned=="LIVE",
+   "NOT_LOADED: exact host class recovery failed")
+  local fresh,current=inspected(HOST,"host","after_recovery")
+  assert(current=="LIVE" and same(fresh,loaded),
+   "HOST_RECOVERY_IDENTITY: fresh class lookup differs")
+  local parent=fresh:GetSuperStruct()
+  assert(valid(parent) and path(parent)=="/Script/UMG.UserWidget",
+   "HOST_RECOVERY_IDENTITY: generated-class parent changed")
+  log("HOST_RECOVERED","fresh_lookup=true parent_verified=true")
+  return fresh
+ end
+ -- Material absence, foreign identity and all other unexpected class
+ -- states remain fail-closed. Never try to load a guessed substitute.
+ assert(false,"NOT_LOADED: resource changed after refresh: "..p.." state="..status)
 end
 local function xyz(v)return {X=v.X,Y=v.Y,Z=v.Z}end
 local function finite(v)
