@@ -1,5 +1,42 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Native GetLastInteractObject — 2026-11-06
+
+**Result B: reject this getter as the pre-input TipHUD target.** It resolves
+the weak reference to an object committed on interaction execution paths,
+including a failure-dispatch path. It can still refer to that object after
+the current execution slot is cleared. This is not necessarily the last
+successful interaction and establishes no authority over stock prompt selection.
+
+Read-only PE analysis of Steam 1.09/build 12996889, UE4.27 x64, shipping
+SHA-256 `ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`.
+UE4SS `83330635` DLL identity matched the prior baseline. Addresses below
+are RVAs relative to the PE image base `0x140000000`. Used a local PE reader,
+exception directory for function ranges, and the already available Capstone
+4.0 DLL to decode candidate instruction sites. Full listings remain local.
+
+| Edge | Native evidence |
+| --- | --- |
+| Name → exec thunk | ASCII `GetLastInteractObject` at `0x43AEE18`. Its name/function pointer pair at `0x43B9CD0` identifies the exec thunk `0x1273690`. The thunk unmarshals the object argument into RCX, calls `0x110C110` at `0x12736FD` and stores RAX in the reflected result at `0x1273707`. A separate name reference at `0x4392208` points to a lazy reflection constructor, not the body. |
+| Return value | `0x110C110` returns null on a null character, otherwise tails into `0x114BCA0`. That loads the character's state pointer at `+0x560` and resolves its eight-byte weak reference at `+0x484` through `0x1644430`. The resolver checks the object index, serial and object flags before returning a pointer. Missing state or a non-resolving reference yields null. |
+| Initialization | `0x11DCF5B` / `0x11DCF65` initialize the pair to index −1 and serial 0, adjacent to equivalent initialization for the execution slot at `+0x47C`. |
+| Execution writes | `0x11DD8E8` copies the staged weak reference from `+0x418` to `+0x484`, and `0x11DD8EF` copies it to `+0x47C`. The path dispatches Begin or Fail at `0x11DD9EF` / `0x11DDA1E` and clears the staged slot at `0x11DDA3E`. A second path at `0x11E47C9` writes the same history slot after accumulated time exceeds the threshold compared at `0x11E478A`, resets that accumulation and dispatches Begin or Fail at `0x11E4813` / `0x11E483E`. It then clears the staging reference at `0x11E4852`. |
+| Dispatch identification | Independently located the reflected `TriggerInteractBeginEvent`, `TriggerInteractEndEvent` and `TriggerInteractFailEvent` thunks at `0x123F980`, `0x123FA90`, `0x123FBA0`. They use the same native virtual dispatch stubs `0x10A5D30`, `0x10A5D40`, `0x10A5D50` respectively. |
+| End and sibling getter | `GetDoingInteractObject` exec `0x126E710` → `0x110AE30` → `0x114B380` resolves `+0x47C` on the same state. End dispatch at `0x11DE9DC` uses that slot. The following store at `0x11DEA00` clears `+0x47C` with the empty weak-reference pair, leaving `+0x484` intact on that path. |
+
+Writer search was anchored on the decoded state displacement and the weak
+reference layout. Equal offsets in unrelated types were excluded from the
+trace. This is a bounded positive identification of execution writers and
+of persistence across the traced End path, not a proof that every possible
+reset or indirect copy has been enumerated. The getter performs no scan or
+fresh selection. A resolved pointer can be live but stale relative to the
+visible prompt, and object invalidation can turn it into null independently
+of prompt visibility. No link to distance/facing detection, arbitration or
+TipHUD show/hide was established. No reflected call was made in game.
+
+**Disposition:** close `GetLastInteractObject` as a World target candidate.
+No additional runtime check of this getter is needed to make that decision.
+
 ## Local static follow-up — 2026-11-06
 
 **Result B.** The local evidence identifies exact reflected candidates, but

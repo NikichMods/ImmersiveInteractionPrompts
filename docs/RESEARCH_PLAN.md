@@ -1,6 +1,13 @@
 # План исследования — contextual prompts и письменность
 
-## Current target authority — local static audit completed, 2026-11-06
+## Current target authority — GetLastInteractObject closed, 2026-11-06
+
+Native-трассировка закрыла getter как кандидат для выбора до нажатия.
+Его слот заполняют ветки Begin/Fail и он переживает очистку Doing на End.
+Поиск штатного победителя остаётся отдельным вопросом.
+[Доказательства](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-getlastinteractobject--2026-11-06).
+
+## History: Current target authority — local static audit, 2026-11-06
 
 Финальный источник выбора не установлен. Если World требует такого
 источника, ближайшая узкая проверка — проследить native

@@ -1,6 +1,14 @@
 # Статус Immersive Interaction Prompts
 
-## Current selected target — local static result, 2026-11-06
+## GetLastInteractObject — native static rejection, 2026-11-06
+
+Getter читает слабую ссылку на объект из веток выполнения взаимодействия,
+включая отправку Fail. Штатный End очищает отдельный слот Doing и оставляет
+Last. Getter отклонён как источник цели TipHUD до нажатия. Штатный источник
+текущего выбора остаётся неизвестным.
+[Native-цепочка и RVA](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-getlastinteractobject--2026-11-06).
+
+## History: Current selected target — local static result, 2026-11-06
 
 В локальных Blueprint-экспортах и UHT найдены два отражённых getter объекта
 и `ShowTipEvent(bool)`. Связь с финальным выбором штатной подсказки
