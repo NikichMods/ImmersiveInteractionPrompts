@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## CanShow event correlation — bounded runtime, 2026-11-06
+
+`f03c571` correlated six natural Open/Take/Check shows and six hides.
+Each show was observed one frame after the latest callback for that exact
+widget. 528 callbacks matched the widget/owner index. Complete sparse
+audits saw no ambiguity. Target authority, transient coverage, cross-map
+hook lifetime and frame-time impact remain unknown.
+[Exact evidence and rollback](../research/interaction-prompts-owner/world-space/event-driven/PROBE.md#runtime-result--2026-11-06).
+
 ## AutoWorld — real handoffs and terminal host lookup failure, 2026-11-06
 
 Three World binds, two successful rebuilds after release and one same-owner

@@ -1,6 +1,15 @@
 # Статус Immersive Interaction Prompts
 
-## Event correlation observer — source-only CI PASS, 2026-11-06
+## Event correlation observer — игровой прогон и откат, 2026-11-06
+
+Шесть показов Open/Take/Check с возвратами подтверждены через один кадр
+наблюдателя после последнего `CanShow`. Все 528 записанных callback
+сопоставлены с индексированными владельцами. Глобальная эксклюзивность
+и стоимость остаются UNKNOWN. Штатная подсказка видима. Наблюдатель
+отключён, CompactLayoutProbe восстановлен и проверен.
+[Игровой результат](../research/interaction-prompts-owner/world-space/event-driven/PROBE.md#runtime-result--2026-11-06).
+
+## История: Event correlation observer — source-only CI PASS, 2026-11-06
 
 **READ_ONLY_OBSERVER_AND_ENTRYPOINT_OFFLINE_PASS / CANSHOW_TO_VISIBLE_GAME_EDGE_UNKNOWN /
 NATIVE_EXCLUSIVITY_UNKNOWN / NOT_INSTALLED / PRODUCTION_BLOCKED.**

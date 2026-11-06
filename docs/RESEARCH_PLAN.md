@@ -1,6 +1,14 @@
 # План исследования — contextual prompts и письменность
 
-## Event correlation observer — исходники проверены, игровой этап не разрешён
+## Event correlation observer — игровой прогон завершён
+
+Получен быстрый сигнал-кандидат для шести наблюдавшихся показов Open/Take/Check.
+Следующий технический вопрос — можно ли независимо установить единственного
+текущего владельца и измерить стоимость проверок на кадр. Редкий аудит этого
+не доказывает. Протокол World-ресурсов и подавление штатного изображения
+остаются отдельными гейтами. [Результат и ограничения](../research/interaction-prompts-owner/world-space/event-driven/PROBE.md#runtime-result--2026-11-06).
+
+## История: Event correlation observer — подготовка исходников
 
 Ветка `research/event-correlation-probe`, проверенный код и тесты
 [`f03c571`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/f03c571f8fba9c88994a00f56daaa0ad54d95355):
