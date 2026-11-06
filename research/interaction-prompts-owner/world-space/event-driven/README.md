@@ -123,6 +123,54 @@ hooking arbitrary global UMG SetVisibility/ProcessEvent, guessing
 a player-controller target field by name, or dropping uniqueness
 proof to improve benchmark results.
 
+## 5a. Native Screen suppression must preserve event evidence
+
+**User requirement clarified after this source study:** the final
+composition must **replace** the visible stock prompt; a simultaneous
+native Screen prompt and own World/fixed-HUD prompt is not acceptable.
+This is a *display* requirement, not permission to disable native
+`CanShow`, action selection, localized text/hint, input or the source
+widget lifecycle.
+
+The current World candidate's read-only
+`IIPOpenVisibility.visible` depends on effective native properties:
+`TipHUD.Visibility`, `TipHUD.RenderOpacity==1`, and the same
+visibility/opacity checks for `TextBlock_89`, `RetainerBox_0`
+and its own icon leaf. Changing these properties to suppress the
+stock display would make our **existing selector itself return
+false**, independently of whether `CanShow` keeps firing. This
+conflict is established by current Lua source; the effect of native
+hidden state on CanShow frequency and other host consumers is
+**NOT TESTED**. Do not put `SetVisibility(Hidden)` or
+`RenderOpacity=0` on the native widget/descendants into the
+production path as an unverified convenience.
+
+For **World**, research a presentational suppression seam that
+does not change the observed native state and safely restores
+the old appearance on failed creation, cleanup, EndPlay and
+STOP. If only visibility-changing writes are available, first
+prove an *independent* authoritative native selection/show signal
+and exact consequences for game state. Hook registration alone
+cannot prove visual suppression. The new read-only event probe
+must keep native UI visible as an external truth source.
+
+For **Screen S1**, instead of hiding the entire native TipHUD,
+treat its native lower action/icon and own upper/divider children
+as **one coherent replaced prompt**. Own visually redundant
+stock panels/decoration must be retired or relaid out only after
+separate safe ownership/readback testing, without moving or
+disabling native selection/text/hint semantics. The previous
+label/divider experiments were *additive prototypes*, not final
+replacement acceptance. For **Screen S2**, a fixed overlay needs
+both the accurate current-target signal and native Screen
+presentation suppression, so its total complexity can exceed S1.
+
+**New independent gate:** prove *one visible interaction prompt
+only* in natural Open/Take/Check gameplay, with original
+logic/events intact, and a full reversible failure/rollback path.
+Neither the existing World runtime nor the source-only event
+research has passed this gate.
+
 ## 5. Screen-space fallback is genuinely viable, with two variants
 
 **Variant S1 — decorate the original Screen TipHUD.**
