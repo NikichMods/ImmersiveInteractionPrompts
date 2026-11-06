@@ -28,6 +28,50 @@ The event observer marks one `active_owner` and samples one queued candidate per
 
 **Conclusion:** No additional unconditional all-owner polling and no invented global `ProcessEvent`/`SetVisibility` hooks. Do not promote either architecture. The existing evidence alone cannot choose World safely. Research Screen S1 composition/one-native-prompt integration next; preserve World as conditional preference and avoid silently changing its depth behavior.
 
+## User-observed selection envelope — 2026-11-06
+
+**User visual report (not independently instrumented):** A native interaction
+prompt appears only when Hilda is **close** to an object **and oriented/facing
+toward it**. Being close with her back to the object does not show the prompt;
+facing it from far away also does not show the prompt. This is evidence of
+**distance + facing dependence in the observable result**, not of how or where
+the game computes those conditions. No angle/distance threshold, camera-versus-
+character orientation source, occlusion criterion or native final writer is
+established.
+
+The conditions are consistent with several materially different mechanisms:
+- overlap/proximity creates an eligible set, while an independent direction
+  threshold (`forward · normalized(target-position)`) or trace chooses a prompt;
+- a bounded forward ray/shape sweep that inherently combines direction and
+  maximum range;
+- game-specific logic on the player, interaction object or UI owner combining
+  distance, facing and/or line-of-sight, possibly alongside other input state.
+
+**No mechanical inference:** visual gating alone does **not** prove an actual
+Overlap callback, LineTrace/SphereTrace, dot-product implementation, event
+availability, or existence of an accessible selected-target property. Avoid
+recreating the selector from approximate distance/yaw: such a copy may disagree
+about priorities, thresholds, collision, camera/body rotation and eligibility.
+
+**Source-search refinement:** From the verified interaction actor/TipHUD chain,
+follow actual show/CanShow callers and the player/interaction dispatcher; inspect
+reachable `OnComponentBeginOverlap`, `OnComponentEndOverlap`, actor overlap,
+`LineTrace`/`SphereTrace`/other trace functions, `GetActorForwardVector`,
+`DotProduct`/angle comparisons, distance/radius checks and native Genesis
+predicates. The goal is the **final selected actor/widget writer** or existing
+read-only event/field, not just an intermediate proximity predicate. Check
+body-forward versus camera-forward only if the real call chain reveals one;
+the current report cannot distinguish them.
+
+**Minimal discriminating gameplay observation, only if later justified:**
+without changing gameplay configuration or scripting interactions, near a known
+object rotate the **camera while Hilda's body stays oriented** (if the controls
+allow), then rotate the character facing without changing distance; optionally
+pass continuously from A to an adjacent B. Record what actually appears. The
+first comparison may distinguish camera-forward from actor-forward; the second
+tests direct handoff/target priority. Neither by itself identifies a code API.
+No new game session, installation or test has been requested by this audit.
+
 ## Epic UE4.27 mechanisms — external documentation check (2026-11-06)
 
 The **official Unreal Engine 4.27** documentation identifies standard building
