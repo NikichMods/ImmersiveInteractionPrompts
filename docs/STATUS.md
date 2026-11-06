@@ -1,6 +1,63 @@
 # Статус Immersive Interaction Prompts
 
-## AutoWorld successor — source-only PASS, 2026-11-06
+## Native event fast-path — source review, 2026-11-06
+
+**CANSHOW_SCRIPT_CALLBACK_RUNTIME_PASS /
+NATIVE_CURRENT_TARGET_EVENT_UNKNOWN /
+NO_NEW_RUNTIME_PROBE / PRODUCTION_BLOCKED.**
+
+Source-only [event selection and 2D fallback study](../research/interaction-prompts-owner/world-space/event-driven/README.md)
+reused existing exact runtime evidence: `TipHUD_C:CanShow`
+is an actually firing read-only Blueprint callback (948 calls
+on 3 TipHUD widgets in its prior test); a separate BeginPlay/CanShow
+join mapped one native visible Open to a verified
+actor/ExtendedWidget/TipHUD chain. Normal-load multi-action
+BeginPlay recorded **34** distinct ready Open/Take/Check owners.
+This supports a cheap **indexed widget→owner candidate signal**,
+not the conclusion that a CanShow call equals the engine's
+authoritative current selected target, show or hide edge. A
+previous native `ExtendedWidgetComponent:SetShow` hook returned
+**zero callbacks** in its 31.965 s test. `SetupTipMessage2`
+native-array hook remains blocked by missing pinned ABI/frame
+provenance. Do not invent another native event or use global
+ProcessEvent/SetVisibility hooks to bypass evidence gates.
+
+Potential design: read owner identities once at native BeginPlay;
+on exact CanShow callback use one primitive widget lookup,
+then validate at most one candidate on game thread. A
+single-active visibility read can handle loss of focus. BUT
+**complete coverage, hide timing, one-visible global exclusivity,
+callback cost and event→native show ordering are NOT TESTED**.
+Without reliable global target selection, an event cannot
+authorize new World rendering. The 3-frame 34-owner survey is
+**not the adopted production path**; its CPU cost remains unknown.
+
+The user's primary UX constraint now explicitly prioritizes
+sub-100-ms-feeling appearance, negligible rendering/CPU impact
+and no frame spikes. Preferred World depth remains conditional;
+an **intentional Screen-space presentation is an agreed
+fallback to examine, not an already selected replacement**.
+The already game-tested original TipHUD child/Aphes/divider
+primitives offer an S1 variant inheriting native visibility and
+input without extra target polling; separate HUD-root Canvas
+was also visually tested at 50%/78%, but still needs target
+synchronization. Neither variant has automatic production
+acceptance.
+
+**Next sufficient evidence:** a separately authored,
+non-installable until authorized **read-only event correlation
+probe** observing exact CanShow callbacks for Open/Take/Check,
+per-widget native show/hide timing and a slow explicitly
+diagnostic full-sweep truth audit. Compare event-to-visible
+frames, missing or spurious signals, ambiguity and measured
+game frame-time before any event-based World bind.
+If event coverage fails, prioritize the proven native TipHUD
+Screen-child S1 architecture over faster brute-force scanning.
+The exact 17-file `auto-world-successor` SHA-256 candidate,
+`research/automatic-world-session` and frozen runtime source
+remain unchanged; no installed game files were modified here.
+
+## История: AutoWorld successor — source-only PASS, 2026-11-06
 
 **EXACT_HOST_RECOVERY_AND_FAST_OBSERVER_OFFLINE_PASS /
 NOT_INSTALLED / REAL_WORLD_RETRY_AND_FRAME_TIME_UNKNOWN /
