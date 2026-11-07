@@ -1,0 +1,39 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -194,0 +195,11 @@
++    if registered then
++        local ok,why=pcall(function()
++            local hint=require("IIPHintSource")
++            local mods={ModifierKey.CONTROL,ModifierKey.ALT}
++            assert(type(Key.F10)=="number" and not IsKeyBindRegistered(Key.F10,mods),"Ctrl+Alt+F10 unavailable")
++            RegisterKeyBind(Key.F10,mods,function()
++                if observer.status().active then hint.observe_input() end
++            end)
++        end)
++        if not ok then log("HINT_INPUT_UNAVAILABLE",tostring(why):sub(1,150)) end
++    end
+--- a/Scripts/IIPHintSource.lua
++++ b/Scripts/IIPHintSource.lua
+@@ -8,0 +9,3 @@
++local input=require("IIPHintInputObserver").new(os.time,StaticFindObject,FName,
++ function(e,s)print("IIP_HINT_INPUT event="..e.." "..s.."\n")end)
++function M.observe_input()input.request()end
+@@ -130 +133 @@
+-function M.start(w,image)
++function M.start(w,image,action)
+@@ -136 +139 @@
+-  frames=0,changes=0,stable=0,pending=nil,bound=nil,description="unbound"}
++  action=action,frames=0,changes=0,stable=0,pending=nil,bound=nil,description="unbound"}
+@@ -144,0 +148 @@
++  input.stop("source_error")
+@@ -147,0 +152 @@
++ input.step(s,w,st.action,st.bound==s.key)
+@@ -218,0 +224 @@
++ input.stop("world_hidden")
+@@ -245,0 +252 @@
++ input.stop("world_release")
+--- a/Scripts/IIPComposition.lua
++++ b/Scripts/IIPComposition.lua
+@@ -53 +53 @@
+- local hint=child(s,"Image","hint",name.."_Hint");Hint.start(w,hint)
++ local hint=child(s,"Image","hint",name.."_Hint");Hint.start(w,hint,action)
