@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Direct World brush under root alpha zero — bounded Open result, 2026-11-08
+
+Source `adbeb1702f9a8e63b999ea025e2a74fb3917cb5c`. Four tint windows
+restored original RGBA, one explicitly manual. Seven direct texture
+rebinds occurred inside the applied windows on one Open. The user saw
+correct keyboard/gamepad switching before and during suppression and
+reported no visible flicker. Frame-level timing, remap and hold are
+unverified. Closed-host rollback restored CompactLayoutProbe.
+[Evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-прямой-кисти--2026-11-08).
+
 ## TipHUD input brush — bounded Open result, 2026-11-08
 
 On source `5bba7b19748348a5d220f7a38093dd78765dfeb5`, one Open
