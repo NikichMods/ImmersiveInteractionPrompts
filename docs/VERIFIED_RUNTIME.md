@@ -1,5 +1,31 @@
 # Verified Runtime — Interaction Prompts
 
+## Selected-owner World — bounded runtime, 2026-11-07
+
+Source `2e167227e8b29c692fdd9157de06c5cf7ed4660f` on the pinned host.
+UE4SS lines 712–2756 record 34 BOUND and 3 same-owner RESUMED episodes,
+each followed by SHOWN and then HIDDEN. No overlapping own lease was
+seen in the trace: 33 COMPONENT_DESTROYED/CLEANED/RELEASED sequences
+preceded the next allocation. Each new BOUND was on the first observer
+frame (`observer_frames=0`). All 34 font and PNG bindings succeeded.
+HOST recovery was not exercised. Initial acquisition GAP occurred before
+any allocation. Direct adjacent handoff and populated-map cleanup were
+not exercised. The last hidden lease has no cleanup acknowledgement
+after controller EndPlay at UE4SS line 2757. Genesis lines 13696–13698
+record normal exit. Engine teardown of that last lease is unverified.
+
+Log intervals from observed selection to SHOWN are 57.51–67.96 ms for
+creation (median 60.60 ms) and 34.21–35.14 ms for reuse. NONE to HIDDEN
+was 0.30–1.56 ms. These are diagnostic timestamps, with no input-to-pixel
+or frame-time measurement. The trace records zero original UI writes
+during shows. Independent visual acceptance remains open.
+
+Exact raw logs are archived locally. Closed-host rollback restored the
+sole active CompactLayoutProbe, including all 12 recorded file hashes.
+
+- UE4SS.log SHA-256 `e7adc1a41c3b4a97f62906a90efef61ceb2038333976455b974978e18fe7dc54`.
+- Genesis.log SHA-256 `427b48544df9297cde98898656d504a05fac87f267ad2b196ba96c04b53eef0b`.
+
 ## Committed prompt owner — bounded runtime, 2026-11-07
 
 Source `e240150` resolved the committed weak reference and correlated six
