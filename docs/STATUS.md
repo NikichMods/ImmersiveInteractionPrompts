@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+## Selected-owner World — установлен для игрового прогона (2026-11-07)
+
+По отдельному разрешению при закрытой игре установлен source
+`2e167227e8b29c692fdd9157de06c5cf7ed4660f`. Все 13 Lua совпали с
+манифестом по SHA-256. Проверены локальные конфигурация, шрифт и авторский
+PNG. Единственный активный IIP-мод — SelectedOwnerWorldProbe. У
+CompactLayoutProbe временно снят маркер, его 12 файлов вместе с маркером
+сверены в резервной копии вне UE4SS. Остальные 252 проверенных файла
+совпали с исходными хэшами. Откат при закрытой игре восстанавливает
+прежний маркер и выключает новый. Игровой прогон ожидается.
+[Сценарий](../research/interaction-prompts-owner/world-space/selected-owner-world/README.md#next-sufficient-runtime-check).
+
 ## Selected-owner World — исследовательский source-only кандидат (2026-11-07)
 
 Штатный committed owner теперь ведёт отдельный World-координатор.
