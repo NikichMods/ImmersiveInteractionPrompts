@@ -18,6 +18,7 @@ set(validator,"type",function()return "UFunction"end)
 getmetatable(validator).__call=function(_,_,obj)return obj:IsValid()end
 make("/Script/Engine.Default__KismetSystemLibrary",
      "/Script/Engine.KismetSystemLibrary")
+set(P.text,"GetText",function()return P.text.Text end)
 RegisterBeginPlayPostHook=function(fn)S.cb.begin=fn end
 RegisterEndPlayPreHook=function(fn)S.cb.finish=fn end
 RegisterLoadMapPreHook=function(fn)S.cb.map=fn end
