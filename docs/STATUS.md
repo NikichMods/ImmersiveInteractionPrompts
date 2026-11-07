@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+## Selected owner +0x410 — UE4SS read-seam audit (2026-11-07)
+
+Pinned UE4SS `83330635` exposes reflected class members and
+`RegisterCustomProperty` with a single-class offset, **not** a proved
+pointer-chase/read of unreflected `character+0x560 -> state+0x410`.
+The exact stock current prompt-owner weak pair is known from native
+static evidence, but **no safe cheap Lua reader is established**.
+The reflected `GameGlobal:GetActionTarget` native getter/setter remains
+the one bounded local static discriminator: trace whether its actual body
+reads the **committed** prompt owner, and whether the state is exposed as
+a reflected class/struct. No runtime probe, installation or change of
+game/mod files. If this does not provide a safe route, prioritize native
+Screen S1 design without silently accepting loss of World occlusion.
+[Scope, source references, exact next gate](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#selected-prompt-owner-read-seam--remote-source-only-audit-2026-11-07).
+
 ## ShowTipEvent — игровой прогон и откат (2026-11-07)
 
 Точный hook зарегистрирован, но в завершённом пользовательском прогоне
