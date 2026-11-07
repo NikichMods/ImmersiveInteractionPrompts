@@ -7,10 +7,13 @@ build-pinned `PlayerActionComponent` weak pair through exact reflected
 component lookup and UE4SS custom `WeakObjectProperty`, and correlates
 only selected Open/Take/Check transitions with independent stock TipHUD
 readback. The observer and offline mocks are **source-only**: not installed
-or run in the game; runtime owner correctness, native show/hide timing,
-lifecycle, CPU cost and production acceptance remain **UNKNOWN/BLOCKED**.
-Before deployment, complete source/CI checks and obtain separate user
-approval for closed-host installation and rollback.
+or run in the game. Exact source/test commit [`0c5ff3c`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/0c5ff3c7eb0a0b5ffa610af9aac29cdb0e88bb08),
+[GitHub Actions run 42323045068](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42323045068):
+**511/511 offline tests PASS across 47 files**, including **12 new selected-owner tests**.
+These tests are Lua mocks, not real-game evidence; runtime owner correctness,
+native show/hide timing, lifecycle, CPU cost and production acceptance remain
+**UNKNOWN/BLOCKED**. Before deployment, obtain **separate user approval** for
+closed-host installation and rollback.
 [Exact recipe and limits](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md).
 
 ## Selected owner +0x410 — локальная статическая проверка (2026-11-07)
