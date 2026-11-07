@@ -1,6 +1,27 @@
 # Committed owner +0x410 — read-only runtime correlation candidate
 
-**INSTALLED / RUNTIME CORRELATION PENDING / NO PRODUCTION OWNER READER.**
+**BOUNDED RUNTIME CORRELATION PASS / ROLLED BACK / PRODUCTION BLOCKED.**
+
+## Runtime result — 2026-11-07
+
+Exact installed source `e240150161ecc6dea2d87cc35636842015bdaaed`.
+All four installed Lua hashes matched before rollback. The user reported
+ordinary stock gameplay and seeing Open, Take and Check. No adjacent pair
+was available for a direct switch. Genesis recorded normal exit (2526–2528).
+
+| Check | Result |
+| --- | --- |
+| Capture and read | **PASS** on normal load. `ARMED`, four controller captures through BeginPlayPost and one verified pawn/component context (UE4SS 655–689, 732). |
+| Show/hide | **PASS** for the six observed transitions (UE4SS 718–729). NONE → Open → NONE → Take → NONE → Check → NONE. Each subsequent native snapshot matched on its first checked frame (`age_frames=1`). No NO_MATCH or STOP was logged. This is a readback age, not input-to-pixel latency. |
+| Lifecycle | **PASS** for observed map resets and controller reacquisition, followed by EndPlay at exit (730–735). Direct adjacent A→B, pawn/component replacement during gameplay and loaded-area travel with an active prompt were **NOT TESTED**. |
+| Coverage and cost | Global uniqueness, transient misses, frame-time cost and production World rendering/suppression remain **UNKNOWN**. The observer checks the affected owners. The user reported normal gameplay, without a controlled performance measurement. |
+
+Closed-host rollback disabled the observer and restored CompactLayoutProbe.
+All 12 recorded predecessor files, including its enabled marker, verified.
+Raw logs are retained privately.
+
+- UE4SS.log SHA-256 `c9c693b8875dc3bd12a0e2d8713e3611beaea2dcbd39ca6a51253b673d056c8e`.
+- Genesis.log SHA-256 `2b90baaf35f028e8af79115cf2887e40c6895cf4815fe662a8ccee821765d71d`.
 
 ## Verified installation — 2026-11-07
 

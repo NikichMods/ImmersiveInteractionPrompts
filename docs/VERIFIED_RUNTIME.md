@@ -1,5 +1,12 @@
 # Verified Runtime — Interaction Prompts
 
+## Committed prompt owner — bounded runtime, 2026-11-07
+
+Source `e240150` resolved the committed weak reference and correlated six
+show/hide transitions through NONE on the first subsequent observer frame.
+Direct A→B, pawn/component replacement and frame cost remain open.
+[Session and rollback](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#runtime-result--2026-11-07).
+
 ## CanShow event correlation — bounded runtime, 2026-11-06
 
 `f03c571` correlated six natural Open/Take/Check shows and six hides.

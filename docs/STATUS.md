@@ -1,6 +1,14 @@
 # Статус Immersive Interaction Prompts
 
-## Committed owner observer — установлен, игровой прогон ожидается (2026-11-07)
+## Committed owner observer — игровой прогон завершён (2026-11-07)
+
+На `e240150` подтверждены три показа и три скрытия Open/Take/Check через
+`PlayerActionComponent+0x410`. Все шесть смен совпали со штатной видимостью
+на первом проверенном кадре. Прямой A→B, замена игрового компонента и цена
+чтения не проверены. CompactLayoutProbe восстановлен.
+[Прогон и границы](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#runtime-result--2026-11-07).
+
+## История: Committed owner observer — установка (2026-11-07)
 
 Установлена разрешённая ревизия `e240150161ecc6dea2d87cc35636842015bdaaed`.
 Четыре Lua сверены, единственный активный IIP-мод — CommittedOwnerObserver.
