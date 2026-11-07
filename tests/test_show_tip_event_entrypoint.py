@@ -78,7 +78,7 @@ assert(S.pose_reads==0 and S.released==0)
 begin();tick()
 assert(S.binds==0 and S.cancelled==1)
 assert(has("event=HOOK_UNAVAILABLE") and has("coverage=none"))
-""","set(event_fn,'live',false)")
+""","set(S.objects['/Script/Genesis.BaseGameEventObject:ShowTipEvent'],'live',false)")
 
     def test_hook_rejection_cancels_observer_without_broad_fallback(self):
         self.case(r"""
