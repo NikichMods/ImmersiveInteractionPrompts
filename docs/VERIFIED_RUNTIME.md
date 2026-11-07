@@ -1,5 +1,14 @@
 # Verified Runtime — Interaction Prompts
 
+## First World prompt frames — bounded Open comparison, 2026-11-08
+
+Source `6bfc676c19a8acc41ec919c3ab147a3d0f15ed1b`, stock Screen visible
+as control. One cold approach showed Screen at video PTS 8.715567 s,
+partial World at 8.815844 s and full World at 8.832800 s. The same-owner
+resume reused layout and showed Screen at 14.299778 s and full World
+at 14.315833 s. Video presentation times do not measure engine frame time.
+[Frame and log evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-первого-показа).
+
 ## Direct World brush under root alpha zero — bounded Open result, 2026-11-08
 
 Source `adbeb1702f9a8e63b999ea025e2a74fb3917cb5c`. Four tint windows
