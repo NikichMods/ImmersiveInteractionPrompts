@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## TipHUD root tint — bounded Open result, 2026-11-07
+
+On source `4fa34935f33f55c186f704d8a5c09ca460bf1f24`, two tint windows
+applied and restored original RGBA. The user reported that the Screen prompt
+and World button disappeared. The screenshot preserves World text and divider.
+The recorded input-device rebinding precedes the applied windows. Retainer
+capture timing, visible recovery and frame-time cost remain unmeasured.
+Closed-host rollback restored CompactLayoutProbe.
+[Exact evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-a--2026-11-07).
+
 ## Selected-owner World — bounded runtime, 2026-11-07
 
 Source `2e167227e8b29c692fdd9157de06c5cf7ed4660f` on the pinned host.
