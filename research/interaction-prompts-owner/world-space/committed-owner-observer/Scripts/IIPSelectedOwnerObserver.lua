@@ -97,6 +97,11 @@ function M.start(api,source,emit)
                 log("INCOMPLETE","seq="..item.seq..
                     " reason="..tostring(item.new_unresolved or item.old_unresolved)..
                     " age_frames="..age)
+            elseif item.to~="NONE" and item.new==nil then
+                s.unresolved=s.unresolved+1
+                log("PARTIAL_CORRELATION","seq="..item.seq..
+                    " reason=next_owner_out_of_scope old_hidden="..
+                    tostring(item.old_ok).." no_full_owner_claim=true")
             else
                 s.matched=s.matched+1
                 log("CORRELATED","seq="..item.seq.." from="..item.from..
@@ -180,7 +185,7 @@ function M.start(api,source,emit)
     end)
     s.handle=api.loop(1,tick)
     log("ARMED","read_only=true exact_slot=PlayerActionComponent+0x410"..
-        " sample_every_frame=true max_visibility_per_transition=2"..
+        " sample_every_frame=true max_visibility_per_pending_transition=2"..
         " no_full_owner_scan=true")
     return {
         stop=stop,

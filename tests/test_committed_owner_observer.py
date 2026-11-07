@@ -220,6 +220,16 @@ assert(o.status().matched==1)
 assert(has("supported=false acquisition=other_action"))
 """)
 
+    def test_switch_into_unsupported_owner_is_partial_not_full_match(self):
+        self.case(r"""
+S.selected=A;S.visible.A=true;tick(2)
+S.selected=D;S.visible.A=false;tick(2)
+assert(o.status().matched==1 and o.status().unresolved==1)
+assert(has("PARTIAL_CORRELATION seq=2"))
+assert(has("no_full_owner_claim=true"))
+assert(not has("CORRELATED seq=2"))
+""")
+
     def test_map_stop_and_read_failure_are_inert(self):
         self.case(r"""
 S.selected=A;tick();S.cb.map()
