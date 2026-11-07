@@ -1,0 +1,58 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -2 +2 @@
+--- Exact-build research renderer. Native TipHUD is a read-only source.
++-- Exact-build research renderer. Stage A root tint experiment.
+@@ -8,0 +9 @@
++local Tint=require("IIPTipHUDTint")
+@@ -181,0 +183 @@
++    local tint=Tint.new(Source,alive,hint_visible,StaticFindObject,os.time,log)
+@@ -184 +186 @@
+-        native_alive=alive,hint_visible=hint_visible,
++        native_alive=alive,hint_visible=hint_visible,tint=tint,
+@@ -187,0 +190 @@
++            tint.ended()
+@@ -192,0 +196,8 @@
++        assert(type(RegisterKeyBind)=="function" and type(IsKeyBindRegistered)=="function",
++            "tint input API unavailable")
++        local mods={ModifierKey.CONTROL,ModifierKey.ALT}
++        assert(type(Key.F10)=="number" and not IsKeyBindRegistered(Key.F10,mods),
++            "Ctrl+Alt+F10 unavailable")
++        RegisterKeyBind(Key.F10,mods,function()
++            if observer.status().active then tint.request() end
++        end)
+@@ -201 +212 @@
+--- Never call actor interaction APIs, write the custom field or suppress TipHUD.
++-- Stage A writes only the exact TipHUD root color through its reflected setter.
+--- a/Scripts/IIPSelectedWorldSession.lua
++++ b/Scripts/IIPSelectedWorldSession.lua
+@@ -5,0 +6 @@
++    local tint=api.tint
+@@ -25,0 +27 @@
++        tint.restore(reason)
+@@ -96,0 +99 @@
++                tint.restore("no_selection")
+@@ -117,0 +121 @@
++                    if tint.busy() then tint.frame(bound.record,world.shown()) end
+@@ -126,0 +131 @@
++        tint.restore("before_bind")
+@@ -155 +160 @@
+-        bound={key=row.key,pawn_key=row.pawn_key,component_key=row.component_key,action=record.action,
++        bound={record=record,key=row.key,pawn_key=row.pawn_key,component_key=row.component_key,action=record.action,
+@@ -173 +178 @@
+-    emit("ARMED","owner=PlayerActionComponent+0x410 native_writes=0")
++    emit("ARMED","owner=PlayerActionComponent+0x410 stage_a_tint=true")
+@@ -176,0 +182 @@
++            tint.ended(address)
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -286 +286 @@
+-  log("SHOWN","same_component=true original_writes=0")
++  log("SHOWN","same_component=true")
+@@ -470,0 +471,6 @@
++function M.shown()
++ local s=state
++ if not s or not s.active or s.presentation~="shown" or not Hint.ready() then return false end
++ local host=find(s.host)
++ return alive(host) and host.Visibility==3
++end

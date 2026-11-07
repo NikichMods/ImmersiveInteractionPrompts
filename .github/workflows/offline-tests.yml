@@ -14,6 +14,7 @@ on:
       - research/show-tip-event-observer-01
       - research/committed-owner-correlation-01
       - research/selected-owner-world-01
+      - research/tiphud-render-suppression-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
@@ -26,6 +27,7 @@ on:
       - 'research/interaction-prompts-owner/world-space/show-tip-event-observer/**'
       - 'research/interaction-prompts-owner/world-space/committed-owner-observer/**'
       - 'research/interaction-prompts-owner/world-space/selected-owner-world/**'
+      - 'research/interaction-prompts-owner/world-space/tiphud-render-suppression/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
