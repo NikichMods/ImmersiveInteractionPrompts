@@ -15,6 +15,7 @@ on:
       - research/committed-owner-correlation-01
       - research/selected-owner-world-01
       - research/tiphud-render-suppression-01
+      - research/tiphud-direct-brush-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
