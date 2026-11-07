@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## ShowTipEvent — read-only observer source candidate (2026-11-07)
+
+Подготовлен автономный research-only наблюдатель: точный Lua hook на
+`BaseGameEventObject:ShowTipEvent(bool)` после появления известного owner,
+синхронное чтение actor/bool, независимый снимок штатной видимости только
+событийного владельца. Для `BlueprintImplementableEvent` поддержка точного
+script-hook и доставка callbacks остаются НЕПРОВЕРЕННЫМИ. Никакой установки,
+запуска игры или изменений других модов. [Исходник и ограничения](../research/interaction-prompts-owner/world-space/show-tip-event-observer/README.md).
+
 ## Native show/hide — статическая цепочка найдена, 2026-11-07
 
 Штатный update сравнивает текущего владельца подсказки с новым, вызывает
