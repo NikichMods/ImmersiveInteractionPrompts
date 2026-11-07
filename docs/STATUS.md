@@ -1,6 +1,14 @@
 # Статус Immersive Interaction Prompts
 
-## ShowTipEvent — установлен, игровой прогон ожидается (2026-11-07)
+## ShowTipEvent — игровой прогон и откат (2026-11-07)
+
+Точный hook зарегистрирован, но в завершённом пользовательском прогоне
+наблюдатель не записал ни одного callback. Сопоставление с видимостью
+не состоялось, причина отсутствия доставки не установлена. Наблюдатель
+отключён, CompactLayoutProbe восстановлен с проверкой хэшей.
+[Результат и границы](../research/interaction-prompts-owner/world-space/show-tip-event-observer/README.md#runtime-result--2026-11-07).
+
+## История: ShowTipEvent — установка (2026-11-07)
 
 Точный source `e4c8164093a7a8c5338e5bd30e6ec3a9debcd303` установлен при
 закрытой игре отдельным UE4SS-модом `ImmersiveInteractionPromptsShowTipEventObserver`.

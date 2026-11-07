@@ -1,6 +1,31 @@
 # ShowTipEvent — read-only owner transition observer
 
-**INSTALLED / RUNTIME PENDING.**
+**HOOK REGISTRATION PASS / CALLBACK DELIVERY NOT OBSERVED / ROLLED BACK.**
+
+## Runtime result — 2026-11-07
+
+The user reported completing the run. All four installed Lua hashes matched
+the installation record before rollback. The stock loader started the mod
+(UE4SS line 654), the observer joined 34 ready owners (Open 6, Take 18, Check
+10), and the exact base-class script hook registered as `(12, 12)` at
+03:40:22.958 (lines 693–694). **Zero callbacks were recorded.** There were no
+`INTENT`, `UNRESOLVED`, `CORRELATED`, `NO_MATCH` or probe stop/error entries.
+The final map reset followed about 61 seconds after arming (line 768).
+Genesis logged normal exit with status 0 (lines 3126–3128).
+
+The exact registered hook did not yield an observable selection signal in
+this session. The observer samples visibility only after a delivered event,
+so it captured no independent visibility timeline. The user did not specify
+individual visible episodes or adjacent-object switching. Delivery by action,
+event order, correlation and latency remain unknown. This result does not
+identify the dispatch gap or contradict the earlier static native trace.
+
+After exit, the observer was disabled and the prior CompactLayoutProbe
+marker restored. All 12 recorded CompactLayoutProbe files including its
+marker were verified. Both raw logs are archived locally.
+
+- UE4SS.log SHA-256 `6be7484be7d95bad1dc9fc898da82a3ea9b0783d9165c64fe197b42de2a369c8`.
+- Genesis.log SHA-256 `e8c3fc3ba9ece3c79c0ec159a546cf61f886638e9f4279b83941320770169cf8`.
 
 ## Verified installation — 2026-11-07
 
