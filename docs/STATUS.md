@@ -1,6 +1,14 @@
 # Статус Immersive Interaction Prompts
 
-## Selected owner +0x410 — UE4SS read-seam audit (2026-11-07)
+## Selected owner +0x410 — локальная статическая проверка (2026-11-07)
+
+`GetActionTarget` читает отдельную weak-ссылку. Штатный поиск компонента
+даёт `PlayerActionComponent`, где хранится committed owner. Для закреплённой
+сборки есть статически обоснованный кандидат на чтение через custom
+WeakObjectProperty. Надёжность в игре и стоимость остаются непроверенными.
+[Native-трассировка и границы](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#selected-owner-read-seam--local-native-trace-2026-11-07).
+
+## History: Selected owner +0x410 — UE4SS source audit (2026-11-07)
 
 Pinned UE4SS `83330635` exposes reflected class members and
 `RegisterCustomProperty` with a single-class offset, **not** a proved

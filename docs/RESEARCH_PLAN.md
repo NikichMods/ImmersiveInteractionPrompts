@@ -1,6 +1,14 @@
 # План исследования — contextual prompts и письменность
 
-## ShowTipEvent — source-only observer ready for offline checks (2026-11-07)
+## Selected owner — локальная статическая проверка завершена (2026-11-07)
+
+При отдельном разрешении провести одну read-only корреляцию
+committed `PlayerActionComponent+0x410` со штатной видимостью и
+сменой компонента. При непрохождении переходить к проектированию native
+Screen S1 с отдельным согласованием визуального компромисса.
+[Доказательства](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#selected-owner-read-seam--local-native-trace-2026-11-07).
+
+## History: ShowTipEvent — source-only observer (2026-11-07)
 
 Подготовлен узкий read-only observer кандидата на штатный actor-event с
 сопоставлением последующей native-видимости; не принимает INTENT за пиксели.

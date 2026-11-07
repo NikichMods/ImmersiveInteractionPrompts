@@ -1,5 +1,60 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Selected owner read seam — local native trace, 2026-11-07
+
+**No verified safe runtime reader. A concrete, build-pinned Lua route is
+supported by static evidence.** Stock reflection reaches the exact
+component type, and UE4SS has a class-scoped custom weak-property reader.
+The composed path still needs runtime correlation. This supersedes the
+earlier uncertainty about whether the state is a UObject.
+
+Steam 1.09/build 12996889, UE4.27 x64. The local PE reader checked shipping
+SHA-256 `ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`.
+Installed UE4SS 83330635 DLL SHA-256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+RVA evidence follows from ASCII reflection name/exec pairs and decoded
+x64 branches. The checked function listings remain local.
+
+| Question | Static result |
+| --- | --- |
+| What does `GameGlobal:GetActionTarget` read? | Name RVA `0x43AD518`, name/exec pair `0x43B9370`, exec `0x126B7E0`. Call at `0x126B84D` enters `0x110A250`, checks character and guard `0x114E360`, then tails to `0x114A7B0`. It loads `character+0x4F0` and resolves the weak pair at pointee `+0xDE4` via `0x1644430`; a null/failed guard or missing state yields null. The traced getter performs no store to game target state. |
+| Where does the setter write? | Name RVA `0x43B2A40`, pair `0x43BB4B0`, exec `0x12872D0`. Call at `0x1287379` enters `0x1112170`, checks character and the same guard, and calls `0x114F9A0` at `0x1112194` with the supplied actor. The latter loads `character+0x4F0` and passes pointee `+0xDE4` to weak assignment `0x1641A40` at `0x114F9C9`. That assignment clears for a null actor. The setter continues through other conditional code. Neither accessor is a route to the prompt pair. |
+| What is the real prompt state? | Character setup `0x114DA30` obtains `UPlayerActionComponent::StaticClass` at `0x114DA91`, calls character virtual slot `+0x620` at `0x114DA9F`, checks returned class ancestry and stores the checked component or null at `0x114DAD1` in `character+0x560`. Class registration `0x12AE9E0` uses UTF-16 name at `0x43EAC52` and size `0x500`. The UHT class is `/Script/Genesis.PlayerActionComponent`, derived from `UActorComponent`. Character initialization zeros the cache at `0x1147F5A`; setup also has a later native caller at `0x1149748`. Component initialization empties the weak pairs at `0x11DCECA` and `0x11DCEDD`. The previously traced update commits `+0x418` into `+0x410` at `0x11E45D9`. No claim of exhaustive destruction/replacement ordering. |
+| Can Lua reach the component without a raw pointer read? | Reflected `/Script/Engine.Actor:GetComponentByClass` has name/exec pair `0x4A642C0` and exec `0x3278C70`. Call at `0x3278CE8` reaches `0x2B2A0B0`, which dispatches the **same** virtual slot `+0x620`. A class-scoped lookup on the current pawn is therefore the stock operation used to populate the cache. It may traverse that pawn's components, but does not walk interactables or global UObjects. Runtime equality with the cached component through replacement/travel remains unverified. |
+
+The UHT does not expose the committed pair as a stock member. Pinned
+UE4SS `LuaMod.cpp` registers `PropertyTypes.WeakObjectProperty` (890)
+and supports class-scoped custom offsets (2026 onward). The archived
+83330635 session reports value size 8. `LuaUObject.hpp` resolves custom
+member reads before stock reflection (822–839), and
+`LuaUObject.cpp` copies the weak value into a Lua `FWeakObjectPtr`
+(1637–1657). Its `Get()` delegates to the underlying C++ weak-object
+resolver. This gives a plausible class-scoped read of the pair without
+casting an index/serial to a raw actor pointer.
+[Pinned weak Lua implementation](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/LuaType/LuaFWeakObjectPtr.cpp).
+
+**Exact candidate route, static design only:** on the game thread, use a
+fresh valid local Genesis pawn and its reflected `GetComponentByClass`
+for the exact Genesis component class. Check native validity, class and
+component owner against that pawn. A custom WeakObjectProperty on
+`/Script/Genesis.PlayerActionComponent` at `+0x410` would read the
+committed pair; resolve the copied value immediately via `Get()`.
+Reject a null/invalid actor or a failed reciprocal
+actor→ExtendedWidget→TipHUD identity check. Do not retain wrappers across
+ticks, assign the custom property, or use this layout on a different build.
+Registration adds UE4SS metadata; the proposed path has no game-state
+write. Selection is distinct from actual visibility, which still needs
+the native component/TipHUD readback when used as the test oracle.
+
+**Decision:** one separately authorized read-only correlation is justified
+before choosing between World and native Screen S1. It would need to show
+that the custom weak read resolves the real pre-input owner and follows
+hide-to-null, A-to-B, and pawn/component replacement without stale
+identity. Its runtime cost is unmeasured. World implementation remains
+blocked; if the route cannot pass that bounded check, prefer native-owned
+Screen S1 design, with its depth tradeoff subject to approval. No reader,
+hook, test candidate or game run was created here.
+
 ## Selected prompt owner read seam — remote source-only audit, 2026-11-07
 
 **NO VERIFIED CHEAP LUA READER / ONE BOUNDED LOCAL STATIC CHECK / NO RUNTIME ACTION.**
