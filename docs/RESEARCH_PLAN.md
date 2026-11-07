@@ -1,5 +1,13 @@
 # План исследования — contextual prompts и письменность
 
+## Проверка подавления изображения TipHUD
+
+[Статический аудит](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md)
+оставил один узкий вопрос: сохраняются ли фактические пиксели и обновление
+значка World при нулевом alpha корня TipHUD. Следующий шаг при отдельном
+разрешении — один ограниченный тест на Open с наблюдением восстановления.
+Выбор владельца продолжает опираться на существующий readback.
+
 ## Selected-owner World — результат реального прогона и следующий гейт (2026-11-07)
 
 [Отчёт `66912dd`](../research/interaction-prompts-owner/world-space/selected-owner-world/README.md#bounded-installed-game-result--2026-11-07):

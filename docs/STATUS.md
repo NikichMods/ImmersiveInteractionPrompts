@@ -1,5 +1,12 @@
 # Статус Immersive Interaction Prompts
 
+## Подавление изображения TipHUD — статический гейт (2026-11-07)
+
+**BLOCKED.** Tint корневого `UUserWidget` отделён от полей native readback,
+но его стиль участвует и в захвате Retainer, из которого World получает
+значок кнопки. Безопасность подавления и возврат штатного изображения
+на границе кадра не доказаны. [Аудит и один проверочный эксперимент](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md).
+
 ## Selected-owner World — игровой прогон и откат (2026-11-07)
 
 Точный source `2e167227e8b29c692fdd9157de06c5cf7ed4660f`, все 13 Lua и
