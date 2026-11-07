@@ -58,7 +58,7 @@ end
 """
 
 ENTRY_RIG = r"""
-R={logs={},selected=nil,controller_lookups=0,component_lookups=0,
+R={logs={},selected=nil,controller_resolves=0,component_lookups=0,
     writes=0,registered=0,loops=0,cb={},addr=2000}
 function object(kind,path,clazz)
  R.addr=R.addr+1
@@ -96,6 +96,7 @@ function P:GetComponentByClass(clazz)
 end
 K=object("PlayerController","/Game/Controller",controller_class)
 K.Pawn=P
+function K:IsLocalPlayerController() return R.controller_is_local~=false end
 A=object("Actor","/Game/Interact_A",owner_class)
 A.action="Open"
 A.key="/Game/Interact_A|/Game/Objects.BaseGameEventObject_BP_C|"..tostring(A.addr)
@@ -110,6 +111,9 @@ function StaticFindObject(path)
  if path=="/Script/Genesis.PlayerActionComponent" then return component_class end
  if path=="/Script/Engine.KismetSystemLibrary:IsValid" then return f end
  if path=="/Script/Engine.Default__KismetSystemLibrary" then return cdo end
+ if path==K.path then
+  R.controller_resolves=R.controller_resolves+1;return K
+ end
  return nil
 end
 function RegisterCustomProperty(t)
@@ -125,13 +129,16 @@ function LoopInGameThreadAfterFrames(frames,fn)
  assert(frames==1);R.loops=R.loops+1;R.cb.tick=fn;return 71
 end
 function RegisterLoadMapPreHook(fn) R.cb.map=fn end
+function RegisterBeginPlayPostHook(fn) R.cb.begin=fn end
+function RegisterEndPlayPreHook(fn) R.cb.finish=fn end
+function begin_actor(actor)
+ R.cb.begin({get=function()return actor end})
+end
+function finish_actor(actor)
+ R.cb.finish({get=function()return actor end})
+end
 function CancelDelayedAction(h)assert(h==71);R.cancelled=true;return true end
 print=function(t)R.logs[#R.logs+1]=t end
-package.preload["UEHelpers"]=function()
- return {GetPlayerController=function()
-  R.controller_lookups=R.controller_lookups+1;return K
- end}
-end
 package.preload["IIPInteractionSource"]=function()
  return {acquire=function(a)
   return {actor=a.key,component="comp_A",widget="widget_A",action=a.action}
@@ -263,13 +270,16 @@ assert(o.status().snapshots==0 and o.status().samples==1100)
 
     def test_entrypoint_reads_exact_component_and_weak_slot_only(self):
         self.entry(r"""
-assert(R.registered==1 and R.cb.tick and R.cb.map)
+assert(R.registered==1 and R.cb.tick and R.cb.map and R.cb.begin and R.cb.finish)
 assert(R.writes==0)
+R.cb.tick();assert(R.controller_resolves==0 and R.component_lookups==0)
+begin_actor(K)
+assert(has("CONTROLLER_ACQUIRED") and has("CONTROLLER_PENDING"))
 R.selected=A;R.visible=true;R.cb.tick();R.cb.tick()
 assert(has("CORRELATED") and has("from=NONE"))
 R.selected=nil;R.visible=false;R.cb.tick();R.cb.tick()
 assert(has("from="..A.key.." to=NONE"))
-assert(R.component_lookups==4 and R.controller_lookups==1)
+assert(R.component_lookups==4 and R.controller_resolves==4)
 assert(R.writes==0)
 """)
 
@@ -279,10 +289,56 @@ assert(R.registered==0 and R.cb.tick==nil)
 assert(has("UNAVAILABLE") and has("no_selected_owner_coverage=true"))
 ""","PropertyTypes.WeakObjectProperty.Size=16")
 
+    def test_entrypoint_missing_beginplay_has_no_class_search_or_coverage(self):
+        self.entry(r"""
+assert(R.registered==1 and R.cb.begin and R.cb.finish)
+assert(has("CONTROLLER_PENDING"))
+FindAllOf=function()error("forbidden global enumeration")end
+for i=1,500 do R.cb.tick() end
+assert(R.controller_resolves==0 and R.component_lookups==0 and
+       R.registered==1 and R.writes==0)
+assert(not has("CONTROLLER_ACQUIRED"))
+assert(not has("CORRELATED"))
+""")
+
+    def test_entrypoint_filters_nonlocal_and_unrelated_beginplay(self):
+        self.entry(r"""
+begin_actor(A)
+R.controller_is_local=false;begin_actor(K)
+R.cb.tick()
+assert(R.controller_resolves==0 and R.component_lookups==0)
+R.controller_is_local=true;begin_actor(K)
+R.selected=A;R.visible=true;R.cb.tick();R.cb.tick()
+assert(has("CONTROLLER_ACQUIRED") and has("CORRELATED"))
+assert(R.controller_resolves==2 and R.writes==0)
+""")
+
+    def test_entrypoint_controller_end_and_map_reset_are_gaps_not_hides(self):
+        self.entry(r"""
+begin_actor(K);R.selected=A;R.visible=true
+R.cb.tick();R.cb.tick()
+assert(has("CORRELATED"))
+finish_actor(K);R.cb.tick()
+assert(has("CONTROLLER_END") and R.controller_resolves==2)
+begin_actor(K);R.cb.tick()
+assert(R.controller_resolves==3)
+R.cb.map();R.cb.tick()
+assert(has("CONTROLLER_RESET") and R.controller_resolves==3)
+assert(R.writes==0)
+""")
+
+    def test_entrypoint_changed_cached_controller_identity_fails_closed(self):
+        self.entry(r"""
+begin_actor(K)
+K.addr=K.addr+1
+R.cb.tick()
+assert(R.cancelled and has("identity mismatch") and R.writes==0)
+""")
+
     def test_entrypoint_rejects_component_identity_change(self):
         self.entry(r"""
 C.GetOwner=function()return nil end
-R.selected=A;R.cb.tick()
+begin_actor(K);R.selected=A;R.cb.tick()
 assert(R.cancelled and has("ownership/class mismatch"))
 assert(R.writes==0)
 """)

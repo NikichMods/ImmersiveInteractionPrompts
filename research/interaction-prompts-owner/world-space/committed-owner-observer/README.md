@@ -3,6 +3,47 @@
 **SOURCE ONLY / NOT INSTALLED / NO RUNTIME CORRELATION YET /
 NO PRODUCTION OWNER READER / NO GAME CHANGES.**
 
+## Candidate controller acquisition without global enumeration — source-only, 2026-11-07
+
+The earlier `fdee186` installation is correctly **BLOCKED** by the preflight
+below. The revised research source replaces the installed
+`UEHelpers.GetPlayerController()` call, and with it
+`FindAllOf("PlayerController") / FindAllOf("Controller")`, with an
+**event-captured identity**:
+
+1. A global `RegisterBeginPlayPostHook` callback observes ordinary actor
+   lifecycle (already exercised for IIP Open/Take/Check), but **does not
+   enumerate the object array**. It only considers actors whose ancestry
+   reaches `/Script/Engine.PlayerController`, then checks the existing
+   reflected `IsLocalPlayerController()` used by pinned UEHelpers.
+2. Only the observed controller's **path, class, and address** are retained;
+   no borrowed UObject wrapper survives the event callback. In the game-thread
+   sample, a `StaticFindObject(exact_path)` re-resolution must still match
+   all three fields and be native-valid/local. This is an exact identity
+   lookup, **not** `FindAllOf`, class enumeration, or a search for a new
+   controller. Then the unchanged pawn→PlayerActionComponent→+0x410
+   weak-property read runs.
+3. `RegisterEndPlayPreHook` and `RegisterLoadMapPreHook` invalidate the
+   captured identity; failures stop or yield `GAP`, never fabricated
+   hide-to-null. Two simultaneously observed different local controllers
+   fail closed. Native TipHUD remains visible.
+
+**Remaining uncertainty:** whether controller `BeginPlayPost` is delivered
+after this Lua observer registers during the user's natural saved-game load.
+If the controller pre-exists, `CONTROLLER_PENDING` remains with no
+`CONTROLLER_ACQUIRED`, and the observer collects **zero** selected-owner
+evidence; it does not bypass this with a scan. Presence of the reflected
+`IsLocalPlayerController` on that actual controller is also subject to
+native integration testing. Per-actor callback and exact-lookup costs
+are not measured. This is a source-only candidate, **not** a tested installed
+replacement or a change to the authorization boundary.
+
+New offline tests explicitly deny `FindAllOf`, check no-capture behavior,
+unrelated/nonlocal actors, acquisition, EndPlay, map reset, stale identity,
+and the original selected owner/TipHUD correlation. Existing installation
+permission referred to the **earlier exact** candidate: the revised bytes
+require a new closed-host installation authorization after source/CI review.
+
 ## Local deployment preflight — 2026-11-07
 
 **BLOCKED by the no-full-object-scan constraint.** Game was closed.
@@ -57,10 +98,11 @@ Copy these **four files together** under the Scripts directory of a
 separate, research-only UE4SS mod, but **only after separate installation
 authorization and closed-host preflight**:
 
-- `Scripts/main.lua` — exact reflected component and weak property
-  registration; retrieves the local player's current pawn through pinned
-  `UEHelpers.GetPlayerController`, checks native object validity and
-  component ownership; one `GetComponentByClass` + weak `Get` per tick.
+- `Scripts/main.lua` — exact reflected component/weak-property registration;
+  obtains the local controller **only** from natural `BeginPlayPost`, stores
+  primitive identity, re-resolves that one exact controller per frame, checks
+  native validity and component ownership; one `GetComponentByClass` + weak
+  `Get` per ready tick.
 - `Scripts/IIPSelectedOwnerObserver.lua` — state machine for actual
   committed-owner transitions; never determines a winner from spatial
   geometry, CanShow, visibility or heuristic target ranking.
@@ -69,9 +111,10 @@ authorization and closed-host preflight**:
 - `Scripts/IIPOpenVisibility.lua` — byte-identical copy of the previously
   tested native screen visibility reader.
 
-The entrypoint additionally depends on **the existing external UEHelpers**,
-whose pinned `GetPlayerController()` implementation chooses a local player
-controller. It must not install a second UEHelpers or force-load host assets.
+The revised entrypoint does **not call UEHelpers**. It uses the same reflected
+`IsLocalPlayerController()` method visible in the installed UEHelpers
+source. The existing external dependency is untouched; no extra helper or
+host assets are installed/force-loaded.
 
 Custom property `IIPResearchCommittedTipOwner_83330635` belongs only to
 `/Script/Genesis.PlayerActionComponent`, offset `0x410`, weak size 8.
@@ -85,8 +128,9 @@ and the UE4SS DLL identity must match
 
 ### Observation boundaries
 
-- The game-thread observer performs one selected-owner read per frame.
-  No all-interactables enumeration, global `ProcessEvent`, synthetic
+- The game-thread observer performs one selected-owner read per frame **only
+  after a local controller has been observed in BeginPlayPost**. No global
+  `FindAllOf` call, all-interactables enumeration, global `ProcessEvent`, synthetic
   interaction, hook on native show/hide or UMG mutation.
 - On a selected-owner change it samples **only** previously selected
   and newly selected *supported* Open/Take/Check owners, using independent

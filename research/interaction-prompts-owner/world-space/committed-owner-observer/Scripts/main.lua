@@ -4,9 +4,9 @@
 local Source=require("IIPInteractionSource")
 local Visibility=require("IIPOpenVisibility")
 local Observer=require("IIPSelectedOwnerObserver")
-local UEHelpers=require("UEHelpers")
 local COMPONENT="/Script/Genesis.PlayerActionComponent"
 local GENESIS="/Script/Genesis.GenesisCharacter"
+local PLAYER_CONTROLLER="/Script/Engine.PlayerController"
 local PROPERTY="IIPResearchCommittedTipOwner_83330635"
 local function log(event,fields)
     print("IIP_SELECTED_OWNER event="..event.." "..(fields or "").."\n")
@@ -40,12 +40,11 @@ end
 local function main()
     for _,name in ipairs({"StaticFindObject","RegisterCustomProperty",
             "LoopInGameThreadAfterFrames","CancelDelayedAction",
-            "RegisterLoadMapPreHook"}) do
+            "RegisterLoadMapPreHook","RegisterBeginPlayPostHook",
+            "RegisterEndPlayPreHook"}) do
         assert(type(_G[name])=="function","missing UE4SS API "..name)
     end
     assert(EngineTickAvailable==true,"EngineTick unavailable")
-    assert(type(UEHelpers.GetPlayerController)=="function",
-        "UEHelpers.GetPlayerController unavailable")
     assert(type(PropertyTypes)=="table" and
         type(PropertyTypes.WeakObjectProperty)=="table",
         "WeakObjectProperty type metadata missing")
@@ -66,13 +65,84 @@ local function main()
         Name=PROPERTY,Type=PropertyTypes.WeakObjectProperty,
         BelongsToClass=COMPONENT,OffsetInternal=0x410
     })
-    local controller=nil
-    local function read()
-        if not alive(controller) then
-            controller=UEHelpers.GetPlayerController()
+    -- BeginPlayPost is already an accepted narrow actor-lifecycle seam in
+    -- this project. Cache ONLY identity primitives from an observed local
+    -- PlayerController, never a borrowed UObject wrapper across ticks.
+    -- A controller that existed before registration is not discovered.
+    local controller_id=nil
+    local observer=nil
+    local function context_active()
+        return not observer or observer.status().active
+    end
+    local function controller_hook_error(where,err)
+        controller_id=nil
+        log("CONTROLLER_HOOK_ERROR","where="..where..
+            " reason="..tostring(err):sub(1,130))
+        if observer then observer.stop("controller_"..where..":"..tostring(err)) end
+    end
+    local function on_controller_begin(arg)
+        if not context_active() then return end
+        local ok,err=pcall(function()
+            assert(arg and type(arg.get)=="function","missing BeginPlay actor argument")
+            local candidate=arg:get()
+            if not alive(candidate) or not inherited(candidate,PLAYER_CONTROLLER) then
+                return
+            end
+            if candidate:IsLocalPlayerController()~=true then return end
+            local identity={path=pathname(candidate),class=cls(candidate),
+                address=candidate:GetAddress()}
+            if controller_id then
+                assert(controller_id.path==identity.path and
+                    controller_id.class==identity.class and
+                    controller_id.address==identity.address,
+                    "multiple local PlayerControllers without EndPlay")
+                return
+            end
+            controller_id=identity
+            log("CONTROLLER_ACQUIRED","source=BeginPlayPost local=true"..
+                " no_global_scan=true")
+        end)
+        if not ok then controller_hook_error("BeginPlayPost",err) end
+    end
+    local function on_controller_end(arg)
+        if not context_active() or not controller_id then return end
+        local ok,err=pcall(function()
+            assert(arg and type(arg.get)=="function","missing EndPlay actor argument")
+            local candidate=arg:get()
+            if valid(candidate) and pathname(candidate)==controller_id.path
+                and cls(candidate)==controller_id.class
+                and candidate:GetAddress()==controller_id.address then
+                controller_id=nil
+                log("CONTROLLER_END","source=EndPlayPre no_hide_proof=true")
+            end
+        end)
+        if not ok then controller_hook_error("EndPlayPre",err) end
+    end
+    local function resolve_controller()
+        if not controller_id then return nil end
+        -- Exact lookup, not UEHelpers.FindAllOf or any class/global sweep.
+        local candidate=StaticFindObject(controller_id.path)
+        if not alive(candidate) then
+            controller_id=nil
+            log("CONTROLLER_LOST","reason=exact_lookup_unavailable")
+            return nil
         end
-        if not alive(controller) then
-            return {status="GAP",reason="no_local_player_controller"}
+        assert(inherited(candidate,PLAYER_CONTROLLER) and
+            pathname(candidate)==controller_id.path and
+            cls(candidate)==controller_id.class and
+            candidate:GetAddress()==controller_id.address,
+            "cached PlayerController identity mismatch")
+        if candidate:IsLocalPlayerController()~=true then
+            controller_id=nil
+            log("CONTROLLER_LOST","reason=no_longer_local")
+            return nil
+        end
+        return candidate
+    end
+    local function read()
+        local controller=resolve_controller()
+        if not controller then
+            return {status="GAP",reason="no_captured_local_controller"}
         end
         local pawn=controller.Pawn
         if not alive(pawn) then return {status="GAP",reason="no_player_pawn"} end
@@ -101,10 +171,11 @@ local function main()
         end
         return result
     end
-    local callback=Observer.start({
+    observer=Observer.start({
         read=read,map_pre=function(fn)
             RegisterLoadMapPreHook(function(...)
-                controller=nil
+                controller_id=nil
+                log("CONTROLLER_RESET","source=LoadMapPre no_hide_proof=true")
                 return fn(...)
             end)
         end,
@@ -112,8 +183,12 @@ local function main()
         native_alive=alive,
         hint_visible=function(w)return Visibility.visible(w,alive)end
     },Source,log)
-    assert(callback and type(callback.stop)=="function",
+    assert(observer and type(observer.stop)=="function",
         "observer initialization failed")
+    RegisterBeginPlayPostHook(on_controller_begin)
+    RegisterEndPlayPreHook(on_controller_end)
+    log("CONTROLLER_PENDING","beginplay_capture_required=true"..
+        " preexisting_controller_coverage=unknown no_global_scan=true")
 end
 local ok,err=pcall(main)
 if not ok then log("UNAVAILABLE",tostring(err):sub(1,190)..

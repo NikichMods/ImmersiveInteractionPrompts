@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+## Committed owner observer — scan-free controller candidate, source-only (2026-11-07)
+
+The `fdee186` installation remains blocked and **no game files were changed**.
+The successor replaces global `UEHelpers.GetPlayerController()`/`FindAllOf`
+with natural `PlayerController` `BeginPlayPost` capture, exact path/identity
+re-resolution and EndPlay/map invalidation. No actor-array enumeration or
+heuristic selection; if the event is missed, observation remains `GAP`.
+Native controller event delivery, exact lookup cost and owner correlation
+remain **UNKNOWN**. Offline checks and a **separate approval for revised
+source installation** are required.
+[Revised source boundary](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#candidate-controller-acquisition-without-global-enumeration--source-only-2026-11-07).
+
 ## Committed owner observer — установка заблокирована (2026-11-07)
 
 Четыре Lua-файла `fdee186ac6b064c1dce50d09eccc550cb0ed34cc`, CI и хэши

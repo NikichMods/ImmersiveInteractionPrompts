@@ -1,5 +1,17 @@
 # План исследования — contextual prompts и письменность
 
+## Committed owner — событие контроллера вместо глобального поиска (2026-11-07)
+
+Сохранить блокировку старого `fdee186`: `UEHelpers.GetPlayerController`
+сканирует все объекты. Новый source-only кандидат получает local controller
+из native `BeginPlayPost`, хранит только идентификатор и проверяет точный
+`StaticFindObject` при чтении `PlayerActionComponent+0x410`.
+Следующее действие — исходники/CI, затем **отдельное разрешение** на установку
+нового SHA при закрытой игре. Если controller BeginPlay не наблюдается,
+результат — `GAP` и остановка этого направления; не заменять поиск
+глобальным `FindAllOf`.
+[Причина и ограничения](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md).
+
 ## Selected owner — read-only корреляционный наблюдатель подготовлен (2026-11-07)
 
 Следующее доказательство — офлайн-тесты и CI по отдельной исследовательской
