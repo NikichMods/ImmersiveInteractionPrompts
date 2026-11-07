@@ -57,15 +57,23 @@ Genesis.log SHA-256
 Raw logs stay in ignored local storage.
 [Canonical runtime summary](../../../../docs/VERIFIED_RUNTIME.md#selected-owner-world--bounded-runtime-2026-11-07).
 
-**Next sufficient step:** source-only audit and design for a safe,
-deterministic own-component retirement at controller/map/host shutdown,
-with a minimal test of the exact game-thread boundary and fail-closed
-behavior. Preserve event callback non-mutation; distinguish
-missing observation from incomplete native cleanup. Do not broaden to
-global scans or another full World redesign. Separately define the
-minimum user-facing visual/performance acceptance for a later run and
-the independent native Screen-render suppression gate. Installation and
-any native cleanup-behavior changes require their own review/permission.
+**Revised priority (2026-11-07):** last hidden lease without a
+`CLEANED/RELEASED` log on ordinary process shutdown is a **low-priority
+unverified teardown observation, not a standalone production blocker**.
+No next engine Tick is guaranteed after EndPlay even on a normal exit,
+and the OS reclaims process-owned resources. This alone is not proof
+of a persistent in-game leak; do not add native destruction in EndPlay
+just for a terminal acknowledgement. Preserve the raw observation.
+
+**Next sufficient step:** assess real visual responsiveness, frame-time
+and direct A→B / live map lifecycle as safely available; reuse the
+33 verified normal NONE handoffs instead of restaging them. Escalate
+lifecycle work only on a live-session leak, duplicate own component,
+failed live map/owner handoff or equivalent new evidence. Independently
+investigate suppression of **only the stock TipHUD rendering**, without
+changing native owner selection, text, hints, gameplay or visibility
+state. A new installation or host mutation still requires separate
+authorization. No full World redesign or global scans.
 
 ## Mechanism and boundaries
 
