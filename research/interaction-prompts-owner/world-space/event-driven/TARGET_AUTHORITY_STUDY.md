@@ -1,5 +1,88 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Selected prompt owner read seam — remote source-only audit, 2026-11-07
+
+**NO VERIFIED CHEAP LUA READER / ONE BOUNDED LOCAL STATIC CHECK / NO RUNTIME ACTION.**
+
+This pass reuses the exact Steam 1.09/build 12996889 native trace and
+the previous bounded Genesis reflection inventory; it inspects the **pinned**
+UE4SS source revision `83330635` through GitHub, not a later API version.
+It does **not** inspect new local-only game binaries/SDK, make a Lua probe,
+install anything, run the game, or claim World target authority.
+
+### Established and missing edges
+
+- In the proved character-side update `0x11E39C0`, the active prompt-owner
+  weak-reference pair is at **interaction state +0x410** and the proposed
+  owner is at **state +0x418**. The update compares them, hides the old valid
+  actor, commits the proposed pair and shows the new valid actor. The
+  character's **+0x560** field is used to obtain the separate state pointer
+  in the earlier native getter trace. These are **not** offsets to be
+  conflated: `character + 0x410` is not the verified owner field.
+- The prior 568-header / 2,618-property and 33-package / 201-member
+  inventory established **no reflected accessor linked to this committed
+  owner pair**. That bounded corpus cannot disprove a native-only bridge.
+  `GameGlobal:GetActionTarget(GenesisCharacter*) -> AActor*` and
+  `SetActionTarget(GenesisCharacter*, AActor*)` are the most relevant
+  reflected getter/setter by shape; their native bodies, writers and
+  relation to `state+0x410` were **not traced**. Do not mistake the word
+  `Target` for selection authority.
+- Pinned UE4SS `UObject` Lua member reads resolve an existing custom
+  property or `UClass::FindProperty`; `GetPropertyValue` uses the same
+  member access. `RegisterCustomProperty` **does exist** in this exact
+  revision, but registers a property on a concrete `BelongsToClass`
+  using an absolute `OffsetInternal` or an offset relative to another
+  *reflected property on that class*. It is not a demonstrated generic
+  read-memory API or a dereference-a-pointer-then-read-offset facility.
+  [Pinned Lua UObject implementation](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/include/LuaType/LuaUObject.hpp),
+  [pinned registration implementation](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp),
+  [pinned API contract](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/docs/lua-api/global-functions/registercustomproperty.md).
+- Thus **`state+0x410` by itself is not a usable Lua property**. Whether
+  state is a reflected UObject/UStruct reachable through a reflected
+  character member, and whether a weak-object property can be accessed
+  with valid lifetime/index/serial semantics, remain unknown. Do not
+  register `character+0x410` as a fake property or blindly expose
+  `character+0x560` as a UObject pointer. Native weak resolution in
+  the earlier trace verifies a C++ path, not an exposed Lua reader.
+- The separately tested exact base-class `ShowTipEvent` hook registered
+  but delivered **zero callbacks** during its 2026-11-07 user run. That
+  does not make an alternative raw-memory reader safe or prove game
+  events absent. [Exact run](../show-tip-event-observer/README.md#runtime-result--2026-11-07).
+
+### One necessary local static discriminator (not permission to install)
+
+Use **only the already retained** verified host binary/UHT/private
+exports with local user-started Codex, no game launch or injection:
+
+1. Resolve the **native** implementation of
+   `GameGlobal:GetActionTarget` and its paired setter from their exact
+   reflected exec thunks. Trace character argument, state pointer,
+   actual read/write offsets, whether the getter has side effects, and
+   whether they coincide with **committed `state+0x410`** rather than
+   candidate `+0x418` or unrelated gameplay target state.
+2. At the proven `+0x560 -> state` edge, establish the type and lifetime:
+   UObject/reflected struct or native-only allocation; any concrete
+   exposed reflected property/UFunction and safe weak-reference resolver.
+   An existing getter counts only if its **native body** proves it reads
+   the currently committed prompt winner **before input**, including
+   hide-to-null / A-to-B lifecycle. No calls or simulated writes.
+3. If one exact O(1), read-only, lifetime-safe **UE4SS 83330635** route
+   exists, report class/function/property and pointer/weak semantics,
+   precise native RVA chain, provenance and still-unproved runtime
+   behavior. A later separately authorized natural runtime correlation
+   would remain necessary. Otherwise stop with the **last reached edge**
+   and mark World selected-owner fast path **unavailable in established
+   interfaces**; do not build a speculative offset reader, native DLL,
+   all-owner scanner or broad `ProcessEvent` hook.
+
+**Architecture checkpoint:** absent a proved safe cheap seam, prefer
+source-design work on native-owned **Screen S1** (reuse one `TipHUD` with
+the native localized action/hint and own upper line/divider). S1 avoids
+a separate target synchronizer but **changes depth occlusion** and
+requires explicit visual/product approval. World remains conditional,
+not accepted; native-only visual suppression, real latency, GPU/CPU
+frame-time and repeated resource lifetime remain independent blockers.
+
 ## Native TipHUD show and hide — 2026-11-07
 
 **Result A, static.** One character-side update commits a single prompt
