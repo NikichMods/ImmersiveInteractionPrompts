@@ -7,9 +7,12 @@ The successor replaces global `UEHelpers.GetPlayerController()`/`FindAllOf`
 with natural `PlayerController` `BeginPlayPost` capture, exact path/identity
 re-resolution and EndPlay/map invalidation. No actor-array enumeration or
 heuristic selection; if the event is missed, observation remains `GAP`.
+Exact source/tests: [`df238c7`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/df238c7b30f666d13669bc5e31970fa2a0d0288a);
+[CI 42372741024](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42372741024)
+**515/515 PASS across 47 files (16 selected-owner tests)**.
 Native controller event delivery, exact lookup cost and owner correlation
-remain **UNKNOWN**. Offline checks and a **separate approval for revised
-source installation** are required.
+remain **UNKNOWN**. A **separate approval for revised source installation**
+is still required.
 [Revised source boundary](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#candidate-controller-acquisition-without-global-enumeration--source-only-2026-11-07).
 
 ## Committed owner observer — установка заблокирована (2026-11-07)
