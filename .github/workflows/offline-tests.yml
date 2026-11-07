@@ -12,6 +12,7 @@ on:
       - research/auto-world-residency-latency
       - research/event-correlation-probe
       - research/show-tip-event-observer-01
+      - research/committed-owner-correlation-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
@@ -22,6 +23,7 @@ on:
       - 'research/interaction-prompts-owner/world-space/auto-world-successor/**'
       - 'research/interaction-prompts-owner/world-space/event-driven/**'
       - 'research/interaction-prompts-owner/world-space/show-tip-event-observer/**'
+      - 'research/interaction-prompts-owner/world-space/committed-owner-observer/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 

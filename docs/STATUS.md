@@ -1,5 +1,18 @@
 # Статус Immersive Interaction Prompts
 
+## Committed owner +0x410 — read-only observer source (2026-11-07)
+
+Separate research-only `committed-owner-observer` now reads the
+build-pinned `PlayerActionComponent` weak pair through exact reflected
+component lookup and UE4SS custom `WeakObjectProperty`, and correlates
+only selected Open/Take/Check transitions with independent stock TipHUD
+readback. The observer and offline mocks are **source-only**: not installed
+or run in the game; runtime owner correctness, native show/hide timing,
+lifecycle, CPU cost and production acceptance remain **UNKNOWN/BLOCKED**.
+Before deployment, complete source/CI checks and obtain separate user
+approval for closed-host installation and rollback.
+[Exact recipe and limits](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md).
+
 ## Selected owner +0x410 — локальная статическая проверка (2026-11-07)
 
 `GetActionTarget` читает отдельную weak-ссылку. Штатный поиск компонента
