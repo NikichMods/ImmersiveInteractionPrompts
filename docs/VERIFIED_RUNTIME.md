@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## TipHUD input brush — bounded Open result, 2026-11-08
+
+On source `5bba7b19748348a5d220f7a38093dd78765dfeb5`, one Open
+produced nine observed device/Texture2D transitions in one accepted
+window. The user saw correct keyboard/gamepad glyph changes. The Retainer
+MID and RT retained identity in that window. The first request was
+refused. Hold was false and scalar t read zero throughout. Remap,
+independent rendering and behavior at root alpha zero remain unverified.
+CompactLayoutProbe was restored after exit.
+[Evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-c--2026-11-08).
+
 ## TipHUD root tint — bounded Open result, 2026-11-07
 
 On source `4fa34935f33f55c186f704d8a5c09ca460bf1f24`, two tint windows
