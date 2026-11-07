@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Committed owner observer — установка заблокирована (2026-11-07)
+
+Четыре Lua-файла `fdee186ac6b064c1dce50d09eccc550cb0ed34cc`, CI и хэши
+игры/UE4SS сверены. Установленный `UEHelpers.GetPlayerController()` выполняет
+глобальный `FindAllOf`, что нарушает ограничение прогона. Установку остановили
+до переключения маркеров. CompactLayoutProbe остаётся активным.
+[Проверка зависимости](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#local-deployment-preflight--2026-11-07).
+
 ## Committed owner +0x410 — read-only observer source (2026-11-07)
 
 Separate research-only `committed-owner-observer` now reads the

@@ -3,6 +3,33 @@
 **SOURCE ONLY / NOT INSTALLED / NO RUNTIME CORRELATION YET /
 NO PRODUCTION OWNER READER / NO GAME CHANGES.**
 
+## Local deployment preflight — 2026-11-07
+
+**BLOCKED by the no-full-object-scan constraint.** Game was closed.
+Steam shipping executable and UE4SS DLL matched the hashes below.
+The four worktree Lua files matched Git blobs from the authorized commit
+`fdee186ac6b064c1dce50d09eccc550cb0ed34cc`. GitHub confirmed success for
+[run 42323045068](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42323045068)
+at `0c5ff3c7eb0a0b5ffa610af9aac29cdb0e88bb08`; the two commits differ
+only in status documentation.
+
+The installed external UEHelpers, SHA-256
+`7476f02eef0c87bfeab169f2ffe2e704363faeaae4bf9f1bda574b1e34f4a0e9`,
+implements `GetPlayerController()` via `FindAllOf("PlayerController")`
+with a fallback to `FindAllOf("Controller")`. The
+[pinned UE4SS API](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/docs/lua-api/global-functions/findallof.md)
+documents a complete pass over the global object array per call.
+`main.lua` retries controller acquisition on each sampled frame while the
+cached controller is invalid and resets it on map pre. The selected-owner
+lookup itself is scoped to a pawn component, but its controller acquisition
+dependency can perform repeated global scans. Offline mocks do not exercise
+the installed helper's implementation.
+
+No game or loader files were written. CompactLayoutProbe remains the sole
+active IIP mod. No new rollback snapshot was required. Deployment requires
+a separately authorized candidate or an explicit exception for this
+controller acquisition behavior.
+
 ## Question and source contract
 
 The [local native trace](../event-driven/TARGET_AUTHORITY_STUDY.md#selected-owner-read-seam--local-native-trace-2026-11-07)
