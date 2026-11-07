@@ -40,9 +40,13 @@ replacement or a change to the authorization boundary.
 
 New offline tests explicitly deny `FindAllOf`, check no-capture behavior,
 unrelated/nonlocal actors, acquisition, EndPlay, map reset, stale identity,
-and the original selected owner/TipHUD correlation. Existing installation
-permission referred to the **earlier exact** candidate: the revised bytes
-require a new closed-host installation authorization after source/CI review.
+and the original selected owner/TipHUD correlation.
+**Exact source/test commit:** [`df238c7`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/df238c7b30f666d13669bc5e31970fa2a0d0288a).
+[GitHub Actions 42372741024](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42372741024):
+**515/515 offline tests PASS, 47 files, 16 selected-owner tests**. No game
+install/run or runtime callback evidence. Existing installation permission
+referred to the **earlier exact** candidate: the revised bytes require a new
+closed-host installation authorization.
 
 ## Local deployment preflight — 2026-11-07
 
