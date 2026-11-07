@@ -1,5 +1,12 @@
 # Статус Immersive Interaction Prompts
 
+## Committed owner observer — установлен, игровой прогон ожидается (2026-11-07)
+
+Установлена разрешённая ревизия `e240150161ecc6dea2d87cc35636842015bdaaed`.
+Четыре Lua сверены, единственный активный IIP-мод — CommittedOwnerObserver.
+CompactLayoutProbe временно отключён маркером, точный откат подготовлен.
+[Хэши и границы](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#verified-installation--2026-11-07).
+
 ## Committed owner observer — scan-free controller candidate, source-only (2026-11-07)
 
 The `fdee186` installation remains blocked and **no game files were changed**.

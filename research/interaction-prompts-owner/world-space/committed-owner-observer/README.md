@@ -1,7 +1,31 @@
 # Committed owner +0x410 — read-only runtime correlation candidate
 
-**SOURCE ONLY / NOT INSTALLED / NO RUNTIME CORRELATION YET /
-NO PRODUCTION OWNER READER / NO GAME CHANGES.**
+**INSTALLED / RUNTIME CORRELATION PENDING / NO PRODUCTION OWNER READER.**
+
+## Verified installation — 2026-11-07
+
+Authorized source `e240150161ecc6dea2d87cc35636842015bdaaed` installed with
+the host closed. Steam build 12996889, shipping executable and UE4SS
+83330635 DLL matched the pinned identities below. GitHub confirmed success
+for [CI 42372741024](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42372741024)
+(515 tests) at `df238c7b30f666d13669bc5e31970fa2a0d0288a`. Only documentation
+differs from the authorized revision. Controller acquisition uses lifecycle
+callbacks and exact identity lookup, with no global object enumeration.
+
+| Installed Lua | SHA-256 |
+| --- | --- |
+| `IIPInteractionSource.lua` | `39f7da52a1297937c3866d9a55d2ff73639a5a45eed2fdb5c9bfe3903cf5850c` |
+| `IIPOpenVisibility.lua` | `c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806` |
+| `IIPSelectedOwnerObserver.lua` | `17173ec87c80814cf91495a296a8e65c6e5c0cce9b64531ca408d9052a8b2c6d` |
+| `main.lua` | `5833474fa1fd86b213afc597add33d7b82be7c5a138c900804a567fc8b3a76e8` |
+
+Only `ImmersiveInteractionPromptsCommittedOwnerObserver` is active among IIP
+mods. The previous CompactLayoutProbe marker was removed after verifying its
+12-file rollback snapshot outside UE4SS. The other 240 checked existing
+files matched pre-install hashes. Closed-host rollback disables the new
+marker and restores the exact previous marker after verifying its payload.
+Controller capture, weak-property read, and native visibility correlation
+are pending the user-operated run.
 
 ## Candidate controller acquisition without global enumeration — source-only, 2026-11-07
 
