@@ -1,0 +1,136 @@
+--- a/Scripts/IIPHintSource.lua
++++ b/Scripts/IIPHintSource.lua
+@@ -29 +29,16 @@
+-local function source(w)
++local function white(c)
++ return c.R==1 and c.G==1 and c.B==1 and c.A==1
++end
++local function direct(s)
++ local b,child=s.brush,s.child
++ local t,m=child.RenderTransform,b.Margin
++ return child.bFlipForRightToLeftFlowDirection==false
++  and t.Translation.X==0 and t.Translation.Y==0 and t.Scale.X==1 and t.Scale.Y==1
++  and t.Shear.X==0 and t.Shear.Y==0 and t.Angle==0
++  and b.DrawAs==3 and b.Tiling==0 and b.Mirroring==0 and b.ImageType==0
++  and b.ImageSize.X==64 and b.ImageSize.Y==64 and b.UVRegion.bIsValid==0
++  and m.Left==0 and m.Top==0 and m.Right==0 and m.Bottom==0
++  and b.TintColor.ColorUseRule==0 and white(b.TintColor.SpecifiedColor)
++  and white(child.ColorAndOpacity)
++end
++local function source(w,action)
+@@ -66,0 +82,14 @@
++ local result={retainer=r,child=child,size=size,device=device,player=pc,retained=r.bRetainRender,
++  brush=child.Brush,phase=r.Phase,phases=r.PhaseCount,render_phase=r.RenderOnPhase,render_invalid=r.RenderOnInvalidation}
++ if action=="Open" and w.CanHoldPress==false and (device==1 or device==4)
++  and same(w.ImageInteractAllowed,child) and alive(w.CanvasPanel_2) and w.CanvasPanel_2.Visibility==1 then
++  local ok,supported=pcall(direct,result)
++  local tex=result.brush.ResourceObject
++  if ok and supported and alive(tex) and cls(tex)=="/Script/Engine.Texture2D" then
++   result.mode="direct_brush";result.resource=tex;result.texture=tex
++   -- The brush shape is fixed by the guard. Device and extent alone do not change its contents.
++   result.key="direct_brush|"..id(tex)
++   result.description="mode=direct_brush device="..device.." resource="..string.format("%q",id(tex))
++   return result
++  end
++ end
+@@ -72,2 +100,0 @@
+- local result={retainer=r,child=child,size=size,device=device,player=pc,retained=r.bRetainRender,
+-  brush=child.Brush,phase=r.Phase,phases=r.PhaseCount,render_phase=r.RenderOnPhase,render_invalid=r.RenderOnInvalidation}
+@@ -117,2 +144,2 @@
+-function M.preflight(w)
+- local s=source(w);log("PREFLIGHT",s.description.." original_read_only=true")
++function M.preflight(w,action)
++ local s=source(w,action);log("PREFLIGHT",s.description.." original_read_only=true")
+@@ -130 +157 @@
+-function M.start(w,image)
++function M.start(w,image,action)
+@@ -136 +163 @@
+-  frames=0,changes=0,stable=0,pending=nil,bound=nil,description="unbound"}
++  action=action,frames=0,changes=0,stable=0,pending=nil,bound=nil,description="unbound"}
+@@ -143 +170 @@
+- local ok,s=pcall(source,w)
++ local ok,s=pcall(source,w,st.action)
+@@ -147,0 +175 @@
++ st.direct=false
+@@ -152,0 +181,13 @@
++ if s.mode=="direct_brush" then
++  if st.bound~=s.key then
++   image:SetBrush(s.brush)
++   assert(image.Brush:GetStructAddress()~=s.brush:GetStructAddress(),"direct brush storage aliases source")
++   assert(same(image.Brush.ResourceObject,s.resource),"direct brush resource readback differs")
++   if not st.bound then image:SetVisibility(3)end
++   st.changes=st.changes+1
++   log("SOURCE_BOUND",s.description.." readonly_reference=true")
++  end
++  assert(same(image.Brush.ResourceObject,s.resource),"direct brush resource changed")
++  st.direct=true;st.pending=s.key;st.bound=s.key;st.description=s.description
++  return
++ end
+@@ -225,0 +267 @@
++function M.direct_ready()return M.ready() and state.direct==true end
+@@ -229 +271 @@
+- local s=source(w)
++ local s=source(w,state.action)
+@@ -239 +281 @@
+- local s=source(w)
++ local s=source(w,state.action)
+--- a/Scripts/IIPSelectedWorldSession.lua
++++ b/Scripts/IIPSelectedWorldSession.lua
+@@ -131,0 +132 @@
++        emit("SOURCE_READY","action="..record.action.." frame="..frame)
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -276,2 +276,3 @@
+- if s.presentation=="hidden"then
+-  host:SetVisibility(2);settings.dirty=true;s.presentation="warming"
++ local resuming=s.presentation=="hidden"
++ if resuming then
++  host:SetVisibility(2);s.presentation="warming"
+@@ -280 +281 @@
+- Composition.update(w)
++ Composition.update(w,resuming)
+@@ -381 +382 @@
+- Hint.preflight(w)
++ Hint.preflight(w,action)
+@@ -464,4 +464,0 @@
+- if state.presentation=="hidden" then
+-  local host=find(state.host);assert(alive(host),"own host unavailable")
+-  host:SetVisibility(2);state.presentation="warming";settings.dirty=true
+- end
+--- a/Scripts/IIPComposition.lua
++++ b/Scripts/IIPComposition.lua
+@@ -48 +48,4 @@
+- upper:SetFont(lower.Font);Resources.font(upper)
++ upper:SetFont(lower.Font)
++ log("FIRST_UI","phase=font edge=BEGIN")
++ Resources.font(upper)
++ log("FIRST_UI","phase=font edge=END")
+@@ -52,2 +55,5 @@
+- local divider=child(s,"Image","divider",name.."_Ornament");Resources.ornament(divider,w)
+- local hint=child(s,"Image","hint",name.."_Hint");Hint.start(w,hint)
++ local divider=child(s,"Image","divider",name.."_Ornament")
++ log("FIRST_UI","phase=ornament edge=BEGIN")
++ Resources.ornament(divider,w)
++ log("FIRST_UI","phase=ornament edge=END")
++ local hint=child(s,"Image","hint",name.."_Hint");Hint.start(w,hint,action)
+@@ -56 +62,4 @@
+- settings.dirty=true;M.update(w)
++ settings.dirty=true
++ log("FIRST_UI","phase=initial_update edge=BEGIN")
++ M.update(w)
++ log("FIRST_UI","phase=initial_update edge=END")
+@@ -84 +93 @@
+-function M.update(w)
++function M.update(w,resuming)
+@@ -90,0 +100,3 @@
++ -- A direct resume samples fresh brush, native text and extent below.
++ -- A retained resume keeps the previous forced-layout path.
++ if resuming and not Hint.direct_ready() then p.dirty=true end
+@@ -94 +106,6 @@
+- if not p.dirty and s.text==text and s.sizekey==sizekey then Hint.set_brightness(p.hint_brightness);return end
++ if not p.dirty and s.text==text and s.sizekey==sizekey then
++  Hint.set_brightness(p.hint_brightness)
++  if resuming then log("RESUME_LAYOUT","reused=true")end
++  return
++ end
++ if resuming then log("RESUME_LAYOUT","reused=false")end
