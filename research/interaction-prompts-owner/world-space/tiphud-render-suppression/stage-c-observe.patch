@@ -1,12 +1,11 @@
 --- a/Scripts/main.lua
 +++ b/Scripts/main.lua
-@@ -194,0 +195,11 @@
+@@ -194,0 +195,10 @@
 +    if registered then
 +        local ok,why=pcall(function()
 +            local hint=require("IIPHintSource")
-+            local mods={ModifierKey.CONTROL,ModifierKey.ALT}
-+            assert(type(Key.F10)=="number" and not IsKeyBindRegistered(Key.F10,mods),"Ctrl+Alt+F10 unavailable")
-+            RegisterKeyBind(Key.F10,mods,function()
++            assert(type(Key.F4)=="number" and not IsKeyBindRegistered(Key.F4),"F4 unavailable")
++            RegisterKeyBind(Key.F4,function()
 +                if observer.status().active then hint.observe_input() end
 +            end)
 +        end)
