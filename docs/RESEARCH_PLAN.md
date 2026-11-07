@@ -1,5 +1,76 @@
 # План исследования — contextual prompts и письменность
 
+## Selected-owner-driven World — следующий источниковый кандидат (2026-11-07)
+
+**Цель:** быстрый контекстный двухстрочный World prompt над выбранным
+игрой объектом без полного обхода 34–48 native owners, с native
+локализацией, input hint, неизменным взаимодействием и без заметной
+дополнительной нагрузки. Важнее реальная воспринимаемая задержка
+(ориентир существенно меньше 100 мс), а не сокращение интервала между
+двумя лог-записями.
+
+**Новое положительное доказательство:** read-only `e240150` получил
+local controller через `BeginPlayPost`, разрешил committed weak owner
+`PlayerActionComponent+0x410`, и в игровом прогоне
+[`4875f87`](../research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#runtime-result--2026-11-07)
+зафиксировал `NONE→Open→NONE→Take→NONE→Check→NONE`: все 6
+переходов совпали с native TipHUD на первом последующем кадре.
+Наличие прямого A→B, глобальная уникальность, фактический input→pixel
+latency и CPU/frame-time не доказаны. После прогона установленный
+`CompactLayoutProbe` восстановлен; текущий наблюдатель отключён.
+
+**Переоценка решений:**
+- Старый [AutoWorld](../research/interaction-prompts-owner/world-space/auto-world/README.md)
+  делал полные native snapshots по 34 владельцам и требовал два
+  последовательных подтверждения. Он показал Open/Check/Take и
+  безопасные `CLEANED→RELEASED`, но пользователь отверг задержку
+  0,531–1,568 с и четвёртый HOST-create дал `ABSENT_NULL`.
+- [Successor с выборкой каждые 3 кадра](../research/interaction-prompts-owner/world-space/auto-world-successor/README.md)
+  увеличивает частоту потенциально дорогостоящего обхода примерно
+  в 10 раз; его runtime-стоимость неизвестна. Теперь этот подход
+  **не предпочтителен как следующий эксперимент** и не должен быть
+  установлен только ради проверки скорости.
+- **Выбранный путь:** source-only owner-driven successor. Один
+  authoritative committed actor per game-thread sample, проверка
+  только выбранного и прежде привязанного native TipHUD; событие
+  `BeginPlayPost` используется лишь для controller acquisition.
+  Не добавлять глобальные `FindAllOf`, полные native surveys,
+  `CanShow`-эвристику или обязательные два полных снимка реестра.
+  При `GAP` не изображать `hide-to-NONE`.
+
+**Граница архитектуры следующего source-only этапа:** использовать
+подтверждённый read-only accessor + Source.acquire/snapshot вместе с
+действующим World renderer и принятыми 17 стилевыми параметрами.
+Отдельная game-thread сессия обрабатывает один текущий owner и одно
+previous own lease. Для нового owner допускается bind только после
+проверки `shown & ready` и после `hide→cleanup→empty proof→RELEASED`
+прежнего own host; без перекрывающихся компонентов или сохранения
+Lua UObject wrappers через кадры. Пока новый owner ждёт cleanup,
+его нужно заново сверять с текущим committed owner, а не использовать
+устаревший ticket. `NONE`, `GAP`, EndPlay, map-pre и ошибки
+native identity требуют fail-closed hide/release/STOP по действующим
+границам. Host-class `ABSENT_NULL` — реальный runtime блокер, не
+доказательство GC; можно отдельно проверить уже подготовленное
+одноразовое recovery exact class на чистой границе create,
+не расширяя кэширование/GC/rooting.
+
+**Доказательства и стоп-гейты:** сначала сделать отдельный research
+source-only код и тесты (включая прямой A→B, быстрый transient NONE,
+смену pawn/controller, stale actor, asset absence, map reset,
+cleanup failure, no UI writes, одну owner read/кадр, no enumeration,
+локализованный action/hint и отсутствие дублирующих own hosts). После
+CI отдельно запросить установку при закрытой игре, rollback и
+пользовательский прогон Open/Take/Check + повторный переход
+Take→Check, сравнение первых показов/повторных показов по
+time-to-World-visible и измерение реального frame-time влияния.
+Записи `age_frames=1` **не** заменяют ни input-to-pixel, ни
+производительность. Нативную Screen-подсказку в первом исследовании
+не скрывать. Без доказанного независимого безопасного способа
+подавления только её отрисовки production всё ещё BLOCKED.
+При повторной неустранимой высокой цене/задержке World
+снова сравнить с условным Screen S1, но не выбирать изменение
+depth-occlusion без пользователя.
+
 ## Committed owner — событие контроллера вместо глобального поиска (2026-11-07)
 
 Сохранить блокировку старого `fdee186`: `UEHelpers.GetPlayerController`
