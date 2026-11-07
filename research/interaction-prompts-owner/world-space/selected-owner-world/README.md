@@ -1,11 +1,71 @@
 # Selected-owner-driven World prompt — research candidate
 
-**SOURCE ONLY / NOT INSTALLED / RUNTIME AND PRODUCTION ACCEPTANCE PENDING.**
+**BOUNDED WORLD RUNTIME PASS / ROLLED BACK / VISUAL, PERFORMANCE AND PRODUCTION ACCEPTANCE PENDING.**
 
 Base `85531a66f84923772204a11a5bb9f6f2533e70c2`. Target Steam
 1.09/build 12996889, UE4.27 x64 and UE4SS 83330635. Verify the pinned
 shipping and DLL hashes in the [committed-owner observer protocol](../committed-owner-observer/README.md)
 before any separately authorized installation.
+
+## Bounded installed-game result — 2026-11-07
+
+**Observed research result: PASS for Open/Take/Check World display and
+normal NONE handoffs; not visual/performance/production acceptance.**
+The exact installed Lua source is
+[`2e167227e8b29c692fdd9157de06c5cf7ed4660f`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/2e167227e8b29c692fdd9157de06c5cf7ed4660f).
+The bounded runtime analysis was committed as
+[`66912dd`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/66912dd51fb93c089a81b7d2d5dd43f47cd6114a).
+The approved offline CI is
+[run 42375931783](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42375931783)
+(525 tests across 48 suites).
+
+- **37 SHOWN/HIDDEN episodes**: 34 new BOUND (Open 13, Take 6,
+  Check 15), and three same-owner RESUMED. All 33 owner changes in
+  this run went through `NONE`; each next creation followed confirmed
+  `COMPONENT_DESTROYED → CLEANED → RELEASED`. No observed overlapping
+  own World leases or recorded IIP runtime errors. Native original
+  TipHUD was not deliberately modified. The authored font/divider
+  imports succeeded for all 34 constructions.
+- Diagnostic **SELECTION → SHOWN** intervals: 57.51–67.96 ms when
+  creating (median 60.60 ms), 34.21–35.14 ms when reusing. Observed
+  NONE → HIDDEN was 0.30–1.56 ms. These are intervals between logger
+  milestones, **not** input-to-visible-pixel latency or a controlled
+  frame-time/FPS/CPU/GPU benchmark. They cannot on their own establish
+  the <100 ms perceived UX objective.
+- **Lifecycle gap:** after the final `HIDDEN` the native controller
+  `EndPlayPre` occurred, followed by a normal game exit, but there is
+  **no following `CLEANED/RELEASED` acknowledgement** for the last
+  hidden own component. In the current source, `on_controller_end`
+  calls `observer.invalidate` and cleanup is deferred to the next
+  game-thread `IIPSelectedWorldSession.step`. During shutdown that
+  next tick is **not guaranteed**. This explains why the expected
+  acknowledgement may be absent, but neither establishes a native
+  resource leak nor proves engine teardown cleanup. Do not repair by
+  blindly invoking native destruction from the EndPlay callback.
+- **Not exercised:** direct adjacent A→B, populated-map travel and
+  owned cleanup while the game continues, HOST recovery (the class
+  remained available), controlled performance measurement, independent
+  visual acceptance, and selective suppression of the duplicate stock
+  Screen rendering.
+
+After normal user exit, the observer was disabled and
+`CompactLayoutProbe` was restored; all 12 predecessor file hashes and
+the activation marker matched. UE4SS.log SHA-256
+`e7adc1a41c3b4a97f62906a90efef61ceb2038333976455b974978e18fe7dc54`;
+Genesis.log SHA-256
+`427b48544df9297cde98898656d504a05fac87f267ad2b196ba96c04b53eef0b`.
+Raw logs stay in ignored local storage.
+[Canonical runtime summary](../../../../docs/VERIFIED_RUNTIME.md#selected-owner-world--bounded-runtime-2026-11-07).
+
+**Next sufficient step:** source-only audit and design for a safe,
+deterministic own-component retirement at controller/map/host shutdown,
+with a minimal test of the exact game-thread boundary and fail-closed
+behavior. Preserve event callback non-mutation; distinguish
+missing observation from incomplete native cleanup. Do not broaden to
+global scans or another full World redesign. Separately define the
+minimum user-facing visual/performance acceptance for a later run and
+the independent native Screen-render suppression gate. Installation and
+any native cleanup-behavior changes require their own review/permission.
 
 ## Mechanism and boundaries
 
