@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Selected-owner World — исследовательский source-only кандидат (2026-11-07)
+
+Штатный committed owner теперь ведёт отдельный World-координатор.
+Снимки всех объектов и задержка на подтверждение полного реестра убраны.
+Сохранены World-композиция и штатный видимый TipHUD. Кандидат готовится
+к отдельному игровому гейту, runtime-показ и производительность UNKNOWN.
+[Исходники, манифест и границы](../research/interaction-prompts-owner/world-space/selected-owner-world/README.md).
+
 ## Выбранный владелец → быстрый World: следующий исследовательский этап (2026-11-07)
 
 Реальный прогон [`4875f87`](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/4875f87251e5abf2d1d59d7b636389139ccad593)

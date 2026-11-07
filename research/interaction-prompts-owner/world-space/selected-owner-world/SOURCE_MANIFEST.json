@@ -1,0 +1,28 @@
+{
+  "candidate": "selected-owner-world-01",
+  "status": "SOURCE_ONLY",
+  "base_commit": "85531a66f84923772204a11a5bb9f6f2533e70c2",
+  "runtime_acceptance": "PENDING",
+  "algorithm": "SHA-256",
+  "count": 13,
+  "files": {
+    "Scripts/IIPComposition.lua": "71acb4707758e1a2f95d74fc85d4e0bd2748dfce88cf38a1c1f64f37bea4305b",
+    "Scripts/IIPHintSource.lua": "c33e1d6bf9cf1d6c15966658de648ce90e7e161ff544561fe170547e6bceb475",
+    "Scripts/IIPInputAudit.lua": "46abbe3567f7308e832f3e168743352f9b93a9cc1e7ddea33e821f401044908d",
+    "Scripts/IIPInteractionSource.lua": "5ba48671e933ba4b26cd4eb84dbb2fdaa145d2711c1498c5ecfd2361f32223f3",
+    "Scripts/IIPKeyboardBindings.lua": "552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef",
+    "Scripts/IIPOpenVisibility.lua": "c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806",
+    "Scripts/IIPPanel.lua": "93ba57ebcf6462b616405bc3c79f03eb6a5934b021a3a23720a3536c0728226a",
+    "Scripts/IIPResources.lua": "c1a870f6ad21f724e72188914675d9743e84431050fb5a22a4e0f8f38567b814",
+    "Scripts/IIPSelectedWorldSession.lua": "b103b15f386c135fe6dfda668ac84d72ee4e1608f257dff29f3b1b13c6d0a43e",
+    "Scripts/IIPTuning.lua": "043e5e8c82dc055c788d895f749e1f95b23afdd329757ecef23216c9f4bcdc6a",
+    "Scripts/IIPWorldChild.lua": "e082bc80bc5bda0d1174facc72e9584da066e81c4f1be48af950094bb1e77950",
+    "Scripts/IIPWorldTarget.lua": "3473f580887a2d1e5f2292cdfb1474bec52960cba07ff72d898f1784841864b2",
+    "Scripts/main.lua": "2b9ecc99de70f15da0047c47fc8c163cd6d935e5cc511f3c71b4cbd5d81b3634"
+  },
+  "external": [
+    "IIPLiveConfig.lua",
+    "authorized Aphes font",
+    "authored divider PNG"
+  ]
+}

@@ -1,5 +1,12 @@
 # План исследования — contextual prompts и письменность
 
+## Selected-owner World — проверка интеграционного кандидата
+
+После офлайн-проверки точного кандидата следующий отдельный шаг —
+разрешённый игровой прогон Open/Take/Check со штатным TipHUD. Проверить
+отклик, возврат к владельцу и порядок RELEASED→BOUND; прямой A→B только
+если естественно доступен. [Протокол](../research/interaction-prompts-owner/world-space/selected-owner-world/README.md#next-sufficient-runtime-check).
+
 ## Selected-owner-driven World — следующий источниковый кандидат (2026-11-07)
 
 **Цель:** быстрый контекстный двухстрочный World prompt над выбранным
