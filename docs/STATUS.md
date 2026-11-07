@@ -1,6 +1,15 @@
 # Статус Immersive Interaction Prompts
 
-## ShowTipEvent — read-only observer source candidate (2026-11-07)
+## ShowTipEvent — установлен, игровой прогон ожидается (2026-11-07)
+
+Точный source `e4c8164093a7a8c5338e5bd30e6ec3a9debcd303` установлен при
+закрытой игре отдельным UE4SS-модом `ImmersiveInteractionPromptsShowTipEventObserver`.
+Все четыре Lua совпали по SHA-256. CompactLayoutProbe временно отключён
+снятием маркера. Снимок и откат проверены вне загрузчика. Доставка
+`ShowTipEvent` остаётся UNKNOWN до пользовательского запуска.
+[Установка и протокол](../research/interaction-prompts-owner/world-space/show-tip-event-observer/README.md#verified-installation--2026-11-07).
+
+## История: ShowTipEvent — read-only observer source candidate (2026-11-07)
 
 Подготовлен автономный research-only наблюдатель: точный Lua hook на
 `BaseGameEventObject:ShowTipEvent(bool)` после появления известного owner,

@@ -1,6 +1,29 @@
 # ShowTipEvent — read-only owner transition observer
 
-**Source-only; not installed; not a runtime pass.**
+**INSTALLED / RUNTIME PENDING.**
+
+## Verified installation — 2026-11-07
+
+User-authorized closed-host installation of source
+`e4c8164093a7a8c5338e5bd30e6ec3a9debcd303` on Steam 1.09/build 12996889
+and UE4SS 83330635. The only active IIP mod is
+`ImmersiveInteractionPromptsShowTipEventObserver` via `enabled.txt`.
+The previously active CompactLayoutProbe was disabled by its marker only.
+Its 12 recorded files, including the original marker, were verified in a
+rollback snapshot outside UE4SS. After switching, 227 existing files,
+including other mod files, settings and saves, matched their preflight hashes.
+
+| Installed Lua | SHA-256 |
+| --- | --- |
+| `IIPInteractionSource.lua` | `39f7da52a1297937c3866d9a55d2ff73639a5a45eed2fdb5c9bfe3903cf5850c` |
+| `IIPOpenVisibility.lua` | `c32fe59ba3d3e20e4619bc8e2c7c63e1eb05cd836e408429865709691d2f9806` |
+| `IIPShowTipEventObserver.lua` | `1a43b425bcb0a457edbd84b22122774f71283f1d55f44e55d275bc9cec285019` |
+| `main.lua` | `0768d0fe796983a53210207fbd7f40470624f8ec91763b960c8f70eb1c3485d1` |
+
+[CI 42317715437](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42317715437)
+and local checks report 499 passing offline tests. The local Windows run
+normalized path separators in one historical manifest assertion in memory.
+Game launch and hook delivery remain pending the user-operated trial.
 
 ## Purpose and provenance
 
@@ -50,13 +73,7 @@ bounded timeout, EndPlay/map reset, and inert stop. Existing independent
 offline/live results support the two copied adapters only in their tested
 scope. A source/CI pass does not establish delivery or visuals in game.
 
-**No installation, game launch/termination, mod activation, hot reload,
-settings/save edits or production change is authorized here.**
-
-For a later separately authorized local test: recover real worktree, verify
-the installed UE4SS and exact source identity, stop with game closed,
-preserve installed probe and rollback outside loader paths, install only
-this research observer, then let user start game normally and visit
+For the user-operated local test, start the game normally and visit
 Open → leave → Take → leave → Check → leave, ideally adjacent A→B.
 Leave stock TipHUD fully visible. Record exact logs, actor/bool sequence,
 callback delivery or its absence, and independent native visibility.
