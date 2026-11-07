@@ -1,5 +1,12 @@
 # Статус Immersive Interaction Prompts
 
+## Native show/hide — статическая цепочка найдена, 2026-11-07
+
+Штатный update сравнивает текущего владельца подсказки с новым, вызывает
+`ShowTipEvent(false/true)` на соответствующих объектах и напрямую вызывает
+`ExtendedWidgetComponent:SetShow`. Доставка actor-event в Lua неизвестна.
+[Цепочка и RVA](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-tiphud-show-and-hide--2026-11-07).
+
 ## Genesis interaction API inventory — 2026-11-07
 
 Инвентаризация отражённых объявлений и Blueprint-метаданных не выявила

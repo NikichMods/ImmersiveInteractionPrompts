@@ -1,5 +1,11 @@
 # План исследования — contextual prompts и письменность
 
+## Native show/hide — статический поиск завершён, 2026-11-07
+
+Найдена смена одного владельца в штатном update и точный actor-event.
+Если нужен World-путь, отдельно проверить доставку `ShowTipEvent(bool)`
+и соответствие последующей штатной видимости. [Доказательства и границы](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-tiphud-show-and-hide--2026-11-07).
+
 ## Current target authority — API inventory completed, 2026-11-07
 
 Следующая отдельная проверка, если нужна World-цель, — найти штатного

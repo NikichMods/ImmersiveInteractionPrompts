@@ -1,5 +1,46 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Native TipHUD show and hide — 2026-11-07
+
+**Result A, static.** One character-side update commits a single prompt
+owner and commands hide on the previous actor and show on the new actor.
+The same actor helper dispatches `ShowTipEvent(bool)` and directly calls
+`ExtendedWidgetComponent:SetShow`. This yields a candidate event seam
+without a mod-side owner sweep. Its delivery to Lua remains unverified.
+
+Steam 1.09/build 12996889, UE4.27 x64. The read-only PE/Capstone analysis
+checked shipping SHA-256
+`ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`
+and the prior UE4SS 83330635 DLL hash. All addresses below are RVAs.
+
+| Edge | Binary evidence |
+| --- | --- |
+| Reflection → native implementation | ASCII `SetShow` at `0x4389AE8`, name/exec pair at `0x4389F00`, exec `0x12530C0`. The exec unmarshals bool and two floats, then calls `0x10D9960` at `0x12531BB`. The implementation branches on DL at `0x10D9979`; false tails into hide helper `0x10D9640`, true reaches the component show helper `0x10D9A30` subject to its local guards. |
+| Actor → component and event | Actor helper `0x10A59F0` preserves the incoming bool, calls event wrapper `0x123E680`, then loads its component at actor `+0x320` and calls `0x10D9960` directly at `0x10A5A20` if present. UTF-16 `ShowTipEvent` at `0x4368E40` initializes the FName at `0x55503F8` through `0x691066`; `0x123E680` reads that name and dispatches the actor and bool through virtual slot `+0x220`. Thus this wrapper is the actual named event dispatch, distinct from the reflected function-construction helper `0x123E020`. |
+| Character update → one committed owner | Update `0x11E39C0`, called at `0x11DEA9E`, resolves proposed actor from state `+0x418` and compares it to the previous prompt-owner weak ref `+0x410` at `0x11E4585–0x11E45AA`. On change, it calls the actor helper with **false** for the old valid actor at `0x11E45CE`, copies the proposed weak ref at `0x11E45D9`, then calls with **true** for the new valid actor at `0x11E45FB`. Null proposal yields hide without a new show. The helper also has an execution-path hide caller at `0x11DD91A`. This proves one committed actor for this update path, without implying global exclusivity across other widgets or paths. |
+| Update and detector identification | Reflected `SetInteractDebugState` exec `0x1289590` calls `0x11128F0`, which tails into `0x1150B00` and writes character-state `+0x48C` through character `+0x560`. The update skips entirely for mode 1, skips detector `0x11DED50` for mode 2, and skips both transition commands for mode 3. This matches the earlier Blueprint debug labels for UpdateInteractAction, object detection, and component show/hide. |
+| Detection → proposal | Detector `0x11DED50` clears detection slots `+0x3F0/3F8/400/408`. One path iterates candidate components, compares an orientation score with a per-component threshold and keeps the better score at `0x11DF334–0x11DF34A`. It resolves the winning component's owner at `0x11DF370` and writes the actor weak ref into `+0x3F0` at `0x11DF3A6`. The update checks that actor and takes it into the proposed slot at `0x11E3B84` or `0x11E3C95` on the corresponding branches. The orientation helper uses vector normalization and dot-product arithmetic. Exact source of the facing vector, range thresholds for Open/Take/Check and every detection branch remain open. |
+
+The PE reference check scanned `.text` for relative E8/E9 targets and
+validated hits against decoded instructions in exception-directory ranges.
+It confirmed five direct calls to the SetShow body including the exec,
+and three direct callers of the actor helper. This does not enumerate
+indirect calls or prove every caller is an interaction caller.
+
+**World implication.** The actor and bool are present at `ShowTipEvent`
+dispatch, and the single committed prompt-owner slot is a distinct native
+state from Last/Doing. No reflected getter for the slot has been shown.
+The direct call bypasses the SetShow exec thunk on this path, consistent
+with the old zero-callback observation. Also, `ShowTipEvent` dispatch
+precedes the component command, so it indicates selection intent before
+the component gate, not confirmed visibility or pixels.
+
+**One remaining check, if separately authorized:** verify read-only delivery
+of the exact `ShowTipEvent` on natural Open/Take/Check transitions and match
+actor/bool order to the existing native visibility snapshots. This would
+establish whether UE4SS can consume the event seam in practice. No runtime
+hook or probe was prepared, and production use remains gated.
+
 ## Genesis reflected API inventory — 2026-11-07
 
 **No verified reflected source for the selected pre-input TipHUD owner.**
