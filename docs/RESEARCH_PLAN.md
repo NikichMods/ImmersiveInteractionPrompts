@@ -1,5 +1,15 @@
 # План исследования — contextual prompts и письменность
 
+## ShowTipEvent — source-only observer ready for offline checks (2026-11-07)
+
+Подготовлен узкий read-only observer кандидата на штатный actor-event с
+сопоставлением последующей native-видимости; не принимает INTENT за пиксели.
+Сначала пройти офлайн-тесты/CI. После них **отдельно разрешить** установку
+при закрытой игре и пользовательский естественный тест Open/Take/Check
+с исходным TipHUD видимым. Точная доставка BlueprintImplementableEvent
+через UE4SS 83330635 заранее не доказана.
+[Протокол и стоп-условия](../research/interaction-prompts-owner/world-space/show-tip-event-observer/README.md).
+
 ## Native show/hide — статический поиск завершён, 2026-11-07
 
 Найдена смена одного владельца в штатном update и точный actor-event.
