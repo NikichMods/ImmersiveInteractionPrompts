@@ -1,5 +1,47 @@
 # Verified Runtime — Interaction Prompts
 
+## First approach + fast World UI — three bounded modes, 2026-11-09
+
+Source candidate `7b2dbc4d0d33` (three modes), reporting commits
+`4ee71d6` (first_approach), `2247932` (fast_create) and
+`6a544996eba3f257c7ee188c0503c6848cd2898a` (first_and_fast).
+All observed on the same three exact allowlisted Open, Take and Check
+objects; **this is not generic all-world-object coverage**.
+
+- `first_approach`: early TipHUD `CanvasPanel_0` translation was
+  observed before the first selected appearance for all three.
+  First visible selected prompt was World on the recorded frames;
+  no stock Screen flash was observed. Selection-to-SHOWN logs:
+  Open 64.8 ms, Take 58.2 ms, Check 54.3 ms.
+- `fast_create`: first stock qualification retained to isolate
+  costs. `private_ui` decreased from about 40–43 ms to
+  10.8–10.9 ms; selection-to-SHOWN Open 33.3 ms, Take 25.4 ms,
+  Check 25.5 ms. Child construction uses UE4's `NAME_None`
+  naming and locally captured WidgetTree/root instead of four
+  negative name lookups. **New World components are still created
+  on each owner change**.
+- `first_and_fast`: World appeared first at all three exact
+  objects without stock flash in reviewed frames. Logs:
+  Open 33.9 ms (`private_ui` 11.2), Take 25.5 ms (10.9),
+  Check 24.3 ms (10.4). Same-owner Check reuse took
+  1.6–1.7 ms. F4 restored three native translations and
+  visible stock Screen, released own World, and stopped the
+  pump. One weak/partial World frame preceded readable pixels
+  on each target; earlier severe first-Open distortion did not
+  recur in this combined session.
+
+**Limits:** video PTS gives the occurrence of readable frames but no
+independent selection-to-first-pixel or engine frame-time measurement.
+Cause of weak first World frame is unproved. Direct A→B without NONE,
+device remapping, supported cases beyond these exact three paths,
+map/pawn lifecycle and production compatibility remain UNKNOWN.
+The combined candidate was disabled after the closed-host test;
+no other IIP was activated, per report. CI at reported HEAD
+`6a54499` passed offline tests. See
+[exact study](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#первый-подход-и-сокращённое-создание-world).
+Production gate **BLOCKED**.
+
+
 ## RenderTranslation coverage — three owners, 2026-11-08
 
 Source `911d5ea63a70532b00e76f2c4b47bc9035d062fc`. One Open, Check

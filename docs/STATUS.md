@@ -1,5 +1,25 @@
 # Статус Immersive Interaction Prompts
 
+## Three-mode runtime checkpoint — 2026-11-09
+
+The exact three-object `first_and_fast` mode proved in-game that
+early RenderTranslation and native `NAME_None` fast child construction
+can coexist: Open/Take/Check World was first; selection-to-SHOWN logs
+24–34 ms; `private_ui` ~10–11 ms; three F4 restorations passed.
+Each first World presentation still showed one weak/partial frame.
+This is **three allowlisted objects only**, not general first approach.
+The candidate was disabled after testing; no IIP active per report.
+[Canonical runtime evidence](VERIFIED_RUNTIME.md#first-approach--fast-world-ui--three-bounded-modes-2026-11-09).
+
+Next sufficient step: source-only investigation of the weak/partial first
+World frame and bounded expansion of first-approach eligibility, with
+separate direct-target handoff/remap and engine frame-time gates.
+Keep the simple fast construction path. Do not add a persistent
+pawn-owned World without evidence that the remaining 10–11 ms
+`private_ui` cost materially fails the UX or lifecycle demands it.
+No new installation or gameplay authorization is implied.
+
+
 Подготовлен source-only преемник `911d5ea` с раздельными режимами
 первого подхода и сокращённого создания дочерних виджетов. Первый
 режим ограничен тремя точными проверенными объектами. Постоянный

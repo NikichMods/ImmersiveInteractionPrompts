@@ -1,5 +1,46 @@
 # План исследования — contextual prompts и письменность
 
+## Next checkpoint after first_and_fast — 2026-11-09
+
+**Continue the combined engineering work, not three disjoint branches.**
+Keep `7b2dbc4` as immutable exact-build comparative source and
+`6a54499` as runtime evidence.
+
+1. **First-frame quality and frame cost.** Inspect the World
+   WidgetComponent/UMG first Slate prepass, initial render target,
+   masked material and first update sequence for why the video
+   contains one weak/partial frame before the readable World prompt.
+   Do not infer a cause from PTS or the Lua `SHOWN` log. Prefer
+   existing UE4.27 code/runtime evidence before a new probe. A new
+   instrumented runtime check must have a bounded cost and separate
+   authorization; actual frame times, not merely Lua wall-clock,
+   are needed before concluding the user's hitch was fixed.
+2. **All-world-object readiness without first stock qualification.**
+   Early `Open/Take/Check` was verified only for three exact actor
+   paths. Establish defensible owner class/action/WidgetTree
+   eligibility and lifecycle guards for a broader range without
+   pretending the early placeholder PS4 texture is current. At
+   committed selection, require fresh native action, valid live
+   direct `Texture2D`, controller/remap and hold checks. On
+   unsupported/unsafe transitions fail open to stock, never let a
+   regular stock→World flip masquerade as successful UX.
+3. **Cross-target and input.** Test natural direct A→B without NONE,
+   return to a previously selected target, device change and remap
+   only when a concrete natural scenario exists; ensure original
+   native selection, one World, lease restoration, map/pawn EndPlay
+   and F4. Tests/CI and source-only change can proceed independently;
+   any further installation/game execution needs separate user
+   permission.
+4. **Architecture checkpoint.** The `NAME_None`/local-root change
+   already reduced private UI to ~10–11 ms without persistent
+   world ownership. Defer pawn-owned persistent World until a
+   measured residual frame-time issue or concrete lifecycle evidence
+   justifies that complexity.
+
+Source-only offline tests do not constitute visual acceptance;
+production readiness remains BLOCKED.
+
+
 ## Первый подход и стоимость смены цели
 
 Сравнить точный coverage `911d5ea` с двумя отдельными source-only
