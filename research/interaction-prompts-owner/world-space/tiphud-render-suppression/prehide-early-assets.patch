@@ -1,0 +1,5 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -10 +10 @@
+-local PREPARE_ASSETS_EARLY=false -- Mode A
++local PREPARE_ASSETS_EARLY=true -- Mode B: asset preparation only
