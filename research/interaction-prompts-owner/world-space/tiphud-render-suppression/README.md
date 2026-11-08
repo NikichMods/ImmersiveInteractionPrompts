@@ -1365,3 +1365,38 @@ native ready: максимум 8 попыток read-only
 доказанного geometry-safe пути, а не маскировать
 плохую геометрию отключением depth test.
 
+### Два сейва в одном процессе: проверка boundary и re-arm
+
+По предложению пользователя проверочный маршрут проходит на **двух
+разных сейвах без закрытия игры**. Первый: три принятых точных
+Open/Take/Check; второй: штатная дверь/настенный объект/предмет,
+при которых World для новых owner пока **не включается**.
+После всех наблюдений — F4 (отключает наблюдатель).
+
+В `wide-safe.patch` добавлен одноразовый
+`IIP_SELECTED_WORLD event=MAP_PRE old_context_invalidated=true`
+после `prehide.map_pre()`, сброса controller_id и
+`observer.invalidate("map_pre")`. Это маркер границы
+загрузок, а не гарантия доставки загрузочного хука.
+
+`tests/test_tiphud_wide_safe.py` упражняет в одном Lua VM
+две карты последовательно: старый early lease → map_pre →
+восстановление на game thread → новый BeginPlay unknown →
+stock-only и survey → единичный F4; отдельно re-arm
+той же known path и повторный MapPre до EndPlay; плюс
+собранный entrypoint (`main.lua`) с фактическими callbacks
+RegisterLoadMapPreHook/BeginPlayPost, проверкой
+`CONTROLLER_ACQUIRED` повторно и отсутствием STOP.
+Не подменяется production engine rendering.
+
+**Остаётся UNKNOWN:** выполняет ли именно пользовательская
+загрузка сейва `LoadMapPre` (а не только EndPlay / иной
+seam), когда придут новые BeginPlayPost, живы ли к
+game-thread cleanup старые actor и World, сохраняются ли
+загруженные классы/ресурсы и screenshot/UE4SS.log
+в одном процессе. Нет автоматического runtime PASS
+по mock-тестам; на фактическом сеансе нужно независимое
+сопоставление маркеров и поведения. Нельзя считать
+отсутствие World на втором сейве показателем
+неподдерживаемости объекта без подтверждённого re-arm.
+

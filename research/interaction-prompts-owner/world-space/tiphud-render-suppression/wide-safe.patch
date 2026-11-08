@@ -44,3 +44,10 @@
 -    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    if MODE=="wide_safe" then coordinator=require("IIPWideCoverage") end
+@@ -244,5 +275,6 @@
+         RegisterLoadMapPreHook(function()
+             prehide.map_pre()
+             controller_id=nil
+             observer.invalidate("map_pre")
++            log("MAP_PRE","old_context_invalidated=true")
+         end)
