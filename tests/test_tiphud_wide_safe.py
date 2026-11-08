@@ -225,7 +225,8 @@ function RegisterKeyBind()end
 """)
         vm.execute(self.scripts["main"])
         vm.execute("""
-assert(R.wide and R.fast and R.session_started)
+assert(R.wide and R.fast and R.session_started,
+       "main did not start: "..table.concat(R.logs," | "))
 assert(R.cb.map and R.cb.begin and R.cb.finish)
 begin_actor(K)
 assert(has("CONTROLLER_ACQUIRED"))
