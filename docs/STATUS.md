@@ -1,5 +1,27 @@
 # Статус Immersive Interaction Prompts
 
+## Source-only кандидат: смещение штатного TipHUD за экран (2026-11-08)
+
+По решению пользователя следующий ограниченный UX-тест проверяет
+**отдельную от root alpha ветку**: `UWidget::SetRenderTranslation`
+на `TipHUD.WidgetTree.RootWidget` только если это идентичный
+`CanvasPanel_0` проверенного Open-сундука. Серийная иерархия
+подтверждает, что в корне лежат TextBlock_89, RetainerBox_0
+и locked CanvasPanel_2; отличие от смещения `ExtendedWidgetComponent`
+сохраняет native Screen membership/CanShow. Видимость, ColorAndOpacity,
+RenderOpacity и контролы не меняются. Экспериментальное смещение
+`+16384px X` рассчитано только на известный 2560x1440 runtime.
+[Исходники и границы](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#эксперимент-translation--исходный-кандидат).
+
+Кандидат source-only: `IIPPrehideTranslation.lua` +
+`prehide-translation.patch`, отдельно от прежнего tint
+`IIPPrehideOpen.lua`. Game-render, Slate offscreen culling,
+native text/icon обновление, persistence и restore ещё **UNKNOWN**.
+Установленный `f93867e` по последнему сообщению пользователя
+не изменялся; ни установка, ни игровой запуск новым кодом не
+разрешены. Режим B с ранними assets/World по-прежнему отложен.
+
+
 ## Проверка альтернативы: штатный TipHUD как World — source-only (2026-11-08)
 
 По запросу пользователя рассмотрен вариант **одного** native-owned

@@ -1,5 +1,34 @@
 # План исследования — contextual prompts и письменность
 
+## Альтернативный A: RenderTranslation CanvasPanel_0 (2026-11-08)
+
+Предыдущий `f93867e` доказал потерю раннего root alpha до Open;
+writer неизвестен. До дальнейшего native writer trace принят
+один более локальный **source-only** тест другого механизма:
+смещение только внутреннего `TipHUD.WidgetTree.RootWidget`
+(точный `CanvasPanel_0`) через
+`UWidget::SetRenderTranslation(FVector2D)`.
+
+В UE4.27 этот setter изменяет `UWidget.RenderTransform.Translation`
+и обновляет cached Slate widget без изменения native `Visibility`,
+`RenderOpacity`, `ColorAndOpacity` или владельца компонента.
+Но фактическое culling в shipping Slate и отсутствие игры-писателя
+трансформации пока UNKNOWN. Источник кнопки World — актуальная
+прямая Texture2D, а не Retainer RT. Смещение +16384 px X
+на одном Open не является поддержкой всех разрешений.
+
+Гейт A: после отдельной санкционированной установки сравнить
+холодный/повторный подход по кадрам; native Screen не должен
+оставлять пикселей, а наша World-подсказка должна иметь корректные
+текст/кнопку, без пустой заметной паузы. Нужен явный restore
+исходной трансформации по F4 и отсутствие повторного подавления
+после fallback. Если native меняет трансформацию до первого paint,
+не маскировать это покадровым setter: вернуть stock-only и
+возобновить writer trace. Не трогать `ExtendedWidgetComponent`
+geometry и `WidgetSpace`. B и production остаются BLOCKED.
+[Подготовленная ветка](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#эксперимент-translation--исходный-кандидат).
+
+
 ## Архитектурная проверка: один native World TipHUD (2026-11-08)
 
 После `f93867e` и неизвестного writer корневого alpha проведена

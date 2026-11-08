@@ -900,3 +900,84 @@ writer корневого `ColorAndOpacity`. Если writer не найден
 поздний повторный setter без доказанной prepaint-границы,
 ни бесконечный `A=0` на каждый кадр не являются исправлением.
 
+
+
+## Эксперимент Translation — исходный кандидат
+
+Следующая UX-гипотеза после `f93867e`: root `ColorAndOpacity`
+вернулся к единице до выбора, поэтому исследуем **другой**
+визуальный параметр без перезаписи alpha. `CanvasPanel_0` является
+сериализованным `TipHUD.WidgetTree.RootWidget` и охватывает
+`HorizontalBox_4 → CanvasPanel_6`, локализованный
+`TextBlock_89`, разрешённый `RetainerBox_0` и запрещённую
+ветку `CanvasPanel_2` ([прежняя проверка](../../VISUAL_READINESS.md#1-actual-serialized-tree-and-slots)).
+
+UE4.27 `UWidget::SetRenderTranslation` изменяет
+`RenderTransform.Translation` и вызывает
+`UpdateRenderTransform`, передающий значение в cached `SWidget`.
+Метод имеет `UFUNCTION(BlueprintCallable)`; поданный им
+`FVector2D` не меняет native Screen `ExtendedWidgetComponent`,
+`CanShow`, UWidget `Visibility`, `RenderOpacity`,
+`ColorAndOpacity`, state локализации/ремаппинга или selection.
+Это **C++ source-level свойство**, не Asterigos runtime PASS.
+[UE4.27 Widget.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/Widget.cpp#L180-L229),
+[Widget.h](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Public/Components/Widget.h#L459-L487).
+
+**Состав кандидата:** `IIPPrehideTranslation.lua` (отдельный от
+alpha-модуля) и `prehide-translation.patch`. Только размещённый
+`0-1_lootbox_01_mat_ST001`, обычный Open без удержания на известной
+сборке. `BeginPlayPost` ставит в очередь точную пару. В существующем
+EngineTick pump при `READY NONE`, `bVisible=false`,
+`bAddedToScreen=false`, надёжных связях actor/component/widget/root,
+поддержанном action/устройстве записывается одна трансляция
+`{X=original.X+16384,Y=original.Y}`. Исходная трансляция и
+примитивная identity панели сохранены. Никакого глобального
+поиска или регулярного setter. Число 16384 — ограниченная
+исследовательская величина для 2560×1440, не рабочий механизм
+любого DPI или ultrawide.
+
+В selected-owner pump проверяется сохранность именно этой
+внутренней трансформации. World может включиться только при
+сохранённом lease, готовой native локализации и поддержанной
+`ImageInteractAllowed.Brush.ResourceObject` типа Texture2D
+без ранней дизайнерской заглушки. Исторические `Visibility`/
+`RenderOpacity` проверки сохраняются. При ошибке/изменении
+трансляции/дедлайне около 500 мс — отказ в stock-only,
+условный возврат **только собственной** трансляции при точном
+совпадении. При чужом состоянии ничего не перезаписывать.
+После успешного NONE оставлять смещение для следующего
+подхода; по F4 вернуть оригинал до cleanup, если экземпляр жив.
+На EndPlay уничтожаемого owner запись не пытаться.
+
+Встроенный `RenderTransform` может переписываться собственным
+Blueprint/native writer — **UNKNOWN**. Также **UNKNOWN**:
+влияние offscreen Slate clipping/culling на видимую поверхность,
+Tick, обновление `RetainerBox`, источник актуального текста,
+первый World pixel, сохранность выбранного якоря и отсутствие
+настоящих Screen-пикселей. Само `bAddedToScreen=true` не
+требует сохранять хотя бы один видимый пиксель. Не сдвигать
+`ExtendedWidgetComponent` или весь viewport слой и не
+создавать искусственный видимый пиксель.
+
+**Source-only сборка:** сверить манифест исходных 13 Lua
+`selected-owner-world/Scripts` на точном `2e167227`,
+в отдельной копии последовательно `git apply --unidiff-zero`
+`first-show-observe.patch`, `prehide-translation.patch` и
+скопировать `IIPPrehideTranslation.lua` в `Scripts`.
+Не включать `IIPPrehideOpen.lua`, alpha-патч или старый
+ручной tint. Проверить всех 14 Lua, исходную конфигурацию и
+тесты. Никакой установки с помощью этого описания не разрешено.
+
+**Первый будущий игровой A после отдельного разрешения:**
+один холодный и один повторный Open на той же карте,
+с покадровым видео и логом `TRANSLATE_EARLY_PAIR`,
+`TRANSLATE_PREHIDDEN`, `TRANSLATE_SELECTED`,
+`TRANSLATE_WORLD_COMMAND`. Проконтролировать оригинальный
+текст, input glyph, absence native Screen pixels, правильный
+World, кадры появления и отсутствие заметной пустой задержки.
+F4 на стабильном объекте должен восстановить native prompt
+с `TRANSLATE_RESTORED`. При чужом writer,
+`RESTORE_UNCONFIRMED`, неверном значке или flash
+остановиться и выполнить проверенный закрытый rollback.
+B (early World/assets) пока не тестировать; production BLOCKED.
+
