@@ -40,6 +40,7 @@ package.loaded.IIPTranslationCoverage=Coverage
 coverage_api.early_target=function(path)
  if path==target then return "Open" end
 end
+coverage_api.describe_other_action=function()return "Talk","/Game/TestNpc_C"end
 coverage_api.placement_sample=function(a,record)
  assert(a==take and record.actor==take_record.actor)
  return "sample:source=known_geometry_unknown"
@@ -88,6 +89,23 @@ p.ended(11)
 p.begin(take);assert(not select(take))
 p.map_pre();shutdown("map_pre")
 assert(tx()==0 and writes==2)
+""")
+
+    def test_unrecognized_action_is_reported_read_only(self):
+        self.case("""
+local native=coverage_api.acquire
+coverage_api.acquire=function(a)
+ if a==take then return nil,"other_action" end
+ return native(a)
+end
+p=Wide.new(coverage_api,emit)
+p.begin(take);p.begin(take)
+assert(writes==0)
+local reports=0
+for _,line in ipairs(logs) do
+ if line:find("OTHER_ACTION_STOCK") then reports=reports+1 end
+end
+assert(reports==1)
 """)
 
     def test_absent_position_is_not_permission_to_pre_hide(self):

@@ -8,10 +8,12 @@ local LIMIT=256
 
 function M.new(api,emit)
     assert(type(api)=="table" and type(api.early_target)=="function"
-        and type(api.acquire)=="function" and type(api.placement_sample)=="function",
+        and type(api.acquire)=="function" and type(api.placement_sample)=="function"
+        and type(api.describe_other_action)=="function",
         "wide inventory gates unavailable")
     local core=Coverage.new(api,emit)
     local unknown,count,over_limit={},0,false
+    local other,other_count={},0
 
     local function checked(record)
         return record and type(record.actor)=="string" and type(record.refs)=="table"
@@ -19,8 +21,23 @@ function M.new(api,emit)
             and (record.action=="Open" or record.action=="Take" or record.action=="Check")
     end
     local function begin(actor)
-        local ok,record=pcall(api.acquire,actor)
-        if not ok or not checked(record) then return end
+        local ok,record,why=pcall(api.acquire,actor)
+        if not ok then return end
+        if not checked(record) then
+            if why=="other_action" and other_count<128 then
+                local found,tag,cls=pcall(api.describe_other_action,actor)
+                if found and type(tag)=="string" and #tag>0 and #tag<=64
+                    and type(cls)=="string" and #cls<=256 then
+                    local id=tag.."|"..cls
+                    if not other[id] then
+                        other[id]=true;other_count=other_count+1
+                        emit("OTHER_ACTION_STOCK","tag="..tag.." class="..cls..
+                            " unsupported=true")
+                    end
+                end
+            end
+            return
+        end
         if api.early_target(record.refs.actor.path)==record.action then
             -- The existing coordinator still performs all its early-identity
             -- and actual prehide guards. This wrapper never grants a lease.
@@ -70,6 +87,7 @@ function M.new(api,emit)
         map_pre=function()
             core.map_pre()
             unknown,count,over_limit={},0,false
+            other,other_count={},0
         end,
         ended=function(address)
             core.ended(address)

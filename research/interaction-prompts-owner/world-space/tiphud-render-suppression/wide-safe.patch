@@ -8,8 +8,13 @@
 +local EARLY=MODE=="first_approach" or MODE=="first_and_fast" or MODE=="wide_safe"
 +local FAST=MODE=="fast_create" or MODE=="first_and_fast" or MODE=="wide_safe"
  local EXPANDED=true
-@@ -124,0 +125,26 @@
+@@ -124,0 +125,31 @@
 +    if MODE=="wide_safe" then
++        translation_api.describe_other_action=function(a)
++            local argument=a.TipHUDArgument
++            if not alive(argument) or argument.ActionName~=25 then return end
++            return argument.msgTag:ToString(),cls(a)
++        end
 +        translation_api.placement_sample=function(a,record)
 +            local source=a.ExtendedWidget
 +            assert(alive(source) and key(source)==record.component,
@@ -35,7 +40,7 @@
 +                position.X,position.Y,position.Z,eye.X,eye.Y,eye.Z,position.Z+32)
 +        end
 +    end
-@@ -125 +151,2 @@
+@@ -125 +156,2 @@
 -    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    if MODE=="wide_safe" then coordinator=require("IIPWideCoverage") end
