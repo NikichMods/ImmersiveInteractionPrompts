@@ -1,5 +1,15 @@
 # Verified Runtime — Interaction Prompts
 
+## Early TipHUD alpha did not persist to selection — one Open
+
+On `f93867e5d895f77f0c028866e0b06211ce6d1fee`, early alpha zero
+passed readback. At first committed selection 29.83 s later, the same
+resolved TipHUD already held its original RGBA `1,1,1,1`. The probe
+entered stock-only before World creation without calling the restore
+setter. The intervening writer and exact time are unknown. UE4SS lines
+685–687 and 724–725. Local log SHA-256
+`2109f2d04a23f90185e2c1506ca595684030ac9e716a27eb47407343b5b51b77`.
+
 ## Early TipHUD identity — bounded Open result, 2026-11-08
 
 On source `d8a9182082bcedcc51bd0a89914b644a872abe5e`, BeginPlayPost
