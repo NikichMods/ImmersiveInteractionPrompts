@@ -845,3 +845,58 @@ lock или input. Событие RESTORED допускало как setter, т�
 прогон нужен для конкретного поля, а не для приёмки первого paint.
 Локальный журнал SHA-256
 `3c8f3b3ae3ccc36760a47bf30dde7aa78826d330b4ec2f0c5cd4bb4ff6c0ca75`.
+
+## Источник потери раннего alpha — статический дискриминатор
+
+Анализ после игрового `f93867e` и отчёта `d704a6d`.
+Факт игры: ранний `SetColorAndOpacity(A=0)` прошёл readback.
+Спустя 29,83 с в первом committed selection тот же
+actor/component/TipHUD имел исходный `RGBA=(1,1,1,1)`; собственный
+setter восстановления ещё не был вызван. Точный момент изменения
+и инициатор остаются **UNKNOWN**.
+
+Проверен source `UUserWidget.cpp` в закреплённом зеркале UE4.27
+`306a7e9`:
+
+- `UUserWidget::SetColorAndOpacity`, строки 296–305: присваивает
+  `ColorAndOpacity=InColorAndOpacity`; при живом `MyGCWidget`
+  обновляет `SObjectWidget`. Это соответствует успешному раннему
+  readback, но не объясняет его последующий сброс.
+- `UUserWidget::SynchronizeProperties`, строки 278–294: вызывает
+  родительскую синхронизацию, берёт binding для **текущего**
+  `ColorAndOpacity`, передаёт его в Slate. В теле этого метода
+  нет операции восстановления значения UObject по умолчанию.
+- `OnWidgetRebuilt`, строки 750–764, вызывает `NativePreConstruct`
+  и `NativeConstruct`; `NativeConstruct` вызывает Blueprint
+  `Construct`, строки 1331–1339. Эту границу стоит проверять,
+  но сам факт вызова не доказывает, что конкретный Blueprint
+  переписывает root tint.
+- `WidgetComponent.cpp`, строки 1192–1224 и 57–71: при первом
+  попадании в Screen передаёт `UserWidget->TakeWidget()`
+  в `FWorldWidgetScreenLayer`. Такая поздняя фаза жизненного
+  цикла существует, но корреляция по одному выбору не
+  доказывает, что она сбросила исходное UObject-свойство.
+
+[UE4.27 UserWidget.cpp](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/UserWidget.cpp#L278-L305)
+· [создание Slate и Construct](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/UserWidget.cpp#L750-L765)
+· [WidgetComponent Screen](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L1192-L1224).
+
+**Следующий достаточный шаг — узкий локальный static writer trace.**
+В verified cooked Blueprint/UHT/native артефактах именно этой сборки
+проверить узлы корневого `TipHUD_C` `PreConstruct`, `Construct`,
+`Tick`, `SetupTipMessage_Proxy`, а также реально связанные
+родительские и инициирующие функции. Искать и отражённый
+`SetColorAndOpacity`, и прямые property assignments; фиксировать
+точную цепочку и условие вызова. Существующий аудит уже показал
+`RenderOpacity` в Tick — **это другое свойство**, не доказательство
+writer корневого `ColorAndOpacity`. Если writer не найден
+в обследованном корпусе, фиксировать `UNKNOWN`, область
+поиска и ограничения — не утверждать его отсутствие во всей игре.
+
+Только при недостаточности статического исследования подготовить
+ограниченный targeted read-only discriminator (один сундук,
+одна идентичность, первый переход alpha, без глобального скана).
+Установку и запуск требуют отдельного разрешения. Ни
+поздний повторный setter без доказанной prepaint-границы,
+ни бесконечный `A=0` на каждый кадр не являются исправлением.
+

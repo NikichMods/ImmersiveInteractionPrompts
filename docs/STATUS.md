@@ -1,5 +1,26 @@
 # Статус Immersive Interaction Prompts
 
+## Source-only уточнение: куда мог исчезнуть ранний alpha (2026-11-08)
+
+В проверенном UE4.27 `UUserWidget::SetColorAndOpacity` присваивает
+`ColorAndOpacity` переданное значение и обновляет Slate; 
+`UUserWidget::SynchronizeProperties` читает это свойство и передаёт
+`ColorBinding` в `SObjectWidget`. В её собственном теле нет присваивания
+`ColorAndOpacity=(1,1,1,1)`. Поэтому **одна обычная синхронизация
+Slate не объясняет** документированный возврат *UObject readback*
+к единице на `f93867e`. Не установлен ни внешний writer, ни
+обязательная поздняя инициализация как причина.
+
+Следующий достаточный локальный read-only шаг — узкий статический
+поиск фактических записей корневого `TipHUD.ColorAndOpacity` через
+`SetColorAndOpacity`, прямые Blueprint property writes и вызовы
+`PreConstruct/Construct`, включая релевантных родителей/потребителей.
+Если точный writer не найден, только тогда ограниченно определить
+интервал потери alpha на одном объекте в runtime. Без новой записи
+alpha каждый кадр и без прогона B до результата A.
+[Обоснование](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#источник-потери-раннего-alpha--статический-дискриминатор).
+
+
 ## Новое UX-направление: скрывать stock до первого paint (2026-11-08)
 
 Пользователь не считает полезной целью побитовое/покадровое совпадение

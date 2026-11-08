@@ -1,5 +1,28 @@
 # План исследования — contextual prompts и письменность
 
+## Следующий дискриминатор после f93867e — root RGBA writer (2026-11-08)
+
+Не продолжать повторные игровые прогоны A при неизвестной причине
+возврата `TipHUD.ColorAndOpacity.A=1` между `PREHIDDEN` и
+первым выбранным Open. Прежде извлечь из имеющихся host local
+cooked Blueprint/native артефактов все применимые **реальные**
+записи корневого цвета на точном `TipHUD_C`: `SetColorAndOpacity`,
+прямую установку свойства, `PreConstruct/Construct`, возможную
+инициализацию из parent/native и прочие фактически найденные пути.
+
+Отделить generic Slate-property synchronization от мутации
+UObject: `UUserWidget::SynchronizeProperties` по проверенному UE4.27
+читает `ColorAndOpacity`, `SetColorAndOpacity` записывает его.
+Кто и когда меняет значение на экземпляре Asterigos, UNKNOWN.
+Если статический анализ не найдёт writer, нужен **один**
+ограниченный read-only runtime discriminator с редкой проверкой
+только сохранённой пары до выбора: first changed alpha, тайминг
+и стадия, без многократных native setter или глобальных обходов.
+Полученный интервал использовать для поиска конкретной поздней
+границы, ещё до первого Screen paint. Не заявлять точного writer
+по одному факту RGBA reset. B остаётся отложенным.
+
+
 ## Предлагаемый быстрый путь — pre-hide до native paint (2026-11-08)
 
 По решению пользователя важнее исключить **любую обычную вспышку
