@@ -105,6 +105,14 @@ p.begin(actor);select(nil)
 assert(writes==2 and alpha()==.75 and not select(actor))
 """)
 
+    def test_reports_original_alpha_without_rewriting_it(self):
+        self.case("""
+p.begin(actor);select(nil)
+widget.ColorAndOpacity.A=.75
+assert(not select(actor) and writes==1)
+assert(logs[#logs]:find("rgba_changed") and logs[#logs]:find("original_present=true"))
+""")
+
     def session(self, body):
         self.case("Session=(function()\n" + self.scripts["IIPSelectedWorldSession"] + "\nend)()\n"
                   + MOCK.replace("o=Session.start", """

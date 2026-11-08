@@ -6,7 +6,7 @@
 @@ -8,0 +9,2 @@
 +local Prehide=require("IIPPrehideOpen")
 +local PREPARE_ASSETS_EARLY=false -- Mode A
-@@ -75,0 +78,19 @@
+@@ -75,0 +78,22 @@
 +    local set_color=exact_function("/Script/UMG.UserWidget:SetColorAndOpacity")
 +    local real_time=exact_function("/Script/Engine.GameplayStatics:GetRealTimeSeconds")
 +    local gameplay=StaticFindObject("/Script/Engine.Default__GameplayStatics")
@@ -19,33 +19,36 @@
 +        supported=function(w)
 +            local lock=w.CanvasPanel_2
 +            local pc=w:GetOwningPlayer()
-+            if w.CanHoldPress~=false or not alive(lock) or lock.Visibility~=1
-+                or not alive(pc) or not inherited(pc,"/Script/Genesis.GenesisPlayerController") then return false end
++            if w.CanHoldPress~=false then return false,"hold_changed" end
++            if not alive(lock) or lock.Visibility~=1 then return false,"lock_changed" end
++            if not alive(pc) or not inherited(pc,"/Script/Genesis.GenesisPlayerController") then
++                return false,"input_owner_unavailable"
++            end
 +            local device=pc:GetNowInputControllerType()
-+            return device==1 or device==4
++            return device==1 or device==4,"unsupported_device="..tostring(device)
 +        end,
 +        mode=PREPARE_ASSETS_EARLY and "B_assets" or "A",
 +    },function(event,fields)log("PREHIDE_"..event,fields)end)
-@@ -90 +111,3 @@
+@@ -90 +114,3 @@
 -            if not alive(candidate) or not inherited(candidate,PLAYER_CONTROLLER) then
 +            if not alive(candidate) then return end
 +            prehide.begin(candidate)
 +            if not inherited(candidate,PLAYER_CONTROLLER) then
-@@ -114 +137,4 @@
+@@ -114 +140,4 @@
 -            if valid(candidate) and observer then observer.ended(candidate:GetAddress()) end
 +            if valid(candidate) then
 +                prehide.ended(candidate:GetAddress())
 +                if observer then observer.ended(candidate:GetAddress()) end
 +            end
-@@ -184 +210 @@
+@@ -184 +213 @@
 -        native_alive=alive,hint_visible=hint_visible,
 +        native_alive=alive,hint_visible=hint_visible,prehide=prehide,early_assets=PREPARE_ASSETS_EARLY,
-@@ -187,0 +214 @@
+@@ -187,0 +217 @@
 +            prehide.map_pre()
-@@ -192,0 +220,2 @@
+@@ -192,0 +223,2 @@
 +        assert(type(Key.F4)=="number" and not IsKeyBindRegistered(Key.F4),"F4 unavailable")
 +        RegisterKeyBind(Key.F4,function()observer.stop("manual_f4")end)
-@@ -201 +230 @@
+@@ -201 +233 @@
 --- Never call actor interaction APIs, write the custom field or suppress TipHUD.
 +-- Never call actor interaction APIs or write the custom owner field.
 --- a/Scripts/IIPSelectedWorldSession.lua

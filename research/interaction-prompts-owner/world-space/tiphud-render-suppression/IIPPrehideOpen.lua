@@ -48,12 +48,13 @@ function M.new(api,emit)
             local w=resolve(a,saved.record)
             assert(w and unbound(w),"original instance or binding unavailable")
             local current=color(w)
-            if same(current,saved.original) then return end
+            if same(current,saved.original) then return " original_present=true" end
             assert(same(current,saved.zero),"color changed by another writer")
             api.set(w,saved.original)
             assert(api.alive(w) and same(color(w),saved.original),"restore readback differs")
+            return " setter_verified=true"
         end)
-        emit(ok and "RESTORED" or "RESTORE_UNCONFIRMED",reason..(ok and "" or " "..tostring(why):sub(1,140)))
+        emit(ok and "RESTORED" or "RESTORE_UNCONFIRMED",reason..(ok and why or " "..tostring(why):sub(1,140)))
     end
     local function arm(row)
         if not pending or blocked or row.status~="READY" then return end
@@ -84,9 +85,21 @@ function M.new(api,emit)
             return false
         end
         local w=resolve(row.actor,lease.record)
-        if not w or not unbound(w) or not same(color(w),lease.zero)
-            or not api.matches_action(row.actor,"Open") or not api.supported(w) then
-            restore("native_contract_lost")
+        local reason
+        if not w then reason="identity_changed"
+        elseif not unbound(w) then reason="color_binding_changed"
+        else
+            local current=color(w)
+            if not same(current,lease.zero) then
+                reason=string.format("rgba_changed current=%.9g,%.9g,%.9g,%.9g",current.R,current.G,current.B,current.A)
+            elseif not api.matches_action(row.actor,"Open") then reason="action_changed"
+            else
+                local supported,detail=api.supported(w)
+                if not supported then reason=detail or "unsupported_state" end
+            end
+        end
+        if reason then
+            restore(reason)
             return false
         end
         local time=api.now(row.actor)
