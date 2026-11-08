@@ -8,6 +8,7 @@ import unittest
 import uuid
 
 from test_tiphud_render_translation import ADAPTER, BASE, LuaRuntime, OVERLAY, RIG
+from test_committed_owner_observer import ENTRY_RIG
 
 
 class TranslationCycle(unittest.TestCase):
@@ -113,6 +114,47 @@ select(take);select(nil);assert(writes==3)
 take_panel.live=false;p.ended(11);shutdown("stop")
 assert(writes==3)
 """)
+
+    def test_entrypoint_qualifier_receives_local_visibility_reader(self):
+        vm = LuaRuntime()
+        vm.execute(ENTRY_RIG + """
+local find=StaticFindObject
+function StaticFindObject(path)
+ if path=="/Script/UMG.Widget:SetRenderTranslation" or
+    path=="/Script/Engine.GameplayStatics:GetRealTimeSeconds" then return object("UFunction",path,nil) end
+ if path=="/Script/Engine.Default__GameplayStatics" then
+    return object("Object",path,class("/Script/Engine.GameplayStatics"))
+ end
+ return find(path)
+end
+local find_exact=StaticFindObject
+function StaticFindObject(path)
+ local o=find_exact(path)
+ if o and o.kind=="UFunction" then
+    o.kind="Function";o.type=function()return "UFunction" end
+ end
+ return o
+end
+package.preload.IIPWorldChild=function()return {} end
+package.preload.IIPWorldTarget=function()return {new=function()end} end
+package.preload.IIPPrehideTranslation=function()return {} end
+package.preload.IIPSelectedWorldSession=function()
+ return {start=function()return {stop=function()end} end}
+end
+package.preload.IIPTranslationCoverage=function()
+ return {new=function(api)R.qualify=api.qualify;return {} end}
+end
+local src=require("IIPInteractionSource")
+src.snapshot=function(_,alive,visible)
+ assert(type(visible)=="function" and visible(A)==true and alive(A))
+ R.snapshot_checked=true
+end
+Key={F4=115}
+function IsKeyBindRegistered()return false end
+function RegisterKeyBind()end
+""")
+        vm.execute(self.scripts["main"])
+        vm.execute('R.qualify(A,require("IIPInteractionSource").acquire(A));assert(R.snapshot_checked)')
 
 
 if __name__ == "__main__":

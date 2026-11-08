@@ -44,7 +44,10 @@ function M.new(api,emit)
         if entry and not entry.attempted and not entry.qualified and entry.samples<120 then
             entry.samples=entry.samples+1
             local ok,token=pcall(api.qualify,row.actor,entry.record)
-            if ok and token then
+            if not ok then
+                entry.samples=120
+                emit("QUALIFY_ERROR","action="..entry.record.action.." reason="..tostring(token):sub(1,140))
+            elseif token then
                 entry.qualified=token
                 emit("QUALIFIED","action="..entry.record.action)
             end

@@ -5,10 +5,11 @@
 +local MODE="coverage" -- coverage, early_assets, combined
 +local EXPANDED=MODE=="coverage" or MODE=="combined"
 +local PREPARE_ASSETS_EARLY=MODE=="early_assets" or MODE=="combined"
-@@ -82 +84 @@
+@@ -82 +84,2 @@
 -    local prehide=Prehide.new({
++    local hint_visible=function(w)return Visibility.visible(w,alive)end
 +    local translation_api={
-@@ -98,2 +100,17 @@
+@@ -98,2 +101,17 @@
 -        mode=PREPARE_ASSETS_EARLY and "B_assets" or "A",
 -    },function(event,fields)log("TRANSLATE_"..event,fields)end)
 +        mode=MODE,
@@ -28,6 +29,8 @@
 +    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    local prehide=coordinator.new(translation_api,function(event,fields)log("TRANSLATE_"..event,fields)end)
 +    log("TRANSLATE_MODE","mode="..MODE)
+@@ -210 +227,0 @@
+-    local hint_visible=function(w)return Visibility.visible(w,alive)end
 --- a/Scripts/IIPPrehideTranslation.lua
 +++ b/Scripts/IIPPrehideTranslation.lua
 @@ -30,0 +31 @@
