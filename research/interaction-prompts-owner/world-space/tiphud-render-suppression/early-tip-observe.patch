@@ -1,0 +1,25 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -8,0 +9 @@
++local Early=require("IIPEarlyTipHUDObserver")
+@@ -73,0 +75,3 @@
++    local hint_visible=function(w)return Visibility.visible(w,alive)end
++    local early=Early.new(Source,alive,pathname,key,hint_visible,
++        function(event,fields)print("IIP_EARLY_TIP event="..event.." "..fields.."\n")end)
+@@ -90 +94,3 @@
+-            if not alive(candidate) or not inherited(candidate,PLAYER_CONTROLLER) then
++            if not alive(candidate) then return end
++            early.begin(candidate)
++            if not inherited(candidate,PLAYER_CONTROLLER) then
+@@ -114 +120,4 @@
+-            if valid(candidate) and observer then observer.ended(candidate:GetAddress()) end
++            if valid(candidate) then
++                early.ended(candidate:GetAddress())
++                if observer then observer.ended(candidate:GetAddress()) end
++            end
+@@ -178,0 +188 @@
++        early.read(actor)
+@@ -181 +190,0 @@
+-    local hint_visible=function(w)return Visibility.visible(w,alive)end
+@@ -187,0 +197 @@
++            early.reset()
