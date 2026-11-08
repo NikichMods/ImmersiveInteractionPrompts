@@ -122,12 +122,15 @@ o=Session.start""") + """
 function pump(a)
     in_pump=true;select_owner(a);in_pump=false
 end
+p.begin(actor);p.map_pre();o.invalidate("map_pre")
 p.begin(actor);pump(nil)
+assert(writes==0 and alpha()==.75)
+pump(nil)
 assert(S.prepared==1 and S.creates==0 and alpha()==0)
 """ + body)
 
     def test_early_assets_then_world_and_lifecycle_restore(self):
-        for stop in ('o.stop("manual")', 'o.invalidate("map_pre")'):
+        for stop in ('o.stop("manual")', 'p.map_pre();o.invalidate("map_pre")'):
             with self.subTest(stop=stop):
                 self.session("""
 pump(A);assert(S.prepared==1 and S.creates==1 and S.held and alpha()==0)

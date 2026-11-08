@@ -102,8 +102,14 @@ function M.new(api,emit)
         begin=function(a)
             if blocked or lease or pending or api.path(a)~=TARGET then return end
             local r=api.acquire(a)
-            if r and r.action=="Open" then pending=r end
+            if r and r.action=="Open" then
+                pending=r
+                emit("EARLY_PAIR","queued=true")
+            else
+                emit("EARLY_PAIR_UNAVAILABLE","target_beginplay")
+            end
         end,
+        map_pre=function()pending=nil end,
         filter=function(row)
             local ok,permit=pcall(check,row)
             if not ok then restore("probe_error");emit("REFUSED",tostring(permit):sub(1,150));permit=false end

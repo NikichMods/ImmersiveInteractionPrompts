@@ -40,10 +40,12 @@
 @@ -184 +210 @@
 -        native_alive=alive,hint_visible=hint_visible,
 +        native_alive=alive,hint_visible=hint_visible,prehide=prehide,early_assets=PREPARE_ASSETS_EARLY,
-@@ -192,0 +219,2 @@
+@@ -187,0 +214 @@
++            prehide.map_pre()
+@@ -192,0 +220,2 @@
 +        assert(type(Key.F4)=="number" and not IsKeyBindRegistered(Key.F4),"F4 unavailable")
 +        RegisterKeyBind(Key.F4,function()observer.stop("manual_f4")end)
-@@ -201 +229 @@
+@@ -201 +230 @@
 --- Never call actor interaction APIs, write the custom field or suppress TipHUD.
 +-- Never call actor interaction APIs or write the custom owner field.
 --- a/Scripts/IIPSelectedWorldSession.lua
@@ -71,7 +73,7 @@
 +        end
 +    end
 @@ -84,0 +101 @@
-+            prehide.restore(reason)
++            if prehide.prehidden() then prehide.restore(reason) end
 @@ -91,0 +109,4 @@
 +        if api.early_assets and prehide.prehidden() and not row.key and row.status=="READY" then
 +            ensure_assets()
