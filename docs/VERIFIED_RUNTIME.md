@@ -1,5 +1,17 @@
 # Verified Runtime — Interaction Prompts
 
+## RenderTranslation A — bounded Open result, 2026-11-08
+
+Source `0a74d8a74c646a3b4046e85f880dd8e06a844a52`, 14 Lua and local
+config hashes verified after exit. Translation was recorded 43.64 s
+before first selection and verified by the coordinator on both
+approaches. Direct Xbox Texture2D and Russian action text were bound.
+The user saw only World and reported the visuals looked correct.
+No video was captured. First-pixel timing and single-frame flash
+remain unmeasured. F4 verified original translation by readback,
+released the own World component, and cancelled the pump.
+[Detailed evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-rendertranslation-a).
+
 ## Early TipHUD alpha did not persist to selection — one Open
 
 On `f93867e5d895f77f0c028866e0b06211ce6d1fee`, early alpha zero
