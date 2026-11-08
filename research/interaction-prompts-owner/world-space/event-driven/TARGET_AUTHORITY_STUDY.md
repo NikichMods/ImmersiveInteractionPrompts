@@ -1,5 +1,87 @@
 # Current selected interaction owner — existing-evidence audit (2026-11-06)
 
+## Native TipHUD as single World widget — source-only check, 2026-11-08
+
+**Question:** Can the original, native-owned Screen
+`ExtendedWidgetComponent` holding `TipHUD_C` become the sole
+World-space interaction prompt (upper line/divider added in the original
+widget), eliminating a second World and stock suppression without
+changing native show/hide, localization, remapping, or occlusion?
+
+**Result:** No sufficient *simple* conversion seam is proved.
+Do not convert the installed native component based on
+`SetWidgetSpace(0)` alone.
+
+Exact UE4.27 source:
+- `WidgetComponent.h:337`: `SetWidgetSpace(EWidgetSpace NewSpace)
+  { Space = NewSpace; }` — no re-registration, renderer allocation,
+  material setup or Screen-layer release.
+- `WidgetComponent.cpp:861–897`: `OnRegister` creates a
+  `FWidgetRenderer` only when the component is already **not**
+  `EWidgetSpace::Screen`. The game-owned component is known
+  Screen-space after BeginPlay.
+- `WidgetComponent.cpp:731–744`: `CreateSceneProxy` for World
+  requires `WidgetRenderer` **and** a valid
+  `CurrentSlateWidget`; otherwise no verified World proxy.
+- `WidgetComponent.cpp:1132–1233`: `TickComponent` branches
+  between World `DrawWidgetToRenderTarget` and Screen
+  `ScreenLayer->AddComponent`, which sets `bAddedToScreen`.
+  Changing the branch does not demonstrate correct transfer or
+  clean removal of existing Screen membership.
+- `WidgetComponent.cpp:1631–1707`: `UpdateWidget` can create
+  a virtual Slate window/content in World mode, but it does not
+  allocate the `FWidgetRenderer` skipped at registration.
+- `WidgetComponent.cpp:714–729, 1710–1771, 1774–1802`: World
+  material instance, RenderTarget and body setup have their own
+  allocation/geometry lifecycles; `Space` assignment does not
+  reproduce the complete registration path.
+- `ActorComponent.h:912–938`:
+  `RegisterComponent`, `UnregisterComponent`,
+  `ReregisterComponent` are C++ member functions without
+  `UFUNCTION` declarations at those sites. Their safe invocation
+  on the installed subclass via pinned UE4SS is **unproved**.
+  Simply suggesting an unreflected Lua method or destroying/replacing
+  the original component would be unjustified.
+
+Source:
+[UE4.27 WidgetComponent.h](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Public/Components/WidgetComponent.h#L330-L338),
+[WidgetComponent.cpp registration](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L861-L897),
+[World rendering and Screen branch](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L1132-L1234),
+[ActorComponent.h lifecycle](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h#L912-L938).
+
+**Game evidence:** IIP's BeginPlayPost early probe found the same
+Screen-space actor/component/TipHUD before selected Open, but
+BeginPlayPost runs after ordinary native component registration.
+IIP's own working World path intentionally sets Space **before**
+`FinishAddComponent`, i.e. before registration, on an independently
+owned component. This does not grant the same safe pre-registration
+interception for the original game-owned component.
+
+**Remaining host-specific UNKNOWN:** whether Genesis provides
+an earlier exact, safe modification seam or a native-aware reversible
+mode transfer; how `ExtendedWidgetComponent:SetShow` and positioning
+behave after mode change; whether renderer/proxy/Slate and Screen layer
+would restore cleanly. A new broad static/native research effort is
+not justified merely to achieve this variant.
+
+**Trade study / decision boundary:**
+- Native Screen S1 reuses original `TipHUD`, known localization,
+  icon and show/hide, with earlier proof of adding an authored child;
+  avoids dual-renderer suppression, but **does not satisfy currently
+  adopted actual World depth occlusion** without a design change.
+- Native World conversion could preserve a single widget in theory,
+  but now introduces a higher-risk native-component registration,
+  material and cleanup problem. No installation or runtime probe.
+- Independently owned World preserves proven depth behavior and native
+  source isolation, but must resolve the earlier alpha-reset first.
+  The narrow static root-RGBA writer trace remains the lowest-risk
+  next discriminating investigation for the adopted visual goal.
+
+**Re-open native World only if** a *specific* confirmed pre-register
+hook or native-aware reversible transition appears in established
+host evidence. Do not infer production compatibility from generic UE
+C++ alone.
+
 ## Selected owner read seam — local native trace, 2026-11-07
 
 **No verified safe runtime reader. A concrete, build-pinned Lua route is

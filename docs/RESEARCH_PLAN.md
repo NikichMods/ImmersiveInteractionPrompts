@@ -1,5 +1,30 @@
 # План исследования — contextual prompts и письменность
 
+## Архитектурная проверка: один native World TipHUD (2026-11-08)
+
+После `f93867e` и неизвестного writer корневого alpha проведена
+remote source-only проверка альтернативы «перевести **сам штатный**
+TipHUD из Screen в World, дополнив одной верхней строкой и разделителем».
+В UE4.27 `WidgetComponent::SetWidgetSpace` — assignment-only; World
+renderer, материал/scene proxy и дополнительные состояния не
+появляются гарантированно от смены поля уже зарегистрированного Screen.
+`FWidgetRenderer` создаётся при OnRegister, а стандартные register/
+unregister/reregister API в C++ не UFUNCTION. Известный BeginPlayPost
+наступает после обычной регистрации компонента. Перерегистрировать
+штатный взаимодействующий компонент без доказанного точного
+runtime seam — новая сложная native-переделка, не «один setter».
+
+Сейчас **не** готовить тест изменения пространства штатного
+компонента. Возобновлять этот путь только при конкретном доказательстве
+раннего безопасного pre-register seam или чистого, обратимого
+native-aware перехода, не нарушающего `SetShow`, контент,
+интеракцию и World-позиционирование. Source-only выводы:
+[аудит альтернативы](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-tiphud-as-single-world-widget--source-only-check-2026-11-08).
+Дальнейший минимальный гейт для принятого World: проверить root RGBA
+writer в имеющихся host локальных артефактах; при необходимости один
+targeted read-only runtime discriminator после отдельной установки.
+Screen S1 — возможная, но не принятая смена визуальных требований.
+
 ## Следующий дискриминатор после f93867e — root RGBA writer (2026-11-08)
 
 Не продолжать повторные игровые прогоны A при неизвестной причине

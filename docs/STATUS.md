@@ -1,5 +1,27 @@
 # Статус Immersive Interaction Prompts
 
+## Проверка альтернативы: штатный TipHUD как World — source-only (2026-11-08)
+
+По запросу пользователя рассмотрен вариант **одного** native-owned
+TipHUD в World-space вместо пары Screen+own World. Гипотеза
+простого переключения **не подтверждена**: в UE4.27
+`SetWidgetSpace` только присваивает `Space`, тогда как
+`FWidgetRenderer` для World создаётся в `OnRegister`.
+Зафиксированный `ExtendedWidgetComponent` уже зарегистрирован в
+Screen-space при доступном `BeginPlayPost`; просто сменить `Space`
+недостаточно для полноценного рендера. Перерегистрация потребовала бы
+недоказанного native lifecycle seam и восстановления Screen/рендер
+состояния, а API `RegisterComponent`/`UnregisterComponent`/
+`ReregisterComponent` в UE4.27 C++ не являются `UFUNCTION`.
+Нельзя считать этот путь более простой заменой существующего World.
+[Исходники и пределы](../research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-tiphud-as-single-world-widget--source-only-check-2026-11-08).
+
+Исследование не разрешает изменение штатного компонента и не отменяет
+World/depth требования. Native Screen S1 остаётся другой дизайнерской
+архитектурой (без настоящей occlusion), требующей отдельного решения
+пользователя. Пока для настоящего World предпочтительнее завершить
+узкую проверку writer, который возвращает root RGBA до первого Open.
+
 ## Source-only уточнение: куда мог исчезнуть ранний alpha (2026-11-08)
 
 В проверенном UE4.27 `UUserWidget::SetColorAndOpacity` присваивает
