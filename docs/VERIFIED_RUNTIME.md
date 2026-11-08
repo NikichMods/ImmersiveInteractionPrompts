@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## RenderTranslation coverage — three owners, 2026-11-08
+
+Source `911d5ea63a70532b00e76f2c4b47bc9035d062fc`. One Open, Check
+and Take qualified and presented World with localized text and a direct
+Xbox brush. Five owner allocations took 53.87–66.22 ms from selection
+to SHOWN, including 39.81–43.55 ms in private UI. Same-owner reuse
+took 1.82 ms. The user noticed a hitch. These are not engine
+frame-time measurements. F4 restored three translations, removed
+the World and returned visible Screen in the second recording.
+[Evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-coverage-911d5ea).
+
 ## RenderTranslation A — bounded Open result, 2026-11-08
 
 Source `0a74d8a74c646a3b4046e85f880dd8e06a844a52`, 14 Lua and local
