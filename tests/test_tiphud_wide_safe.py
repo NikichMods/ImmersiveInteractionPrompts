@@ -209,6 +209,7 @@ package.preload.IIPSelectedWorldSession=function()
   }
  end}
 end
+package.preload.IIPTranslationCoverage=function()return {}end
 package.preload.IIPWideCoverage=function()
  return {new=function()
   R.wide=true
