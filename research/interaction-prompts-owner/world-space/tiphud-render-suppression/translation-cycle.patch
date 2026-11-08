@@ -1,0 +1,88 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -10 +10,3 @@
+-local PREPARE_ASSETS_EARLY=false -- Mode A
++local MODE="coverage" -- coverage, early_assets, combined
++local EXPANDED=MODE=="coverage" or MODE=="combined"
++local PREPARE_ASSETS_EARLY=MODE=="early_assets" or MODE=="combined"
+@@ -82 +84 @@
+-    local prehide=Prehide.new({
++    local translation_api={
+@@ -98,2 +100,17 @@
+-        mode=PREPARE_ASSETS_EARLY and "B_assets" or "A",
+-    },function(event,fields)log("TRANSLATE_"..event,fields)end)
++        mode=MODE,
++        brush_token=function(w)return World.direct_token(w)end,
++    }
++    translation_api.qualify=function(a,record)
++        local fresh=Source.acquire(a)
++        if not fresh or fresh.actor~=record.actor or fresh.component~=record.component
++            or fresh.widget~=record.widget or fresh.action~=record.action then return end
++        local view=Source.snapshot(record,alive,hint_visible)
++        if not view or not view.shown or not view.ready then return end
++        local w=a.ExtendedWidget:GetUserWidgetObject()
++        if translation_api.supported(w) and World.direct_input(w,record.action) then
++            return translation_api.brush_token(w)
++        end
++    end
++    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
++    local prehide=coordinator.new(translation_api,function(event,fields)log("TRANSLATE_"..event,fields)end)
++    log("TRANSLATE_MODE","mode="..MODE)
+--- a/Scripts/IIPPrehideTranslation.lua
++++ b/Scripts/IIPPrehideTranslation.lua
+@@ -30,0 +31 @@
++    local action,target=api.action or "Open",api.target or TARGET
+@@ -89 +90,2 @@
+-        assert(api.matches_action(a,"Open") and api.supported(w),
++        assert(api.matches_action(a,action) and api.supported(w)
++            and (not api.early_supported or api.early_supported(w)),
+@@ -117 +119 @@
+-            elseif not api.matches_action(row.actor,"Open") then reason="action_changed"
++            elseif not api.matches_action(row.actor,action) then reason="action_changed"
+@@ -135 +137 @@
+-            if blocked or lease or pending or api.path(a)~=TARGET then return end
++            if blocked or lease or pending or api.path(a)~=target then return end
+@@ -137 +139 @@
+-            if r and r.action=="Open" then
++            if r and r.action==action then
+--- a/Scripts/IIPSelectedWorldSession.lua
++++ b/Scripts/IIPSelectedWorldSession.lua
+@@ -44 +44 @@
+-        prehide.restore(reason)
++        if prehide.restore_all then prehide.restore_all(reason,true) else prehide.restore(reason) end
+@@ -101 +101,2 @@
+-            if prehide.prehidden() then prehide.restore(reason) end
++            if prehide.restore_all then prehide.restore_all(reason,false)
++            elseif prehide.prehidden() then prehide.restore(reason) end
+@@ -167 +168 @@
+-        if not world.direct_input(widget) then prehide.restore("unsupported_brush");return end
++        if not world.direct_input(widget,record.action) then prehide.restore("unsupported_brush");return end
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -468,3 +468,4 @@
+-function M.direct_input(w)
+- return Hint.preflight(w,"Open")=="direct_brush"
+-end
++function M.direct_input(w,action)
++ return Hint.preflight(w,action)=="direct_brush"
++end
++function M.direct_token(w)return Hint.direct_token(w)end
+--- a/Scripts/IIPHintSource.lua
++++ b/Scripts/IIPHintSource.lua
+@@ -84 +84 @@
+- if action=="Open" and w.CanHoldPress==false and (device==1 or device==4)
++ if (action=="Open" or action=="Take" or action=="Check") and w.CanHoldPress==false and (device==1 or device==4)
+@@ -144,0 +145,13 @@
++function M.direct_token(w)
++ local child=w.ImageInteractAllowed
++ if not alive(child) or cls(child)~="/Script/UMG.Image" then return nil end
++ local b=child.Brush
++ local tex=b.ResourceObject
++ if not direct({child=child,brush=b}) or not alive(tex) or cls(tex)~="/Script/Engine.Texture2D"
++  or path(tex)=="/Game/MainContent/Assets/UIImage/UI_Widgets/ico_ps4_FaceButton_UP.ico_ps4_FaceButton_UP" then return nil end
++ local pc=w:GetOwningPlayer()
++ if not alive(pc) then return nil end
++ local device=pc:GetNowInputControllerType()
++ if device~=1 and device~=4 then return nil end
++ return tostring(device).."|"..id(tex)
++end

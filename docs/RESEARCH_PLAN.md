@@ -45,8 +45,10 @@
 `SELECTION→SHOWN` с первым видимым пикселем. Явно проверять
 нежелательные изменения native selected owner и input remapping.
 
-Исходная установка `0a74d8a` / RenderTranslation A остаётся
-активной по отчёту `85bde00`; rollback на `f93867e` есть.
+Файлы `0a74d8a` / RenderTranslation A сохранены, но маркер отключён
+по просьбе пользователя. Rollback на `f93867e` подготовлен.
+Расширение и режим ускорения подготовлены раздельно в одной надстройке.
+[Протокол и границы](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#единый-цикл--охват-и-холодный-world).
 Source-only исследования, тесты и CI могут продолжаться. Новая
 установка/запуск/изменение файлов игры — только после отдельной
 санкции и проверки закрытого хоста. Нет production acceptance.
