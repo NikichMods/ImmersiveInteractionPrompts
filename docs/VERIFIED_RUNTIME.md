@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Early TipHUD identity — bounded Open result, 2026-11-08
+
+On source `d8a9182082bcedcc51bd0a89914b644a872abe5e`, BeginPlayPost
+observed an invisible Screen-space Open component outside the Screen
+layer. Actor, component and TipHUD identities matched both committed and
+Screen-ready observations. No NewUserWidget was observed. RGBA stayed
+white and the delegate was empty in all snapshots. The early PS4 brush
+changed to the Xbox brush by the first selected snapshot, at the same
+device value. Early alpha mutation and paint persistence were untested.
+[Evidence](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-ранней-пары).
+
 ## First World prompt frames — bounded Open comparison, 2026-11-08
 
 Source `6bfc676c19a8acc41ec919c3ab147a3d0f15ed1b`, stock Screen visible
