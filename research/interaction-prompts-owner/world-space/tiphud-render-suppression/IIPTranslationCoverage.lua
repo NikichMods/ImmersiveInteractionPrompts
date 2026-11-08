@@ -7,6 +7,7 @@ local LIMIT=48
 function M.new(api,emit)
     local owners,count,previous,queued,current,stopped={},0,nil,nil,nil,false
     local retired,active={},false
+    local early_queue={}
     local function close(reason,terminal)
         stopped=terminal or stopped
         for _,entry in pairs(retired) do entry.lease.restore(reason) end
@@ -14,6 +15,7 @@ function M.new(api,emit)
         if terminal or (reason~="map_pre" and active) then
             for _,entry in pairs(owners) do entry.lease.restore(reason) end
             owners,count,previous,queued,current,active={},0,nil,nil,nil,false
+            early_queue={}
         end
     end
     local function filter(row)
@@ -29,9 +31,9 @@ function M.new(api,emit)
             end
             previous=entry
         end
-        if not row.key and queued then
-            local pending=queued
-            queued=nil
+        if not row.key and (queued or #early_queue>0) then
+            local pending=queued or table.remove(early_queue,1)
+            if queued then queued=nil end
             pending.attempted=true
             local a=api.resolve_actor({key=pending.record.actor,ref=pending.record.refs.actor},api.alive)
             if a then
@@ -41,7 +43,7 @@ function M.new(api,emit)
             active=active or pending.lease.prehidden()
         end
         current=entry
-        if entry and not entry.attempted and not entry.qualified and entry.samples<120 then
+        if entry and not api.early_target and not entry.attempted and not entry.qualified and entry.samples<120 then
             entry.samples=entry.samples+1
             local ok,token=pcall(api.qualify,row.actor,entry.record)
             if not ok then
@@ -61,6 +63,7 @@ function M.new(api,emit)
             if stopped or count>=LIMIT then return end
             local ok,r=pcall(api.acquire,a)
             if not ok or not r or owners[r.actor] then return end
+            if api.early_target and api.early_target(r.refs.actor.path)~=r.action then return end
             local entry={record=r,samples=0}
             local scoped=setmetatable({
                 target=r.refs.actor.path,action=r.action,
@@ -70,12 +73,13 @@ function M.new(api,emit)
                         and fresh.widget==r.widget then return fresh end
                 end,
                 early_supported=function(w)
-                    return entry.qualified and api.brush_token(w)==entry.qualified
+                    return api.early_target~=nil or (entry.qualified and api.brush_token(w)==entry.qualified)
                 end,
             },{__index=api})
             entry.lease=Translation.new(scoped,emit)
             owners[r.actor]=entry
             count=count+1
+            if api.early_target then early_queue[#early_queue+1]=entry end
         end,
         filter=filter,
         shown=function()if current then current.lease.shown() end end,
@@ -90,6 +94,7 @@ function M.new(api,emit)
                 if entry.lease.prehidden() then retired[k]=entry end
             end
             owners,count,previous,queued,current,active={},0,nil,nil,nil,false
+            early_queue={}
         end,
         ended=function(address)
             for k,entry in pairs(retired) do
@@ -104,6 +109,9 @@ function M.new(api,emit)
                     if previous==entry then previous=nil end
                     if queued==entry then queued=nil end
                     if current==entry then current=nil end
+                    for i=#early_queue,1,-1 do
+                        if early_queue[i]==entry then table.remove(early_queue,i) end
+                    end
                     owners[key]=nil
                     count=count-1
                     return

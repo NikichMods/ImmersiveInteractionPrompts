@@ -1,0 +1,63 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -10,3 +10,11 @@
+-local MODE="coverage" -- coverage, early_assets, combined
+-local EXPANDED=MODE=="coverage" or MODE=="combined"
+-local PREPARE_ASSETS_EARLY=MODE=="early_assets" or MODE=="combined"
++local MODE="first_approach" -- first_approach, fast_create, first_and_fast
++local EARLY=MODE=="first_approach" or MODE=="first_and_fast"
++local FAST=MODE=="fast_create" or MODE=="first_and_fast"
++local EXPANDED=true
++local PREPARE_ASSETS_EARLY=false -- Keep early asset loading out of the comparison.
++local LEVEL="/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
++local EARLY_ACTION={
++    [LEVEL.."0-1_lootbox_01_mat_ST001"]="Open",
++    [LEVEL.."0-1_item_loot_bag_03_AP1_3"]="Take",
++    [LEVEL.."0-1_sosletter3_2"]="Check",
++}
+@@ -103,0 +112,2 @@
++    if EARLY then translation_api.early_target=function(p)return EARLY_ACTION[p]end end
++    if FAST then World.enable_fast_children() end
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -160,0 +161 @@
++function M.enable_fast_children()Composition.enable_fast_children()end
+--- a/Scripts/IIPComposition.lua
++++ b/Scripts/IIPComposition.lua
+@@ -7,0 +8 @@
++local fast_children=false
+@@ -19,2 +20,3 @@
+-local function child(s,kind,role,name)
+- local tree,root=find(s.tree),find(s.root)
++local function child(s,kind,role,name,tree,root)
++ if not fast_children then tree,root=find(s.tree),find(s.root) end
++ assert(valid(tree) and valid(root) and same(root:GetOuter(),tree),"composition tree changed")
+@@ -23,2 +25,6 @@
+- assert(not valid(StaticFindObject(path(tree).."."..name)),"composition name collision")
+- local o=StaticConstructObject(c,tree,FName(name),EObjectFlags.RF_Transient)
++ local object_name=NAME_None
++ if not fast_children then
++  assert(not valid(StaticFindObject(path(tree).."."..name)),"composition name collision")
++  object_name=FName(name)
++ end
++ local o=StaticConstructObject(c,tree,object_name,EObjectFlags.RF_Transient)
+@@ -33,0 +40,4 @@
++function M.enable_fast_children()
++ assert(not state and NAME_None and NAME_None:ToString()=="None","native NAME_None unavailable")
++ fast_children=true
++end
+@@ -41,2 +51,3 @@
+- assert(not same(host.WidgetTree,w.WidgetTree),"composition aliases original tree")
+- local lower=child(s,"TextBlock","lower",name.."_Action")
++ local tree=host.WidgetTree
++ assert(not same(tree,w.WidgetTree),"composition aliases original tree")
++ local lower=child(s,"TextBlock","lower",name.."_Action",tree,root)
+@@ -47 +58 @@
+- local upper=child(s,"TextBlock","upper",name.."_Aphes")
++ local upper=child(s,"TextBlock","upper",name.."_Aphes",tree,root)
+@@ -55 +66 @@
+- local divider=child(s,"Image","divider",name.."_Ornament")
++ local divider=child(s,"Image","divider",name.."_Ornament",tree,root)
+@@ -59 +70 @@
+- local hint=child(s,"Image","hint",name.."_Hint");Hint.start(w,hint,action)
++ local hint=child(s,"Image","hint",name.."_Hint",tree,root);Hint.start(w,hint,action)
