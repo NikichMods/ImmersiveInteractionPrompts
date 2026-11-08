@@ -1282,3 +1282,78 @@ PREHIDDEN до первого выбора. Первой видимой подс
 движка не измерены. Прямой переход без NONE, remap и расширенный
 охват остаются открытыми. Кандидат отключён при закрытой игре,
 другой IIP не активирован. Это ограниченный исследовательский прогон.
+
+## wide_safe — универсальная регистрация без слепого скрытия
+
+**Source-only, no install, game-wide visual acceptance NOT CLAIMED.**
+Предыдущий `first_and_fast` дал приемлемый World-вид на
+одном Open, Take и Check; пользователь поставил общий охват
+выше опционального устранения слабого первого кадра и
+дальнейшей микрооптимизации. Однако неизвестная дверь
+или настенная записка может оказаться за геометрией,
+поскольку `IIPWorldChild.create` берёт
+`ExtendedWidgetComponent:GetComponentLocation()+32 Z`
+при настоящем depth test.
+
+Файлы этого шага:
+
+- `IIPWideCoverage.lua`: wrapper над прежним
+  `IIPTranslationCoverage`, не заменяет авторитетный
+  selected-owner reader. На BeginPlayPost допускает все
+  взаимно проверенные пары `Source.acquire` действий
+  Open/Take/Check, с отдельным ограниченным
+  до 256 read-only реестром неизвестных; три точных
+  уже принятых пути передаёт в старый per-owner
+  coordinator для раннего `RenderTranslation`.
+- `wide-safe.patch` применяется **после**
+  `first-show-observe.patch`, `prehide-translation.patch`,
+  `translation-cycle.patch` и
+  `first-approach-fast-create.patch` к отдельной копии
+  прежних frozen 13 Lua. Добавить оба
+  `IIPPrehideTranslation.lua`, `IIPTranslationCoverage.lua`,
+  `IIPWideCoverage.lua` только в staging,
+  `MODE="wide_safe"` по умолчанию. Сохраняются
+  `NAME_None` fast children, native selected owner,
+  F4/EndPlay/map rollback и установленный минимальный
+  Single World. Исходные historical patches не переписывать.
+- `tests/test_tiphud_wide_safe.py`: реальный прежний
+  core и lease под UE4SS-mock, в том числе
+  неподтверждённый actor, прямое переключение,
+  EndPlay/map, F4 и сборку всех patch.
+
+Unknown actor: `STOCK_UNVERIFIED` на индексации, без
+`SetRenderTranslation`, без World. На первом выбранном
+native ready: максимум 8 попыток read-only
+`Source.snapshot` на кадрах с этой целью; затем один
+`SURVEY_SAMPLE` с class/action/source xyz/camera xyz
+и ожидаемой высотой World `source Z+32`.
+Если источник не готов или API недоступен:
+`SURVEY_UNAVAILABLE`, stock untouched. Эти координаты
+**не являются измерением видимых пикселей, LOS, физической
+поверхности, коллизии или безопасности будущего World**.
+Нет глобальных UObject сканов, новых native setters,
+кадровых коррекций и перемещения `ExtendedWidgetComponent`.
+Известные три early остаются тестируемыми, но их
+приёмка не распространяется на другие пути.
+
+Ограничение: поддерживаемые native action tags в
+`Source.acquire` по-прежнему только Open/Take/Check
+(`ActionName=25` + точная цепочка `TipHUD_C`).
+Иной тип действия или widget не подменяется.
+255+ неизвестных owner сверх капа остаются stock-only
+без аудита. Эти ограничения нужно пересмотреть по
+реальному игровому маршруту, а не искусственно
+увеличивать число сканирований.
+
+**Не делать следующий runtime запуск по этому
+описанию без отдельного разрешения пользователя.**
+Один краткий сценарий для будущей приёмки:
+три уже подтверждённых World-подсказки, дверь в стене,
+вертикальная записка и предмет на земле; если доступно,
+переход A→B без NONE, смена устройства и F4.
+Впервые проверять не только наличие подсказки,
+но и поверхность, от которой должна быть видна вся
+строка. Цель — расширить ранний World только после
+доказанного geometry-safe пути, а не маскировать
+плохую геометрию отключением depth test.
+

@@ -1,0 +1,41 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -10,4 +10,4 @@
+-local MODE="first_approach" -- first_approach, fast_create, first_and_fast
+-local EARLY=MODE=="first_approach" or MODE=="first_and_fast"
+-local FAST=MODE=="fast_create" or MODE=="first_and_fast"
++local MODE="wide_safe" -- wide_safe, first_approach, fast_create, first_and_fast
++local EARLY=MODE=="first_approach" or MODE=="first_and_fast" or MODE=="wide_safe"
++local FAST=MODE=="fast_create" or MODE=="first_and_fast" or MODE=="wide_safe"
+ local EXPANDED=true
+@@ -124,0 +125,26 @@
++    if MODE=="wide_safe" then
++        translation_api.placement_sample=function(a,record)
++            local source=a.ExtendedWidget
++            assert(alive(source) and key(source)==record.component,
++                "source mismatch")
++            local w=source:GetUserWidgetObject()
++            assert(alive(w) and key(w)==record.widget,"widget mismatch")
++            local snapshot=Source.snapshot(record,alive,hint_visible)
++            if not snapshot or not snapshot.shown or not snapshot.ready then return nil end
++            local position=source:K2_GetComponentLocation()
++            local cam=w:GetOwningPlayerCameraManager()
++            assert(alive(cam),"camera unavailable")
++            local eye=cam:GetCameraLocation()
++            local function numeric(v)
++                return type(v)=="number" and v==v and math.abs(v)<10000000
++            end
++            for _,v in ipairs({position.X,position.Y,position.Z,eye.X,eye.Y,eye.Z}) do
++                assert(numeric(v),"non-finite sample coordinate")
++            end
++            return string.format(
++                "native_shown=%s native_ready=%s source_xyz=(%.3f,%.3f,%.3f) camera_xyz=(%.3f,%.3f,%.3f) expected_world_z=%.3f geometry_occlusion=UNKNOWN",
++                tostring(snapshot and snapshot.shown==true),
++                tostring(snapshot and snapshot.ready==true),
++                position.X,position.Y,position.Z,eye.X,eye.Y,eye.Z,position.Z+32)
++        end
++    end
+@@ -125 +151,2 @@
+-    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
++    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
++    if MODE=="wide_safe" then coordinator=require("IIPWideCoverage") end
