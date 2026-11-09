@@ -21,7 +21,8 @@ class ShadowWorld(unittest.TestCase):
             shutil.copytree(BASE / "Scripts", work / "Scripts")
             for name in ("IIPShadowWorldSession", "IIPSelectedTipCapability", "IIPSelectedHintPreflight"):
                 shutil.copyfile(OVERLAY / f"{name}.lua", work / "Scripts" / f"{name}.lua")
-            for patch in ("first-show-observe.patch", "shadow-world.patch"):
+            for patch in ("first-show-observe.patch", "shadow-world.patch",
+                          "shadow-visual-observe.patch"):
                 subprocess.run(["git", "apply", "--unidiff-zero", str(OVERLAY / patch)],
                                cwd=work, check=True,
                                env={**os.environ, "GIT_CEILING_DIRECTORIES": str(work.parent)})
@@ -41,6 +42,8 @@ class ShadowWorld(unittest.TestCase):
         self.assertIn('require("IIPShadowWorldSession")', main)
         self.assertIn('RegisterKeyBind(Key.F9,function()observer.stop("manual_f9")end)', main)
         self.assertNotIn("prehide", main)
+        self.assertIn("IIP_SHADOW_LAYOUT_WARN", self.scripts["IIPTuning"])
+        self.assertIn('emit("CANDIDATE"', self.scripts["IIPShadowWorldSession"])
         hint = self.scripts["IIPHintSource"]
         self.assertIn("Gate.direct_texture(child,alive)", hint)
         self.assertNotIn('result.mode="retained_mid"', hint)
@@ -87,6 +90,19 @@ function clear_selection()saved=selected;selected={status="READY"}end
 """)
         vm.globals().Session = vm.execute(self.scripts["IIPShadowWorldSession"])
         vm.execute("observer=Session.start(world,api,log)\n" + code)
+
+    def test_shadow_layout_warnings_do_not_block_visual_observation(self):
+        vm = LuaRuntime()
+        vm.globals().Tuning = vm.execute(self.scripts["IIPTuning"])
+        vm.execute("""
+local s=Tuning.new()
+s.hint_size=128;s.hint_gap=2;s.hint_y=-50;s.divider_y=20
+local plan,reason=Tuning.plan(s,{X=650,Y=65},{X=200,Y=50},{X=64,Y=64})
+assert(plan and not reason,"visual overlap cannot abort shadow observation")
+assert(plan.upper and plan.lower and plan.hint and plan.divider)
+local ok=pcall(Tuning.plan,s,{X=0,Y=65},{X=200,Y=50},{X=64,Y=64})
+assert(not ok,"invalid native extents must remain fatal")
+""")
 
     def test_target_loss_and_f9_release_only_owned_world(self):
         self.scenario("""

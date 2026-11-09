@@ -1,0 +1,31 @@
+--- a/Scripts/IIPTuning.lua
++++ b/Scripts/IIPTuning.lua
+@@ -110 +110 @@
+- if upper.X+2*pad>upper_width then return nil,"Upper text is too wide"end
++ if upper.X+2*pad>upper_width then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=upper_wide upper_width=%.3f available=%.3f",upper.X+2*pad,upper_width))end
+@@ -112 +112 @@
+- if hw>M.width-2*margin then return nil,"Button is too wide"end
++ if hw>M.width-2*margin then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=button_wide width=%.3f available=%.3f",hw,M.width-2*margin))end
+@@ -122 +122 @@
+- if visible_top<upper_bottom then return nil,"Divider overlaps upper text"end
++ if visible_top<upper_bottom then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=divider_upper_overlap visible_top=%.3f upper_bottom=%.3f",visible_top,upper_bottom))end
+@@ -123 +123 @@
+- if liney-lineh/2<margin or liney+lineh/2>M.height-margin then return nil,"Divider is outside the work area"end
++ if liney-lineh/2<margin or liney+lineh/2>M.height-margin then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=divider_outside center_y=%.3f height=%.3f",liney,lineh))end
+@@ -124 +124 @@
+- if rowy+lower.Y/2+pad>M.height-margin then return nil,"Text and spacing are too tall"end
++ if rowy+lower.Y/2+pad>M.height-margin then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=text_too_tall lower_bottom=%.3f limit=%.3f",rowy+lower.Y/2+pad,M.height-margin))end
+@@ -127 +127 @@
+- if hy-hh/2<margin or hy+hh/2>M.height-margin then return nil,"Button is outside the vertical work area"end
++ if hy-hh/2<margin or hy+hh/2>M.height-margin then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=button_outside_y center_y=%.3f height=%.3f",hy,hh))end
+@@ -128 +128 @@
+- if x-hw/2<margin or center+lower.X/2+pad>M.width-margin then return nil,"Action and button are too wide"end
++ if x-hw/2<margin or center+lower.X/2+pad>M.width-margin then print(string.format("IIP_SHADOW_LAYOUT_WARN reason=action_button_wide hint_left=%.3f action_right=%.3f",x-hw/2,center+lower.X/2+pad))end
+@@ -133 +133 @@
+-  return nil,"Button overlaps upper text"
++  print(string.format("IIP_SHADOW_LAYOUT_WARN reason=button_upper_overlap hint_rect=%.3f,%.3f,%.3f,%.3f upper_rect=%.3f,%.3f,%.3f,%.3f",x-hw/2,hy-hh/2,x+hw/2,hy+hh/2,center-upper.X/2-pad,upper_top-pad,center+upper.X/2+pad,upper_bottom))
+--- a/Scripts/IIPShadowWorldSession.lua
++++ b/Scripts/IIPShadowWorldSession.lua
+@@ -97,0 +98,2 @@
++        emit("CANDIDATE","action="..row.action.." owner_class="..tostring(row.refs.actor.class)..
++            " screen_untouched=true")
