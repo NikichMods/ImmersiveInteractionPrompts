@@ -62,7 +62,7 @@
 +                if alive(b) and cls(b)=="/Script/UMG.TextBlock" then
 +                    local value=b:GetText():ToString()
 +                    label=type(value)=="string" and #value>0 and #value<=512
-+                        and not value:find("[\\r\\n]") and "present" or "not_ready"
++                        and not value:find("[\r\n]") and "present" or "not_ready"
 +                end
 +            end
 +            return "owner_class="..cls(a).." tag="..tag..
