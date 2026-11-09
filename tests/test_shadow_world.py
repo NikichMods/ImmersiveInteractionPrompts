@@ -44,6 +44,8 @@ class ShadowWorld(unittest.TestCase):
         self.assertNotIn("prehide", main)
         self.assertIn("IIP_SHADOW_LAYOUT_WARN", self.scripts["IIPTuning"])
         self.assertIn('emit("CANDIDATE"', self.scripts["IIPShadowWorldSession"])
+        self.assertIn("local ALL_SELECTED_ACTIONS=true", self.scripts["IIPShadowWorldSession"])
+        self.assertIn("not ALL_SELECTED_ACTIONS and legacy[row.action]", self.scripts["IIPShadowWorldSession"])
         self.assertNotIn("host recovery already consumed", self.scripts["IIPWorldChild"])
         self.assertIn("host_recovery_count=host_recovery_count+1", self.scripts["IIPWorldChild"])
         hint = self.scripts["IIPHintSource"]
@@ -51,7 +53,7 @@ class ShadowWorld(unittest.TestCase):
         self.assertNotIn('result.mode="retained_mid"', hint)
         self.assertIn('b.bDisableDepthTest==false', self.scripts["IIPWorldChild"])
 
-    def scenario(self, code):
+    def scenario(self, code, all_selected=True):
         vm = LuaRuntime()
         vm.execute("""
 local actor={id=7}
@@ -90,7 +92,11 @@ api={
 function log(event,fields)events[event]=fields end
 function clear_selection()saved=selected;selected={status="READY"}end
 """)
-        vm.globals().Session = vm.execute(self.scripts["IIPShadowWorldSession"])
+        session=self.scripts["IIPShadowWorldSession"]
+        if not all_selected:
+            session=session.replace("local ALL_SELECTED_ACTIONS=true",
+                                    "local ALL_SELECTED_ACTIONS=false")
+        vm.globals().Session = vm.execute(session)
         vm.execute("observer=Session.start(world,api,log)\n" + code)
 
     def test_shadow_layout_warnings_do_not_block_visual_observation(self):
@@ -158,16 +164,37 @@ assert(not own and cleanups==2 and cancelled and not observer.status().active)
 assert(events.STOP=="reason=manual_f9 cancelled=true cleanup_confirmed=true")
 """)
 
-    def test_capability_loss_leaves_stock_and_legacy_is_excluded(self):
+    def test_all_selected_action_families_can_create_shadow_without_native_changes(self):
         self.scenario("""
-action="Open";tick();assert(count==0)
-action="Talk"
-for _,reason in ipairs({"hold","locked","unsupported_device","brush_not_direct","unavailable"}) do
- gate=reason;tick();assert(count==0)
+for _,tag in ipairs({"Open","Take","Check","Interact","Talk","Knock","Press"}) do
+ action=tag;gate="direct_brush_candidate"
+ tick();assert(own and count>0)
+ clear_selection();tick();assert(not own)
+ selected=saved
 end
-gate="direct_brush_candidate";tick();assert(own)
-gate="hold";tick();assert(not own and cleanups==1)
+assert(count==7 and cleanups==7)
+assert(not cancelled)
+observer.stop("manual_f9");tick()
+assert(cancelled and events.STOP=="reason=manual_f9 cancelled=true cleanup_confirmed=true")
 """)
+
+    def test_capability_loss_preserves_screen_and_only_own_world_is_cleaned(self):
+        self.scenario("""
+action="Open";tick();assert(own and count==1)
+for _,reason in ipairs({"hold","locked","unsupported_device","brush_not_direct","unavailable"}) do
+ gate=reason;tick();assert(not own and count==1)
+end
+action="Talk";gate="direct_brush_candidate";tick();assert(own and count==2)
+gate="hold";tick();assert(not own and cleanups==2)
+""")
+
+    def test_switch_off_excludes_only_legacy_actions(self):
+        self.scenario("""
+for _,tag in ipairs({"Open","Take","Check"}) do
+ action=tag;tick();assert(count==0)
+end
+action="Knock";tick();assert(own and count==1)
+""", all_selected=False)
 
     def test_anchor_drift_and_endplay_do_not_recreate_stale_world(self):
         self.scenario("""

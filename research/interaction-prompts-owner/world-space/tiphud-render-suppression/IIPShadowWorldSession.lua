@@ -3,6 +3,9 @@
 local Capability=require("IIPSelectedTipCapability")
 local HintGate=require("IIPSelectedHintPreflight")
 local M={}
+-- Research-only coverage switch. True: every compatible selected native TipHUD,
+-- including previously excluded Open/Take/Check. No native Screen writes.
+local ALL_SELECTED_ACTIONS=true
 local legacy={Open=true,Take=true,Check=true}
 
 function M.start(world,api,emit)
@@ -41,7 +44,8 @@ function M.start(world,api,emit)
         local actor=selection.actor
         if selection.status~="READY" or not actor or actor:GetAddress()==ended_address then return end
         local ok,row=pcall(Capability.inspect_selected,actor,api.native_alive,api.hint_visible)
-        if not ok or not row or row.actor~=selection.key or legacy[row.action] then return end
+        if not ok or not row or row.actor~=selection.key
+            or (not ALL_SELECTED_ACTIONS and legacy[row.action]) then return end
         local _,gate=HintGate.inspect(actor,row,api.native_alive)
         if gate~="direct_brush_candidate" then return end
         return row

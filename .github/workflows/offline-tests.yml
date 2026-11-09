@@ -21,6 +21,7 @@ on:
       - research/selected-hint-gate-01
       - research/shadow-visual-observation-01
       - research/shadow-host-reload-01
+      - research/shadow-all-actions-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
