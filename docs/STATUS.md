@@ -5,7 +5,8 @@
 Следующий шаг к одной World-подсказке использует уже
 наблюдавшийся в игре `CanvasPanel_0:SetRenderTranslation`,
 **но без прежнего раннего prehide**. В отдельном overlay
-`shadow-screen-translation.patch` native Screen скрывается
+`shadow-screen-translation.patch` native Screen скрывается **только
+для проверенной категории `SavePoint_BP2_C` / `Interact`**, и
 только после `World.shadow_shown()` (проверка собственного
 `presentation=shown` и host visibility), на точном выбранном
 `TipHUD_C` с текущим press/direct-brush capability.
@@ -26,7 +27,10 @@ World readiness и F9 восстанавливает исходную
 или другой writer изменил transform, чужое состояние
 не перезаписывается: `RESTORE_UNCONFIRMED`, остановка
 с `CLEANUP_PENDING`, runtime acceptance blocked.
-Неподдерживаемая подсказка остаётся stock-only.
+На всех остальных действиях и классах native Screen остаётся на месте
+рядом с исследовательским World: одиночная подсказка ещё не
+обобщена из-за недоказанной геометрической видимости. Неподдерживаемая
+World-подсказка остаётся stock-only.
 Смещение 16384 основано на проверенном 2560×1440,
 не DPI-независимая гарантия.
 
@@ -36,7 +40,7 @@ World readiness и F9 восстанавливает исходную
 `first_and_fast` не меняются. В этой ветке нет
 релиза/установки. Необходима source/CI-проверка, затем
 отдельно санкционированное короткое игровое наблюдение
-на стабильной цели: native Screen→World, уход до NONE,
+на проверенной точке возрождения: native Screen→World, уход до NONE,
 возврат Screen и F9 при активном World.
 Проверка EndPlay/map, реальных пикселей первого
 кадра, remap и production fallback остаётся открытой.
