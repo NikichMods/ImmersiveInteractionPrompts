@@ -2,6 +2,14 @@
 
 ## Общий selected-TipHUD adapter — source-only (2026-11-09)
 
+**Верификация:** commit `4ea0ee45fb1b7278d35ca1862a2ec5d1619a03df`,
+[Actions 42636726438](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42636726438)
+PASS: все офлайн-тесты, в том числе новый выбранный native reader,
+сборка `wide_safe` overlay и исходная SHA-256 identity freeze.
+Это не game-runtime acceptance. Исследовательская проба остаётся
+отключена после предыдущего прогона; новая ветка в игру не
+устанавливалась.
+
 Игровой сеанс `042ec94` подтвердил выбранные native `Interact`, `Talk`,
 `Knock` на `TipHUD_C` с доступным текстом. Добавлен независимый
 read-only `IIPInteractionSource.inspect_selected`, работающий с уже
