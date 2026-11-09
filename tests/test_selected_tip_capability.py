@@ -16,7 +16,8 @@ local function obj(path,classname,address)
  function o:GetAddress()return self._address end
  function o:GetClass()return {
   GetFullName=function()return "Class "..self._class end,
-  GetSuperStruct=function()return nil end
+  GetSuperStruct=function()return nil end,
+  IsValid=function()return true end
  }end
  function o:HasAnyFlags()return false end
  return o
