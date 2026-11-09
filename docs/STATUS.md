@@ -2,6 +2,8 @@
 
 ## Native selected hint capability — source-only (2026-11-09)
 
+**Офлайн-гейт:** исходники `86dd68e35bba841e23f44ab0ba32805534507533`, [CI 42644382804](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42644382804) PASS, включая assembled `wide_safe` и новые тесты hold/locked/device/brush. Проверок в игре для этого исходника не было.
+
 В отдельной исследовательской ветке `research/selected-hint-gate-01`
 добавлен read-only `IIPSelectedHintPreflight.lua`, применяемый к
 уже выбранному native TipHUD. Он классифицирует press/hold,
