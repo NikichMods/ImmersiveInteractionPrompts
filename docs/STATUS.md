@@ -1,5 +1,25 @@
 # Статус Immersive Interaction Prompts
 
+## Общий selected-TipHUD adapter — source-only (2026-11-09)
+
+Игровой сеанс `042ec94` подтвердил выбранные native `Interact`, `Talk`,
+`Knock` на `TipHUD_C` с доступным текстом. Добавлен независимый
+read-only `IIPInteractionSource.inspect_selected`, работающий с уже
+выбранным `PlayerActionComponent+0x410` actor без требования
+`BaseGameEventObject_BP` и без списка разрешённых action.
+Проверяет native ownership, Screen widget, локализованный текст
+и фиксирует `hint_state` (visible/hidden/unknown); сырой текст не
+попадает в журнал. `IIPWideCoverage` вызывает его только в
+selected-only режиме. Обычные `acquire/snapshot` и `first_and_fast`
+остались ограниченными тремя проверенными объектами.
+
+**Это не разрешение на World/Screen suppression.** Новый owner
+остаётся stock-only. `hint_state` не подтверждает правильность
+переноса кнопки в World, а anchored placement у стен/дверей
+и общий lifecycle ещё требуют доказательств. Следующее достаточное
+изменение — capability gate для нативной кнопки и геометрически
+безопасной World-отображаемости, а не расширение allowlist по тегам.
+
 ## Native selected-owner survey — runtime (2026-11-09)
 
 Один сейв, три фактически выбранных владельца с тегами Interact,

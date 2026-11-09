@@ -17,6 +17,7 @@ on:
       - research/tiphud-render-suppression-01
       - research/tiphud-direct-brush-01
       - research/native-selected-capability-01
+      - research/universal-tiphud-adapter-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
