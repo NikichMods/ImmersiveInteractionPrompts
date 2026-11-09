@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Warmup A/B/A2 — игровой результат (2026-11-10)
+
+F9 запустила и остановила цикл; оба World очищены до остановки.
+Прежние фризы не воспроизвелись в A, B или A2. Отдельно отмечен
+возможный микрофриз на появлении у кондуита, без замера frametime.
+Проба отключена. [Доказательства](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#warmup-aba2--игровой-результат-2026-11-10).
+
+
 ## Исследовательский A/B: сначала прогрев без опроса, затем F9 — source-only (2026-11-09)
 
 **Офлайн-проверка:** исходник `6799cfc9370bdffdb01478fb1713e9f9f3d9a422`, [CI #42702029700](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42702029700) PASS — собранный shadow entrypoint, все тесты, start-paused без запланированного callback, первая F9 активация и вторая F9 остановка, остановка до активации. В игре этот новый режим ещё не испытывался.
