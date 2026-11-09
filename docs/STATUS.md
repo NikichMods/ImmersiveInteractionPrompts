@@ -1,5 +1,20 @@
 # Статус Immersive Interaction Prompts
 
+## Native selected hint capability — source-only (2026-11-09)
+
+В отдельной исследовательской ветке `research/selected-hint-gate-01`
+добавлен read-only `IIPSelectedHintPreflight.lua`, применяемый к
+уже выбранному native TipHUD. Он классифицирует press/hold,
+locked/available, input device и строгую форму native
+`ImageInteractAllowed`, без таблиц action→icon и без записей
+в штатный UI. `direct_brush_candidate` не означает
+подтверждённого World, remap или геометрии; неизвестные
+оставлены stock-only. Это единая входная проверка для
+последующего *shadow World*, отображаемого рядом с Screen,
+а не разрешение скрывать Screen. Исполняемая базовая
+`first_and_fast` не затронута. До нового runtime
+кандидат не устанавливать.
+
 ## Общий World-путь — проверка готовности (2026-11-09)
 
 Для Interact, Talk и Knock подтверждены выбранный native TipHUD и текст.

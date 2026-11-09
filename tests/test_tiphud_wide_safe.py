@@ -22,6 +22,8 @@ class WideSafe(unittest.TestCase):
                             work/"Scripts/IIPPrehideTranslation.lua")
             shutil.copyfile(OVERLAY/"IIPSelectedTipCapability.lua",
                             work/"Scripts/IIPSelectedTipCapability.lua")
+            shutil.copyfile(OVERLAY/"IIPSelectedHintPreflight.lua",
+                            work/"Scripts/IIPSelectedHintPreflight.lua")
             for p in ("first-show-observe.patch","prehide-translation.patch",
                       "translation-cycle.patch","first-approach-fast-create.patch",
                       "wide-safe.patch"):
@@ -255,6 +257,7 @@ package.preload.IIPWorldChild=function()
 end
 package.preload.IIPWorldTarget=function()return {new=function()return function()end end}end
 package.preload.IIPSelectedTipCapability=function()return {inspect_selected=function()end}end
+package.preload.IIPSelectedHintPreflight=function()return {inspect=function()end}end
 package.preload.IIPPrehideTranslation=function()return {}end
 package.preload.IIPSelectedWorldSession=function()
  return {start=function()
@@ -313,6 +316,7 @@ assert(not R.stopped)
         self.assertIn('or MODE=="wide_safe"',main)
         self.assertIn("World.enable_fast_children()",main)
         self.assertIn("translation_api.selected_probe",main)
+        self.assertIn("IIPSelectedHintPreflight",main)
         self.assertIn("/Script/UMG.Widget:SetRenderTranslation",main)
         self.assertNotIn("/Script/UMG.UserWidget:SetColorAndOpacity",main)
         vm=LuaRuntime()
