@@ -23,6 +23,7 @@ on:
       - research/shadow-host-reload-01
       - research/shadow-all-actions-01
       - research/shadow-warmup-ab-01
+      - research/shadow-screen-translation-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'

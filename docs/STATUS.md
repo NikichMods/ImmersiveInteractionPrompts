@@ -1,5 +1,46 @@
 # Статус Immersive Interaction Prompts
 
+## Late Shadow Screen translation — только исследовательский исходник (2026-11-10)
+
+Следующий шаг к одной World-подсказке использует уже
+наблюдавшийся в игре `CanvasPanel_0:SetRenderTranslation`,
+**но без прежнего раннего prehide**. В отдельном overlay
+`shadow-screen-translation.patch` native Screen скрывается
+только после `World.shadow_shown()` (проверка собственного
+`presentation=shown` и host visibility), на точном выбранном
+`TipHUD_C` с текущим press/direct-brush capability.
+Нативная логика выбора, локализации, смены кнопок и
+Screen membership не изменяется. Исходный Screen пока
+может кратко появиться раньше World — это пилот
+с поздним подавлением, а не утверждение готового UX.
+
+`IIPShadowScreenTranslation.lua` сохраняет исходный
+`CanvasPanel_0.RenderTransform.Translation`, проверяет
+идентичность actor/component/widget/root и делает один
+X+16384 setter с readback. При смене цели, потере
+World readiness и F9 восстанавливает исходную
+трансляцию **до** уничтожения собственного World.
+Восстановление допускается и после обычного
+`bAddedToScreen=false`/скрытия Screen, если точный
+нативный экземпляр ещё жив. Если identity уже потеряна
+или другой writer изменил transform, чужое состояние
+не перезаписывается: `RESTORE_UNCONFIRMED`, остановка
+с `CLEANUP_PENDING`, runtime acceptance blocked.
+Неподдерживаемая подсказка остаётся stock-only.
+Смещение 16384 основано на проверенном 2560×1440,
+не DPI-независимая гарантия.
+
+Текущий исследовательский overlay следует после шести
+проверенных патчей Shadow и требует дополнительный
+четвёртый Lua-модуль. Исходная frozen-база и
+`first_and_fast` не меняются. В этой ветке нет
+релиза/установки. Необходима source/CI-проверка, затем
+отдельно санкционированное короткое игровое наблюдение
+на стабильной цели: native Screen→World, уход до NONE,
+возврат Screen и F9 при активном World.
+Проверка EndPlay/map, реальных пикселей первого
+кадра, remap и production fallback остаётся открытой.
+
 ## Warmup A/B/A2 — игровой результат (2026-11-10)
 
 F9 запустила и остановила цикл; оба World очищены до остановки.

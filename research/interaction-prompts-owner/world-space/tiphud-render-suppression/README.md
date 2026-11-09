@@ -1915,3 +1915,65 @@ World у кондуита. Это отдельное наблюдение, со�
 прежних фризов имеет смысл при воспроизведении. Для отдельной
 оценки первого показа достаточно сопоставить frametime с
 повторными подходами к кондуиту.
+
+### Late Shadow World: обратимое скрытие выбранного Screen после SHOWN (2026-11-10)
+
+Предыдущая гипотеза раннего `alpha=0` была отрицательной для
+Retainer-зависимой World-кнопки. Последующая прямая штатная
+`Texture2D` сохранила актуальный значок при нулевой alpha.
+Отдельное раннее смещение `CanvasPanel_0` в прошлом
+показало одну World для Open/Take/Check с восстановлением
+Screen по F4, но широкий early lease завершался
+`RESTORE_UNCONFIRMED` при загрузке карты.
+
+Поэтому текущий source-only пилот **не скрывает ничего до
+полной команды `World.shown`**. Его последняя надстройка
+`shadow-screen-translation.patch` добавляет
+`IIPShadowScreenTranslation.lua`; не меняет штатные
+`CanShow`, input/retainer, `ExtendedWidgetComponent`,
+`Visibility`, `RenderOpacity` или alpha.
+Используется только отобранный игрой native owner и
+`TipHUD_C`, direct-brush press, и доступный собственный
+World-host. При first SHOWN выполняется один
+`CanvasPanel_0:SetRenderTranslation(X+16384,Y)` с
+проверкой root/outer/identity/readback.
+После ухода, потери собственной видимости или F9
+восстановление выполняется раньше World teardown.
+Если native Screen уже `bAddedToScreen=false`,
+restore допускается на том же ещё живом точном экземпляре.
+Чужой transform не перезаписывается.
+
+Сборка: точная frozen `selected-owner-world/Scripts`, затем
+`first-show-observe.patch`, `shadow-world.patch`,
+`shadow-visual-observe.patch`, `shadow-host-reload.patch`,
+`shadow-all-actions.patch`, `shadow-warmup-ab.patch`,
+**`shadow-screen-translation.patch`**, и модули:
+`IIPShadowWorldSession.lua`,
+`IIPSelectedTipCapability.lua`,
+`IIPSelectedHintPreflight.lua`,
+**`IIPShadowScreenTranslation.lua`**.
+Использовать в staging текущие исходные файлы из этой ветки
+и только прежние локально проверенные конфиг/орнамент/шрифт.
+Не публиковать приватные ресурсы игры.
+`tests/test_shadow_world.py` проверяет полную сборку
+и сохранение F9; `tests/test_shadow_screen_translation.py`
+упражняет реальную Lua-функцию на изолированном native mock.
+
+Достаточная первая игровая проверка после отдельной
+авторизации — один обычный стабильный `Take` или
+`Interact`, сравнить видимое native Screen и World до/после
+SHOWN, отойти до NONE, убедиться в возврате stock,
+вернуться к World и нажать F9 при активной подсказке.
+Лог должен подтвердить `SCREEN_HIDDEN`, затем
+`SCREEN_RESTORED` до `IIP_WORLD_HINT CLEANED`, и
+`STOP manual_f9 cleanup_confirmed=true`.
+Если замечена потеря обоих промптов, чужая UI-модификация
+или `RESTORE_UNCONFIRMED`, прекратить тест и выполнить
+верифицированный rollback при закрытой игре.
+
+Ограничения: `shadow_shown()` означает готовность
+собственного UMG-host, а не гарантированные пиксели/LOS.
+Возможны короткий ранний stock flash, неполный первый
+World-кадр и частичное перекрытие геометрией.
+Map/EndPlay при активном скрытии не протестированы и
+не входят в первый протокол. Production/релиз BLOCKED.
