@@ -41,6 +41,10 @@ coverage_api.early_target=function(path)
  if path==target then return "Open" end
 end
 coverage_api.describe_other_action=function()return "Talk","/Game/TestNpc_C"end
+coverage_api.selected_probe=function(a)
+ assert(a==take,"unexpected selected sample")
+ return "widget_class=TipHUD localized_text=present"
+end
 coverage_api.placement_sample=function(a,record)
  assert(a==take and record.actor==take_record.actor)
  return "sample:source=known_geometry_unknown"
@@ -161,6 +165,57 @@ end
 assert(reports==1)
 """)
 
+    def test_unsupported_selected_owner_is_sampled_once_without_hiding(self):
+        self.case("""
+local native=coverage_api.acquire
+coverage_api.acquire=function(a)
+ if a==take then return nil,"other_action" end
+ return native(a)
+end
+local calls=0
+coverage_api.selected_probe=function(a)
+ assert(a==take)
+ calls=calls+1
+ if calls<3 then return nil end
+ return "tag=Press widget_class=TipHUD localized_text=present"
+end
+p=Wide.new(coverage_api,emit)
+p.begin(take)
+for _=1,6 do assert(not select(take)) end
+assert(calls==3 and writes==0 and take_panel.RenderTransform.Translation.X==8)
+local samples=0
+for _,line in ipairs(logs) do
+ if line:find("SELECTED_NATIVE_SURVEY",1,true) then
+  assert(line:find("stock_only=true",1,true))
+  assert(line:find("tag=Press",1,true))
+  samples=samples+1
+ end
+end
+assert(samples==1)
+""")
+
+    def test_unavailable_selected_owner_keeps_original(self):
+        self.case("""
+local native=coverage_api.acquire
+coverage_api.acquire=function(a)
+ if a==take then return nil,"other_action" end
+ return native(a)
+end
+local calls=0
+coverage_api.selected_probe=function()
+ calls=calls+1
+ return nil
+end
+p=Wide.new(coverage_api,emit)
+for _=1,12 do assert(not select(take)) end
+assert(calls==8 and writes==0)
+local n=0
+for _,line in ipairs(logs) do
+ if line:find("SELECTED_UNAVAILABLE",1,true) then n=n+1 end
+end
+assert(n==1)
+""")
+
     def test_absent_position_is_not_permission_to_pre_hide(self):
         self.case("""
 coverage_api.placement_sample=function()error("geometry unavailable")end
@@ -254,6 +309,7 @@ assert(not R.stopped)
         self.assertIn('translation_api.placement_sample',main)
         self.assertIn('or MODE=="wide_safe"',main)
         self.assertIn("World.enable_fast_children()",main)
+        self.assertIn("translation_api.selected_probe",main)
         self.assertIn("/Script/UMG.Widget:SetRenderTranslation",main)
         self.assertNotIn("/Script/UMG.UserWidget:SetColorAndOpacity",main)
         vm=LuaRuntime()
