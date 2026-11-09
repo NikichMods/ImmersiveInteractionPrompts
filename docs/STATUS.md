@@ -3,7 +3,8 @@
 ## Shadow World: все совместимые selected actions — source-only (2026-11-09)
 
 Исследовательский флаг `ALL_SELECTED_ACTIONS=true` в
-`IIPShadowWorldSession` разрешает пробный World для всех
+отдельном последнем overlay `shadow-all-actions.patch`
+(`IIPShadowWorldSession` assembled) разрешает пробный World для всех
 **совместимых** штатных selected `TipHUD_C` действий, включая
 ранее исключённые `Open/Take/Check`. Это единственная
 изменённая граница охвата: всё ещё требуется native selected

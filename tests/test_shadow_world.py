@@ -22,7 +22,8 @@ class ShadowWorld(unittest.TestCase):
             for name in ("IIPShadowWorldSession", "IIPSelectedTipCapability", "IIPSelectedHintPreflight"):
                 shutil.copyfile(OVERLAY / f"{name}.lua", work / "Scripts" / f"{name}.lua")
             for patch in ("first-show-observe.patch", "shadow-world.patch",
-                          "shadow-visual-observe.patch", "shadow-host-reload.patch"):
+                          "shadow-visual-observe.patch", "shadow-host-reload.patch",
+                          "shadow-all-actions.patch"):
                 subprocess.run(["git", "apply", "--unidiff-zero", str(OVERLAY / patch)],
                                cwd=work, check=True,
                                env={**os.environ, "GIT_CEILING_DIRECTORIES": str(work.parent)})

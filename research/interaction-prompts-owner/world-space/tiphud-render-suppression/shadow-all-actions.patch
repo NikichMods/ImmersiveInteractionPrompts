@@ -1,0 +1,8 @@
+--- a/Scripts/IIPShadowWorldSession.lua
++++ b/Scripts/IIPShadowWorldSession.lua
+@@ -6 +6 @@
+-local legacy={Open=true,Take=true,Check=true}
++local ALL_SELECTED_ACTIONS=true;local legacy={Open=true,Take=true,Check=true} -- research-only coverage
+@@ -44 +44 @@
+-        if not ok or not row or row.actor~=selection.key or legacy[row.action] then return end
++        if not ok or not row or row.actor~=selection.key or (not ALL_SELECTED_ACTIONS and legacy[row.action]) then return end

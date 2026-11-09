@@ -1732,8 +1732,9 @@ UObject wrapper между тиками.
 
 ### Shadow coverage switch: все совместимые native actions (2026-11-09)
 
-В `IIPShadowWorldSession.lua` на `research/shadow-all-actions-01`
-включён `ALL_SELECTED_ACTIONS=true`: снято только прежнее
+Исследовательский `shadow-all-actions.patch` применяется **последним**
+после `shadow-host-reload.patch`, не изменяя базовый Lua-модуль.
+В assembled `IIPShadowWorldSession.lua` включён `ALL_SELECTED_ACTIONS=true`: снято только прежнее
 исключение `Open/Take/Check`. Все штатные действия с выбранным
 `TipHUD_C` и готовым press/direct-brush значком могут
 дойти до собственного World. При `false` эти три действия
@@ -1752,7 +1753,8 @@ shadow-кандидате, а не новая система рендера.
 
 Сборка: frozen `selected-owner-world/Scripts`, затем
 `first-show-observe.patch`, `shadow-world.patch`,
-`shadow-visual-observe.patch`, `shadow-host-reload.patch`.
+`shadow-visual-observe.patch`, `shadow-host-reload.patch`,
+**`shadow-all-actions.patch`**.
 Дополнительно в staging Scripts копируются три Lua-модуля:
 `IIPShadowWorldSession.lua`, `IIPSelectedTipCapability.lua`,
 `IIPSelectedHintPreflight.lua`. Для проверки флага
