@@ -3,6 +3,9 @@
 -- after the independent World widget reports SHOWN. Preserve native controls.
 local M={}
 local SHIFT_X=16384 -- Observed at 2560x1440; not a general resolution guarantee.
+-- One known, free-standing pilot category. The generic World remains shadow-only.
+local PILOT_ACTION="Interact"
+local PILOT_CLASS_SUFFIX="SavePoint_BP2_C"
 local function finite(n)return type(n)=="number" and n==n and math.abs(n)<math.huge end
 local function xy(p)
     local t=p.RenderTransform
@@ -101,6 +104,11 @@ function M.new(api,emit)
             return restore("render_translation_changed")
         end
         if not row then blocked=nil;return true end
+        -- A World SHOWN command proves neither pixels nor lack of depth occlusion.
+        -- Do not conceal native Screen for doors, wall documents or unknown owners.
+        if row.action~=PILOT_ACTION or not row.refs or not row.refs.actor
+            or type(row.refs.actor.class)~="string"
+            or not row.refs.actor.class:match(PILOT_CLASS_SUFFIX.."$") then return true end
         if not world_shown or blocked==row.actor then return true end
         local ok,err=pcall(hide,row,actor)
         if not ok then
