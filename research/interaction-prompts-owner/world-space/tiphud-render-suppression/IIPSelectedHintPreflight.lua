@@ -19,6 +19,14 @@ local function shape(image)
   and b.TintColor.ColorUseRule==0 and white(b.TintColor.SpecifiedColor)
   and white(image.ColorAndOpacity)
 end
+function M.direct_texture(image,alive)
+ if not alive(image) or cls(image)~="/Script/UMG.Image" then return nil end
+ local tex=image.Brush.ResourceObject
+ if shape(image) and alive(tex) and cls(tex)=="/Script/Engine.Texture2D"
+  and path(tex)~="/Game/MainContent/Assets/UIImage/UI_Widgets/ico_ps4_FaceButton_UP.ico_ps4_FaceButton_UP" then
+  return tex
+ end
+end
 local function read(actor,row,alive)
  assert(type(row)=="table" and type(row.refs)=="table")
  local source=actor.ExtendedWidget
@@ -39,9 +47,7 @@ local function read(actor,row,alive)
  local image=w.ImageInteractAllowed
  assert(alive(image) and cls(image)=="/Script/UMG.Image","allowed image missing")
  local tex=image.Brush.ResourceObject
- local direct=shape(image) and alive(tex)
-  and cls(tex)=="/Script/Engine.Texture2D"
-  and path(tex)~="/Game/MainContent/Assets/UIImage/UI_Widgets/ico_ps4_FaceButton_UP.ico_ps4_FaceButton_UP"
+ local direct=M.direct_texture(image,alive)~=nil
  local gate="direct_brush_candidate"
  if row.hint_state~="visible" then gate="hint_not_visible"
  elseif hold then gate="hold"
@@ -52,12 +58,12 @@ local function read(actor,row,alive)
   .." locked_hidden="..tostring(lock_hidden)
   .." device="..tostring(device)
   .." source_type="..(valid(tex) and cls(tex) or "unavailable")
-  .." remap_equivalence=UNKNOWN geometry_occlusion=UNKNOWN"
+  .." remap_equivalence=UNKNOWN geometry_occlusion=UNKNOWN",gate
 end
 function M.inspect(actor,row,alive)
- local ok,s=pcall(read,actor,row,alive)
+ local ok,s,gate=pcall(read,actor,row,alive)
  if not ok then return nil,"unavailable" end
  assert(type(s)=="string" and #s<=360,"report bound")
- return s
+ return s,gate
 end
 return M

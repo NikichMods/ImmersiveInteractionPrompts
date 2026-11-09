@@ -1,0 +1,192 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -2,15 +2,13 @@
+ -- Exact-build research renderer. Native TipHUD is a read-only source.
+ -- Not an installation authorization or a production selected-owner provider.
+-local Source=require("IIPInteractionSource")
+ local Visibility=require("IIPOpenVisibility")
+-local Session=require("IIPSelectedWorldSession")
++local Session=require("IIPShadowWorldSession")
+ local World=require("IIPWorldChild")
+-local Target=require("IIPWorldTarget")
+ local COMPONENT="/Script/Genesis.PlayerActionComponent"
+ local GENESIS="/Script/Genesis.GenesisCharacter"
+ local PLAYER_CONTROLLER="/Script/Engine.PlayerController"
+-local PROPERTY="IIPResearchCommittedTipOwner_83330635"
++local PROPERTY="IIPResearchShadowTipOwner_83330635"
+ local function log(event,fields)
+-    print("IIP_SELECTED_WORLD event="..event.." "..(fields or "").."\n")
++    print("IIP_SHADOW_WORLD event="..event.." "..(fields or "").."\n")
+ end
+ local function valid(o) return o~=nil and o:IsValid() end
+@@ -44,5 +42,5 @@
+             "LoopInGameThreadAfterFrames","CancelDelayedAction",
+             "RegisterLoadMapPreHook","RegisterBeginPlayPostHook",
+-            "RegisterEndPlayPreHook"}) do
++            "RegisterEndPlayPreHook","RegisterKeyBind","IsKeyBindRegistered"}) do
+         assert(type(_G[name])=="function","missing UE4SS API "..name)
+     end
+@@ -179,6 +177,7 @@
+         return result
+     end
++    assert(type(Key.F4)=="number" and not IsKeyBindRegistered(Key.F4),"F4 unavailable")
+     local hint_visible=function(w)return Visibility.visible(w,alive)end
+-    observer=Session.start(World,Source,Target.new(Source,alive,hint_visible),{
++    observer=Session.start(World,{
+         read=read,loop=LoopInGameThreadAfterFrames,cancel=CancelDelayedAction,
+         native_alive=alive,hint_visible=hint_visible,
+@@ -191,4 +190,5 @@
+         RegisterBeginPlayPostHook(on_controller_begin)
+         RegisterEndPlayPreHook(on_controller_end)
++        RegisterKeyBind(Key.F4,function()observer.stop("manual_f4")end)
+     end)
+     if not registered then observer.stop("registration:"..tostring(problem)) end
+--- a/Scripts/IIPHintSource.lua
++++ b/Scripts/IIPHintSource.lua
+@@ -2,4 +2,5 @@
+ -- One borrowed native hint source; never writes a source widget, material or texture.
+ local M={}
++local Gate=require("IIPSelectedHintPreflight")
+ local state=nil
+ local cvar_baseline=nil
+@@ -27,19 +28,4 @@
+ local function alive(o)return valid(o) and sys("IsValid",o)==true end
+ local function finite(n)return type(n)=="number" and n==n and math.abs(n)<math.huge end
+-local function white(c)
+- return c.R==1 and c.G==1 and c.B==1 and c.A==1
+-end
+-local function direct(s)
+- local b,child=s.brush,s.child
+- local t,m=child.RenderTransform,b.Margin
+- return child.bFlipForRightToLeftFlowDirection==false
+-  and t.Translation.X==0 and t.Translation.Y==0 and t.Scale.X==1 and t.Scale.Y==1
+-  and t.Shear.X==0 and t.Shear.Y==0 and t.Angle==0
+-  and b.DrawAs==3 and b.Tiling==0 and b.Mirroring==0 and b.ImageType==0
+-  and b.ImageSize.X==64 and b.ImageSize.Y==64 and b.UVRegion.bIsValid==0
+-  and m.Left==0 and m.Top==0 and m.Right==0 and m.Bottom==0
+-  and b.TintColor.ColorUseRule==0 and white(b.TintColor.SpecifiedColor)
+-  and white(child.ColorAndOpacity)
+-end
+ local function source(w,action)
+  local isvalid=api("/Script/Engine.KismetSystemLibrary:IsValid")
+@@ -82,53 +68,11 @@
+  local result={retainer=r,child=child,size=size,device=device,player=pc,retained=r.bRetainRender,
+   brush=child.Brush,phase=r.Phase,phases=r.PhaseCount,render_phase=r.RenderOnPhase,render_invalid=r.RenderOnInvalidation}
+- if action=="Open" and w.CanHoldPress==false and (device==1 or device==4)
+-  and same(w.ImageInteractAllowed,child) and alive(w.CanvasPanel_2) and w.CanvasPanel_2.Visibility==1 then
+-  local ok,supported=pcall(direct,result)
+-  local tex=result.brush.ResourceObject
+-  if ok and supported and alive(tex) and cls(tex)=="/Script/Engine.Texture2D" then
+-   result.mode="direct_brush";result.resource=tex;result.texture=tex
+-   -- The brush shape is fixed by the guard. Device and extent alone do not change its contents.
+-   result.key="direct_brush|"..id(tex)
+-   result.description="mode=direct_brush device="..device.." resource="..string.format("%q",id(tex))
+-   return result
+-  end
+- end
+- local global=sys("GetConsoleVariableIntValue","Slate.EnableRetainedRendering")
+- -- Shipping Slate does not register the development-only cvar refresh delegate.
+- -- Zero is also the getter's missing-cvar result: do not infer a safe mode from it.
+- assert(global==1 and global==cvar_baseline,"unsupported/changed global retainer mode")
+- assert(type(r.bRetainRender)=="boolean","retainer desire unavailable")
+- if r.bRetainRender then
+-  assert(r.TextureParameter:ToString()=="Icon" and r.RenderOnPhase==true and r.PhaseCount==1 and r.Phase==0,"unsupported retained render schedule/parameter")
+-  local mid=r:GetEffectMaterial()
+-  assert(alive(mid) and cls(mid)=="/Script/Engine.MaterialInstanceDynamic","native effect MID not ready")
+-  local parent=mid.Parent
+-  assert(alive(parent) and cls(parent)=="/Script/Engine.Material" and path(parent)==MAT and parent.MaterialDomain==5,"unsupported native hint material")
+-  local tex=mid:K2_GetTextureParameterValue(FName("Icon"))
+-  assert(alive(tex) and cls(tex)=="/Script/Engine.TextureRenderTarget2D","Icon final render target not ready")
+-  assert(finite(tex.SizeX) and finite(tex.SizeY) and tex.SizeX>=1 and tex.SizeX<=1024 and tex.SizeY>=1 and tex.SizeY<=1024,"unsupported Icon target size")
+-  assert(type(tex.bForceLinearGamma)=="boolean" and math.type(tex.RenderTargetFormat)=="integer"
+-   and math.type(parent.BlendMode)=="integer","hint gamma/blend metadata unavailable")
+-  result.mode="retained_mid";result.resource=mid;result.texture=tex
+-  result.extra=" Icon_rt="..tex.SizeX.."x"..tex.SizeY.." linear_gamma="..tostring(tex.bForceLinearGamma)
+-   .." rt_format="..tostring(tex.RenderTargetFormat).." source_blend="..tostring(parent.BlendMode)
+- else
+-  local b=child.Brush;local tex=b.ResourceObject
+-  assert(alive(tex) and cls(tex)=="/Script/Engine.Texture2D" and child.bFlipForRightToLeftFlowDirection==false,"unsupported inactive-retainer brush")
+-  assert(b.DrawAs==3 and finite(b.ImageSize.X) and finite(b.ImageSize.Y) and b.ImageSize.X>0 and b.ImageSize.Y>0,"unsupported child image brush")
+-  assert(b.TintColor.ColorUseRule==0,"unsupported inherited child brush tint")
+-  local t=child.RenderTransform
+-  assert(t.Translation.X==0 and t.Translation.Y==0 and t.Scale.X==1 and t.Scale.Y==1
+-   and t.Shear.X==0 and t.Shear.Y==0 and t.Angle==0,"unsupported child image transform")
+-  result.mode="child_brush";result.resource=tex;result.texture=tex
+-  result.extra=" brush_size="..b.ImageSize.X.."x"..b.ImageSize.Y.." DrawAs="..b.DrawAs.." tint_rule="..b.TintColor.ColorUseRule
+- end
+- result.key=result.mode.."|"..id(r).."|"..id(child).."|"..id(pc).."|"..device.."|"..id(result.resource).."|"..id(result.texture).."|"..size.X..","..size.Y.."|"..result.extra
+- result.description="mode="..result.mode.." device="..device.." retained="..tostring(r.bRetainRender)
+-  .." global=1 retainer="..string.format("%q",id(r)).." child="..string.format("%q",id(child))
+-  .." brush="..tostring(result.brush:GetStructAddress())
+-  .." resource="..string.format("%q",id(result.resource)).." texture="..string.format("%q",id(result.texture))
+-  .." slot="..size.X.."x"..size.Y.." phase="..tostring(r.Phase).."/"..tostring(r.PhaseCount)
+-  .." on_phase="..tostring(r.RenderOnPhase).." on_invalidation="..tostring(r.RenderOnInvalidation)..result.extra
++ assert(w.CanHoldPress==false and (device==1 or device==4)
++  and same(w.ImageInteractAllowed,child) and alive(w.CanvasPanel_2)
++  and w.CanvasPanel_2.Visibility==1,"shadow requires available press hint")
++ local tex=assert(Gate.direct_texture(child,alive),"shadow requires direct texture")
++ result.mode="direct_brush";result.resource=tex;result.texture=tex
++ result.key="direct_brush|"..device.."|"..id(tex)
++ result.description="mode=direct_brush device="..device.." resource="..string.format("%q",id(tex))
+  return result
+ end
+--- a/Scripts/IIPComposition.lua
++++ b/Scripts/IIPComposition.lua
+@@ -35,5 +35,4 @@
+ function M.pending()return state~=nil end
+ function M.start(host,root,w,name,settings,action)
+-   assert(action=="Open" or action=="Take" or action=="Check", "unsupported native action family")
+  assert(not state,"one composition only")
+  state={host=ref(host),tree=ref(host.WidgetTree),root=ref(root),original=ref(w),settings=settings}
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -260,5 +260,4 @@
+ function M.update_orientation()
+  local s,c,yaw,degenerate,distance,w,source,host=frame_context()
+- if M.poll_editor(w)==false then return end
+  local visible=source.bVisible==true and source.bAddedToScreen==true
+  local reason="source_component_hidden_or_not_screen_added"
+@@ -378,8 +377,5 @@
+ end
+ function M.create(actor,source,w,onstop,action,still_selected)
+- assert(action=="Open" or action=="Take" or action=="Check","unsupported World action")
+  assert(state==nil and assets_refreshed,"one refreshed own World composition only")
+- Hint.preflight(w,action)
+- log("PHASE","name=create edge=BEGIN")
+  for _,name in ipairs({"StaticConstructObject"})do
+   assert(type(_G[name])=="function","missing World API: "..name)
+@@ -387,5 +383,4 @@
+  assert(FName~=nil,"name constructor unavailable") -- Pinned callable userdata, not plain functions.
+  assert(type(EObjectFlags.RF_Transient)=="number","transient flag unavailable")
+- log("PHASE","name=anchor_camera edge=BEGIN")
+  local anchor=finite(xyz(source:K2_GetComponentLocation()))
+  local cam=w:GetOwningPlayerCameraManager();assert(alive(cam),"camera manager unavailable")
+@@ -393,6 +388,8 @@
+  local position={X=anchor.X,Y=anchor.Y,Z=anchor.Z+32} -- One quad height above anchor; separate stock overlay.
+  local dx,dy,dz=camera.X-position.X,camera.Y-position.Y,camera.Z-position.Z
+- local distance=math.sqrt(dx*dx+dy*dy+dz*dz);assert(distance>=80 and distance<=1500,"camera distance outside first-test envelope")
+- log("PHASE","name=anchor_camera edge=END")
++ local distance=math.sqrt(dx*dx+dy*dy+dz*dz)
++ if distance<80 or distance>1500 then return false end
++ Hint.preflight(w,action)
++ log("PHASE","name=create edge=BEGIN")
+  local initial_yaw=yaw_for(position,camera,nil) -- Refuse a singular initial direction before allocation.
+  local rot={Pitch=0,Yaw=initial_yaw,Roll=0}
+@@ -449,3 +446,4 @@
+  log("CREATED","component="..string.format("%q",path(c)).." native_registration_requested=true scale=0.25"
+   .." draw=1024x512 physical=256x128 offset_world_z=32 fixed_position=true vertical_yaw=true camera_distance="..string.format("%.3f",distance)
++   .." geometry_occlusion=UNKNOWN anchor_xyz="..vector(anchor).." camera_xyz="..vector(camera)
+   .." expected_rotation_pyr="..string.format("%.9g,%.9g,%.9g",rot.Pitch,rot.Yaw,rot.Roll))
+@@ -466,4 +464,12 @@
+  return true
+ end
++function M.shadow_anchor_current()
++ local s=assert(state,"missing owned World")
++ local source=find(s.source)
++ if not alive(source) then return false end
++ local now=finite(xyz(source:K2_GetComponentLocation()))
++ return math.abs(now.X-s.anchor.X)<0.01 and math.abs(now.Y-s.anchor.Y)<0.01
++  and math.abs(now.Z-s.anchor.Z)<0.01
++end
+ function M.refresh()
+  assert(state and state.active,"refresh without World owner")

@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Shadow World — кандидат только в исходниках (2026-11-09)
+
+Отдельный overlay строит один World для выбранного TipHUD вне
+Open/Take/Check при строгом direct-brush preflight. Исходный Screen
+служит контролем. Depth test сохранён, сдвиг якоря завершает показ
+для текущего выбора. Следующий шаг — отдельно согласованный игровой
+тест двери или NPC, затем F4 при активном World.
+[Сборка и условия наблюдения](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#shadow-world-рядом-со-штатным-screen--source-only-2026-11-09).
+
+
 ## Native selected hint capability — source-only (2026-11-09)
 
 **Офлайн-гейт:** исходники `86dd68e35bba841e23f44ab0ba32805534507533`, [CI 42644382804](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42644382804) PASS, включая assembled `wide_safe` и новые тесты hold/locked/device/brush. Проверок в игре для этого исходника не было.
