@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Shadow All Actions — игровой прогон (2026-11-09)
+
+На 49fe618 подтверждены World для Interact, Knock, Take и Check,
+два HOST recovery и очистка активного World по F9. Торговец и
+запрет взаимодействия в бою остались Screen. Отмечены подфризы,
+причина не установлена. Проба выключена.
+[Доказательства и следующий тест](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#shadow-all-actions--расширенный-игровой-прогон-2026-11-09).
+
+
 ## Shadow World: все совместимые selected actions — source-only (2026-11-09)
 
 **Офлайн-гейт:** source `5fd866b85d2459252db6a147a7df2b45bc807ecf`, [CI #42691108139](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42691108139) PASS. Проверены assembled overlay, оба положения переключателя, повторный HOST reload, cleanup и frozen-source identity; в игре широкий охват ещё не испытывался.
