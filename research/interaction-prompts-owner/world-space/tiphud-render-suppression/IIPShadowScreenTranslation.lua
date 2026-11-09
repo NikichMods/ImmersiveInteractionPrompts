@@ -19,13 +19,14 @@ function M.new(api,emit)
     local function exact(o,r)
         return r and api.alive(o) and api.path(o)==r.path and o:GetAddress()==r.address
     end
-    local function get(row,actor)
+    local function get(row,actor,for_restore)
         assert(row and row.refs and exact(actor,row.refs.actor),"selected actor changed")
         local component=actor.ExtendedWidget
         assert(exact(component,row.refs.component)
             and exact(component:GetOwner(),row.refs.actor)
-            and component:GetWidgetSpace()==1 and component.bAddedToScreen==true
-            and component.bVisible==true,"selected native Screen component changed")
+            and component:GetWidgetSpace()==1
+            and (for_restore or (component.bAddedToScreen==true and component.bVisible==true)),
+            "selected native Screen component changed")
         local w=component:GetUserWidgetObject()
         assert(exact(w,row.refs.widget)
             and exact(component:GetWidget(),row.refs.widget)
@@ -47,7 +48,7 @@ function M.new(api,emit)
         if not lease then return end
         local actor=api.lookup(lease.actor.path)
         if not exact(actor,lease.actor) then return end
-        local ok,p=pcall(get,lease.row,actor)
+        local ok,p=pcall(get,lease.row,actor,true)
         if not ok or not exact(p,lease.panel) then return end
         return p
     end
