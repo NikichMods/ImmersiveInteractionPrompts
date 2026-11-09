@@ -19,11 +19,13 @@ class ShadowWorld(unittest.TestCase):
         work.mkdir()
         try:
             shutil.copytree(BASE / "Scripts", work / "Scripts")
-            for name in ("IIPShadowWorldSession", "IIPSelectedTipCapability", "IIPSelectedHintPreflight"):
+            for name in ("IIPShadowWorldSession", "IIPSelectedTipCapability",
+                         "IIPSelectedHintPreflight", "IIPShadowScreenTranslation"):
                 shutil.copyfile(OVERLAY / f"{name}.lua", work / "Scripts" / f"{name}.lua")
             for patch in ("first-show-observe.patch", "shadow-world.patch",
                           "shadow-visual-observe.patch", "shadow-host-reload.patch",
-                          "shadow-all-actions.patch", "shadow-warmup-ab.patch"):
+                          "shadow-all-actions.patch", "shadow-warmup-ab.patch",
+                          "shadow-screen-translation.patch"):
                 subprocess.run(["git", "apply", "--unidiff-zero", str(OVERLAY / patch)],
                                cwd=work, check=True,
                                env={**os.environ, "GIT_CEILING_DIRECTORIES": str(work.parent)})
@@ -44,6 +46,10 @@ class ShadowWorld(unittest.TestCase):
         self.assertIn('RegisterKeyBind(Key.F9,function()observer.on_f9()end)', main)
         self.assertIn('},log,true)', main)
         self.assertIn('on_f9=function()', self.scripts["IIPShadowWorldSession"])
+        self.assertIn('require("IIPShadowScreenTranslation")', main)
+        self.assertIn('screen.observe(row,selection.actor,world.shadow_shown())',
+                      self.scripts["IIPShadowWorldSession"])
+        self.assertIn('function M.shadow_shown()', self.scripts["IIPWorldChild"])
         self.assertNotIn("prehide", main)
         self.assertIn("IIP_SHADOW_LAYOUT_WARN", self.scripts["IIPTuning"])
         self.assertIn('emit("CANDIDATE"', self.scripts["IIPShadowWorldSession"])
@@ -56,7 +62,7 @@ class ShadowWorld(unittest.TestCase):
         self.assertNotIn('result.mode="retained_mid"', hint)
         self.assertIn('b.bDisableDepthTest==false', self.scripts["IIPWorldChild"])
 
-    def scenario(self, code, all_selected=True, paused=False):
+    def scenario(self, code, all_selected=True, paused=False, with_screen=False):
         vm = LuaRuntime()
         vm.execute("""
 local actor={id=7}
@@ -99,6 +105,26 @@ function clear_selection()saved=selected;selected={status="READY"}end
         if not all_selected:
             session=session.replace("local ALL_SELECTED_ACTIONS=true",
                                     "local ALL_SELECTED_ACTIONS=false")
+        if with_screen:
+            vm.execute("""
+order={}
+world.shadow_shown=function()return own==true end
+local cleanup=world.cleanup
+world.cleanup=function(reason)
+ order[#order+1]="world_cleanup"
+ return cleanup(reason)
+end
+api.screen={
+ observe=function(row,actor,ready)
+  assert(ready and own and actor==selected.actor and row.actor=="selected")
+  order[#order+1]="screen_hide";return true
+ end,
+ restore=function(reason)
+  order[#order+1]="screen_restore";return true
+ end,
+ reset_if_unselected=function()end
+}
+""")
         vm.globals().Session = vm.execute(session)
         vm.execute("observer=Session.start(world,api,log," +
                    ("true" if paused else "false") + ")\n" + code)
@@ -177,6 +203,24 @@ observer.stop("registration_failed")
 assert(not observer.status().active and loop_calls==nil and not cancelled)
 assert(events.STOP=="reason=registration_failed cancelled=true cleanup_confirmed=true")
 """, paused=True)
+
+    def test_screen_restore_precedes_world_cleanup_on_f9(self):
+        self.scenario("""
+tick();assert(own and count==1)
+assert(order[1]=="screen_hide")
+observer.on_f9();tick()
+assert(order[2]=="screen_restore" and order[3]=="world_cleanup")
+assert(not own and cancelled and not observer.status().active)
+assert(events.STOP=="reason=manual_f9 cancelled=true cleanup_confirmed=true")
+""", with_screen=True)
+
+    def test_stock_only_does_not_translate_native_screen(self):
+        self.scenario("""
+gate="hold";tick()
+assert(count==0 and #order==0)
+observer.on_f9();tick()
+assert(order[1]=="screen_restore" and not own)
+""", with_screen=True)
 
     def test_target_loss_and_f9_release_only_owned_world(self):
         self.scenario("""
