@@ -1932,8 +1932,13 @@ Screen по F4, но широкий early lease завершался
 `IIPShadowScreenTranslation.lua`; не меняет штатные
 `CanShow`, input/retainer, `ExtendedWidgetComponent`,
 `Visibility`, `RenderOpacity` или alpha.
-Используется только отобранный игрой native owner и
-`TipHUD_C`, direct-brush press, и доступный собственный
+Применение **ограничено** известным классом `SavePoint_BP2_C`
+при `Interact`: любой другой selected owner получает прежний
+Shadow World **без скрытия штатной подсказки**. Это
+намеренная граница первой проверки, поскольку `SHOWN` не
+доказывает видимость World через стены. Используется только
+отобранный игрой native owner и `TipHUD_C`, direct-brush
+press, и доступный собственный
 World-host. При first SHOWN выполняется один
 `CanvasPanel_0:SetRenderTranslation(X+16384,Y)` с
 проверкой root/outer/identity/readback.
@@ -1960,8 +1965,7 @@ restore допускается на том же ещё живом точном �
 упражняет реальную Lua-функцию на изолированном native mock.
 
 Достаточная первая игровая проверка после отдельной
-авторизации — один обычный стабильный `Take` или
-`Interact`, сравнить видимое native Screen и World до/после
+авторизации — одну уже проверенную точку возрождения `SavePoint_BP2_C` / `Interact`, сравнить видимое native Screen и World до/после
 SHOWN, отойти до NONE, убедиться в возврате stock,
 вернуться к World и нажать F9 при активной подсказке.
 Лог должен подтвердить `SCREEN_HIDDEN`, затем
