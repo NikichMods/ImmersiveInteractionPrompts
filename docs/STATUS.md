@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native selected-owner survey — runtime (2026-11-09)
+
+Один сейв, три фактически выбранных владельца с тегами Interact,
+Talk и Knock. У всех штатный `TipHUD_C` и доступный локализованный
+текст, режим stock-only. F4 остановила цикл. Проба отключена.
+Видимость World и покрытие остальных действий открыты.
+[Точный результат и границы](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#selected-native-survey--один-игровой-сеанс-2026-11-09).
+
+
 ## Универсальные подсказки: native selected-owner survey — source-only (2026-11-09)
 
 **Офлайн-проверка:** исходники `ec43545bc4f1744faca8a9eefaee2be205fd876f`,
