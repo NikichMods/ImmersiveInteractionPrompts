@@ -75,6 +75,14 @@ assert(s.observe(row,actor,true) and writes==3)
 assert(s.restore("manual_f9") and writes==4)
 """)
 
+    def test_restore_after_native_screen_unmounted(self):
+        self.case("""
+assert(s.observe(row,actor,true) and writes==1)
+comp.bAddedToScreen=false;comp.bVisible=false
+assert(s.restore("selection_left") and writes==2)
+assert(panel.RenderTransform.Translation.X==3 and not s.active())
+""")
+
     def test_unsupported_native_root_leaves_stock(self):
         self.case("""
 panel.class="/Script/UMG.TextBlock"
