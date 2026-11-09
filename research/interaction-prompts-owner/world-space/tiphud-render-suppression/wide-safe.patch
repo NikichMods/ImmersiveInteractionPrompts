@@ -8,7 +8,7 @@
 +local EARLY=MODE=="first_approach" or MODE=="first_and_fast" or MODE=="wide_safe"
 +local FAST=MODE=="fast_create" or MODE=="first_and_fast" or MODE=="wide_safe"
  local EXPANDED=true
-@@ -124,0 +125,61 @@
+@@ -124,0 +125,63 @@
 +    if MODE=="wide_safe" then
 +        translation_api.describe_other_action=function(a)
 +            local argument=a.TipHUDArgument
@@ -42,15 +42,17 @@
 +        translation_api.selected_probe=function(a)
 +            assert(alive(a),"selected actor unavailable")
 +            local tag="unavailable"
-+            local arg=a.TipHUDArgument
-+            if alive(arg) and same(arg:GetOwner(),a) then
++            local arg_ok,arg=pcall(function() return a.TipHUDArgument end)
++            if arg_ok and alive(arg) and same(arg:GetOwner(),a) then
 +                local token=arg.msgTag:ToString()
 +                if type(token)=="string" and #token<=64 and token:match("^[%w_%-]+$") then
 +                    tag=token
 +                end
 +            end
-+            local source=a.ExtendedWidget
-+            if not alive(source) or not same(source:GetOwner(),a) then return nil end
++            local source_ok,source=pcall(function() return a.ExtendedWidget end)
++            if not source_ok or not alive(source) or not same(source:GetOwner(),a) then
++                return nil
++            end
 +            local w=source:GetUserWidgetObject()
 +            if not alive(w) or source.bVisible~=true or source.bAddedToScreen~=true then
 +                return nil
@@ -70,11 +72,11 @@
 +                " localized_text="..label.." world_eligibility=UNKNOWN"
 +        end
 +    end
-@@ -125 +186,2 @@
+@@ -125 +188,2 @@
 -    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    local coordinator=EXPANDED and require("IIPTranslationCoverage") or Prehide
 +    if MODE=="wide_safe" then coordinator=require("IIPWideCoverage") end
-@@ -244,5 +305,6 @@
+@@ -244,5 +307,6 @@
          RegisterLoadMapPreHook(function()
              prehide.map_pre()
              controller_id=nil
