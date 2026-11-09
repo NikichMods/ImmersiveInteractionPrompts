@@ -39,7 +39,7 @@ class ShadowWorld(unittest.TestCase):
         self.assertIn('weak:Get()', main)
         self.assertIn('Session.start(World,{', main)
         self.assertIn('require("IIPShadowWorldSession")', main)
-        self.assertIn('observer.stop("manual_f4")', main)
+        self.assertIn('RegisterKeyBind(Key.F9,function()observer.stop("manual_f9")end)', main)
         self.assertNotIn("prehide", main)
         hint = self.scripts["IIPHintSource"]
         self.assertIn("Gate.direct_texture(child,alive)", hint)
@@ -88,15 +88,15 @@ function clear_selection()saved=selected;selected={status="READY"}end
         vm.globals().Session = vm.execute(self.scripts["IIPShadowWorldSession"])
         vm.execute("observer=Session.start(world,api,log)\n" + code)
 
-    def test_target_loss_and_f4_release_only_owned_world(self):
+    def test_target_loss_and_f9_release_only_owned_world(self):
         self.scenario("""
 tick();assert(own and count==1 and refreshes==1)
 tick();assert(count==1 and refreshes==2)
 clear_selection();tick();assert(not own and cleanups==1)
 selected=saved;tick();assert(own and count==2)
-observer.stop("manual_f4");tick();tick()
+observer.stop("manual_f9");tick();tick()
 assert(not own and cleanups==2 and cancelled and not observer.status().active)
-assert(events.STOP=="reason=manual_f4 cancelled=true cleanup_confirmed=true")
+assert(events.STOP=="reason=manual_f9 cancelled=true cleanup_confirmed=true")
 """)
 
     def test_capability_loss_leaves_stock_and_legacy_is_excluded(self):

@@ -6,7 +6,7 @@
 Open/Take/Check при строгом direct-brush preflight. Исходный Screen
 служит контролем. Depth test сохранён, сдвиг якоря завершает показ
 для текущего выбора. Следующий шаг — отдельно согласованный игровой
-тест двери или NPC, затем F4 при активном World.
+тест двери или NPC, затем F9 при активном World.
 [Сборка и условия наблюдения](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#shadow-world-рядом-со-штатным-screen--source-only-2026-11-09).
 
 

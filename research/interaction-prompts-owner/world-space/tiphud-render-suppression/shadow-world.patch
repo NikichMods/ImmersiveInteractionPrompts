@@ -29,7 +29,7 @@
 @@ -179,6 +177,7 @@
          return result
      end
-+    assert(type(Key.F4)=="number" and not IsKeyBindRegistered(Key.F4),"F4 unavailable")
++    assert(type(Key.F9)=="number" and not IsKeyBindRegistered(Key.F9),"F9 unavailable")
      local hint_visible=function(w)return Visibility.visible(w,alive)end
 -    observer=Session.start(World,Source,Target.new(Source,alive,hint_visible),{
 +    observer=Session.start(World,{
@@ -38,7 +38,7 @@
 @@ -191,4 +190,5 @@
          RegisterBeginPlayPostHook(on_controller_begin)
          RegisterEndPlayPreHook(on_controller_end)
-+        RegisterKeyBind(Key.F4,function()observer.stop("manual_f4")end)
++        RegisterKeyBind(Key.F9,function()observer.stop("manual_f9")end)
      end)
      if not registered then observer.stop("registration:"..tostring(problem)) end
 --- a/Scripts/IIPHintSource.lua
