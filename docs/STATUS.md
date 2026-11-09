@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Общий World-путь — проверка готовности (2026-11-09)
+
+Для Interact, Talk и Knock подтверждены выбранный native TipHUD и текст.
+Hold/locked, актуальная кисть и remap у новых целей не подтверждены.
+Следующий шаг — проверить native кнопку в одном сеансе и затем
+World-размещение у двери и NPC при сохранённом Screen и depth test.
+Исполняемый путь и `first_and_fast` сохранены.
+[Граница готовности и условия теста](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#общий-world-путь--граница-готовности-после-selected-survey-2026-11-09).
+
+
 ## Общий selected-TipHUD adapter — source-only (2026-11-09)
 
 **Верификация:** commit `4ea0ee45fb1b7278d35ca1862a2ec5d1619a03df`,
@@ -12,7 +22,7 @@ PASS: все офлайн-тесты, в том числе новый выбра
 
 Игровой сеанс `042ec94` подтвердил выбранные native `Interact`, `Talk`,
 `Knock` на `TipHUD_C` с доступным текстом. Добавлен независимый
-read-only `IIPInteractionSource.inspect_selected`, работающий с уже
+read-only `IIPSelectedTipCapability.inspect_selected`, работающий с уже
 выбранным `PlayerActionComponent+0x410` actor без требования
 `BaseGameEventObject_BP` и без списка разрешённых action.
 Проверяет native ownership, Screen widget, локализованный текст
