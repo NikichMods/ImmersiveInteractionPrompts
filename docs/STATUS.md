@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Shadow World — первый игровой прогон (2026-11-09)
+
+Штатный direct brush успешно привязан. Собственный layout
+отклонил пересечение иконки с верхней строкой до регистрации World.
+Аварийная очистка подтверждена журналом. Проба выключена.
+[Точная последовательность и следующий шаг](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#первый-игровой-прогон-shadow-world-с-f9--2026-11-09).
+
+
 ## Shadow World — кандидат только в исходниках (2026-11-09)
 
 Отдельный overlay строит один World для выбранного TipHUD вне
