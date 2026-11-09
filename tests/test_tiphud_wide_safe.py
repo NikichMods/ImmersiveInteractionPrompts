@@ -20,6 +20,8 @@ class WideSafe(unittest.TestCase):
             shutil.copytree(BASE/"Scripts",work/"Scripts")
             shutil.copyfile(OVERLAY/"IIPPrehideTranslation.lua",
                             work/"Scripts/IIPPrehideTranslation.lua")
+            shutil.copyfile(OVERLAY/"IIPSelectedTipCapability.lua",
+                            work/"Scripts/IIPSelectedTipCapability.lua")
             for p in ("first-show-observe.patch","prehide-translation.patch",
                       "translation-cycle.patch","first-approach-fast-create.patch",
                       "wide-safe.patch"):
@@ -252,6 +254,7 @@ package.preload.IIPWorldChild=function()
  return {enable_fast_children=function()R.fast=true end}
 end
 package.preload.IIPWorldTarget=function()return {new=function()return function()end end}end
+package.preload.IIPSelectedTipCapability=function()return {inspect_selected=function()end}end
 package.preload.IIPPrehideTranslation=function()return {}end
 package.preload.IIPSelectedWorldSession=function()
  return {start=function()

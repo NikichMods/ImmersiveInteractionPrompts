@@ -4,9 +4,9 @@ from pathlib import Path
 import unittest
 from lupa import LuaRuntime
 
-SOURCE = (Path(__file__).resolve().parents[1] /
-          "research/interaction-prompts-owner/world-space/selected-owner-world"
-          "/Scripts/IIPInteractionSource.lua")
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / "research/interaction-prompts-owner/world-space/tiphud-render-suppression/IIPSelectedTipCapability.lua"
+LEGACY = ROOT / "research/interaction-prompts-owner/world-space/selected-owner-world/Scripts/IIPInteractionSource.lua"
 RIG = r'''
 EObjectFlags={RF_ClassDefaultObject=1,RF_ArchetypeObject=2}
 local function obj(path,classname,address)
@@ -50,6 +50,7 @@ class SelectedTipCapability(unittest.TestCase):
         vm=LuaRuntime(unpack_returned_tuples=True)
         vm.execute(RIG)
         vm.globals().Source=vm.execute(SOURCE.read_text(encoding="utf-8"))
+        vm.globals().Legacy=vm.execute(LEGACY.read_text(encoding="utf-8"))
         vm.execute(code)
 
     def test_talk_on_unrelated_class_does_not_change_legacy_world_gate(self):
@@ -58,7 +59,7 @@ local row,why=Source.inspect_selected(actor,native_alive,hint)
 assert(row and why=="ready" and row.action=="Talk")
 assert(row.native_text=="Говорить" and row.native_screen)
 assert(row.hint_state=="visible" and row.refs.actor.address==11)
-local old,reason=Source.acquire(actor)
+local old,reason=Legacy.acquire(actor)
 assert(old==nil and reason=="unrelated_actor")
 ''')
 
