@@ -1,0 +1,19 @@
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -21 +21 @@
+-local host_recovery_attempted=false
++local host_recovery_count=0
+@@ -84,4 +84,3 @@
+- -- The original run created three hosts, then the fourth HOST lookup
+- -- returned ABSENT_NULL. A previously verified class can be reloaded
+- -- exactly ONCE at this allocation boundary, on the game thread.
+- -- This is not a root, a GC guarantee or an unlimited retry mechanism.
++ -- HOST may vanish from exact lookup after clean releases.
++ -- At each NEW clean shadow creation permit one exact LoadAsset.
++ -- No retry loop, guessed asset, new GC root or native Screen write.
+@@ -91,3 +90,2 @@
+-  assert(not host_recovery_attempted,"NOT_LOADED: host recovery already consumed")
+-  host_recovery_attempted=true
+-  log("HOST_RECOVERY_ATTEMPT","state="..status.." one_exact_load=true no_gc_root_added=true")
++  host_recovery_count=host_recovery_count+1
++  log("HOST_RECOVERY_ATTEMPT","state="..status.." count="..host_recovery_count.." one_exact_load_per_create=true no_gc_root_added=true")

@@ -1707,3 +1707,25 @@ Screen и замороженный `first_and_fast`.
 разобрать доступность HOST между подходами после чистого release.
 Положительный результат размещения этой двери сохранён.
 Универсальное размещение, удержание и suppression Screen открыты.
+
+### Shadow-only повторная загрузка exact HOST (2026-11-09)
+
+Реальный результат `433acde`: HOST снова давал `ABSENT_NULL`
+после успешной первой загрузки и очередного чистого освобождения
+World. В исследовательском overlay
+`shadow-host-reload.patch` убран запрет **на весь сеанс**.
+Каждое новое создание при `prepared && assets_refreshed &&
+state==nil` может выполнить ровно одну точную загрузку HOST
+при его отсутствии, с `HOST_RECOVERY_ATTEMPT count=N`.
+Это не бесконечный цикл и не попытка замаскировать неудачу:
+`LoadAsset` failed, identity mismatch и отсутствующий
+parent остаются fail-closed. Не вводится GC root или сохранение
+UObject wrapper между тиками.
+
+Сборка: frozen `selected-owner-world/Scripts`, затем
+`first-show-observe.patch`, `shadow-world.patch`,
+`shadow-visual-observe.patch`, **`shadow-host-reload.patch`**,
+те же три исследовательских Lua-модуля и существующая локальная
+конфигурация. В игре ещё не испытано; цель нового короткого
+сеанса — повторные подходы к ранее принятой двери
+и штатная F9-остановка, без новой диагностики эстетики.

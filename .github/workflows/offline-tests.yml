@@ -20,6 +20,7 @@ on:
       - research/universal-tiphud-adapter-01
       - research/selected-hint-gate-01
       - research/shadow-visual-observation-01
+      - research/shadow-host-reload-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'

@@ -22,7 +22,7 @@ class ShadowWorld(unittest.TestCase):
             for name in ("IIPShadowWorldSession", "IIPSelectedTipCapability", "IIPSelectedHintPreflight"):
                 shutil.copyfile(OVERLAY / f"{name}.lua", work / "Scripts" / f"{name}.lua")
             for patch in ("first-show-observe.patch", "shadow-world.patch",
-                          "shadow-visual-observe.patch"):
+                          "shadow-visual-observe.patch", "shadow-host-reload.patch"):
                 subprocess.run(["git", "apply", "--unidiff-zero", str(OVERLAY / patch)],
                                cwd=work, check=True,
                                env={**os.environ, "GIT_CEILING_DIRECTORIES": str(work.parent)})
@@ -44,6 +44,8 @@ class ShadowWorld(unittest.TestCase):
         self.assertNotIn("prehide", main)
         self.assertIn("IIP_SHADOW_LAYOUT_WARN", self.scripts["IIPTuning"])
         self.assertIn('emit("CANDIDATE"', self.scripts["IIPShadowWorldSession"])
+        self.assertNotIn("host recovery already consumed", self.scripts["IIPWorldChild"])
+        self.assertIn("host_recovery_count=host_recovery_count+1", self.scripts["IIPWorldChild"])
         hint = self.scripts["IIPHintSource"]
         self.assertIn("Gate.direct_texture(child,alive)", hint)
         self.assertNotIn('result.mode="retained_mid"', hint)
@@ -102,6 +104,47 @@ assert(plan and not reason,"visual overlap cannot abort shadow observation")
 assert(plan.upper and plan.lower and plan.hint and plan.divider)
 local ok=pcall(Tuning.plan,s,{X=0,Y=65},{X=200,Y=50},{X=64,Y=64})
 assert(not ok,"invalid native extents must remain fatal")
+""")
+
+    def test_exact_host_reload_on_multiple_clean_world_creations(self):
+        # Run the assembled Lua function, not a reimplementation of its policy.
+        body=self.scripts["IIPWorldChild"]
+        segment=body[body.index("local function asset(p)"):body.index("local function xyz(")]
+        vm=LuaRuntime(unpack_returned_tuples=True)
+        vm.execute("""
+HOST="HostClass";MASK="Other";prepared=true;assets_refreshed=true
+state=nil;host_recovery_count=0;loaded=false;calls=0
+klass={}
+function klass:GetSuperStruct()return {}end
+function valid(o)return o~=nil end
+function path(o)return "/Script/UMG.UserWidget"end
+function same(a,b)return a==b end
+function inspected(p,name,stage)
+ assert(p==HOST and name=="host")
+ return loaded and klass or nil, loaded and "LIVE" or "ABSENT_NULL"
+end
+function step(n,fn,...)return fn(...)end
+function LoadAsset(p)
+ assert(p==HOST)
+ calls=calls+1;loaded=true
+ return klass,true,true
+end
+function resource_state(obj,p)
+ assert(p==HOST)
+ return loaded and obj==klass and "LIVE" or "ABSENT_NULL"
+end
+function log()end
+""")
+        vm.globals().recover=vm.execute(segment+"\\nreturn asset".replace("\\\\n","\n"))
+        vm.execute("""
+assert(recover(HOST)==klass and calls==1 and host_recovery_count==1)
+loaded=false;state=nil
+assert(recover(HOST)==klass and calls==2 and host_recovery_count==2)
+loaded=false;state=nil
+assert(recover(HOST)==klass and calls==3 and host_recovery_count==3)
+assert(recover(HOST)==klass and calls==3)
+loaded=false;state={}
+assert(not pcall(recover,HOST) and calls==3)
 """)
 
     def test_target_loss_and_f9_release_only_owned_world(self):
