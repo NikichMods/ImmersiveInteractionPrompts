@@ -135,7 +135,7 @@ function resource_state(obj,p)
 end
 function log()end
 """)
-        vm.globals().recover=vm.execute(segment+"\\nreturn asset".replace("\\\\n","\n"))
+        vm.globals().recover=vm.execute(segment+"\nreturn asset")
         vm.execute("""
 assert(recover(HOST)==klass and calls==1 and host_recovery_count==1)
 loaded=false;state=nil
