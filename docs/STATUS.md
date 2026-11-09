@@ -2,6 +2,8 @@
 
 ## Late Shadow Screen translation — только исследовательский исходник (2026-11-10)
 
+**Офлайн-гейт:** исполняемый source `fca37132adafafa59fcbe2761bb6d00955e6dc33`, [CI #42710942281](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42710942281) PASS — реальная сборка семи overlay, Lua module, F9 порядок Screen restore → World cleanup, сохранение штатного UI на неподдерживаемых классах, conditional restore при нативном Screen unmount и отказ перезаписывать чужой transform. Документальная ревизия `34099ee6ef0d7986da9cb472f4fe4b58584a9342` также [CI #42711021508](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42711021508) PASS. Это только mock/offline; игровой результат отсутствует.
+
 Следующий шаг к одной World-подсказке использует уже
 наблюдавшийся в игре `CanvasPanel_0:SetRenderTranslation`,
 **но без прежнего раннего prehide**. В отдельном overlay
