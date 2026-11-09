@@ -31,9 +31,9 @@ function comp:GetWidgetSpace()return 1 end
 function comp:GetUserWidgetObject()return widget end
 actor.ExtendedWidget=comp
 row={
- actor="native_selection",
+ actor="native_selection",action="Interact",
  refs={
-   actor={path=actor.path,address=actor.address},
+   actor={path=actor.path,address=actor.address,class="/Game/Test/SavePoint_BP2_C"},
    component={path=comp.path,address=comp.address},
    widget={path=widget.path,address=widget.address},
  }
@@ -81,6 +81,15 @@ assert(s.observe(row,actor,true) and writes==1)
 comp.bAddedToScreen=false;comp.bVisible=false
 assert(s.restore("selection_left") and writes==2)
 assert(panel.RenderTransform.Translation.X==3 and not s.active())
+""")
+
+    def test_unknown_target_remains_stock_even_when_world_shown(self):
+        self.case("""
+row.action="Knock"
+assert(s.observe(row,actor,true) and writes==0)
+row.action="Interact";row.refs.actor.class="/Game/Other/Door_C"
+assert(s.observe(row,actor,true) and writes==0)
+assert(not s.active())
 """)
 
     def test_unsupported_native_root_leaves_stock(self):
