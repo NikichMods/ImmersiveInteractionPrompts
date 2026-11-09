@@ -1,0 +1,79 @@
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -5,4 +5,5 @@
+ local Session=require("IIPShadowWorldSession")
+ local World=require("IIPWorldChild")
++local Screen=require("IIPShadowScreenTranslation")
+ local COMPONENT="/Script/Genesis.PlayerActionComponent"
+ local GENESIS="/Script/Genesis.GenesisCharacter"
+@@ -182,4 +183,9 @@
+         read=read,loop=LoopInGameThreadAfterFrames,cancel=CancelDelayedAction,
+         native_alive=alive,hint_visible=hint_visible,
++        screen=Screen.new({alive=alive,path=pathname,class=cls,
++            lookup=StaticFindObject,
++            set=function(panel,pos)
++                exact_function("/Script/UMG.Widget:SetRenderTranslation")(panel,pos)
++            end},function(event,fields)log("SCREEN_"..event,fields)end),
+     },log,true)
+     local registered,problem=pcall(function()
+--- a/Scripts/IIPShadowWorldSession.lua
++++ b/Scripts/IIPShadowWorldSession.lua
+@@ -10,4 +10,5 @@
+     local handle,bound,creating,invalidated,stop_reason,ended_address,drifted
+     local epoch=0
++    local screen=api.screen -- only this research candidate uses Screen translation.
+     local polling=false
+     local finish
+@@ -26,9 +27,13 @@
+ 
+     local function release(reason)
++        -- Restore native Screen BEFORE destroying the independent World.
++        local restored=not screen or screen.restore(reason)
++        local cleaned=true
+         if not world.empty() then
++            cleaned=world.cleanup(reason) and world.empty()
++            if cleaned then emit("RELEASED","reason="..reason.." own_world_empty=true") end
+-            assert(world.cleanup(reason) and world.empty(),"owned cleanup not confirmed")
+-            emit("RELEASED","reason="..reason.." own_world_empty=true")
+         end
+         bound=nil
++        assert(restored and cleaned,"native Screen restoration or World cleanup unconfirmed")
+     end
+ 
+@@ -73,4 +78,5 @@
+         if selection.key~=drifted then drifted=nil end
+         local row=inspect(selection)
++        if screen and not row then screen.reset_if_unselected() end
+         if bound then
+             if not row or row.widget~=bound.widget or row.component~=bound.component
+@@ -86,4 +92,8 @@
+             end
+             world.refresh()
++            if screen then
++                assert(screen.observe(row,selection.actor,world.shadow_shown()),
++                    "native Screen translation lease failed")
++            end
+             return
+         end
+@@ -126,4 +136,8 @@
+         emit("BOUND","action="..row.action.." screen_untouched=true geometry_occlusion=UNKNOWN")
+         world.refresh()
++        if screen then
++            assert(screen.observe(row,selection.actor,world.shadow_shown()),
++                "native Screen translation lease failed")
++        end
+     end
+ 
+--- a/Scripts/IIPWorldChild.lua
++++ b/Scripts/IIPWorldChild.lua
+@@ -462,4 +462,10 @@
+  return true
+ end
++function M.shadow_shown()
++ local s=state
++ if not s or not s.active or s.presentation~="shown" then return false end
++ local host=find(s.host)
++ return alive(host) and host.Visibility==3
++end
+ function M.shadow_anchor_current()
+  local s=assert(state,"missing owned World")
