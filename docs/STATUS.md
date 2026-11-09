@@ -2,6 +2,12 @@
 
 ## Универсальные подсказки: native selected-owner survey — source-only (2026-11-09)
 
+**Офлайн-проверка:** исходники `ec43545bc4f1744faca8a9eefaee2be205fd876f`,
+[CI 42542606312](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/42542606312)
+PASS, включая собранный `wide_safe` entrypoint и тесты нового
+selected-only чтения. Это mock/source evidence; ни игра, ни наличие
+подсказки для других action не проверялись.
+
 Приоритет — реальный World-охват всех подходящих штатных взаимодействий,
 а не дальнейшая полировка трёх точных объектов или отдельное расширение
 исследования переходов между сейвами. Текущий доказанный
