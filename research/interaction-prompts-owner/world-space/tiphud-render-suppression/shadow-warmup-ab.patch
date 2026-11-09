@@ -1,0 +1,118 @@
+--- a/Scripts/IIPShadowWorldSession.lua
++++ b/Scripts/IIPShadowWorldSession.lua
+@@ -5,10 +5,12 @@
+ local M={}
+ local ALL_SELECTED_ACTIONS=true;local legacy={Open=true,Take=true,Check=true} -- research-only coverage
+ 
++function M.start(world,api,emit,start_paused)
+-function M.start(world,api,emit)
+     local active,prepared=true,false
+     local handle,bound,creating,invalidated,stop_reason,ended_address,drifted
+     local epoch=0
++    local polling=false
++    local finish
+ 
+     local function invalidate(reason)
+         epoch=epoch+1
+@@ -16,8 +18,10 @@
+     end
+ 
+     local function stop(reason)
++        if not active then return end
+         stop_reason=stop_reason or reason
+         invalidate(reason)
++        if not polling then finish(reason) end
+     end
+ 
+     local function release(reason)
+@@ -28,13 +32,19 @@
+         bound=nil
+     end
+ 
++    finish=function(reason)
++        if not active then return end
+-    local function finish(reason)
+         active=false
+         local clean,problem=pcall(release,reason)
+         if not clean then emit("CLEANUP_PENDING",tostring(problem):sub(1,190)) end
++        local cancelled=true
++        if handle~=nil then
++            local ok,result=pcall(api.cancel,handle)
++            cancelled=ok and result==true
++        end
++        handle=nil;polling=false
+-        local ok,cancelled=pcall(api.cancel,handle)
+         emit("STOP","reason="..reason:sub(1,130).." cancelled="..
++            tostring(cancelled).." cleanup_confirmed="..tostring(clean))
+-            tostring(ok and cancelled==true).." cleanup_confirmed="..tostring(clean))
+     end
+ 
+     local function inspect(selection)
+@@ -117,25 +127,42 @@
+         world.refresh()
+     end
+ 
++    local function tick()
+-    handle=api.loop(1,function()
+         if not active then return end
+         local ok,err=pcall(step)
+         if not ok then
+             emit("FAULT",tostring(err):sub(1,190))
+             finish("fault")
+         end
++    end
++    local function activate()
++        if not active or polling then return false end
++        local ok,result=pcall(api.loop,1,tick)
++        if not ok or type(result)~="number" or result<=0 then
++            emit("FAULT","activation_loop_unavailable")
++            finish("activation_failed")
++            return false
++        end
++        handle=result;polling=true
++        emit("ACTIVATED","game_thread_loop=true after_warmup="..tostring(start_paused==true))
++        return true
++    end
++    emit("ARMED","mode=shadow_world start_paused="..tostring(start_paused==true)..
++        " callback_active=false screen_untouched=true")
++    if not start_paused then assert(activate(),"game-thread loop unavailable") end
+-    end)
+-    assert(type(handle)=="number" and handle>0,"game-thread loop unavailable")
+-    emit("ARMED","mode=shadow_world screen_untouched=true")
+     return {
+         invalidate=invalidate,stop=stop,
++        on_f9=function()
++            if not active then return end
++            if polling then stop("manual_f9") else activate() end
++        end,
+         ended=function(address)
+             if address==creating or (bound and address==bound.refs.actor.address) then
+                 ended_address=address
+                 invalidate("owner_endplay")
+             end
+         end,
++        status=function()return {active=active,polling=polling}end,
+-        status=function()return {active=active}end,
+     }
+ end
+ 
+--- a/Scripts/main.lua
++++ b/Scripts/main.lua
+@@ -181,7 +181,7 @@
+     observer=Session.start(World,{
+         read=read,loop=LoopInGameThreadAfterFrames,cancel=CancelDelayedAction,
+         native_alive=alive,hint_visible=hint_visible,
++    },log,true)
+-    },log)
+     local registered,problem=pcall(function()
+         RegisterLoadMapPreHook(function()
+             controller_id=nil
+@@ -189,7 +189,7 @@
+         end)
+         RegisterBeginPlayPostHook(on_controller_begin)
+         RegisterEndPlayPreHook(on_controller_end)
++        RegisterKeyBind(Key.F9,function()observer.on_f9()end)
+-        RegisterKeyBind(Key.F9,function()observer.stop("manual_f9")end)
+     end)
+     if not registered then observer.stop("registration:"..tostring(problem)) end
+     log("CONTROLLER_PENDING","beginplay_capture_required=true"..

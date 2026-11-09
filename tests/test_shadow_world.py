@@ -23,7 +23,7 @@ class ShadowWorld(unittest.TestCase):
                 shutil.copyfile(OVERLAY / f"{name}.lua", work / "Scripts" / f"{name}.lua")
             for patch in ("first-show-observe.patch", "shadow-world.patch",
                           "shadow-visual-observe.patch", "shadow-host-reload.patch",
-                          "shadow-all-actions.patch"):
+                          "shadow-all-actions.patch", "shadow-warmup-ab.patch"):
                 subprocess.run(["git", "apply", "--unidiff-zero", str(OVERLAY / patch)],
                                cwd=work, check=True,
                                env={**os.environ, "GIT_CEILING_DIRECTORIES": str(work.parent)})
@@ -41,7 +41,9 @@ class ShadowWorld(unittest.TestCase):
         self.assertIn('weak:Get()', main)
         self.assertIn('Session.start(World,{', main)
         self.assertIn('require("IIPShadowWorldSession")', main)
-        self.assertIn('RegisterKeyBind(Key.F9,function()observer.stop("manual_f9")end)', main)
+        self.assertIn('RegisterKeyBind(Key.F9,function()observer.on_f9()end)', main)
+        self.assertIn('},log,true)', main)
+        self.assertIn('on_f9=function()', self.scripts["IIPShadowWorldSession"])
         self.assertNotIn("prehide", main)
         self.assertIn("IIP_SHADOW_LAYOUT_WARN", self.scripts["IIPTuning"])
         self.assertIn('emit("CANDIDATE"', self.scripts["IIPShadowWorldSession"])
@@ -54,7 +56,7 @@ class ShadowWorld(unittest.TestCase):
         self.assertNotIn('result.mode="retained_mid"', hint)
         self.assertIn('b.bDisableDepthTest==false', self.scripts["IIPWorldChild"])
 
-    def scenario(self, code, all_selected=True):
+    def scenario(self, code, all_selected=True, paused=False):
         vm = LuaRuntime()
         vm.execute("""
 local actor={id=7}
@@ -87,7 +89,7 @@ world={
 api={
  read=function()return selected end,native_alive=function()return true end,
  hint_visible=function()return true end,
- loop=function(frames,fn)assert(frames==1);tick=fn;return 42 end,
+ loop=function(frames,fn)assert(frames==1);tick=fn;loop_calls=(loop_calls or 0)+1;return 42 end,
  cancel=function(id)assert(id==42);cancelled=true;return true end
 }
 function log(event,fields)events[event]=fields end
@@ -98,7 +100,8 @@ function clear_selection()saved=selected;selected={status="READY"}end
             session=session.replace("local ALL_SELECTED_ACTIONS=true",
                                     "local ALL_SELECTED_ACTIONS=false")
         vm.globals().Session = vm.execute(session)
-        vm.execute("observer=Session.start(world,api,log)\n" + code)
+        vm.execute("observer=Session.start(world,api,log," +
+                   ("true" if paused else "false") + ")\n" + code)
 
     def test_shadow_layout_warnings_do_not_block_visual_observation(self):
         vm = LuaRuntime()
@@ -153,6 +156,27 @@ assert(recover(HOST)==klass and calls==3)
 loaded=false;state={}
 assert(not pcall(recover,HOST) and calls==3)
 """)
+
+    def test_start_paused_no_polling_until_first_f9_then_cleanup_on_second_f9(self):
+        self.scenario("""
+assert(observer.status().active and not observer.status().polling)
+assert(loop_calls==nil and tick==nil and count==0 and not own)
+observer.on_f9()
+assert(observer.status().polling and loop_calls==1 and type(tick)=="function")
+tick();assert(own and count==1)
+observer.on_f9();tick()
+assert(not observer.status().active and not observer.status().polling)
+assert(not own and cleanups==1 and cancelled)
+assert(events.ACTIVATED and events.STOP=="reason=manual_f9 cancelled=true cleanup_confirmed=true")
+""", paused=True)
+
+    def test_abort_while_paused_does_not_schedule_any_callbacks(self):
+        self.scenario("""
+assert(not observer.status().polling and loop_calls==nil)
+observer.stop("registration_failed")
+assert(not observer.status().active and loop_calls==nil and not cancelled)
+assert(events.STOP=="reason=registration_failed cancelled=true cleanup_confirmed=true")
+""", paused=True)
 
     def test_target_loss_and_f9_release_only_owned_world(self):
         self.scenario("""
