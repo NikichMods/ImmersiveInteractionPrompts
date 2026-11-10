@@ -1981,3 +1981,28 @@ SHOWN, отойти до NONE, убедиться в возврате stock,
 World-кадр и частичное перекрытие геометрией.
 Map/EndPlay при активном скрытии не протестированы и
 не входят в первый протокол. Production/релиз BLOCKED.
+
+### Late Screen — игровой результат на синем кондуите (2026-11-10)
+
+Пользователь согласовал тест исходного допуска по суффиксу класса
+и действию Interact. Испытан `3a3628a9e53c8d782e344654336dae148c7c5043`,
+18 файлов совпали с манифестом SHA-256
+`9858e67b826c7b8aad02495706b51a214ca4b576deb6c79b6bc1d58e1e95659c`.
+Новый UE4SS `83330635` журнал сохранён локально, SHA-256
+`a497df7a7c154fcb1d00c8d6cef0cc2566bf08c78c831ace8974a09ebd161047`.
+
+Оба подхода к `1-1_savepoint02_2` (`SavePoint_BP2_C / Interact`)
+дали `SHOWN → SCREEN_HIDDEN` со смещением X+16384. При отходе
+`SCREEN_RESTORED reason=selection_or_capability_changed setter_verified=true`
+предшествовал World `CLEANED`. На втором подходе F9 дала
+`SCREEN_RESTORED reason=manual_f9 setter_verified=true`, затем
+`CLEANED` и `STOP reason=manual_f9 cancelled=true cleanup_confirmed=true`.
+Неподтверждённого восстановления в журнале нет. После закрытия игры
+проба отключена, остальные файлы сверены по хэшам.
+
+Игрок видел краткий штатный Screen на обоих подходах. Это согласуется
+с поздним переключением: CANDIDATE → SCREEN_HIDDEN заняло около
+62 и 61 мс, SHOWN → SCREEN_HIDDEN около 0,31 и 0,25 мс. Это интервалы
+журнала, не длительность видимой вспышки. Журнал подтверждает
+setter/readback, а не непрерывную видимость единственной World
+или восстановленного Screen. Результат ограничен этим кондуитом.

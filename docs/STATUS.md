@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Late Screen — игровой пилот (2026-11-10)
+
+На синем кондуите дважды подтверждены SHOWN и SCREEN_HIDDEN.
+Исходный transform восстановлен при отходе и по F9 до очистки World.
+Игрок видел краткий Screen на обоих подходах. Пилот отключён.
+[Подробности](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#late-screen--игровой-результат-на-синем-кондуите-2026-11-10).
+
+
 ## Late Shadow Screen — staging и граница допуска (2026-11-10)
 
 Из `3a3628a9e53c8d782e344654336dae148c7c5043` дважды собран
