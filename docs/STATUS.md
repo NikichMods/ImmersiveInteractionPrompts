@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## SavePoint_BP2_C — ранний Screen, read-only аудит (2026-11-10)
+
+BeginPlayPost подтверждает класс и Interact, точный живой TipHUD
+подтверждён только после выбора. Перенос раннего lease пока
+не обоснован. Нужен один парный снимок ранней и выбранной
+identity с видимой границей Screen и проверкой окна teardown.
+[Доказательства и границы](../research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#savepoint_bp2_c--граница-раннего-чтения-2026-11-10).
+
+
 ## Итог Late Screen и следующий достаточный шаг (2026-11-10)
 
 Игровой пилот `3e7ecd6` **подтвердил** точечную
