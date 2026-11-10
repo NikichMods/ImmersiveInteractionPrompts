@@ -1,5 +1,73 @@
 # План исследования — contextual prompts и письменность
 
+## Native TipHUD S1 — ближайший этап после завершения общего World checkpoint (2026-11-10)
+
+Решение пользователя: после ограниченного сравнения
+общего Screen/World presentation seam, при отсутствии
+подтверждённого простого пути использовать единый
+native Screen `TipHUD_C`. Проверка завершена:
+generic early suppression/paint hook с надёжным
+map/EndPlay restoration не установлен;
+`SetShow`/actor event не доставили callback;
+перевод готового компонента в World через
+`SetWidgetSpace` не решает его renderer lifecycle.
+Следовательно, **S1 выбран**, очередной
+узкий read-only probe ранней пары `SavePoint_BP2_C`
+не запускать, если не возникает новая техническая
+зависимость уже выбранного S1. Углубляться в
+native detours/Slate interception без конкретного
+позитивного нового seam запрещено текущим планом.
+
+**Повторно использовать подтверждённое:**
+`research/interaction-prompts-owner/ui-child` —
+собственные label/divider и detachment на
+настоящем TipHUD; `aphes-text` — private-font
+Aphes TextBlock; `composition` —
+штатный локализованный lower/action/icon и
+визуальная сборка. Эти однообъектные проверки
+не повторять без изменения проверяемого свойства.
+
+**Сначала source-only, без игры:**
+1. Сопоставить общий `TipHUD_C` widget tree и
+   lifecycle с текущими модулями; не привязывать
+   renderer к жёсткому классу Interact/Take/Open
+   или точным размещённым актёрам. Идентичность
+   widget и реальная готовность attachment должны
+   определять допуск; отказаться от неизвестной
+   формы дерева, не меняя родной UI.
+2. Спроектировать *один* visual augmentation
+   для всех совместимых `TipHUD_C`: добавить
+   собственную Aphes строку и divider к native
+   children, оставить штатные TextBlock/icon,
+   действующие show/hide/lock/hold/device/remap.
+   Синхронизация второго собственного World,
+   screen suppression и чужие transform leases
+   исключены.
+3. Интеграционные моки: несколько живых TipHUD,
+   repeated show/hide, native owner switch,
+   unexpected widget replacement, map/EndPlay,
+   частичный attach, cleanup, отсутствие чужих
+   writes, отсутствие глобальных тяжёлых
+   покадровых сканов. Появление в первом кадре,
+   визуальная читаемость, другие разрешения и
+   реальный remap остаются runtime.
+4. Только после источниковой проверки и отдельной
+   авторизации — короткая реальная игра на
+   типичных действиях разных классов, включая
+   held/locked только если безопасен штатный
+   natural сценарий, с визуальной приёмкой
+   и rollback при закрытом хосте.
+
+**Выход этапа:** один совместимый native
+TipHUD visual candidate, который не дублирует
+native action/hint и сохраняет полную
+стоковую подсказку при отказе собственной
+надстройки. Если конструкция original widget
+тоже окажется ненадёжной, не возвращаться
+автоматически к глубокой World-инъекции;
+сначала сравнить альтернативы с принятыми
+требованиями. Production BLOCKED.
+
 ## Приоритет универсального World и граница локального теста — 2026-11-09
 
 Последнее рабочее решение: не превращать найденный
