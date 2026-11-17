@@ -20,7 +20,7 @@ function require(name)
  return base_require(name)
 end
 stock.Font.OutlineSettings={OutlineSize=2,OutlineColor={R=0,G=0,B=0,A=1}}
-function stock:GetDesiredSize()return {X=S.bad_size and 0 or 130,Y=37.5}end
+function stock:GetDesiredSize()return {X=S.bad_size and 0 or (S.new_width or 130),Y=37.5}end
 function original_slot:GetAutoSize()return true end
 S.widgets={};S.captions={[1]="Открыть"};S.labels={};S.images={}
 local function icon_for(t,c)
@@ -246,6 +246,18 @@ class S1Tests(unittest.TestCase):
         self.vm('trigger(1);trigger(2);stop_s1();'
                 'assert(S.removed==4);trigger(1);'
                 'assert(#S.labels==2 and not S.labels[1].parent)')
+
+    def test_live_native_size_change_refreshes_only_own_slots(self):
+        self.vm('trigger(1);assert(#S.labels==1);'
+                'S.new_width=230;trigger(1);'
+                'assert(has("LAYOUT_REFRESH") and #S.labels==1 and S.copies==1);'
+                'stop_s1();assert(S.removed==2)')
+
+    def test_invalid_callback_signature_performs_cleanup(self):
+        self.vm('trigger(1);'
+                'S.game=true;S.hook({get=function()return S.widgets[1].w end},123);S.game=false;'
+                'assert(S.removed==2 and has("unexpected CanShow parameters"));'
+                'trigger(1);assert(#S.labels==1)')
 
     def test_static_native_ownership_boundary(self):
         for forbidden in ("TextBlock_89:SetText", "TextBlock_89:SetFont",
