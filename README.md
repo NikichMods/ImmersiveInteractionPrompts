@@ -2,11 +2,11 @@
 
 A planned standalone interface mod for **Asterigos: Curse of the Stars**.
 
-Contextual world-object prompts will gain a visually prominent upper line in fitting Aphes-world lettering, with a clearly readable localized interaction action below. A delicate divider is under consideration. The actual action, native input icon and prompt visibility must stay correct.
+Contextual world-object prompts will gain a visually prominent upper line in fitting Aphes-world lettering, with a clearly readable localized interaction action below. An independently authored braided divider has been approved for the compact visual baseline. The actual action, native input icon and prompt visibility must stay correct.
 
 Examples: pick up, open, read, descend; other context actions only when supported by the verified presentation path.
 
-**Status: user-accepted research prototype; production gate BLOCKED. No production build or release exists.** One World-space Open prompt with native Aphes header, ornament, localized action, current input hint and live editor completed its research stage on2026-11-04. The probe is disabled. [Result and recorded settings](research/interaction-prompts-owner/world-space/live-editor-style/README.md) preserve the exact source and remaining questions: better divider artwork, unexplained halo/faded appearance, wider action/lifecycle/compatibility support. Technical glyph strings are not verified Aphes translations.
+**Current direction (2026-11-17): compact native Screen `TipHUD_C` S1, source-only prototype, [offline tests PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44004664689); production gate BLOCKED. No production build or release exists.** The older World-space Open research described below is archived and is no longer the active architecture. One World-space Open prompt with native Aphes header, ornament, localized action, current input hint and live editor completed its research stage on2026-11-04. The probe is disabled. [Result and recorded settings](research/interaction-prompts-owner/world-space/live-editor-style/README.md) preserve the exact source and remaining questions: better divider artwork, unexplained halo/faded appearance, wider action/lifecycle/compatibility support. Technical glyph strings are not verified Aphes translations.
 
 - [Requirements](docs/REQUIREMENTS.md)
 - [Status](docs/STATUS.md)

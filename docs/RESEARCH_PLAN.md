@@ -2,6 +2,15 @@
 
 ## Native TipHUD S1 — ближайший этап после завершения общего World checkpoint (2026-11-10)
 
+**Checkpoint 2026-11-17:** единый source-only S1 candidate опубликован;
+[исходники и границы](../research/interaction-prompts-owner/native-tiphud-s1/README.md).
+Оффлайн CI PASS на `6ffa2cfc248d15797c89067283389b0ecda23175` ([run 44004664689](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44004664689)).
+План ниже теперь описывает выполненную подготовку и оставшиеся
+runtime-гейты, **не** разрешение на установку. Следующий шаг —
+отдельно согласованная короткая игра и визуальное подтверждение
+компактного S1, first frame, разные native TipHUD, карта и input.
+Нейтральные `ACTION` glyphs пока не Aphes-переводы.
+
 Решение пользователя: после ограниченного сравнения
 общего Screen/World presentation seam, при отсутствии
 подтверждённого простого пути использовать единый

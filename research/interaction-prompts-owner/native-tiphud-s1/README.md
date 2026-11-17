@@ -1,6 +1,8 @@
 # Native TipHUD S1 — compact C source-only pilot (2026-11-17)
 
 **State:** SOURCE-ONLY research candidate, not installed or runtime-accepted.
+Exact tested source commit `6ffa2cfc248d15797c89067283389b0ecda23175`; [offline CI 44004664689 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44004664689), including nine new S1 mocks.
+No stock/runtime/live-game validation is inferred.
 Production is BLOCKED. The user approved the **compact C** visual direction,
 not the test payload or any change to installed game files.
 

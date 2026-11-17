@@ -2,6 +2,21 @@
 
 ## Source-only S1 компактный C — реализация подготовлена (2026-11-17)
 
+**Оффлайн-проверка этого S1 source pilot:** source HEAD `6ffa2cfc248d15797c89067283389b0ecda23175`,
+[GitHub Actions run 44004664689](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44004664689)
+**PASS**, включая девять новых S1 тестов и полный тестовый запуск
+репозитория. Эти моки проверяют общую state/cleanup-политику, а
+не Slate, реальные glyphs, первый paint, стабильность layout,
+нативный ввод или визуальное соответствие макету.
+
+**Следующая достаточная граница:** source review завершён для
+ограниченной игровой проверки, но **установка не разрешена**.
+Нужны отдельное разрешение, проверка точных исходников/ресурсов и
+закрытого host, локальный откат и один реальный визуальный сеанс.
+Пока `ACTION` — нейтральный технический glyph-плейсхолдер;
+соответствие разных действий письменности Aphes не доказано.
+Production остаётся BLOCKED.
+
 На ветке \`research/native-tiphud-s1-01\` подготовлен новый
 \`research/interaction-prompts-owner/native-tiphud-s1/\`:
 один Blueprint post-only \`TipHUD_C:CanShow\` observer и собственные
