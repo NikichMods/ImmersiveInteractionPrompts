@@ -1,6 +1,7 @@
 # Native TipHUD S1 — compact C source-only pilot (2026-11-17)
 
 **State:** SOURCE-ONLY research candidate, not installed or runtime-accepted.
+**Installation authorization (2026-11-17):** User authorized bounded local installation with host closed, hash/backup/rollback verification and no game launch. This does not establish that installation occurred, that the existing local state is compatible, or that the first in-game check passed. Install through user-started local Codex under DevRules; stop on an unresolved preflight gate.
 Exact tested source commit `6ffa2cfc248d15797c89067283389b0ecda23175`; [offline CI 44004664689 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44004664689), including nine new S1 mocks.
 No stock/runtime/live-game validation is inferred.
 Production is BLOCKED. The user approved the **compact C** visual direction,
@@ -64,7 +65,7 @@ The mock tests cannot prove any of these.
 
 First run \`python -m unittest discover -s tests -p test_native_tiphud_s1.py\` (or
 the repository's \`python tools/test.py\`) with test dependencies.
-Do not touch the installed game until separately authorized.
+Authorization to install was given on 2026-11-17, subject to all local preflight, closed-host, and rollback gates.
 After source/CI review and exact-hash installation with game closed and
 rollback ready, the human visual check should cover one Open, Take and
 Check/Read natural object when available, direct switching/return,
