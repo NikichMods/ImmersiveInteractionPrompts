@@ -26,12 +26,12 @@ S.widgets={};S.captions={[1]="Открыть"};S.labels={};S.images={}
 local function icon_for(t,c)
  local icon=make("/Script/UMG.RetainerBox",t.p..".RetainerBox_0",t)
  icon.parent=c
- icon.Slot={
-   GetPosition=function()return {X=0,Y=0}end,
-   GetAlignment=function()return {X=0,Y=0.5}end,
-   GetAnchors=function()return {Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}}end,
-   GetAutoSize=function()return false end,
-   GetSize=function()return {X=38,Y=38}end}
+ icon.Slot=make("/Script/UMG.CanvasPanelSlot",t.p..".IconSlot",t)
+ function icon.Slot:GetPosition()return {X=0,Y=0}end
+ function icon.Slot:GetAlignment()return {X=0,Y=0.5}end
+ function icon.Slot:GetAnchors()return {Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}}end
+ function icon.Slot:GetAutoSize()return false end
+ function icon.Slot:GetSize()return {X=38,Y=38}end
  return icon
 end
 icon_for(tree,canvas)
@@ -47,10 +47,11 @@ local function spawn(id,caption)
   GetStructAddress=function()return 5500 end}
  b.Text={ToString=function()return S.captions[id]end}
  function b:GetDesiredSize()return {X=110,Y=37.5}end
- b.Slot={GetAutoSize=function()return true end,
-  GetPosition=function()return {X=38,Y=0}end,
-  GetAlignment=function()return {X=0,Y=0.5}end,
-  GetAnchors=function()return {Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}}end}
+ b.Slot=make("/Script/UMG.CanvasPanelSlot",t.p..".StockSlot",t)
+ function b.Slot:GetAutoSize()return true end
+ function b.Slot:GetPosition()return {X=38,Y=0}end
+ function b.Slot:GetAlignment()return {X=0,Y=0.5}end
+ function b.Slot:GetAnchors()return {Minimum={X=0,Y=0.5},Maximum={X=0,Y=0.5}}end
  setmetatable(b,{__index=function(_,key)
    if key:match("^Set")then return function()error("ORIGINAL MUTATION")end end end})
  root.Visibility=0;root.RenderOpacity=1;root.bIsEnabled=true
@@ -188,7 +189,12 @@ class S1Tests(unittest.TestCase):
         vm.globals().S.game=True
         vm.execute(MAIN)
         vm.globals().S.game=False
-        vm.execute(code)
+        try:
+            vm.execute(code)
+        except Exception:
+            logs=vm.globals().S.logs
+            print("S1_MOCK_DIAGNOSTIC:", " | ".join(str(logs[i]) for i in range(1,len(logs)+1)))
+            raise
         self.assertTrue(vm.eval("original_safe()"))
         return vm
 
