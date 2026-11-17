@@ -74,3 +74,44 @@ and load of another save/map. Record \`IIP_S1\` diagnostics and user
 visual verdict. Unsupported cases must leave the stock prompt intact.
 An offline PASS is not permission to merge to main, mark VERSION
 released, or claim production readiness.
+
+## Local installation — 2026-11-17
+
+**INSTALLED**, runtime PENDING. Installed source revision
+`7c4655a91618ebaad2f7a6000ea623b4729627c2`; executable Scripts
+match tested `6ffa2cfc248d15797c89067283389b0ecda23175`.
+Nine S1 tests passed locally; full CI 44004664689 is PASS.
+
+Closed host verified before and after installation. Steam build
+12996889, executable and UE4SS 83330635 DLL hashes matched the
+verified local baseline; external UEHelpers was present and hashed.
+Private Aphes.ttf matched the established resource hash. The
+authored divider was installed without modification.
+
+Installed manifest SHA-256
+`18708c073eab4ed2d750199fd91c51f9e83a0f3833a34f70ff8e183b3724b32b`:
+
+| Relative file | SHA-256 |
+| --- | --- |
+| Scripts/main.lua | b63d65efc1e5b9643992c23aa8f78d34aadaf8fb4f6237f04e11583be8f6d602 |
+| Scripts/IIPS1Layout.lua | 65f69b106aac838446f945a6ba24a31e0463e6b9c57e8feb7ad91b9a46371d15 |
+| Scripts/IIPS1Config.lua | 57ac954c99f3a1ca8b9f920956d6a07f0f299ce419c7851b309910b16e565383 |
+| Assets/aphes_divider_256x32.png | b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969 |
+
+Private config contains verified absolute font/divider paths and remains
+ignored. The only active IIP is ImmersiveInteractionPromptsNativeS1.
+All earlier IIP prototypes remained disabled and preserved. All 587
+pre-existing mod files, loader configuration, saves and game settings
+retained hashes across installation. Game was not launched.
+
+Ignored installation evidence is under
+`.local/research/interaction-prompts/native-tiphud-s1/install-7c4655a`:
+payload, hash manifests, before-state, copied mods.txt and pretest log.
+Local `.local/s1-7c4655a-deploy.py --rollback` checks closed host,
+payload hashes and activation state, then removes only S1 enabled.txt
+and verifies no active IIP remains. Previous prototypes stay disabled.
+Rollback was prepared, not executed after installation.
+
+First user test may now begin. The upper ACTION is a technical Aphes
+font string. Manual stop is Ctrl+Alt+F9. Record visual behavior and
+IIP_S1 diagnostics before considering any runtime acceptance.
