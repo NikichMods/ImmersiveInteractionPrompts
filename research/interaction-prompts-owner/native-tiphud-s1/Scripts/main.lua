@@ -381,7 +381,12 @@ end
 local function observe(context,...)
     if stopped or busy then return end
     local argc=select("#",...)
-    if argc~=0 then stopped=true;log("STOP","unexpected CanShow parameters");return end
+    if argc~=0 then
+        stopped=true
+        log("STOP","unexpected CanShow parameters")
+        clear("unexpected_signature")
+        return
+    end
     busy=true
     local ok,err=pcall(function()
         local w=context:get()
@@ -390,7 +395,9 @@ local function observe(context,...)
         local prev=entries[c.id]
         if prev then
             if prev.widget.address~=c.widget.address or prev.widget.class~=c.widget.class then
-                stopped=true;log("STOP","TipHUD identity reused");return
+                stopped=true;log("STOP","TipHUD identity reused")
+                clear("identity_replaced")
+                return
             end
             -- The lower native text/icon/device still owns its content and semantics.
             -- Update ONLY own child geometry if the native label's measured extent changed.
@@ -433,14 +440,14 @@ local function observe(context,...)
     busy=false
 end
 local function map_pre()
-    if stopped then return end
+    if stopped and #order==0 then return end
     busy=true
     local ok,err=pcall(clear,"map_pre")
     if not ok then stopped=true;log("STOP","map_cleanup_exception="..tostring(err):sub(1,180)) end
     busy=false
 end
 local function stop_control()
-    if stopped and not cleanup_failed then return end
+    if stopped and not cleanup_failed and #order==0 then return end
     stopped=true
     clear("user_stop")
 end
