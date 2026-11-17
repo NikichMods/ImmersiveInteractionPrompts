@@ -66,7 +66,7 @@ local function canvas_methods(c)
  function c:AddChildToCanvas(item)
    item.parent=c;S.attached=S.attached+1
    local slot=make("/Script/UMG.CanvasPanelSlot",c.p..".OwnSlot"..S.attached,c)
-   slot.Parent=c;slot.Content=item
+   slot.Parent=c;slot.Content=item;item.Slot=slot -- Native UWidget::Slot backlink.
    for _,key in ipairs({"SetAutoSize","SetAnchors","SetAlignment","SetPosition","SetSize"})do
      slot[key]=function(_,v)
        if key=="SetSize"then assert(v.X>0 and v.Y>0)end
