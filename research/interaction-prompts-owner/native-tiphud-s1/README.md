@@ -171,3 +171,11 @@ possibly WAITING, followed by READY during game loading, then ATTACHED
 on compatible prompts. If no READY occurs, the session still provides a
 usable stop key and the log identifies its waiting/error state.
 Corrected payload is source-only and has not been installed.
+
+Corrected source `ea32076a830ad55ee4f4946232c48c2d146fd779`:
+[full offline CI 44420502777 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44420502777).
+A four-file local staging payload with the previously verified private
+config and authored divider is ready. Manifest SHA-256
+`fcd41c1a14c6a18f882af560519174213162919a820c4c6db7e751290a5a3162`.
+Game installation remains at the disabled predecessor. No new game
+session or installation was performed during this correction.
