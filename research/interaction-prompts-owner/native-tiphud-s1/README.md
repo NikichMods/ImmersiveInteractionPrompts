@@ -179,3 +179,19 @@ config and authored divider is ready. Manifest SHA-256
 `fcd41c1a14c6a18f882af560519174213162919a820c4c6db7e751290a5a3162`.
 Game installation remains at the disabled predecessor. No new game
 session or installation was performed during this correction.
+
+## Corrected S1 installed — 2026-11-19
+
+**INSTALLED**, runtime PENDING. Source
+`ea32076a830ad55ee4f4946232c48c2d146fd779`, manifest SHA-256
+`fcd41c1a14c6a18f882af560519174213162919a820c4c6db7e751290a5a3162`.
+All four installed files verified. Host closed throughout deployment.
+Previous disabled S1 copied and hash-verified outside loader paths.
+Only the two S1 source files were replaced and its enabled.txt activated.
+Neighboring mods, loader configuration, saves/settings retained hashes.
+
+Ignored evidence is in native-tiphud-s1/install-ea32076.
+Local .local/s1-ea32076-deploy.py --rollback restores the previous
+disabled S1 after closed-host and exact payload checks. All other IIP
+prototypes remain disabled. User launches the first corrected runtime
+check and uses Ctrl+Alt+F9 to stop. ACTION remains a technical glyph string.
