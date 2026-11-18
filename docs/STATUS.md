@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## S1 — первый запуск заблокирован инициализацией (2026-11-19)
+
+S1 загрузился и выдал CanShow Blueprint hook unavailable до регистрации
+hook и Ctrl+Alt+F9. Декорация не создавалась. Причина конкретного отказа
+составной reflection-проверки пока неизвестна. S1 выключен при закрытой
+игре. [Журнал и следующий шаг](../research/interaction-prompts-owner/native-tiphud-s1/README.md#first-runtime-attempt--2026-11-19).
+
+
 ## S1 Compact C — установлен для первого теста (2026-11-17)
 
 Исходник 7c4655a установлен при закрытой игре. Четыре файла

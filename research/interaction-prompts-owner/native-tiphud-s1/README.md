@@ -115,3 +115,34 @@ Rollback was prepared, not executed after installation.
 First user test may now begin. The upper ACTION is a technical Aphes
 font string. Manual stop is Ctrl+Alt+F9. Record visual behavior and
 IIP_S1 diagnostics before considering any runtime acceptance.
+
+## First runtime attempt — 2026-11-19
+
+**Initialization BLOCKED.** Exact installed source 7c4655a and all four
+payload files matched the installation manifest after exit. User saw no
+added decoration while approaching several objects and pressed Ctrl+Alt+F9.
+
+The new UE4SS 83330635 session loaded S1 at 02:09:35 and immediately
+reported:
+`UNAVAILABLE main.lua:474: CanShow Blueprint hook unavailable`.
+No READY, ATTACHED, FONT_WRITE_BEGIN or manual-stop event followed.
+The assertion precedes RegisterHook and manual key registration, so this
+attempt exercised neither decoration nor the Ctrl+Alt+F9 cleanup path.
+The game event loop ended normally at 02:14:48.
+
+This combined assertion checks availability, reflected type/full name
+and absence of native flag 0x400. Its single message does not identify
+which predicate failed. Local cooked TipHUD exports contain CanShow,
+but that does not establish live availability during loader initialization.
+An unloaded Blueprint function at this early point is a hypothesis.
+
+Fresh log retained in ignored installation evidence, SHA-256
+`c0c54553a0d1c38e6482ca29074b1ff5e6722ddf25f21e4ff5dddcad2e38ff59`.
+With host closed, S1 activation was removed through verified rollback.
+All other 591 files in the loader Mods tree retained hashes.
+
+Next sufficient source step is to distinguish the failed reflection
+predicate and inspect the existing accepted registration timing before
+choosing a narrowly deferred initialization boundary. No layout or
+font diagnosis follows from this run. A new runtime candidate requires
+exact identity and the usual checks.
