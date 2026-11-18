@@ -451,6 +451,33 @@ local function stop_control()
     stopped=true
     clear("user_stop")
 end
+local hook_registered=false
+local waiting_logged=false
+local function try_hook()
+    if stopped or hook_registered then return end
+    local fn=StaticFindObject(HOOK)
+    if not valid(fn) then
+        if not waiting_logged then
+            waiting_logged=true
+            log("WAITING","CanShow_NOT_LOADED retry=BeginPlayPost")
+        end
+        return
+    end
+    assert(fn:type()=="UFunction","CanShow reflected type mismatch")
+    assert(fn:GetFullName()=="Function "..HOOK,"CanShow reflected name mismatch")
+    assert((fn:GetFunctionFlags() & 0x400)==0,"CanShow unexpectedly native")
+    local pre,post=RegisterHook(HOOK,observe)
+    assert(type(pre)=="number" and pre>0 and pre==post,"CanShow hook registration failed")
+    hook_registered=true
+    log("READY","native_tiphud=true input_stock=true stop=Ctrl+Alt+F9")
+end
+local function retry_hook()
+    local ok,err=pcall(try_hook)
+    if not ok then
+        stopped=true
+        log("UNAVAILABLE",tostring(err):sub(1,200))
+    end
+end
 local ok,err=pcall(function()
     local config=require("IIPS1Config")
     assert(type(config)=="table","missing IIPS1Config")
@@ -465,23 +492,20 @@ local ok,err=pcall(function()
         "wrong asset extensions")
     for _,name in ipairs({"StaticFindObject","StaticConstructObject","RegisterHook",
         "RegisterLoadMapPreHook","RegisterKeyBind","IsKeyBindRegistered",
-        "ExecuteInGameThread"}) do
+        "ExecuteInGameThread","RegisterBeginPlayPostHook"}) do
         assert(type(_G[name])=="function","missing UE4SS API: "..name)
     end
     assert(EngineTickAvailable==true and FName and FText and type(EObjectFlags)=="table",
         "native game-thread or struct constructors unavailable")
-    local fn=StaticFindObject(HOOK)
-    assert(valid(fn) and fn:type()=="UFunction" and fn:GetFullName()=="Function "..HOOK
-        and (fn:GetFunctionFlags() & 0x400)==0, "CanShow Blueprint hook unavailable")
     local chord={ModifierKey.CONTROL,ModifierKey.ALT}
     assert(not IsKeyBindRegistered(Key.F9,chord),"Ctrl+Alt+F9 collision")
-    local pre,post=RegisterHook(HOOK,observe)
-    assert(type(pre)=="number" and pre>0 and pre==post, "CanShow hook registration failed")
     RegisterLoadMapPreHook(map_pre)
     RegisterKeyBind(Key.F9,chord,function()
         local sent,error=pcall(ExecuteInGameThread,stop_control,EGameThreadMethod.EngineTick)
         if not sent then log("DISPATCH_FAILED",tostring(error):sub(1,180)) end
     end)
+    RegisterBeginPlayPostHook(retry_hook)
+    try_hook()
 end)
-if ok then log("READY","native_tiphud=true input_stock=true stop=Ctrl+Alt+F9")
+if ok then log("ARMED","initialization=event_driven stop=Ctrl+Alt+F9")
 else stopped=true;log("UNAVAILABLE",tostring(err):sub(1,200)) end

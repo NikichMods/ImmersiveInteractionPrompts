@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## S1 — отложенная инициализация подготовлена (2026-11-19)
+
+Отсутствующая CanShow больше не завершает старт: ожидание продолжается
+на BeginPlayPost до успешной однократной регистрации. Несовпадение
+reflection-контракта получает отдельную ошибку. Ctrl+Alt+F9 действует
+при ожидании. 12 локальных S1 тестов PASS. Исправленный кандидат
+пока в исходниках. [Изменение и тест](../research/interaction-prompts-owner/native-tiphud-s1/README.md#deferred-initialization-correction--2026-11-19).
+
+
 ## S1 — первый запуск заблокирован инициализацией (2026-11-19)
 
 S1 загрузился и выдал CanShow Blueprint hook unavailable до регистрации

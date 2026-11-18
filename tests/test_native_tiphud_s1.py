@@ -160,6 +160,10 @@ function StaticConstructObject(c,t,name,flags,...)
 end
 -- New entrypoint only: post CanShow and map lifecycle.
 function RegisterLoadMapPreHook(fn)S.map=fn end
+function RegisterBeginPlayPostHook(fn)S.beginplay=fn end
+function begin_s1()
+ S.game=true;S.beginplay();S.game=false
+end
 function trigger(id)
  S.game=true
  local r=S.hook({get=function()return S.widgets[id].w end})
@@ -258,6 +262,26 @@ class S1Tests(unittest.TestCase):
                 'S.game=true;S.hook({get=function()return S.widgets[1].w end},123);S.game=false;'
                 'assert(S.removed==2 and has("unexpected CanShow parameters"));'
                 'trigger(1);assert(#S.labels==1)')
+
+    def test_delayed_blueprint_becomes_ready_once(self):
+        self.vm(
+            'assert(not S.hook and has("WAITING") and not has("UNAVAILABLE"));'
+            'begin_s1();assert(not S.hook);'
+            'S.absent=false;begin_s1();assert(S.hook and has("READY"));'
+            'local first=S.hook;begin_s1();assert(S.hook==first);'
+            'trigger(1);assert(has("ATTACHED"));stop_s1();assert(S.removed==2)',
+            pre='\nlocal find=StaticFindObject\nS.absent=true\nfunction StaticFindObject(p)\n if p==BASE..":CanShow" and S.absent then return nil end\n return find(p)\nend\n')
+
+    def test_stop_while_waiting_prevents_later_registration(self):
+        self.vm(
+            'assert(S.key and not S.hook);stop_s1();begin_s1();'
+            'assert(not S.hook and #S.labels==0 and has("CLEANED"))',
+            pre='\nlocal find=StaticFindObject\nfunction StaticFindObject(p)\n if p==BASE..":CanShow" then return nil end\n return find(p)\nend\n')
+
+    def test_native_function_refusal_is_not_treated_as_loading(self):
+        self.vm('assert(not S.hook and has("CanShow unexpectedly native"));'
+                'begin_s1();assert(not S.hook)',
+                pre='\nlocal find=StaticFindObject\nfunction StaticFindObject(p)\n local f=find(p)\n if p==BASE..":CanShow" then\n  function f:GetFunctionFlags()return 0x400 end\n end\n return f\nend\n')
 
     def test_static_native_ownership_boundary(self):
         for forbidden in ("TextBlock_89:SetText", "TextBlock_89:SetFont",

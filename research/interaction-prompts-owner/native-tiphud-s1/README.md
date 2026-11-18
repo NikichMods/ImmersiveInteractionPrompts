@@ -146,3 +146,28 @@ predicate and inspect the existing accepted registration timing before
 choosing a narrowly deferred initialization boundary. No layout or
 font diagnosis follows from this run. A new runtime candidate requires
 exact identity and the usual checks.
+
+## Deferred initialization correction — 2026-11-19
+
+S1 previously checked CanShow once at Lua load, whereas the earlier
+ui-child/aphes-text probes registered their hook only after user
+activation in an already loaded game. The failed S1 log cannot identify
+the failed predicate retroactively. Blueprint residency at startup is
+the supported loading hypothesis, pending runtime verification.
+
+The corrected entrypoint logs WAITING when the exact function is absent
+and retries lookup on the already used global BeginPlayPost boundary.
+It registers CanShow once when valid, logging READY. Type, full-name
+and native-flag mismatches remain terminal with distinct diagnostics.
+Ctrl+Alt+F9 is registered before waiting and stops initialization as well
+as decoration. Stopped sessions cannot register later. No timer,
+per-frame polling or forced asset load was added. BeginPlayPost callbacks
+become inert after readiness or stop.
+
+Twelve local S1 tests pass, including delayed function residency,
+stop-before-readiness and native-function refusal. This remains a
+candidate for a second runtime test: startup should produce ARMED and
+possibly WAITING, followed by READY during game loading, then ATTACHED
+on compatible prompts. If no READY occurs, the session still provides a
+usable stop key and the log identifies its waiting/error state.
+Corrected payload is source-only and has not been installed.
