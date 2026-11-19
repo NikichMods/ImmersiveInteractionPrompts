@@ -938,3 +938,35 @@ native show guards suffice to use the known template without gating
 that trial on the exact caption readback. This requires a separately
 authorized candidate and a first-frame/withdrawal comparison to check
 for premature or misplaced decoration. Production remains BLOCKED.
+
+## Fixed Talk template tag-based show installed (2026-11-20)
+
+User authorized the same-merchant experiment with the caption gate removed.
+The show path uses the existing paired widget identity, `Talk` and native
+visibility/opacity/enabled checks. It reads neither localized caption
+contents nor geometry. Preparation, fixed slots, divider width 142.375,
+`ACTION`, and owned cleanup use the previous candidate's path.
+The mocks trap caption and geometry reads, check that a different tag stays
+collapsed, and check visibility on the first eligible Talk callback.
+First paint and alignment still need in-game evidence.
+
+Exact source `8f1231d4bca04e8c2f73d4ab9903ceac67809c72`.
+Installed `main.lua` with `TALK_TEMPLATE` enabled has SHA-256
+`85f0d163c784b9e8f7b67b54c811845c324a9d4511cbb60c32dd7fc4dedddcff`.
+Payload manifest SHA-256
+`00d53aed6be0e97628cfa1fb9a75b4003d0aa94f3da23bfd349c72585f4d84b5`.
+20 S1 tests and three observer tests passed locally.
+[Full hosted CI PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44619139610).
+
+Only the active entry was replaced, with the game closed. Other mods,
+loader files, settings and saves matched their preflight hashes.
+Backup is outside the loader. The rollback round trip on a copy restored
+the active `9b97a54` template and its full manifest, including
+activation-marker bytes and inherited script permissions.
+
+Use the same merchant and capture one first approach from outside
+prompt range, followed by withdrawal, `Ctrl+Alt+F9` and normal exit.
+Compare the first recorded native prompt and own elements, alignment
+and hide. Collect fresh UE4SS.log for `TEMPLATE_PREPARED`,
+`TEMPLATE_FIRST_CANSHOW`, `TEMPLATE_SHOWN` and manual cleanup.
+Runtime PENDING, production BLOCKED.
