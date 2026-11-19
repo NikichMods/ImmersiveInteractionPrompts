@@ -446,3 +446,22 @@ single missing measurement. The currently installed S1 remains the
 previous code until an independently authorized new installation.
 Production BLOCKED.
 
+## Authorization for timing diagnostic installation — 2026-11-19
+
+User explicitly authorized installing the bounded S1 timing instrumentation
+at exact tested source `946f4d1e6705aaa6ab9e9b1a793f7ae4ae9f8252`, CI
+[44435907441 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44435907441).
+This is approval to deploy **only**, not evidence that deployment or
+runtime measurement has occurred. User-operated local Codex must confirm
+actual checkout, installed active predecessor `00c3e67` and exact prior
+manifest, external font/divider, closed host, backups and a checked rollback
+plan **before** replacing any bytes. Preserve all adjacent mods, prior
+research prototypes, loader configuration, saves and settings. Do not
+launch/terminate Asterigos or use hot reload. If a preflight check fails,
+leave installation unchanged and report BLOCKED rather than guessing.
+
+After successful installation the user, not Codex, runs a short
+first-and-repeat merchant video test and manual `Ctrl+Alt+F9` STOP;
+collect a fresh exact UE4SS log and capture frame evidence. No timing
+value, layout change, cache expansion, product acceptance or release is
+preapproved. Production remains BLOCKED.
