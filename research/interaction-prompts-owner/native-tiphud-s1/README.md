@@ -894,3 +894,47 @@ header and divider, then withdraw until the prompt hides. Press
 UE4SS.log. The log should show `TEMPLATE_PREPARED` from the early path
 and `TEMPLATE_FIRST_CANSHOW` / `TEMPLATE_SHOWN` from the show path.
 Runtime PENDING, production BLOCKED.
+
+## Fixed Talk template runtime result (2026-11-20)
+
+One first approach and withdrawal at the same merchant on the fixed
+Talk candidate `9b97a5456b5395f3dee5345b19cfc074c5d01585`. Installed
+entry hash matched after normal exit. Archived UE4SS 83330635 log SHA-256
+`666b3d434fd047786ce0e6f7696d96648b1be54dbd16ef233dc7f7c106135632`.
+External video SHA-256
+`032d21348aa94b7758df5fd8ff21337f8ffaa947b27f9b97b40079f37918d4`.
+
+At 00:21:58.9665429, `BeginPlayPost` started preparation.
+`TEMPLATE_PREPARED own_children=2 collapsed=true` followed 28.608 ms
+later, 16.006 s before the first observed CanShow. That CanShow at
+00:22:15.0006931 logged `eligible=false reason=native_text_variant`.
+Given the guard order, the matched actor and live action were Talk,
+the component was added and visible, and the stock caption passed the
+drawability and nonempty checks. Its readback differed from the exact
+Russian string; the actual value was not logged.
+`TEMPLATE_SHOWN geometry_reads=0` followed 204.013 ms later.
+
+| First appearance | Zero-based recorded frame | Video PTS |
+| --- | ---: | ---: |
+| Native action/button, distorted transition | 383 | 7.159822 s |
+| Native action/button, first clean frame | 384 | 7.176778 s |
+| Aphes and divider | 396 | 7.376244 s |
+
+Both elements were 13 recorded frames / 216.4 ms behind first visible
+stock, or 12 frames / 199.5 ms behind its first clean frame. On withdrawal
+the full composition is visible at frame 490, distorted at 491, and
+entirely absent at 492. The log has no `TEMPLATE_COLLAPSED` marker,
+so this establishes joint visible hide without determining which
+native lifecycle transition hid it. Manual STOP logged
+`CLEANED reason=user_stop own_widgets=0` before normal exit.
+Video and log were not synchronized to a common frame marker.
+
+Early preparation and fixed rendering worked in this case. Same-frame
+appearance failed because the first CanShow did not pass the candidate's
+exact-caption gate. The trace locates the remaining wait in that gate
+instead of a geometry sample or creation on the show path. The bounded
+next hypothesis is that matched merchant identity, Talk and the existing
+native show guards suffice to use the known template without gating
+that trial on the exact caption readback. This requires a separately
+authorized candidate and a first-frame/withdrawal comparison to check
+for premature or misplaced decoration. Production remains BLOCKED.
