@@ -281,8 +281,5 @@ including 15 S1 tests and the repository-wide offline suite.
 The added cases cover root Visibility 4→0 reuse, drawable 3,
 hidden/collapsed 1/2 exclusion, and unchanged zero-opacity guard.
 
-**Gate:** source-only; an independently authorized closed-host
-installation plus real gameplay observation are required. Previous
-source `ea32076` and the disabled game installation must not be rewritten.
-Production BLOCKED.
+**Authorization update (2026-11-19):** The user explicitly approved **installation** of this exact visibility-fix source candidate `00c3e6782aba037088bebfa5bea3bfc8c9ae6d68`, after CI PASS. This is an authorization, **not** a completed installation or live acceptance. User-started local Codex must verify closed host, exact local staging/resources and backup/rollback, preserve old immutable evidence, leave other IIP prototypes disabled and record installed hashes. No automatic game launch/exit, hot reload, changes to settings/saves/other mods, or production release. If a preflight gate fails, leave the installation untouched and report BLOCKED. A later user-run merchant visual comparison is the intended acceptance question. Production BLOCKED.
 
