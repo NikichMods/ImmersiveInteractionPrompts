@@ -308,3 +308,27 @@ before a fresh installation; the prepared replacement procedure must
 record absence as its rollback state instead of assuming an installed
 disabled predecessor. User explicitly required stopping on a failed
 mandatory check, so this deployment reports BLOCKED.
+
+## Visibility correction installed after archive reconciliation — 2026-11-19
+
+**INSTALLED**, source `00c3e6782aba037088bebfa5bea3bfc8c9ae6d68`.
+Manifest SHA-256
+`b74b2683944c6500eb62bd52460a8a2cb74460546d8d79cacc508c5c0aff7433`.
+The earlier BLOCKED result is superseded. User supplied the cleanup
+restore manifest. Its S1 entry maps to the established installed folder;
+all four archived predecessor files match both archive manifest and
+the original installation hashes. Absence was explained by cleanup.
+
+Installation used the verified current no-IIP baseline, preserving the
+cleanup archive. The retired old divider path was resolved in that archive
+for hash checking; S1 uses its own installed approved PNG. All four
+new payload files matched, only one IIP is active. The 43 pre-existing
+Mods files, loader configuration, saves/settings retained hashes.
+Host closed throughout deployment. Runtime still PENDING.
+
+Ignored evidence is in prepared-00c3e67. The local
+s1-00c3e67-fresh-deploy.py --rollback checks closed host and exact
+payload, then removes only S1 enabled.txt, returning to no active IIP
+while retaining disabled S1 files. The cleanup archive and original
+restore manifest remain available for recovering earlier prototypes.
+No other prototypes were restored. Stop key remains Ctrl+Alt+F9.

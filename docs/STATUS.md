@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## S1 Visibility — установлен после сверки архива (2026-11-19)
+
+Архив уборки подтвердил прежний S1 по четырём хэшам. Блокер снят.
+Исходник 00c3e67 установлен при закрытой игре, четыре файла проверены.
+Остальные моды и настройки сохранены. Откат отключает новый S1;
+старые прототипы сохранены в архиве. Runtime PENDING.
+[Отчёт установки](../research/interaction-prompts-owner/native-tiphud-s1/README.md#visibility-correction-installed-after-archive-reconciliation--2026-11-19).
+
+
 ## S1 Visibility — установка остановлена (2026-11-19)
 
 Кандидат 00c3e67 собран, 15 локальных тестов PASS. Обязательная
