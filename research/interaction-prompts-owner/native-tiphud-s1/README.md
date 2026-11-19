@@ -9,18 +9,18 @@ not the test payload or any change to installed game files.
 
 ## Purpose and bounded implementation
 
-One existing screen-space \`TipHUD_C\` remains authoritative for selection,
-native \`CanShow\`, action text, current button/hold/locked effect and show/hide.
+One existing screen-space `TipHUD_C` remains authoritative for selection,
+native `CanShow`, action text, current button/hold/locked effect and show/hide.
 The candidate adds only two own, transient children to the source
-\`CanvasPanel_6\`: a private-font Aphes TextBlock and the already approved
-\`assets/dividers/aphes_divider_256x32.png\` on an Image. No second viewport
+`CanvasPanel_6`: a private-font Aphes TextBlock and the already approved
+`assets/dividers/aphes_divider_256x32.png` on an Image. No second viewport
 or World renderer, Screen prehide, stock text/icon setters, callback return
 override, component transform, per-frame polling or global native detours.
 
 The passive decoration inherits the native screen-projected position and
 visibility. The lower action and input branch are **never duplicated**.
 
-- A single Blueprint post-only \`TipHUD_C:CanShow\` hook is used as
+- A single Blueprint post-only `TipHUD_C:CanShow` hook is used as
   the candidate observation seam. It is not claimed to run before first paint.
 - Each compatible instance is identified by full path, class and address.
   No exact actor/path allowlist and no hard-coded Russian action string.
@@ -55,22 +55,22 @@ The mock tests cannot prove any of these.
 
 ## Files
 
-- \`Scripts/main.lua\` — event-driven visual augmentation.
-- \`Scripts/IIPS1Layout.lua\` — pure compact layout policy.
-- \`Scripts/IIPS1Config.example.lua\` — local TTF and authored PNG paths
+- `Scripts/main.lua` — event-driven visual augmentation.
+- `Scripts/IIPS1Layout.lua` — pure compact layout policy.
+- `Scripts/IIPS1Config.example.lua` — local TTF and authored PNG paths
   for a separately authorized installation. No proprietary fonts or
   installed-game assets are distributed by this source.
 
 ## Next evidence gate
 
-First run \`python -m unittest discover -s tests -p test_native_tiphud_s1.py\` (or
-the repository's \`python tools/test.py\`) with test dependencies.
+First run `python -m unittest discover -s tests -p test_native_tiphud_s1.py` (or
+the repository's `python tools/test.py`) with test dependencies.
 Authorization to install was given on 2026-11-17, subject to all local preflight, closed-host, and rollback gates.
 After source/CI review and exact-hash installation with game closed and
 rollback ready, the human visual check should cover one Open, Take and
 Check/Read natural object when available, direct switching/return,
 keyboard/gamepad remapping, light/dark background, first visible frame
-and load of another save/map. Record \`IIP_S1\` diagnostics and user
+and load of another save/map. Record `IIP_S1` diagnostics and user
 visual verdict. Unsupported cases must leave the stock prompt intact.
 An offline PASS is not permission to merge to main, mark VERSION
 released, or claim production readiness.
@@ -573,52 +573,52 @@ resource creation. Production remains BLOCKED.
 prompt paint, so first exposure behaves like the already observed repeat?
 **Scope:** repository/source and accepted-evidence review only; no payload change,
 local/game inspection, deployment or runtime observation. Reviewed at branch
-head \`77a6f359902bf49f9b4325be31b8ae15b2497fce\`.
+head `77a6f359902bf49f9b4325be31b8ae15b2497fce`.
 
 ### What is established
 
 1. The merchant timing test had one first-attach sequence and none on repeat:
    first native action at video PTS 7.791878, own elements at 8.025211
    (clean at 8.041878); repeat showed both in the same *recorded* frame.
-   In the log the first \`CanShow\` reached \`native_measurement_unready\`
-   200 ms before \`TRACE_ELIGIBLE\`, then attachment took ~30 ms.
+   In the log the first `CanShow` reached `native_measurement_unready`
+   200 ms before `TRACE_ELIGIBLE`, then attachment took ~30 ms.
    The video and log clocks have no alignment. No claim about engine frame
-   boundaries, initial \`CanShow\` relative to first native paint, or the
+   boundaries, initial `CanShow` relative to first native paint, or the
    particular failed measurement follows.
-2. Current \`Scripts/main.lua\` already separates native structural guards from
-   \`Layout.plan()\` in \`native_candidate()\`. The recorded
-   \`native_measurement_unready\` necessarily means that, at that callback,
+2. Current `Scripts/main.lua` already separates native structural guards from
+   `Layout.plan()` in `native_candidate()`. The recorded
+   `native_measurement_unready` necessarily means that, at that callback,
    the exact TipHUD class, native TextBlock, drawability, nonempty text,
    native WidgetTree/CanvasPanel_6, original text slot, original RetainerBox_0
    and icon slot passed their existing checks. Only the *combined* geometric
    plan then failed. Thus **tree/slot availability is not the same as
    successful measured layout**. The combined reason does not prove that
-   \`GetDesiredSize()\` specifically was the invalid input.
-3. Current \`decorate()\` has an avoidable coupling: it requires the final
-   \`layout\` before creating/binding the private Aphes font, divider texture,
-   TextBlock/Image and two canvas children. \`make()\` already sets each own
-   child to \`Collapsed\` while constructing it, but \`decorate()\` switches
-   both to drawable immediately after \`place()\`. There is no separate
-   pre-attach/commit stage yet. The current \`observe()\` is driven only by
-   post-only \`CanShow\`; its native selection/show semantics must remain
+   `GetDesiredSize()` specifically was the invalid input.
+3. Current `decorate()` has an avoidable coupling: it requires the final
+   `layout` before creating/binding the private Aphes font, divider texture,
+   TextBlock/Image and two canvas children. `make()` already sets each own
+   child to `Collapsed` while constructing it, but `decorate()` switches
+   both to drawable immediately after `place()`. There is no separate
+   pre-attach/commit stage yet. The current `observe()` is driven only by
+   post-only `CanShow`; its native selection/show semantics must remain
    untouched.
 4. **Previously observed acquisition route:** on the pinned host and UE4SS,
-   global \`BeginPlayPost\` produced 34 ready exact actor → ExtendedWidget →
+   global `BeginPlayPost` produced 34 ready exact actor → ExtendedWidget →
    TipHUD triples at normal save load: six Open, 18 Take, ten Check. Earlier
-   exact parent \`BaseGameEventObject_BP:ReceiveBeginPlay\` and its widget
+   exact parent `BaseGameEventObject_BP:ReceiveBeginPlay` and its widget
    getter/cast chain also passed a scoped natural Open experiment. These are
    credible early identity routes **for verified families**, not evidence
    that the merchant belongs to one of them or that the callback precedes
    the merchant's first native pixels. [Shared verified evidence](https://github.com/NikichMods/Asterigos-Research/blob/main/docs/VERIFIED_RUNTIME.md#multi-action-native-owner-observation--2026-11-06)
    and [parent-call review](../open-binding/ROUTE_REVIEW.md).
-5. UE4.27 documents \`Collapsed\` as non-rendering and occupying no layout
+5. UE4.27 documents `Collapsed` as non-rendering and occupying no layout
    space. Thus attaching *collapsed own children* is a defensible minimal
    containment hypothesis, not a game-tested no-side-effect guarantee.
-   \`CanvasPanel_6\` sits inside native \`HorizontalBox_4\`, so making own
+   `CanvasPanel_6` sits inside native `HorizontalBox_4`, so making own
    children drawable may affect parent desired size/position; the layout
-   must still be verified. UE4.27 also documents that \`GetDesiredSize()\`
+   must still be verified. UE4.27 also documents that `GetDesiredSize()`
    requires underlying Slate construction and at least one prepass, and
-   \`ForceLayoutPrepass\` is not proof that all native layout/consumer
+   `ForceLayoutPrepass` is not proof that all native layout/consumer
    inputs are ready. Do **not** proactively force host prepass as a
    speculative fix.
    [UE4.27 visibility](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/SlateVisibility?application_version=4.27),
@@ -640,7 +640,7 @@ visibility change or duplicate prompt layer is part of this direction.
 A pre-attached but still Collapsed label is **not a UX fix** if the native
 action appears before a reliable final geometry/activation; that timing is a
 separate evidence gate. Likewise, attaching while Collapsed is not enough if
-turning it drawable shifts/clips stock UI. A neutral \`ACTION\` remains a
+turning it drawable shifts/clips stock UI. A neutral `ACTION` remains a
 technical font check, not translated Aphes.
 
 ### Remaining smallest evidence and stopping rule
