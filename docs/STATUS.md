@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## S1 — read-only наблюдатель для торговца установлен (2026-11-20)
+
+Исходник `00d80fe6a016422b42df0cfa0c470166f8e19bdb` установлен
+при закрытой игре вместо оформления S1. Нужен один пользовательский
+подход к тому же торговцу и свежий UE4SS.log. Откат к активной
+диагностике `946f4d1` проверен на копии. Runtime PENDING.
+[Установка и сценарий](../research/interaction-prompts-owner/native-tiphud-s1/README.md#merchant-read-only-observer-installed-2026-11-20).
+
 ## S1 — найден путь инициализации NPC Talk (2026-11-19)
 
 Архивный прогон подтверждает выбранный `NPCInteract_Bp_C` с тегом

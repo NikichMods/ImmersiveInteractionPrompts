@@ -756,3 +756,38 @@ justifies considering hidden preparation. If the first usable geometry
 still arrives late, preparation alone cannot remove that wait and the
 existing candidate stays blocked. No additional native hook, object scan,
 polling, forced prepass or runtime writer is needed for this observation.
+
+## Merchant read-only observer installed (2026-11-20)
+
+Source `00d80fe6a016422b42df0cfa0c470166f8e19bdb`.
+Three observer and 18 S1 tests passed locally. The full Windows runner
+stopped on the existing resident World manifest path-separator check.
+[Full hosted CI PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44614488916).
+
+The observer replaces only installed `Scripts/main.lua` for this run.
+The deployed entry bundles the reason-reporting layout function from
+the same commit. SHA-256 of the installed entry is
+`807a3b3bd6cf023543247a2cecaf0781c8c6a5107f397f737fa6347e3a4413d2`.
+The payload manifest SHA-256 is
+`c76359be2e346f0b4944c0185e71bf9cbdc400dc06bdad71f9eceeefcc8e0375`.
+Other mods, loader, settings and saves were hash-checked before and
+after deployment. The local deployment receipt and rollback backup
+are outside the loader. The same swap routine restored the full active
+`946f4d1` predecessor on a copy, including permission inheritance.
+
+The observer uses existing BeginPlayPost, CanShow and map-pre boundaries.
+It only observes exact NPC interaction actors, stores scalar identities
+and joins a later Talk callback to its original widget by address, path
+and reciprocal component ownership. `BEGIN_MISS` records unavailable
+early identity. A missing early identity stays unpaired. For a joined
+Talk widget the log records the first CanShow snapshot, first layout
+rejection, first valid dimensions/slots and first presentation-ready
+sample when available. Geometry sampling stops at eligibility for that
+widget. There are no runtime writes, timers, scans or polling.
+
+Launch normally, load while outside the merchant's prompt range, record
+one approach until the stock prompt appears, then exit normally. Only
+stock UI is expected during this run. Preserve the fresh UE4SS.log and
+short capture before relaunching. Use the `IIP_S1_MERCHANT` markers for
+event order. They carry no first-pixel timestamp. Runtime PENDING,
+production BLOCKED.
