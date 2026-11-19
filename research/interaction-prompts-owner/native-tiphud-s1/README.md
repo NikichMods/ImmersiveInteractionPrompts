@@ -522,3 +522,48 @@ Aphes line and divider on both passes. Press `Ctrl+Alt+F9`, exit
 normally and retain the original video and fresh UE4SS.log before the
 next launch. Video determines first visible frames. Log timestamps
 measure milestones within the callback and attachment sequence.
+
+## Merchant timing result — 2026-11-19
+
+One continuous ShadowPlay recording covers the user's first and repeat
+approaches to the same merchant, then the fresh UE4SS session log records
+manual STOP and normal exit. Installed `main.lua` matched the diagnostic
+hash above after exit. Recording SHA-256
+`74a06c07f9e98e05b74764b56d0ad15540746d21d949410f494918269ba197de`.
+Archived runtime log SHA-256
+`dcf0c26b8078a71a3e1c2569527b9b29c842d810f873e3bf9ce67414c5b6cad2`.
+The source video stays external. The log and frame crops stay in the ignored
+`install-946f4d1` directory.
+
+Frame indices are zero-based in the decoded recording. Times are video PTS.
+The recording has variable frame timing, so intervals use PTS.
+
+| Approach | First native action and button | First Aphes and divider | Visible delay |
+| --- | --- | --- | --- |
+| First | 438 / 7.791878 s | Both visible with distortion at 452 / 8.025211 s, both clean at 453 / 8.041878 s | 14 recorded frames / 233.3 ms to first visible, 15 / 250.0 ms to clean |
+| Repeat | 774 / 13.392089 s | 774 / 13.392089 s | 0 recorded frames |
+
+Frames 437 and 773 show no prompt. Frames 438–451 show the native
+prompt alone. Frame 452 contains both decorative elements and doubled
+and warped text. The source of the distortion was not established.
+Recorded frames do not establish engine-rendered frame counts.
+
+The log has one attachment sequence, for widget 1. First callback at
+04:41:44.5892695 had root visibility 4. PENDING followed at
+04:41:44.5894935 with `native_measurement_unready`. ELIGIBLE at
+04:41:44.7894344 had root visibility 0, 200.165 ms after the first
+callback. ATTACH_BEGIN followed 0.043 ms later. ATTACHED at
+04:41:44.8199537 was 30.476 ms after ATTACH_BEGIN and 230.684 ms after
+the first callback. The font and texture events occur during attach.
+The repeat appearance has no second attachment in the log, consistent
+with reuse of the existing children. `CLEANED reason=user_stop
+own_widgets=0` confirms manual cleanup in this session.
+
+Most measured S1 time elapsed before attachment, while the native layout
+plan was ineligible. The pending reason aggregates the layout checks and
+does not identify the late input. Root visibility 4 is already allowed.
+The two clocks were not aligned to a shared frame marker, so these results
+do not isolate callback-to-first-pixel or post-attach render time.
+If the cause must be narrowed further, distinguish which existing layout
+input first becomes valid before considering changes to eligibility or
+resource creation. Production remains BLOCKED.
