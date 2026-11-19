@@ -368,6 +368,7 @@ function talk_component:GetUserWidgetObject()return w end
 talk_component.bVisible=false;talk_component.bAddedToScreen=false
 S.talk_tag="Interact"
 talk_argument.msgTag={ToString=function()return S.talk_tag end}
+function stock.Text:ToString()error("unexpected native caption read")end
 function stock:GetDesiredSize()error("unexpected measurement")end
 for _,method in ipairs({"GetPosition","GetAlignment","GetAnchors","GetSize"}) do
  original_slot[method]=function()error("unexpected text slot measurement")end
@@ -394,14 +395,17 @@ end
 
 class TalkTemplateTests(unittest.TestCase):
     vm = S1Tests.vm
-    def test_prepare_collapsed_and_show_first_eligible_without_measurement(self):
+    def test_prepare_collapsed_and_show_first_eligible_without_reading_text_or_geometry(self):
         self.vm("""
             prepare_merchant()
             assert(S.attached==2 and S.labels[1].Visibility==1 and S.images[1].Visibility==1)
             assert(S.images[1].Slot.fixed_width==142.375)
             trigger(2)
             assert(S.labels[1].Visibility==1)
-            set_merchant_visible(true);trigger(1)
+            set_merchant_visible(true)
+            S.talk_tag="Interact";trigger(1)
+            assert(S.labels[1].Visibility==1)
+            S.talk_tag="Talk";trigger(1)
             assert(S.labels[1].Visibility==3 and S.images[1].Visibility==3)
             assert(S.attached==2 and S.images[1].Slot.fixed_width==142.375)
             set_merchant_visible(false);trigger(1)

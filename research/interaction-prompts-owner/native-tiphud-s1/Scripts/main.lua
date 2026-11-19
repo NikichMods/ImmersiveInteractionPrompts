@@ -313,15 +313,12 @@ end
 local function can_paint(visibility)
     return visibility==0 or visibility==3 or visibility==4
 end
-local function presentation_reason(w,stock,expected)
+local function visibility_reason(w,stock)
     if not can_paint(w.Visibility) then return "root_visibility" end
     if w.RenderOpacity<=0 then return "root_opacity" end
     if w.bIsEnabled~=true then return "root_disabled" end
     if not can_paint(stock.Visibility) then return "native_text_visibility" end
     if stock.RenderOpacity<=0 then return "native_text_opacity" end
-    local rendered=stock.Text:ToString()
-    if type(rendered)~="string" or rendered=="" then return "native_text_empty" end
-    if expected and rendered~=expected then return "native_text_variant" end
 end
 local function native_structure(w,stock)
     local t=w.WidgetTree
@@ -349,8 +346,10 @@ local function native_candidate(w)
     if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then
         return nil,"native_text_missing"
     end
-    local reason=presentation_reason(w,stock)
+    local reason=visibility_reason(w,stock)
     if reason then return nil,reason end
+    local rendered=stock.Text:ToString()
+    if type(rendered)~="string" or rendered=="" then return nil,"native_text_empty" end
     local structure
     structure,reason=native_structure(w,stock)
     if not structure then return nil,reason end
@@ -486,7 +485,7 @@ local function show_talk(w)
     local reason
     if not is_talk then reason="action"
     elseif component.bAddedToScreen~=true or component.bVisible~=true then reason="component_hidden"
-    else reason=presentation_reason(w,stock,"Поговорить") end
+    else reason=visibility_reason(w,stock) end
     local shown=reason==nil
     if not state.first then
         state.first=true
