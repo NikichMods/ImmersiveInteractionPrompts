@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## S1 Visibility — установка остановлена (2026-11-19)
+
+Кандидат 00c3e67 собран, 15 локальных тестов PASS. Обязательная
+сверка прежнего состояния выявила отсутствие папки S1 вместо
+ожидаемого выключенного payload. Копирование не начиналось.
+[BLOCKED и хэш staging](../research/interaction-prompts-owner/native-tiphud-s1/README.md#visibility-correction-deployment--blocked-2026-11-19).
+
+
 ## S1 — установка исправления видимости разрешена (2026-11-19)
 
 Пользователь явно разрешил **установку** source-only исправления S1, устраняющего необоснованное исключение drawable `Visibility=4` (также допускаются 0 и 3). Точный код `00c3e6782aba037088bebfa5bea3bfc8c9ae6d68`, полный [CI PASS #44430338590](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44430338590), 15 S1-тестов. Текущий последующий HEAD менял только документацию. Разрешение на установку **не равно установленному состоянию**, не включает запуск/завершение Asterigos, hot reload, правки сохранений/настроек/сторонних модов или публикацию production.

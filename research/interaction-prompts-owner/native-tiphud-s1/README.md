@@ -283,3 +283,28 @@ hidden/collapsed 1/2 exclusion, and unchanged zero-opacity guard.
 
 **Authorization update (2026-11-19):** The user explicitly approved **installation** of this exact visibility-fix source candidate `00c3e6782aba037088bebfa5bea3bfc8c9ae6d68`, after CI PASS. This is an authorization, **not** a completed installation or live acceptance. User-started local Codex must verify closed host, exact local staging/resources and backup/rollback, preserve old immutable evidence, leave other IIP prototypes disabled and record installed hashes. No automatic game launch/exit, hot reload, changes to settings/saves/other mods, or production release. If a preflight gate fails, leave the installation untouched and report BLOCKED. A later user-run merchant visual comparison is the intended acceptance question. Production BLOCKED.
 
+
+## Visibility correction deployment — BLOCKED (2026-11-19)
+
+Requested source 00c3e6782aba037088bebfa5bea3bfc8c9ae6d68,
+checkout 9c98d7676e132af3de0b771f41d8aec925fd1425.
+CI 44430338590 and 15 local S1 tests PASS.
+Four-file staging manifest SHA-256
+`b74b2683944c6500eb62bd52460a8a2cb74460546d8d79cacc508c5c0aff7433`.
+Private config and authored PNG retain previous verified hashes.
+Host closed, no active IIP and no observed Ctrl+Alt+F9 conflict.
+
+Deployment stopped before backup creation or copying any game files.
+The mandatory predecessor check expected the hash-verified disabled S1,
+but ImmersiveInteractionPromptsNativeS1 was absent from the configured
+Mods directory. No other ImmersiveInteractionPrompts folders were found.
+The source or time of this external removal is unknown. This prevents
+claiming restoration of the previous installed payload as verified here.
+Archived previous payloads remain available outside loader paths.
+
+No partial installation was made. Other mods, loader configuration,
+saves/settings were not written. Reconcile the now-empty IIP baseline
+before a fresh installation; the prepared replacement procedure must
+record absence as its rollback state instead of assuming an installed
+disabled predecessor. User explicitly required stopping on a failed
+mandatory check, so this deployment reports BLOCKED.
