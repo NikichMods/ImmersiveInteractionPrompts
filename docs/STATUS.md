@@ -1,20 +1,18 @@
 # Статус Immersive Interaction Prompts
 
-## S1 — ранняя подготовка: первый статический вывод (2026-11-19)
+## S1 — найден путь инициализации NPC Talk (2026-11-19)
 
-У S1 проверка готовности дерева и исходных слотов отделима от
-`Layout.plan()`: уже первый merchant `CanShow`, завершившийся
-`native_measurement_unready`, прошёл проверки исходного дерева.
-Прежние runtime-исследования подтверждают доступ к 34 готовым TipHUD
-через `BeginPlayPost` для Open/Take/Check, но **не для торговца**
-и не доказывают своевременную геометрию/первый paint.
-Подготовка двух собственных `Collapsed` детей до первого показа —
-обоснованная гипотеза, пока **не READY**; при активации нужно исключить
-сдвиг native layout. Следующий узкий шаг — проверить раннюю привязку
-именно merchant TipHUD и состояние геометрии по локальным retained
-exports; без нового runtime-прогона и без изменения установки.
-[Подробное доказательство](../research/interaction-prompts-owner/native-tiphud-s1/README.md#early-pre-attach-feasibility--source-review-2026-11-19).
-Production BLOCKED.
+Архивный прогон подтверждает выбранный `NPCInteract_Bp_C` с тегом
+`Talk` и Screen `TipHUD_C` через собственный `ExtendedWidget`.
+Cooked-граф подтверждает, что его `ReceiveBeginPlay` вызывает родителя,
+который читает этот компонент и приводит виджет к `TipHUD_C`.
+Наличие того же живого дерева и пригодной геометрии в merchant
+`BeginPlayPost` ещё не наблюдалось. В ноябрьском S1-прогоне дерево уже
+доступно на первом `CanShow`, но `Layout.plan()` тогда отклоняет входы.
+Подготовка двух своих `Collapsed` детей остаётся гипотезой. Самый узкий
+следующий шаг — одна отдельно согласованная read-only корреляция
+`BeginPlayPost` → `CanShow` у того же торговца. Production BLOCKED.
+[Локальные доказательства и критерий эксперимента](../research/interaction-prompts-owner/native-tiphud-s1/README.md#merchant-early-owner-and-layout--local-evidence-2026-11-19).
 
 ## S1 — измерена задержка первого появления у торговца (2026-11-19)
 

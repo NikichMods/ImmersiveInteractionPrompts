@@ -662,3 +662,97 @@ placement/activation path consider a narrow research-only pre-attach candidate
 with offline checks and separate authorization for installation. Stop or
 reconsider the mechanism if it requires new brittle host interception or
 changes to native interaction semantics. Production remains BLOCKED.
+
+## Merchant early owner and layout — local evidence (2026-11-19)
+
+Review baseline `d391de9455c4f99e03f38511e7fda5756e3c688f`.
+The local review used existing logs, retained TipHUD exports and two
+targeted cooked NPC exports from Steam build 12996889. No live observation.
+
+**Selected owner.** The [2026-11-09 selected-native survey](../world-space/tiphud-render-suppression/README.md#selected-native-survey--один-игровой-сеанс-2026-11-09)
+logged `NPCInteract_Bp_C`, tag `Talk`, Screen `TipHUD_C` and nonempty
+localized text (line 810, log SHA-256
+`cdee10dc5436b35e5ffd66f46a37926ecf98a964eee15670717947a485e49daa`).
+The reader checked reciprocal ownership of `TipHUDArgument` and
+`ExtendedWidget`, then called `GetUserWidgetObject`. It required
+`bVisible` and `bAddedToScreen`, so this is a selected/shown sample.
+The S1 timing run records no actor or widget identity that can join it to
+that earlier instance. This establishes a live NPC Talk route, with the
+identity of the specific filmed merchant still open. Another line in the
+same survey reports `Interact` on the same class.
+
+**Cooked startup order.** The `NPCInteract_Bp_C:ReceiveBeginPlay` wrapper
+enters its graph at 465 and calls `BaseNPCInteract_BP_C:ReceiveBeginPlay`.
+The parent enters at 26 and calls `BaseGameEventObject_BP_C:ReceiveBeginPlay`
+before character attachment. That graph enters at 92, reads the actor's
+`ExtendedWidget.GetUserWidgetObject` at 102, and casts to `TipHUD_C`
+at 144. Its component template assigns `TipHUD_C` as `WidgetClass`.
+The widget getter reads the current pointer. The graph guards its cast
+and supplies no live result for this merchant. Separately,
+`BaseNPCInteract_BP:ExecuteAction` has a `SetNPCTip` branch (call at
+1225) that writes `TipHUDArgument.msgTag`. A BeginPlay class match alone
+therefore cannot establish the final Talk tag. The two NPC graph export
+SHA-256 values, in child-to-parent order, are
+`c1a14d000981667054c507d672d180e53073105e9621fdbeeef706c94822f0ed` and
+`776fd47a30d000018ae91dd5125cefda12a5d914f227a47c849188987b93e07d`.
+
+The existing global `BeginPlayPost` is the earliest supported candidate
+for acquisition on this route. Open has a stronger precedent than mere
+class load: [an actual unadded Screen TipHUD at BeginPlayPost](../../../docs/VERIFIED_RUNTIME.md#early-tiphud-identity--bounded-open-result-2026-11-08)
+matched the later selected instance, and its brush changed before selection.
+There is no equivalent early identity sample for the filmed merchant.
+S1's own callback currently only registers the `CanShow` hook, so its
+`READY` marker establishes function availability. The first observed S1
+`CanShow` reached the layout guard with the tree intact. Cooked
+`SetupTipMessage_Proxy` calls native `SetupTipMessage2` at 713 in the
+TipHUD graph. `CanShow` calls the native parent predicate and checks input
+mode. Neither exported body establishes native caller order against
+Screen insertion, Slate prepass and first paint.
+
+| Readiness layer | Current S1 requirements |
+| --- | --- |
+| Tree and slot identity | Exact `TipHUD_C`, valid stock `TextBlock_89`, reciprocal outer/parent relationships with the native WidgetTree and `CanvasPanel_6`, original autosized text CanvasPanelSlot, exact `RetainerBox_0` sibling with a CanvasPanelSlot. |
+| Presentation and content | Drawable root and stock visibility, positive opacities, enabled root, nonempty localized stock text. Needed to commit to the current presentation. |
+| Final placement | Live desired width/height of the native label, position/alignment/anchors and font size, plus icon position/alignment/anchors, size and autosize contract. `Layout.plan()` also checks ranges. |
+
+The first timing callback passed the first two rows. Its combined
+`native_measurement_unready` leaves every input in the third row
+unresolved at that callback. The missing evidence is the first valid
+tuple for the final localized action and icon, which individual guard
+blocks it, and whether the tuple is already stable before the first native
+frame. An early nonzero desired size may still describe a placeholder
+or a prior presentation.
+
+**Engineering gate: BLOCKED.** A plausible minimal implementation would
+use the existing actor callback to validate exact actor/component/widget
+and tree identity. It would create only the two owned children, hidden
+before insertion with `Collapsed`, use owned fixed slots and prepare
+private resources only when the verified donor/asset contracts hold.
+At a proven final-geometry boundary it would revalidate identity, place
+the children while collapsed and make them hit-test invisible together.
+Current S1 proves construction from collapsed objects and cleanup after
+ordinary attachment, while early insertion and the parent layout after
+activation remain unverified. Limit a future trial to the exact owner
+and its two children. On missing inputs leave stock behavior in place,
+and on replacement, map change or manual stop remove only owned
+children. No change to native slots, text, hint, input, visibility or
+`CanShow` result is required by this design. First-paint activation is
+blocked on the final-writer/consumer order. Acceptance would require
+first-appearance frame evidence, equivalent native layout and cleanup
+for the explicitly bounded case. The repeat timing result alone cannot
+establish cold-start acceptance.
+
+**One next experiment, subject to separate approval.** Run one read-only
+load and first approach to the same merchant. Filter the existing
+`BeginPlayPost` by exact NPC interaction class, collect a bounded
+actor/component/widget identity and structure snapshot, and correlate
+only the filmed Talk widget with the existing `CanShow` callback. At
+both boundaries log screen-added/visible flags, native text readiness,
+the first failed `Layout.plan()` check and the first valid inputs.
+Keep a short capture of that approach. Frame claims across clocks need
+an established common marker. Stop after the first valid Talk sample
+or a missing early match on that approach. A matching early tree
+justifies considering hidden preparation. If the first usable geometry
+still arrives late, preparation alone cannot remove that wait and the
+existing candidate stays blocked. No additional native hook, object scan,
+polling, forced prepass or runtime writer is needed for this observation.
