@@ -289,12 +289,17 @@ local function clear(reason)
     log("CLEANED","reason="..reason.." own_widgets=0")
     return true
 end
+-- ESlateVisibility 0=Visible, 3=HitTestInvisible, 4=SelfHitTestInvisible.
+-- All three can paint. 1=Collapsed and 2=Hidden must stay native-only.
+local function can_paint(visibility)
+    return visibility==0 or visibility==3 or visibility==4
+end
 local function native_candidate(w)
     if not valid(w) or cls(w)~=CLASS then return nil end
     local stock=w.TextBlock_89
     if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then return nil end
-    if w.Visibility~=0 or w.RenderOpacity<=0 or w.bIsEnabled~=true
-        or stock.Visibility==1 or stock.Visibility==2 or stock.RenderOpacity<=0 then return nil end
+    if not can_paint(w.Visibility) or w.RenderOpacity<=0 or w.bIsEnabled~=true
+        or not can_paint(stock.Visibility) or stock.RenderOpacity<=0 then return nil end
     local rendered=stock.Text:ToString()
     if type(rendered)~="string" or rendered=="" then return nil end
     local t=w.WidgetTree
@@ -320,7 +325,8 @@ local function native_candidate(w)
     })
     if not layout then return nil end
     return {id=path(w),widget=remember(w),stock=remember(stock),
-        tree=remember(t),canvas=remember(canvas),layout=layout}
+        tree=remember(t),canvas=remember(canvas),layout=layout,
+        root_visibility=w.Visibility}
 end
 local function decorate(candidate)
     local w=assert(resolve(candidate.widget))
@@ -376,7 +382,7 @@ local function decorate(candidate)
         end
         return
     end
-    log("ATTACHED","original_action_and_hint_untouched=true own_children=2")
+    log("ATTACHED","original_action_and_hint_untouched=true own_children=2 root_visibility="..tostring(candidate.root_visibility))
 end
 local function observe(context,...)
     if stopped or busy then return end

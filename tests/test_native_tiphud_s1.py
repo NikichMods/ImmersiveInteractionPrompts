@@ -226,6 +226,35 @@ class S1Tests(unittest.TestCase):
                 'assert(#S.labels==2 and S.captions[2]=="Взять");'
                 'assert(has("ATTACHED"))')
 
+    def test_drawable_self_hit_test_invisible_uses_early_callback(self):
+        # Visibility 4 was observed on stock TipHUD in accepted CanShow research.
+        # It is drawable: do not delay our attachment until a later state 0.
+        self.vm('S.widgets[1].w.Visibility=4;trigger(1);'
+                'assert(#S.labels==1 and #S.images==1 and has("root_visibility=4"));'
+                'S.widgets[1].w.Visibility=0;trigger(1);'
+                'assert(#S.labels==1 and S.imports==1 and S.copies==1);'
+                'stop_s1();assert(S.removed==2)')
+
+    def test_other_drawable_and_non_drawable_visibility_modes(self):
+        self.vm('S.widgets[1].w.Visibility=1;trigger(1);'
+                'assert(#S.labels==0);'
+                'S.widgets[1].w.Visibility=2;trigger(1);'
+                'assert(#S.labels==0);'
+                'S.widgets[1].w.Visibility=3;trigger(1);'
+                'assert(#S.labels==1 and has("root_visibility=3"));'
+                'S.widgets[2].stock.Visibility=2;trigger(2);'
+                'assert(#S.labels==1);'
+                'S.widgets[2].stock.Visibility=4;trigger(2);'
+                'assert(#S.labels==2);'
+                'stop_s1();assert(S.removed==4)')
+
+    def test_zero_opacity_still_does_not_attach_early(self):
+        self.vm('S.widgets[1].w.Visibility=4;'
+                'S.widgets[1].w.RenderOpacity=0;trigger(1);'
+                'assert(#S.labels==0);'
+                'S.widgets[1].w.RenderOpacity=1;trigger(1);'
+                'assert(#S.labels==1);stop_s1()')
+
     def test_map_pre_releases_each_and_can_reenter(self):
         self.vm('trigger(1);trigger(2);travel();'
                 'assert(S.removed==4 and not S.images[1].parent and not S.labels[2].parent);'

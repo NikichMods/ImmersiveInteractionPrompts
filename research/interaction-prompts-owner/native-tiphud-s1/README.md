@@ -239,3 +239,44 @@ After closed-host exit, verified rollback restored the previous disabled
 S1, preserved corrected staging and retained all neighboring file hashes.
 No active IIP remains. Corrected candidate remains available for a
 separately authorized next installation.
+
+## Drawable native visibility and perceived latency — source-only correction (2026-11-19)
+
+The user judged the merchant's estimated 0.1–0.2-second delayed ornament a
+**perceptible UX defect**, not an acceptable effect. Prefer a small, grounded
+change over premature caching systems, broad owner scans or per-frame polling.
+
+The current source already shares one Aphes UFont and PNG texture per map
+(after the first compatible attachment) and keeps each pair of visual children
+attached to its own native TipHUD for subsequent appearances. It **does not**
+precreate each per-widget pair at map load. In the prior runtime the shared
+font/texture initialized only once, but attachment happened three times.
+Those logs do **not** time first native paint or establish the cause of the
+merchant's visual delay.
+
+A specific small semantic mismatch was identified from accepted
+`can-show-state` runtime evidence in `docs/VERIFIED_RUNTIME.md`:
+three distinct native TipHUDs reported stored visibility `4 → 0`.
+UE4.27 `ESlateVisibility` defines both as drawable
+(`4=SelfHitTestInvisible`, `0=Visible`), while the original S1 eligibility
+test required the root to equal `0`. The corrected source accepts all
+draw-capable native states `0/3/4` for root and original text child,
+without modifying either native property. `1/2` remain excluded.
+Native opacity, enabled state, valid action and guarded geometry remain
+requirements, so this change is **not an early precreation mechanism**
+for blank, zero-opacity or unmeasured widgets.
+
+The existing `ATTACHED` record now includes the source
+`root_visibility` value, permitting an ordinary game run to reveal whether
+earlier attachment in state `4` is actually reached. No new hook, timer,
+forced load, clone, cache tier or asset import was added. The change
+neither guarantees first-paint coincidence nor proves the merchant's
+delay was caused by visibility gating. If the same delay remains, the
+next smallest diagnostic is a first-native/own-pixel comparison on that
+same interaction before expanding prewarming architecture.
+
+**Gate:** source-only; tests/CI and an independently authorized closed-host
+installation plus real gameplay observation are required. Previous
+source `ea32076` and the disabled game installation must not be rewritten.
+Production BLOCKED.
+
