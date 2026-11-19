@@ -465,3 +465,55 @@ first-and-repeat merchant video test and manual `Ctrl+Alt+F9` STOP;
 collect a fresh exact UE4SS log and capture frame evidence. No timing
 value, layout change, cache expansion, product acceptance or release is
 preapproved. Production remains BLOCKED.
+
+## Timing diagnostic installed — 2026-11-19
+
+**INSTALLED** from `946f4d1e6705aaa6ab9e9b1a793f7ae4ae9f8252`, with
+[offline CI PASS #44435907441](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44435907441).
+The clean local research branch fast-forwarded to remote
+`0f4798fb1c90a3771ba6bd775bc2d79432bcb41e` before deployment.
+The active predecessor matched all four files in the saved
+`00c3e6782aba037088bebfa5bea3bfc8c9ae6d68` manifest
+`b74b2683944c6500eb62bd52460a8a2cb74460546d8d79cacc508c5c0aff7433`
+and its empty activation marker.
+
+Preflight confirmed Steam build 12996889, the pinned host executable,
+UE4SS 83330635 DLL/settings, external UEHelpers, private Aphes.ttf,
+approved divider PNG and the local config's resolved asset paths.
+The Steam manifest had changed since the previous preparation. Its app ID,
+install directory, installed state and build still matched, and its freshly
+recorded hash remained identical throughout deployment.
+
+The deployment atomically replaced only `Scripts/main.lua`. SHA-256 of the
+installed four-file payload manifest is
+`16b4132fcc70309ce63903e3736931856aa30b992c70077f5ce40029d017b080`.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `982256b7cc91da4c65801f85f7f8dd66cba701490c18c257a3d8b7c86f3dfd54` |
+| `Scripts/IIPS1Layout.lua` | `65f69b106aac838446f945a6ba24a31e0463e6b9c57e8feb7ad91b9a46371d15` |
+| `Scripts/IIPS1Config.lua` | `57ac954c99f3a1ca8b9f920956d6a07f0f299ce419c7851b309910b16e565383` |
+| `Assets/aphes_divider_256x32.png` | `b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969` |
+
+S1 is the only active IIP. Before/after inventories match for all
+12,524 other files under ue4ss (including 43 files in Mods), 26 files
+at the Win64 root, 11 pak-mod files, 29 configuration files and
+16 save files. The archived pretest UE4SS log SHA-256 is
+`50666523074489105c8444ea2f23d9c357b0253e55e88fbe96aafa3e21fb42ee`.
+
+The verified backup outside the loader contains all four predecessor
+files and its activation marker. The local `.local/s1-946f4d1-deploy.py
+--rollback` checks closed host, backup and installed inventories and
+restores the prior main.lua with S1 still active. A round trip through
+the same swap routine on a copy restored all five hashes. Live rollback
+was not executed. Private receipts, inventories, backup and archived
+log are in ignored `install-946f4d1`.
+
+Runtime PENDING, production BLOCKED. Game process stayed closed. For
+the measurement, record one continuous 60+ FPS capture if available.
+Approach the same merchant from outside range, walk away and return
+without interacting. Capture the first visible native action/button,
+Aphes line and divider on both passes. Press `Ctrl+Alt+F9`, exit
+normally and retain the original video and fresh UE4SS.log before the
+next launch. Video determines first visible frames. Log timestamps
+measure milestones within the callback and attachment sequence.
