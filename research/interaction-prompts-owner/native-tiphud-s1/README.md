@@ -791,3 +791,57 @@ stock UI is expected during this run. Preserve the fresh UE4SS.log and
 short capture before relaunching. Use the `IIP_S1_MERCHANT` markers for
 event order. They carry no first-pixel timestamp. Runtime PENDING,
 production BLOCKED.
+
+## Merchant read-only observer result (2026-11-20)
+
+One user-run approach, using installed observer entry SHA-256
+`807a3b3bd6cf023543247a2cecaf0781c8c6a5107f397f737fa6347e3a4413d2`,
+verified after normal exit. Archived UE4SS 83330635 log SHA-256
+`5a1a878d7e08a5513864fb19df52e931091112dbf0fc082a35b3e712ff1ab3f4`.
+External recorded video SHA-256
+`c2900ff9de17cef9a0f633d5922b10286a341ff32f5bb455234363aa8cf39984`.
+
+Map 3/id 1 matched the same `NPCInteract_Bp_C` owner, component and
+`TipHUD_C` in `BeginPlayPost` and later `CanShow`. The tag was
+`Interact` at BeginPlay and `Talk` on the matched CanShow path.
+At the early sample the component was neither added to Screen nor
+visible. The early tree and both stock slots passed structure checks.
+
+| Event | Local log time | Desired text size | Text slot X | Icon slot size |
+| --- | --- | --- | --- | --- |
+| `BEGIN_SAMPLE` | 00:04:11.1372659 | 0×0 | 88 | 128×128 |
+| `CANSHOW_FIRST` | 00:04:30.1758463 | 0×0 | 88 | 128×128 |
+| `LAYOUT_FIRST_VALID` | 00:04:30.3754683 | 167.5×37.5 | 38 | 38×38 |
+
+At first CanShow the component was already Screen-added and visible.
+The first failed guard was `desired_size`, with `GetDesiredSize()`
+returning zeros. The position and icon size also changed before the
+first valid sample. Font size 22, alignment, anchors and icon autosize
+matched across these samples. First CanShow was 19.039 s after the
+BeginPlay snapshot. First valid was 199.622 ms after first CanShow
+and 199.555 ms after `LAYOUT_FIRST_REJECT`. These are observed callback
+intervals. They do not identify the underlying writer, first Slate
+prepass, or intermediate changes between samples.
+
+In the video the native button and «Поговорить» first appear together
+in zero-based frame 338, PTS 6.124356 s. Frame 337 has no prompt.
+Only stock UI was expected. Video and log lack a common frame marker,
+so the video establishes the appearance independently of the Lua
+callback order. This run does not provide an on-screen S1 latency.
+
+**Gate:** Early tree acquisition is verified for this merchant.
+Early insertion of collapsed children and unchanged layout after
+activation remain unverified. Moving attachment work earlier can
+address that stage only. The existing final-placement plan still has
+an observed ~200 ms wait even with the read-only probe and no S1
+decoration creation. BeginPlay geometry and its text tag are unsuitable
+defaults for final placement. Before implementing a same-frame path,
+determine whether an existing host boundary can provide the final
+Talk text/slot state and usable measured extent earlier. The probes
+so far do not justify forcing prepass or choosing a new runtime hook.
+Production remains BLOCKED.
+
+The live one-run observer was rolled back after the user exited.
+The complete active `946f4d1` inventory, activation marker and
+inherited script access entries were verified. Restored manifest
+SHA-256 `16b4132fcc70309ce63903e3736931856aa30b992c70077f5ce40029d017b080`.
