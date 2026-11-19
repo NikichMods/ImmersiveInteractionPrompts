@@ -567,3 +567,97 @@ do not isolate callback-to-first-pixel or post-attach render time.
 If the cause must be narrowed further, distinguish which existing layout
 input first becomes valid before considering changes to eligibility or
 resource creation. Production remains BLOCKED.
+## Early pre-attach feasibility — source review (2026-11-19)
+
+**Decision sought:** Can S1 prepare the two own children before the first native
+prompt paint, so first exposure behaves like the already observed repeat?
+**Scope:** repository/source and accepted-evidence review only; no payload change,
+local/game inspection, deployment or runtime observation. Reviewed at branch
+head \`77a6f359902bf49f9b4325be31b8ae15b2497fce\`.
+
+### What is established
+
+1. The merchant timing test had one first-attach sequence and none on repeat:
+   first native action at video PTS 7.791878, own elements at 8.025211
+   (clean at 8.041878); repeat showed both in the same *recorded* frame.
+   In the log the first \`CanShow\` reached \`native_measurement_unready\`
+   200 ms before \`TRACE_ELIGIBLE\`, then attachment took ~30 ms.
+   The video and log clocks have no alignment. No claim about engine frame
+   boundaries, initial \`CanShow\` relative to first native paint, or the
+   particular failed measurement follows.
+2. Current \`Scripts/main.lua\` already separates native structural guards from
+   \`Layout.plan()\` in \`native_candidate()\`. The recorded
+   \`native_measurement_unready\` necessarily means that, at that callback,
+   the exact TipHUD class, native TextBlock, drawability, nonempty text,
+   native WidgetTree/CanvasPanel_6, original text slot, original RetainerBox_0
+   and icon slot passed their existing checks. Only the *combined* geometric
+   plan then failed. Thus **tree/slot availability is not the same as
+   successful measured layout**. The combined reason does not prove that
+   \`GetDesiredSize()\` specifically was the invalid input.
+3. Current \`decorate()\` has an avoidable coupling: it requires the final
+   \`layout\` before creating/binding the private Aphes font, divider texture,
+   TextBlock/Image and two canvas children. \`make()\` already sets each own
+   child to \`Collapsed\` while constructing it, but \`decorate()\` switches
+   both to drawable immediately after \`place()\`. There is no separate
+   pre-attach/commit stage yet. The current \`observe()\` is driven only by
+   post-only \`CanShow\`; its native selection/show semantics must remain
+   untouched.
+4. **Previously observed acquisition route:** on the pinned host and UE4SS,
+   global \`BeginPlayPost\` produced 34 ready exact actor → ExtendedWidget →
+   TipHUD triples at normal save load: six Open, 18 Take, ten Check. Earlier
+   exact parent \`BaseGameEventObject_BP:ReceiveBeginPlay\` and its widget
+   getter/cast chain also passed a scoped natural Open experiment. These are
+   credible early identity routes **for verified families**, not evidence
+   that the merchant belongs to one of them or that the callback precedes
+   the merchant's first native pixels. [Shared verified evidence](https://github.com/NikichMods/Asterigos-Research/blob/main/docs/VERIFIED_RUNTIME.md#multi-action-native-owner-observation--2026-11-06)
+   and [parent-call review](../open-binding/ROUTE_REVIEW.md).
+5. UE4.27 documents \`Collapsed\` as non-rendering and occupying no layout
+   space. Thus attaching *collapsed own children* is a defensible minimal
+   containment hypothesis, not a game-tested no-side-effect guarantee.
+   \`CanvasPanel_6\` sits inside native \`HorizontalBox_4\`, so making own
+   children drawable may affect parent desired size/position; the layout
+   must still be verified. UE4.27 also documents that \`GetDesiredSize()\`
+   requires underlying Slate construction and at least one prepass, and
+   \`ForceLayoutPrepass\` is not proof that all native layout/consumer
+   inputs are ready. Do **not** proactively force host prepass as a
+   speculative fix.
+   [UE4.27 visibility](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/SlateVisibility?application_version=4.27),
+   [widget/prepass API](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/Widget?application_version=4.27),
+   [Slate layout](https://dev.epicgames.com/documentation/en-us/unreal-engine/slate-architecture?application_version=4.27).
+
+### Minimal prospective implementation shape — NOT READY
+
+Separate (a) exact TipHUD/WidgetTree/CanvasPanel/stock-slot identity validation,
+(b) creating/configuring *only two owned Collapsed children* and the existing
+shared private resources, (c) computing reliable final geometry from native
+inputs, and (d) activating the children no later than native first paint.
+Preserve native action, button, input remapping, visibility, CanShow return,
+show/hide, native slots/font and cleanup ownership. Do not assume the
+serialized designer X=88 is the live position: earlier Open runtime measured
+X=38. No actor scan, per-frame polling, screen prehide, early native
+visibility change or duplicate prompt layer is part of this direction.
+
+A pre-attached but still Collapsed label is **not a UX fix** if the native
+action appears before a reliable final geometry/activation; that timing is a
+separate evidence gate. Likewise, attaching while Collapsed is not enough if
+turning it drawable shifts/clips stock UI. A neutral \`ACTION\` remains a
+technical font check, not translated Aphes.
+
+### Remaining smallest evidence and stopping rule
+
+**BLOCKED for behavior change; static first-step complete.** Establish, using
+existing local retained cooked/UHT exports and earlier observer evidence if
+available, whether the **specific merchant TipHUD** is reachable before first
+show through an already verified actor/ExtendedWidget/BeginPlay route; which
+initial native text/slot/icon geometry fields are valid at that point; and
+whether an unmodified native show can follow preparation before first paint.
+Source-only output should identify the exact class/callsite and classify
+proven versus unknown. Do not infer merchant coverage from Open/Take/Check.
+
+If that evidence is insufficient, request a *separately authorized* bounded
+read-only runtime observation of merchant early identity and the earliest
+geometric inputs. Only after a positive early route and a credible first-paint
+placement/activation path consider a narrow research-only pre-attach candidate
+with offline checks and separate authorization for installation. Stop or
+reconsider the mechanism if it requires new brittle host interception or
+changes to native interaction semantics. Production remains BLOCKED.
