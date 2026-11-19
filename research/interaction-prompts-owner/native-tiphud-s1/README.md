@@ -845,3 +845,52 @@ The live one-run observer was rolled back after the user exited.
 The complete active `946f4d1` inventory, activation marker and
 inherited script access entries were verified. Restored manifest
 SHA-256 `16b4132fcc70309ce63903e3736931856aa30b992c70077f5ce40029d017b080`.
+
+## Fixed Talk template installed (2026-11-20)
+
+User authorized a one-merchant research run and adopted a divider width
+independent of action, text and input geometry. This run uses 142.375 widget
+units, the divider width from the measured merchant layout, with the
+original 8:1 PNG aspect ratio. The Aphes preview remains `ACTION`.
+
+At `BeginPlayPost`, the previously observed NPC interaction actor route
+in the merchant's sublevel must resolve its exact hidden, not-yet-added
+`ExtendedWidget` and original `TipHUD_C` tree. Only the two owned
+`Collapsed` children are constructed and inserted with fixed slots.
+Their resources and geometry are ready before showing. At the paired
+post-`CanShow`, owner, widget and tree identity are checked again.
+The native component must be shown and the stock drawable caption must
+match Russian Talk. The callback changes visibility only on the two
+own children, with no geometry sample or layout planning. Other prompts
+stay stock in this candidate. Missing early preparation stays stock.
+An ambiguous owner, identity change or fault stops the trial and uses
+owned cleanup. Existing map cleanup and `Ctrl+Alt+F9` remain available.
+
+**Research gate only.** Early identity is observed for this merchant.
+The trial asks whether fixed placement and earlier preparation produce
+the same first recorded frame as the native action, while preserving
+native coordinates, button and show/hide. The UMG/Slate timing and effect
+of early insertion on native layout still require video and log evidence.
+Generic Talk or other action coverage is outside this trial.
+
+Exact source `9b97a5456b5395f3dee5345b19cfc074c5d01585`.
+Deployment assembled `Scripts/main.lua` by enabling its explicit
+`TALK_TEMPLATE` research switch. Entry SHA-256
+`a89784277b22d797eda63acc39205b81e4527f0011ac2b029d6cfb9c6d4b34c0`.
+Four-file manifest SHA-256
+`a05f39813c642d71670c83d464b1687043b701e3092af9f8210a3985b3f6f5d2`.
+20 S1 tests and three observer tests passed locally.
+[Full hosted CI PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44617091992).
+Only the active `main.lua` was swapped with the game closed. Other mods,
+loader files, settings and saves matched their preflight hashes.
+The live predecessor was `946f4d1`. Its complete active payload was
+backed up outside the loader and restored on a copy, including the
+activation marker and permission inheritance.
+
+Launch normally, load outside prompt range and record a single first
+approach to the same merchant. Capture the first native caption/key,
+header and divider, then withdraw until the prompt hides. Press
+`Ctrl+Alt+F9`, exit normally and keep the original video and fresh
+UE4SS.log. The log should show `TEMPLATE_PREPARED` from the early path
+and `TEMPLATE_FIRST_CANSHOW` / `TEMPLATE_SHOWN` from the show path.
+Runtime PENDING, production BLOCKED.
