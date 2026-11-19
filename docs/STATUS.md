@@ -3,12 +3,12 @@
 ## S1 — ранняя подготовка: первый статический вывод (2026-11-19)
 
 У S1 проверка готовности дерева и исходных слотов отделима от
-\`Layout.plan()\`: уже первый merchant \`CanShow\`, завершившийся
-\`native_measurement_unready\`, прошёл проверки исходного дерева.
+`Layout.plan()`: уже первый merchant `CanShow`, завершившийся
+`native_measurement_unready`, прошёл проверки исходного дерева.
 Прежние runtime-исследования подтверждают доступ к 34 готовым TipHUD
-через \`BeginPlayPost\` для Open/Take/Check, но **не для торговца**
+через `BeginPlayPost` для Open/Take/Check, но **не для торговца**
 и не доказывают своевременную геометрию/первый paint.
-Подготовка двух собственных \`Collapsed\` детей до первого показа —
+Подготовка двух собственных `Collapsed` детей до первого показа —
 обоснованная гипотеза, пока **не READY**; при активации нужно исключить
 сдвиг native layout. Следующий узкий шаг — проверить раннюю привязку
 именно merchant TipHUD и состояние геометрии по локальным retained
@@ -207,11 +207,11 @@ Runtime PENDING. [Точный состав установки](../research/inte
 соответствие разных действий письменности Aphes не доказано.
 Production остаётся BLOCKED.
 
-На ветке \`research/native-tiphud-s1-01\` подготовлен новый
-\`research/interaction-prompts-owner/native-tiphud-s1/\`:
-один Blueprint post-only \`TipHUD_C:CanShow\` observer и собственные
-TextBlock/Image в штатном \`CanvasPanel_6\`. Только нативный
-\`TipHUD\` выбирает action и кнопку, сохраняет исходные show/hide,
+На ветке `research/native-tiphud-s1-01` подготовлен новый
+`research/interaction-prompts-owner/native-tiphud-s1/`:
+один Blueprint post-only `TipHUD_C:CanShow` observer и собственные
+TextBlock/Image в штатном `CanvasPanel_6`. Только нативный
+`TipHUD` выбирает action и кнопку, сохраняет исходные show/hide,
 ввод/ремаппинг/hold/locked и локализацию. Ни stock setter,
 ни Screen→World, ни второй viewport renderer не применяются.
 На совместимых экземплярах полотно/орнамент наследуют
@@ -221,7 +221,7 @@ TextBlock/Image в штатном \`CanvasPanel_6\`. Только нативны
 с per-widget identity, компактной геометрией, единым transient
 font/texture lease на карту, ограничением числа собственных пар
 и map/manual-stop очисткой. Несовместимые состояния остаются stock-only.
-Верхняя Aphes-строка пока нейтральная \`ACTION\`, **не** проверенный
+Верхняя Aphes-строка пока нейтральная `ACTION`, **не** проверенный
 перевод языка мира; содержимое требует отдельного решения.
 Принятый компактный рисунок и пропорции исходного макета не
 означают точного Slate-layout или реальной визуальной приёмки.
@@ -229,7 +229,7 @@ font/texture lease на карту, ограничением числа собс
 **Статус:** исходный кандидат и mock-проверки — только source-level.
 Для принятия нужен PASS офлайн CI и отдельно разрешённая установка,
 первый кадр в игре, смена целей/карты, разные действия и
-input/remap. Не переносить в \`main\`, не выпускать номерной артефакт,
+input/remap. Не переносить в `main`, не выпускать номерной артефакт,
 не устанавливать и не запускать игру автоматически.
 Тестовые исходники/методика: [native S1](../research/interaction-prompts-owner/native-tiphud-s1/README.md).
 
