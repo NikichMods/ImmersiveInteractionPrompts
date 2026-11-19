@@ -431,6 +431,13 @@ interpolated frames as native paint evidence.
 - Normal second approach reuses same widget without new attachment:
   distinguishes a cold-attach problem from recurrent show/hide delay.
 
+**Offline verification:** exact code candidate
+`946f4d1e6705aaa6ab9e9b1a793f7ae4ae9f8252`,
+[GitHub Actions #44435907441 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44435907441),
+including **18 S1 tests** (three new trace assertions), and **621
+tests over 62 batches** in the repository test runner. Tested source
+has no extra native setter or input/write surface. CI is not gameplay evidence.
+
 **Limits:** No visual latency claim from logging alone. No proof of
 generic owner/selection from CanShow alone. No native layout/font/button
 change is part of this study. Stop after the one controlled comparison
