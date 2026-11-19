@@ -13,6 +13,10 @@ local shared = {font=nil, texture=nil, import_attempted=false}
 local entries, order, next_id = {}, {}, 0
 local MAX_WIDGETS = 64 -- Bound own resources, not supported native interactions.
 local stopped, busy, cleanup_failed = false, false, false
+-- Research-only, bounded timing markers. UE4SS log wall-clock timestamps give
+-- intervals between these milestones, NOT native/GPU first-pixel timestamps.
+local TRACE_LIMIT, TRACE_TRANSITIONS = 64, 5
+local trace_widgets, trace_count = {}, 0
 local function log(event, details)
     print("IIP_S1 event=" .. event .. " " .. (details or "") .. "\n")
 end
@@ -285,6 +289,7 @@ local function clear(reason)
         return false
     end
     entries={};order={}
+    trace_widgets={};trace_count=0
     shared={font=nil,texture=nil,import_attempted=false}
     log("CLEANED","reason="..reason.." own_widgets=0")
     return true
@@ -295,26 +300,35 @@ local function can_paint(visibility)
     return visibility==0 or visibility==3 or visibility==4
 end
 local function native_candidate(w)
-    if not valid(w) or cls(w)~=CLASS then return nil end
+    if not valid(w) or cls(w)~=CLASS then return nil,"invalid_tiphud" end
     local stock=w.TextBlock_89
-    if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then return nil end
-    if not can_paint(w.Visibility) or w.RenderOpacity<=0 or w.bIsEnabled~=true
-        or not can_paint(stock.Visibility) or stock.RenderOpacity<=0 then return nil end
+    if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then
+        return nil,"native_text_missing"
+    end
+    if not can_paint(w.Visibility) then return nil,"root_visibility" end
+    if w.RenderOpacity<=0 then return nil,"root_opacity" end
+    if w.bIsEnabled~=true then return nil,"root_disabled" end
+    if not can_paint(stock.Visibility) then return nil,"native_text_visibility" end
+    if stock.RenderOpacity<=0 then return nil,"native_text_opacity" end
     local rendered=stock.Text:ToString()
-    if type(rendered)~="string" or rendered=="" then return nil end
+    if type(rendered)~="string" or rendered=="" then return nil,"native_text_empty" end
     local t=w.WidgetTree
     local canvas=stock:GetParent()
     if not valid(t) or cls(t)~="/Script/UMG.WidgetTree" or not same(t:GetOuter(),w)
         or not valid(canvas) or cls(canvas)~="/Script/UMG.CanvasPanel"
         or not same(canvas:GetOuter(),t) or not same(stock:GetOuter(),t)
-        or not path(canvas):match("%.CanvasPanel_6$") then return nil end
+        or not path(canvas):match("%.CanvasPanel_6$") then
+        return nil,"native_tree_unready"
+    end
     local slot=stock.Slot
     if not valid(slot) or cls(slot)~="/Script/UMG.CanvasPanelSlot"
-        or not slot:GetAutoSize() then return nil end
+        or not slot:GetAutoSize() then return nil,"native_slot_unready" end
     local icon=StaticFindObject(path(t)..".RetainerBox_0")
-    if not valid(icon) or not same(icon:GetParent(),canvas) then return nil end
+    if not valid(icon) or not same(icon:GetParent(),canvas) then return nil,"native_icon_unready" end
     local islot=icon.Slot
-    if not valid(islot) or cls(islot)~="/Script/UMG.CanvasPanelSlot" then return nil end
+    if not valid(islot) or cls(islot)~="/Script/UMG.CanvasPanelSlot" then
+        return nil,"native_icon_slot_unready"
+    end
     -- Only native original children. Own geometry must not change their slot/font/brush.
     local layout=Layout.plan({
         desired=stock:GetDesiredSize(), position=slot:GetPosition(),
@@ -323,7 +337,7 @@ local function native_candidate(w)
         icon_alignment=islot:GetAlignment(), icon_anchors=islot:GetAnchors(),
         icon_auto=islot:GetAutoSize(), icon_size=islot:GetSize()
     })
-    if not layout then return nil end
+    if not layout then return nil,"native_measurement_unready" end
     return {id=path(w),widget=remember(w),stock=remember(stock),
         tree=remember(t),canvas=remember(canvas),layout=layout,
         root_visibility=w.Visibility}
@@ -384,6 +398,37 @@ local function decorate(candidate)
     end
     log("ATTACHED","original_action_and_hint_untouched=true own_children=2 root_visibility="..tostring(candidate.root_visibility))
 end
+
+-- One trace per exact widget path/address, capped to avoid per-callback log spam.
+-- No new hook, timer, engine query, native write or retained UE wrapper.
+local function trace_first(w)
+    if not valid(w) or cls(w)~=CLASS then return nil end
+    local key=path(w).."@"..tostring(w:GetAddress())
+    local t=trace_widgets[key]
+    if t then return t end
+    if trace_count>=TRACE_LIMIT then return nil end
+    trace_count=trace_count+1
+    t={index=trace_count,last_gate=nil,gate_changes=0,eligible=false}
+    trace_widgets[key]=t
+    log("TRACE_FIRST_CALLBACK","widget="..t.index.." root_visibility="..tostring(w.Visibility))
+    return t
+end
+local function trace_gate(t,reason,w)
+    if not t or t.eligible or t.gate_changes>=TRACE_TRANSITIONS then return end
+    local gate=tostring(reason).."@"..tostring(w.Visibility)
+    if t.last_gate==gate then return end
+    t.last_gate=gate
+    t.gate_changes=t.gate_changes+1
+    log("TRACE_PENDING","widget="..t.index.." reason="..tostring(reason)
+        .." root_visibility="..tostring(w.Visibility))
+end
+local function trace_eligible(t,c)
+    if not t or t.eligible then return end
+    t.eligible=true
+    log("TRACE_ELIGIBLE","widget="..t.index.." root_visibility="
+        ..tostring(c.root_visibility))
+end
+
 local function observe(context,...)
     if stopped or busy then return end
     local argc=select("#",...)
@@ -396,8 +441,13 @@ local function observe(context,...)
     busy=true
     local ok,err=pcall(function()
         local w=context:get()
-        local c=native_candidate(w)
-        if not c then return end -- Unsupported state stays entirely stock.
+        local trace=trace_first(w)
+        local c,reason=native_candidate(w)
+        if not c then
+            trace_gate(trace,reason,w)
+            return -- Unsupported state stays entirely stock.
+        end
+        trace_eligible(trace,c)
         local prev=entries[c.id]
         if prev then
             if prev.widget.address~=c.widget.address or prev.widget.class~=c.widget.class then
@@ -435,6 +485,9 @@ local function observe(context,...)
             end
             entries[old]=nil
             log("EVICTED","max_widgets="..MAX_WIDGETS)
+        end
+        if trace then
+            log("TRACE_ATTACH_BEGIN","widget="..trace.index)
         end
         decorate(c)
     end)

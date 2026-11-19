@@ -312,6 +312,38 @@ class S1Tests(unittest.TestCase):
                 'begin_s1();assert(not S.hook)',
                 pre='\nlocal find=StaticFindObject\nfunction StaticFindObject(p)\n local f=find(p)\n if p==BASE..":CanShow" then\n  function f:GetFunctionFlags()return 0x400 end\n end\n return f\nend\n')
 
+    def test_timing_trace_records_first_callback_gate_and_attach(self):
+        vm=self.vm('S.widgets[1].w.Visibility=2;trigger(1);trigger(1);'
+                   'S.widgets[1].w.Visibility=4;S.text="";trigger(1);'
+                   'S.text="Открыть";S.bad_size=true;trigger(1);'
+                   'S.bad_size=false;trigger(1);trigger(1);'
+                   'assert(#S.labels==1 and has("TRACE_FIRST_CALLBACK"));'
+                   'assert(has("TRACE_PENDING") and has("root_visibility=2"));'
+                   'assert(has("reason=native_text_empty"));'
+                   'assert(has("reason=native_measurement_unready"));'
+                   'assert(has("TRACE_ELIGIBLE") and has("TRACE_ATTACH_BEGIN"));'
+                   'stop_s1()')
+        logs=[str(vm.globals().S.logs[i]) for i in range(1,len(vm.globals().S.logs)+1)]
+        self.assertEqual(sum("event=TRACE_FIRST_CALLBACK" in line for line in logs),1)
+        self.assertEqual(sum("event=TRACE_ELIGIBLE" in line for line in logs),1)
+        self.assertEqual(sum("event=TRACE_ATTACH_BEGIN" in line for line in logs),1)
+        self.assertEqual(sum("reason=root_visibility" in line for line in logs),1)
+
+    def test_timing_trace_resets_at_map_boundary(self):
+        vm=self.vm('trigger(1);trigger(2);travel();trigger(1);'
+                   'assert(#S.labels==3);stop_s1()')
+        logs=[str(vm.globals().S.logs[i]) for i in range(1,len(vm.globals().S.logs)+1)]
+        self.assertEqual(sum("event=TRACE_FIRST_CALLBACK" in line for line in logs),3)
+        self.assertEqual(sum("event=TRACE_ATTACH_BEGIN" in line for line in logs),3)
+
+    def test_timing_trace_does_not_change_native_or_attach_when_unready(self):
+        vm=self.vm('S.widgets[1].w.RenderOpacity=0;trigger(1);'
+                   'assert(#S.labels==0 and has("reason=root_opacity"));'
+                   'S.widgets[1].w.RenderOpacity=1;trigger(1);'
+                   'assert(#S.labels==1);stop_s1();assert(S.removed==2)')
+        logs=[str(vm.globals().S.logs[i]) for i in range(1,len(vm.globals().S.logs)+1)]
+        self.assertEqual(sum("event=ATTACHED" in line for line in logs),1)
+
     def test_static_native_ownership_boundary(self):
         for forbidden in ("TextBlock_89:SetText", "TextBlock_89:SetFont",
                           "TextBlock_89:SetRenderTranslation",

@@ -364,3 +364,78 @@ heavier outline on the localized action. These requests may require
 revising the current preserve-native-layout/font boundary. Their
 mechanism and feasibility are open. No timing fix, layout change or
 native font mutation is authorized by this record-only feedback.
+
+## First-pixel onset timing — bounded source-only instrumentation (2026-11-19)
+
+**Question:** Why did the upper Aphes/ornament appear noticeably later than
+the native merchant action in the user's runtime observation, despite eight
+successful attachments? The saved UE4SS log contains only `ATTACHED`
+timestamps (all root visibility `0`), not earlier `CanShow` callbacks,
+rejected guard states or any independent frame/pixel measurement.
+The prior visibility correction did not fix the perceived delay.
+
+**Cheapest sufficient evidence:** retain the accepted native S1 runtime path
+and log a few milestones at its **existing** zero-input Blueprint
+`CanShow` post hook, with one short user-screen recording as an independent
+source for what pixels actually appeared. No lower-level native paint hook,
+new selection scanner or preload architecture is justified before this.
+
+**Research-only instrumentation:**
+- `TRACE_FIRST_CALLBACK` — first delivered CanShow for each exact
+  TipHUD path/address, including root visibility;
+- `TRACE_PENDING` — first distinct eligibility failure or change of
+  reason/root visibility, capped to **five** per widget;
+- `TRACE_ELIGIBLE` — first native state passing existing guards;
+- `TRACE_ATTACH_BEGIN` — immediately before the existing `decorate`
+  call, followed by the existing `ATTACHED` or `ATTACH_FAILED`;
+- Native guard outcomes, widget state, construction, asset loading,
+  `CanShow` return and original input/action remain unchanged.
+  At most **64** widget identities are traced per map; diagnostics
+  reset after successful map-pre cleanup and after manual STOP.
+  No polling, separate observer hook or timer; no retained UObject wrappers.
+  This is a bounded logging overhead, not a performance-neutral observer.
+
+The **UE4SS.log timestamp deltas** locate coarse intervals from callback
+to eligibility and attachment, not true game input-to-paint,
+GPU completion or a guarantee that the native action was on-screen.
+They should not be subtracted from unrelated logs/recordings with
+unknown clock alignment. More logging can perturb the critical path;
+interpret a few-millisecond difference cautiously.
+
+**Single bounded user-operated scenario (after a separately authorized
+closed-host installation):** record one continuous native-size screen
+capture at 60 FPS or faster if the user's existing capture facility
+supports it, without changing game graphics/settings. Approach the same
+merchant from outside prompt range for a first exposure and once again
+after leaving range; include at least one direct interaction-free return.
+If convenient in the same brief session, capture an object that formerly
+appeared fast for contrast. Finish by pressing `Ctrl+Alt+F9`, then exit
+the game voluntarily. Local Codex can archive the exact fresh UE4SS log
+and capture with hashes. Frame-to-frame measurement is between **first
+visible native action/button** and **first visible upper Aphes/divider**:
+use actual frame timestamps for variable FPS, or delta frames / recorded
+FPS for fixed-rate capture. The recording's displayed FPS is not
+automatically the encoder's stored frame rate; do not count synthetic
+interpolated frames as native paint evidence.
+
+**Decision table:** 
+- First `CanShow` **after** the lower native action appears: the hook
+  arrives too late for same-frame decoration; extra caching alone
+  cannot fix first paint.
+- `CanShow` early but `TRACE_PENDING` remains until late: identify
+  which guard/host state is late before changing eligibility.
+- `TRACE_ATTACH_BEGIN→ATTACHED` is long: creation/resource path
+  is a plausible cost; consider narrower preinitialization.
+- `ATTACHED` precedes the visible ornament by multiple recorded
+  frames: Slate/render timing or video synchronization needs checking.
+- Normal second approach reuses same widget without new attachment:
+  distinguishes a cold-attach problem from recurrent show/hide delay.
+
+**Limits:** No visual latency claim from logging alone. No proof of
+generic owner/selection from CanShow alone. No native layout/font/button
+change is part of this study. Stop after the one controlled comparison
+with causal milestone evidence, or report `INCONCLUSIVE` with the
+single missing measurement. The currently installed S1 remains the
+previous code until an independently authorized new installation.
+Production BLOCKED.
+
