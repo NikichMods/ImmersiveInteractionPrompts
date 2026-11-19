@@ -332,3 +332,35 @@ payload, then removes only S1 enabled.txt, returning to no active IIP
 while retaining disabled S1 files. The cleanup archive and original
 restore manifest remain available for recovering earlier prototypes.
 No other prototypes were restored. Stop key remains Ctrl+Alt+F9.
+
+## Visibility 0/3/4 runtime feedback — 2026-11-19
+
+Installed source 00c3e6782aba037088bebfa5bea3bfc8c9ae6d68 matched
+the four-file manifest after exit:
+`b74b2683944c6500eb62bd52460a8a2cb74460546d8d79cacc508c5c0aff7433`.
+Fresh UE4SS 83330635 log archived locally, SHA-256
+`50666523074489105c8444ea2f23d9c357b0253e55e88fbe96aafa3e21fb42ee`.
+User screenshot archived locally, SHA-256
+`6790d7b9645eb6dcb78481e749ceefdaf36acf17de5371e18bdf365ee91a3411`.
+
+WAITING was followed by READY; eight ATTACHED events all logged
+root_visibility=0. No attachment failures were logged. These events
+do not measure rejected earlier callbacks or first pixels. User still
+sees a noticeable delay across prompts and considers it closer to
+unacceptable than acceptable. The visibility correction has not
+established acceptable appearance timing.
+
+User did not press Ctrl+Alt+F9 this run. The log ends normally with
+Event loop end, with no user_stop cleanup confirmation. Do not count
+exit as a manual cleanup PASS. S1 remains installed and enabled;
+this feedback-recording step changed no game files.
+
+Visual requests recorded for subsequent design, without implementation:
+place the interaction key vertically at the divider's centerline if
+feasible at proportionate cost; reduce native localized action outline
+to a thin appearance comparable to the Aphes caption. The screenshot
+shows the current key alongside the lower action line and a visibly
+heavier outline on the localized action. These requests may require
+revising the current preserve-native-layout/font boundary. Their
+mechanism and feasibility are open. No timing fix, layout change or
+native font mutation is authorized by this record-only feedback.

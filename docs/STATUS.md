@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## S1 Visibility — задержка остаётся (2026-11-19)
+
+Восемь ATTACHED, все root_visibility=0. Пользователь считает задержку
+скорее неприемлемой, просит рассмотреть кнопку на высоте разделителя
+и тонкую обводку native action. Ctrl+Alt+F9 не нажималась, ручная
+очистка этим прогоном не подтверждена. S1 остаётся включён.
+[Отчёт](../research/interaction-prompts-owner/native-tiphud-s1/README.md#visibility-034-runtime-feedback--2026-11-19).
+
+
 ## S1 Visibility — установлен после сверки архива (2026-11-19)
 
 Архив уборки подтвердил прежний S1 по четырём хэшам. Блокер снят.
