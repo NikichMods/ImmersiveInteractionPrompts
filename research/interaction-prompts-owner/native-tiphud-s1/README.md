@@ -484,8 +484,12 @@ The Steam manifest had changed since the previous preparation. Its app ID,
 install directory, installed state and build still matched, and its freshly
 recorded hash remained identical throughout deployment.
 
-The deployment atomically replaced only `Scripts/main.lua`. SHA-256 of the
-installed four-file payload manifest is
+The deployment atomically replaced only `Scripts/main.lua`. The temporary
+file carried a restrictive Windows ACL. The post-install check detected
+it, restored the Scripts directory's inherited permissions and verified
+that the new file has the same access entries as the neighboring layout
+script and is readable from the sandbox. SHA-256 of the installed
+four-file payload manifest is
 `16b4132fcc70309ce63903e3736931856aa30b992c70077f5ce40029d017b080`.
 
 | Installed file | SHA-256 |
@@ -505,7 +509,8 @@ The verified backup outside the loader contains all four predecessor
 files and its activation marker. The local `.local/s1-946f4d1-deploy.py
 --rollback` checks closed host, backup and installed inventories and
 restores the prior main.lua with S1 still active. A round trip through
-the same swap routine on a copy restored all five hashes. Live rollback
+the same swap routine, including ACL inheritance, on a copy restored all
+five hashes. Live rollback
 was not executed. Private receipts, inventories, backup and archived
 log are in ignored `install-946f4d1`.
 
