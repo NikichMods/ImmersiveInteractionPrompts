@@ -195,3 +195,47 @@ Local .local/s1-ea32076-deploy.py --rollback restores the previous
 disabled S1 after closed-host and exact payload checks. All other IIP
 prototypes remain disabled. User launches the first corrected runtime
 check and uses Ctrl+Alt+F9 to stop. ACTION remains a technical glyph string.
+
+## Corrected S1 runtime — 2026-11-19
+
+Source `ea32076a830ad55ee4f4946232c48c2d146fd779`, installed
+manifest `fcd41c1a14c6a18f882af560519174213162919a820c4c6db7e751290a5a3162`.
+All four installed files matched after exit. New UE4SS 83330635 log
+retained locally, SHA-256
+`e4b8463b95c9e4a191c97d475f2359c1c91e1255684eeb089b079f886f4931a6`.
+
+At 03:03:04.886 the startup lookup returned unavailable and logged
+WAITING CanShow_NOT_LOADED. At 03:03:05.695 the BeginPlayPost retry
+registered CanShow and logged READY. This run establishes that the
+function can be absent at Lua startup and available later. It supports
+the timing diagnosis of the predecessor, whose combined error alone
+did not establish which predicate failed.
+
+Three ATTACHED events at 03:04:46.328, 03:05:01.516 and 03:05:34.408
+each reported two own children. One shared private font configuration
+and one 256x32 texture import were logged, with DONOR_UNCHANGED.
+There were no UNAVAILABLE, ATTACH_FAILED or cleanup-failure events.
+At 03:06:01.580 Ctrl+Alt+F9 produced
+CLEANED reason=user_stop own_widgets=0. No later attachments occurred
+before normal game exit at 03:07:45.
+
+User observed decoration at the conduit, merchant and ground potion.
+Merchant appearance had a noticeable estimated 0.1–0.2 s delay;
+potion appearance was quick. ATTACHED events do not log owner identity
+or an independently timed first native/own pixel. Exact mapping of
+each event to an object, duration and cause of the delay are unproved.
+First font initialization preceded the first ATTACHED by about 10 ms,
+but the log has no initial callback/measurement timestamp, so this
+does not account for full attachment or visible latency.
+
+The successful decoration and manual cleanup are bounded runtime
+evidence, not complete visual acceptance. Startup readiness is no
+longer the immediate blocker. The next useful decision is whether the
+observed merchant delay is acceptable; if it blocks UX, compare the
+native first frame with decoration readiness and cached desired-size
+availability on that same object before changing the seam.
+
+After closed-host exit, verified rollback restored the previous disabled
+S1, preserved corrected staging and retained all neighboring file hashes.
+No active IIP remains. Corrected candidate remains available for a
+separately authorized next installation.
