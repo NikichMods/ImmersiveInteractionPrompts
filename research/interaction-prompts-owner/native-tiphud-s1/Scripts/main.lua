@@ -7,6 +7,19 @@ local HOOK = CLASS .. ":CanShow"
 local FONT = "/Script/Engine.Font"
 local DONOR = "/Game/Fonts/EBGaramond-SemiBold_Font.EBGaramond-SemiBold_Font"
 local Layout = require("IIPS1Layout")
+-- The one-merchant research payload explicitly enables this at assembly.
+local TALK_TEMPLATE = false
+local NPC = "/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C"
+local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
+local ARGUMENT = "/Script/Genesis.TipHUDArgumentComponent"
+local MERCHANT_LEVEL = "/Game/MainContent/Maps/sublevel_plot/1-1/1-1_plot_slumB1_main1"
+-- Final layout from the observed Russian Talk baseline, in widget units.
+local TALK_LAYOUT = {
+    key="merchant_talk_fixed", upper_size=26,
+    upper={x=121.75,y=-54.1484375,width=176,height=37},
+    divider={x=121.75,y=-27.19921875,width=142.375,height=17.796875}
+}
+local prepared_talk
 local ttf_filename, png_filename
 local resource_serial = 0
 local shared = {font=nil, texture=nil, import_attempted=false}
@@ -289,6 +302,7 @@ local function clear(reason)
         return false
     end
     entries={};order={}
+    prepared_talk=nil
     trace_widgets={};trace_count=0
     shared={font=nil,texture=nil,import_attempted=false}
     log("CLEANED","reason="..reason.." own_widgets=0")
@@ -299,19 +313,17 @@ end
 local function can_paint(visibility)
     return visibility==0 or visibility==3 or visibility==4
 end
-local function native_candidate(w)
-    if not valid(w) or cls(w)~=CLASS then return nil,"invalid_tiphud" end
-    local stock=w.TextBlock_89
-    if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then
-        return nil,"native_text_missing"
-    end
-    if not can_paint(w.Visibility) then return nil,"root_visibility" end
-    if w.RenderOpacity<=0 then return nil,"root_opacity" end
-    if w.bIsEnabled~=true then return nil,"root_disabled" end
-    if not can_paint(stock.Visibility) then return nil,"native_text_visibility" end
-    if stock.RenderOpacity<=0 then return nil,"native_text_opacity" end
+local function presentation_reason(w,stock,expected)
+    if not can_paint(w.Visibility) then return "root_visibility" end
+    if w.RenderOpacity<=0 then return "root_opacity" end
+    if w.bIsEnabled~=true then return "root_disabled" end
+    if not can_paint(stock.Visibility) then return "native_text_visibility" end
+    if stock.RenderOpacity<=0 then return "native_text_opacity" end
     local rendered=stock.Text:ToString()
-    if type(rendered)~="string" or rendered=="" then return nil,"native_text_empty" end
+    if type(rendered)~="string" or rendered=="" then return "native_text_empty" end
+    if expected and rendered~=expected then return "native_text_variant" end
+end
+local function native_structure(w,stock)
     local t=w.WidgetTree
     local canvas=stock:GetParent()
     if not valid(t) or cls(t)~="/Script/UMG.WidgetTree" or not same(t:GetOuter(),w)
@@ -329,6 +341,20 @@ local function native_candidate(w)
     if not valid(islot) or cls(islot)~="/Script/UMG.CanvasPanelSlot" then
         return nil,"native_icon_slot_unready"
     end
+    return {tree=t,canvas=canvas,slot=slot,icon_slot=islot}
+end
+local function native_candidate(w)
+    if not valid(w) or cls(w)~=CLASS then return nil,"invalid_tiphud" end
+    local stock=w.TextBlock_89
+    if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then
+        return nil,"native_text_missing"
+    end
+    local reason=presentation_reason(w,stock)
+    if reason then return nil,reason end
+    local structure
+    structure,reason=native_structure(w,stock)
+    if not structure then return nil,reason end
+    local slot,islot=structure.slot,structure.icon_slot
     -- Only native original children. Own geometry must not change their slot/font/brush.
     local layout=Layout.plan({
         desired=stock:GetDesiredSize(), position=slot:GetPosition(),
@@ -339,10 +365,10 @@ local function native_candidate(w)
     })
     if not layout then return nil,"native_measurement_unready" end
     return {id=path(w),widget=remember(w),stock=remember(stock),
-        tree=remember(t),canvas=remember(canvas),layout=layout,
+        tree=remember(structure.tree),canvas=remember(structure.canvas),layout=layout,
         root_visibility=w.Visibility}
 end
-local function decorate(candidate)
+local function decorate(candidate,collapsed)
     local w=assert(resolve(candidate.widget))
     local stock=assert(resolve(candidate.stock))
     local t=assert(resolve(candidate.tree))
@@ -382,7 +408,9 @@ local function decorate(candidate)
         local divider=make(image_class,t,"IIP_S1_Divider_","divider",record)
         bind_divider(divider,w)
         place(canvas,divider,candidate.layout.divider)
-        label:SetVisibility(3);divider:SetVisibility(3) -- HitTestInvisible.
+        if not collapsed then
+            label:SetVisibility(3);divider:SetVisibility(3) -- HitTestInvisible.
+        end
     end)
     if not ok then
         log("ATTACH_FAILED","reason="..tostring(reason):sub(1,180))
@@ -396,7 +424,83 @@ local function decorate(candidate)
         end
         return
     end
-    log("ATTACHED","original_action_and_hint_untouched=true own_children=2 root_visibility="..tostring(candidate.root_visibility))
+    if not collapsed then
+        log("ATTACHED","original_action_and_hint_untouched=true own_children=2 root_visibility="..tostring(candidate.root_visibility))
+    end
+    return record
+end
+
+local function prepare_talk(actor)
+    if not valid(actor) or cls(actor)~=NPC then return end
+    local prefix=MERCHANT_LEVEL..".1-1_plot_slumB1_main1:PersistentLevel.NPCInteract_Bp_C_"
+    local actor_path=path(actor)
+    if actor_path:sub(1,#prefix)~=prefix or not actor_path:sub(#prefix+1):match("^%d+$") then return end
+    if prepared_talk then
+        assert(prepared_talk.actor.address==actor:GetAddress()
+            and prepared_talk.actor.path==actor_path,"ambiguous merchant owner")
+        return
+    end
+    local component=actor.ExtendedWidget
+    if not valid(component) or cls(component)~=COMPONENT
+        or not same(component:GetOwner(),actor) then
+        log("TEMPLATE_UNAVAILABLE","reason=component")
+        return
+    end
+    local w=component:GetUserWidgetObject()
+    if not valid(w) or cls(w)~=CLASS or component.bAddedToScreen~=false
+        or component.bVisible~=false then
+        log("TEMPLATE_UNAVAILABLE","reason=early_widget")
+        return
+    end
+    local stock=w.TextBlock_89
+    if not valid(stock) or cls(stock)~="/Script/UMG.TextBlock" then
+        log("TEMPLATE_UNAVAILABLE","reason=native_text_missing")
+        return
+    end
+    local structure,reason=native_structure(w,stock)
+    if not structure then log("TEMPLATE_UNAVAILABLE","reason="..reason);return end
+    local candidate={id=path(w),widget=remember(w),stock=remember(stock),
+        tree=remember(structure.tree),canvas=remember(structure.canvas),layout=TALK_LAYOUT}
+    log("TEMPLATE_PREPARE_BEGIN","source=BeginPlayPost width="..TALK_LAYOUT.divider.width)
+    local record=decorate(candidate,true)
+    if not record then return end
+    prepared_talk={actor=remember(actor),component=remember(component),record=record,shown=false}
+    log("TEMPLATE_PREPARED","own_children=2 collapsed=true")
+end
+
+local function show_talk(w)
+    local state=prepared_talk
+    if not state or not valid(w) or w:GetAddress()~=state.record.widget.address then return end
+    local r=state.record
+    local actor,component=resolve(state.actor),resolve(state.component)
+    assert(actor and component and same(actor.ExtendedWidget,component)
+        and same(component:GetOwner(),actor) and same(component:GetUserWidgetObject(),w)
+        and same(resolve(r.widget),w),"merchant identity changed")
+    local stock,canvas=resolve(r.stock),resolve(r.canvas)
+    assert(stock and canvas and same(w.WidgetTree,resolve(r.tree))
+        and same(w.TextBlock_89,stock) and same(stock:GetParent(),canvas),
+        "merchant native tree changed")
+    local argument=actor.TipHUDArgument
+    local is_talk=valid(argument) and cls(argument)==ARGUMENT
+        and same(argument:GetOwner(),actor) and argument.msgTag:ToString()=="Talk"
+    local reason
+    if not is_talk then reason="action"
+    elseif component.bAddedToScreen~=true or component.bVisible~=true then reason="component_hidden"
+    else reason=presentation_reason(w,stock,"Поговорить") end
+    local shown=reason==nil
+    if not state.first then
+        state.first=true
+        log("TEMPLATE_FIRST_CANSHOW","eligible="..tostring(shown).." reason="..(reason or "ready"))
+    end
+    if shown==state.shown then return end
+    local label,divider=resolve(r.owned[1]),resolve(r.owned[2])
+    assert(label and divider and same(label:GetParent(),canvas) and same(divider:GetParent(),canvas),
+        "merchant own children detached")
+    local visibility=shown and 3 or 1
+    label:SetVisibility(visibility)
+    divider:SetVisibility(visibility)
+    state.shown=shown
+    log(shown and "TEMPLATE_SHOWN" or "TEMPLATE_COLLAPSED","source=CanShow geometry_reads=0")
 end
 
 -- One trace per exact widget path/address, capped to avoid per-callback log spam.
@@ -441,6 +545,7 @@ local function observe(context,...)
     busy=true
     local ok,err=pcall(function()
         local w=context:get()
+        if TALK_TEMPLATE then show_talk(w);return end
         local trace=trace_first(w)
         local c,reason=native_candidate(w)
         if not c then
@@ -530,11 +635,20 @@ local function try_hook()
     hook_registered=true
     log("READY","native_tiphud=true input_stock=true stop=Ctrl+Alt+F9")
 end
-local function retry_hook()
-    local ok,err=pcall(try_hook)
+local function retry_hook(context)
+    if busy then return end
+    local ok,err=pcall(function()
+        try_hook()
+        if TALK_TEMPLATE and not stopped then
+            busy=true
+            prepare_talk(context:get())
+        end
+    end)
+    busy=false
     if not ok then
         stopped=true
         log("UNAVAILABLE",tostring(err):sub(1,200))
+        if TALK_TEMPLATE then clear("prepare_fault") end
     end
 end
 local ok,err=pcall(function()

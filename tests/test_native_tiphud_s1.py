@@ -185,13 +185,13 @@ function original_safe()
 end
 '''
 class S1Tests(unittest.TestCase):
-    def vm(self, code="", pre=""):
+    def vm(self, code="", pre="", source=MAIN):
         vm=LuaRuntime(unpack_returned_tuples=True)
         layout=vm.execute(LAYOUT)
         vm.globals().IIPS1Layout=layout
         vm.execute(FIXTURE+ADDITIONS+OVERRIDES+pre)
         vm.globals().S.game=True
-        vm.execute(MAIN)
+        vm.execute(source)
         vm.globals().S.game=False
         try:
             vm.execute(code)
@@ -353,6 +353,67 @@ class S1Tests(unittest.TestCase):
         self.assertIn('RegisterHook(HOOK,observe)',MAIN)
         self.assertIn('RegisterLoadMapPreHook(map_pre)',MAIN)
         self.assertIn('label:SetText(FText("ACTION"))',MAIN)
+
+TALK_MAIN = MAIN.replace("local TALK_TEMPLATE = false", "local TALK_TEMPLATE = true")
+TALK_FIXTURE = r'''
+local talk_actor=make("/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C",
+ "/Game/MainContent/Maps/sublevel_plot/1-1/1-1_plot_slumB1_main1.1-1_plot_slumB1_main1:PersistentLevel.NPCInteract_Bp_C_8")
+local talk_component=make("/Script/Genesis.ExtendedWidgetComponent",talk_actor.p..".ExtendedWidget")
+local talk_argument=make("/Script/Genesis.TipHUDArgumentComponent",talk_actor.p..".TipHUDArgument")
+talk_actor.ExtendedWidget=talk_component
+talk_actor.TipHUDArgument=talk_argument
+function talk_component:GetOwner()return talk_actor end
+function talk_argument:GetOwner()return talk_actor end
+function talk_component:GetUserWidgetObject()return w end
+talk_component.bVisible=false;talk_component.bAddedToScreen=false
+S.talk_tag="Interact"
+talk_argument.msgTag={ToString=function()return S.talk_tag end}
+function stock:GetDesiredSize()error("unexpected measurement")end
+for _,method in ipairs({"GetPosition","GetAlignment","GetAnchors","GetSize"}) do
+ original_slot[method]=function()error("unexpected text slot measurement")end
+end
+local add_child=canvas.AddChildToCanvas
+function canvas:AddChildToCanvas(item)
+ local slot=add_child(self,item)
+ local set_size=slot.SetSize
+ function slot:SetSize(size)set_size(self,size);self.fixed_width=size.X end
+ return slot
+end
+function prepare_merchant()
+ S.game=true
+ S.beginplay({get=function()return talk_actor end})
+ S.game=false
+end
+function set_merchant_visible(visible)
+ talk_component.bVisible=visible
+ talk_component.bAddedToScreen=visible
+ S.talk_tag="Talk";S.text="Поговорить"
+end
+'''
+
+
+class TalkTemplateTests(unittest.TestCase):
+    vm = S1Tests.vm
+    def test_prepare_collapsed_and_show_first_eligible_without_measurement(self):
+        self.vm("""
+            prepare_merchant()
+            assert(S.attached==2 and S.labels[1].Visibility==1 and S.images[1].Visibility==1)
+            assert(S.images[1].Slot.fixed_width==142.375)
+            trigger(2)
+            assert(S.labels[1].Visibility==1)
+            set_merchant_visible(true);trigger(1)
+            assert(S.labels[1].Visibility==3 and S.images[1].Visibility==3)
+            assert(S.attached==2 and S.images[1].Slot.fixed_width==142.375)
+            set_merchant_visible(false);trigger(1)
+            assert(S.labels[1].Visibility==1 and S.images[1].Visibility==1)
+            stop_s1()
+            assert(S.removed==2)
+        """, pre=TALK_FIXTURE, source=TALK_MAIN)
+
+    def test_unprepared_widget_stays_stock(self):
+        self.vm("set_merchant_visible(true); trigger(1); assert(S.attached==0)",
+                pre=TALK_FIXTURE, source=TALK_MAIN)
+
 
 if __name__=="__main__":
     unittest.main()
