@@ -275,7 +275,13 @@ delay was caused by visibility gating. If the same delay remains, the
 next smallest diagnostic is a first-native/own-pixel comparison on that
 same interaction before expanding prewarming architecture.
 
-**Gate:** source-only; tests/CI and an independently authorized closed-host
+**Offline verification:** exact code commit `00c3e6782aba037088bebfa5bea3bfc8c9ae6d68`,
+[GitHub Actions #44430338590 PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44430338590),
+including 15 S1 tests and the repository-wide offline suite.
+The added cases cover root Visibility 4→0 reuse, drawable 3,
+hidden/collapsed 1/2 exclusion, and unchanged zero-opacity guard.
+
+**Gate:** source-only; an independently authorized closed-host
 installation plus real gameplay observation are required. Previous
 source `ea32076` and the disabled game installation must not be rewritten.
 Production BLOCKED.
