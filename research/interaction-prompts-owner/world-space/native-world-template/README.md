@@ -484,3 +484,46 @@ On the next authorized gameplay run, check brightness and placement at
 the chest, note and sloped potion bag. Expected diagnostics include
 `STYLE_ARMED rgb=0.50`, `STYLE_DECORATED placement=fixed` and material
 verification at `rgb=0.50`. Runtime acceptance pending. Production BLOCKED.
+
+## Fixed placement and RGB 0.50 installed (2026-11-20)
+
+**INSTALLED**, source `cb6fc4390d61a613d9eca36a30817e9c4a6f1cc2`.
+Both game processes were closed for the replacement and final checks.
+The existing World loader slot was reused. Only `main.lua` and
+`IIPTemplateStyle.lua` differ from the installed predecessor
+`151c38eaaef3b91f36fd2390c99cea68aa3a15bb`.
+
+Manifest SHA-256
+`95e5c8924f0f5873eca474e1ffc376ecbc8381416fd6b6e0d92a378bf4980e1a`.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `710e0c9432997c8dd8565be6d7faa706e1a48ec244b2b91a52fc25c2bfc10596` |
+| `Scripts/IIPTemplateStyle.lua` | `b2b66b06e1f4f7ee7f14f69a94e059ebb360672daf1ebb7da7715014f3f694f9` |
+| `Scripts/IIPTemplateProbe.lua` | `f32a663aa36a3490825d590a1d7a1c9da4d110e97e16a7e1fda636b4aa1f19af` |
+| `Scripts/IIPTemplateResources.lua` | `8f9502f29fb05b4c1f8e1d561a6e63a583b5afb010babf5802b7b92b511eb1cc` |
+| `Assets/aphes_divider_256x32.png` | `b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969` |
+| `Scripts/IIPLiveConfig.lua` | `894f191e0d8d1beaaafd21c9e4265e2a623cd7b6028b979a2e67811d270d9978` |
+| `enabled.txt` | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+
+All five Screen S1 files matched. Hash inventories matched before and
+after across 12,548 other loader files, 26 Win64 root files, 11 pak-mod
+files, 16 saves and 54 config files. Host, UE4SS and the private resources
+passed the existing install checks. The four Lua modules and private config
+compiled. Seventeen targeted tests passed and
+[full CI passed](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44810251010).
+Local Windows discovery ran 650 tests with one failure in the historical
+AutoWorld manifest test, which compares Windows separators with POSIX
+separators. Its test and fixture are byte-identical to the predecessor.
+
+The full previous World folder was archived outside the loader and
+rehashed against its manifest. Restoring all seven files was rehearsed on
+a copy. The private receipt records the backup location. With the game
+closed, the rollback entry point is
+`.local/install-native-world-fixed-cb6fc43.py --rollback`.
+
+For runtime evaluation, approach the chest, note and same sloped potion
+bag from a cold launch. Observe brightness, fixed placement and a
+world-upright prompt whose heading stays fixed as the camera moves.
+Use F5 while a native prompt is visible and retain the UE4SS log.
+Runtime PENDING. Production BLOCKED.
