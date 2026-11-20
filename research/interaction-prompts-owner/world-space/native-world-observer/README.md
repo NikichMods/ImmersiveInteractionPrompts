@@ -49,3 +49,39 @@ Removal of the observer's two files was rehearsed on a copy.
 Six offline Lua scenarios passed with mocked UE4SS delivery and lookup:
 early, missing, delayed, duplicate, unrelated notification and callback
 signature mismatch. Runtime observation pending. Production BLOCKED.
+
+## Runtime result — 2026-11-20
+
+One user run from the same save on UE4SS `83330635`. The user saw the
+Talk prompt and exited. The archived log has SHA-256
+`6c8cf4d960f5711027a0df6fa1790cde5091fe6da5ee122e8a3996ccd711589c`.
+The observer entry matched the installed hash after exit.
+
+| Log line / event | Time (local) | CreationMethod | Space | WidgetClass |
+| --- | --- | --- | --- | --- |
+| 713 / CONSTRUCT seq=2 | 06:18:20.5823427 | 0 (Native) | 1 (Screen) | Empty |
+| 722 / BEGIN seq=3 | 06:18:20.6113614 | 1 (SimpleConstructionScript) | 1 (Screen) | TipHUD_C |
+| 735 / TALK_MATCH seq=4 | 06:18:31.3077704 | 1 (SimpleConstructionScript) | 1 (Screen) | TipHUD_C |
+
+`BEGIN` joined the construction sample by component path and address.
+`TALK_MATCH` joined that same record to the reciprocal owner/component/widget
+binding, with `construct_at_begin=2 latest_construct_seq=2`. The session's
+generated actor name ended in `2147478962`, which differs from the previous
+observer run's `2147479113`. Screen S1 logged its normal first eligible
+`CanShow` and showed the existing Talk template in this session.
+
+**Early delivery confirmed for the observed instance.** The callback reached
+the original component before the SCS creation method was assigned. The
+[UE4.27 SCS node order](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/SCS_Node.cpp#L82)
+places that assignment before first SCS registration. The nil-to-TipHUD_C
+transition confirms that construction data continued to arrive after the callback.
+The log does not identify the exact registration instant or which fields
+were serialized. An unchanged Screen value cannot distinguish an untouched
+field from a write of the same value. Survival of an early World write and
+a stable pre-registration filter for this merchant remain unverified.
+**Native World verdict stays UNKNOWN.** A second identical read-only run
+would not measure survival of a World write.
+
+After exit the observer was moved to the separate research archive and both
+files still matched their installed hashes. Screen S1 matched the same installed
+receipt and is the only active IIP mod. Production BLOCKED.
