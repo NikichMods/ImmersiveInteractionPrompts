@@ -84,4 +84,19 @@ occluded if apparent. Check `IIP_NATIVE_WORLD_QUINTUS`:
   A missing render target leaves drawing unconfirmed. World positioning,
   projection and readability require direct observation even with a target.
 
-Runtime pending. Production BLOCKED.
+## Installed for one run — 2026-11-20
+
+Candidate source `e2e9aa98bfa034e220aa21a05c93d4f2e1269331`.
+Seven offline Lua scenarios passed with mocked UE4SS callbacks: survival,
+overwrite, wrong owner, late delivery, collision setter failure, sample-key
+conflict, and identity loss. The cases exercised control flow and guards.
+
+Installed with the game closed in its own
+`ImmersiveInteractionPromptsNativeWorldQuintus` folder. The SHA-256 of the
+installed entry is
+`fb20e419f3b2103ace49f7d3d512f36266de23cd39d45978c9184ab0f73da30c`.
+The full Screen S1 installed inventory matched before and after, as did
+the existing loader files, other mods, game settings and saves. The
+pretest log and receipt were archived outside the loader. The two-file
+rollback to the S1-only configuration passed on a copy. Runtime pending.
+Production BLOCKED.
