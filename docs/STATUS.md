@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — штатный TipHUD Квинтуса отрисовался (2026-11-20)
+
+Для одного NPC ранняя запись `Space=World` пережила штатную регистрацию.
+Тот же `ExtendedWidget` сохранил `TipHUD_C`, получил World RenderTarget и
+показал `F Поговорить` с перекрытием моделью Квинтуса. В этом кадре
+штатное размещение частично закрывает текст. Aphes и разделитель остались
+свёрнуты по Screen-гейту S1. Эксперимент архивирован, в загрузчике активен
+исходный Screen S1. Production BLOCKED.
+[Точный прогон](../research/interaction-prompts-owner/world-space/native-world-quintus/README.md#runtime-result--2026-11-20).
+
 ## S1 — готовый Talk-шаблон совпал с первым кадром (2026-11-20)
 
 В одном первом подходе к тому же торговцу штатное `Y Поговорить`,

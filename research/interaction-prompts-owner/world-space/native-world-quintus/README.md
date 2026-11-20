@@ -100,3 +100,35 @@ the existing loader files, other mods, game settings and saves. The
 pretest log and receipt were archived outside the loader. The two-file
 rollback to the S1-only configuration passed on a copy. Runtime pending.
 Production BLOCKED.
+
+## Runtime result — 2026-11-20
+
+**YES for Quintus in this save and build.** After the scoped early write,
+the original ExtendedWidget retained World and NoCollision through
+BeginPlay. The same native TipHUD acquired a render target through normal
+engine drawing. The user followed the one-approach scenario and supplied a
+screenshot with the native `F Поговорить` on the world plane, partly occluded
+by Quintus's model.
+
+| Log line / event | Time (local) | Observation |
+| --- | --- | --- |
+| 696 / SET_WORLD | 06:39:50.2489180 | Original `NPCInteract_Bp_C…9215.ExtendedWidget`, owned by `quintus_BP_C…9234`. Early World readback and collision=0. |
+| 704 / BEGIN | 06:39:50.2771593 | Same component and owner. Space=0, creation_method=1, collision=0, native `TipHUD_C…9214`, render_target=false, added_to_screen=false. |
+| 740 / SAMPLE | 06:40:08.7105443 | Same component and native widget. Space=0, collision=0, render_target=true, added_to_screen=false. |
+
+Screen S1 prepared its two collapsed children. Its first CanShow reported
+`eligible=false reason=component_hidden` in the Screen-specific gate.
+The screenshot shows the stock action and input glyph with no visible Aphes
+or divider. The stock attachment and scale left part of the caption behind
+the character and made the line large in this camera view. That is placement
+evidence for this view. No withdrawal, dialogue activation, remapping or
+other NPC lifecycle was exercised in the run.
+
+Archived UE4SS log SHA-256
+`9f0207280d0dd4358e4dee84264cec89883081b5d18c2fb1dc7664490d78c92e`.
+User screenshot SHA-256
+`744a1045d24727d3283182cb6019ba066b049a8c52f698752521823b5742b25e`.
+The experiment was removed from the loader with the game closed and moved
+to the separate research archive. Both candidate files matched their
+installed hashes after the move. Screen S1 matched its complete installed
+receipt and is again the only active IIP mod. Production BLOCKED.
