@@ -232,3 +232,12 @@ All 17 archived hashes matched after path normalization.
 The existing editor and Screen S1 installed receipts still match.
 Separate installation authorization is pending, followed by runtime
 verification of both hypotheses. Production BLOCKED.
+
+### Hold and tint successor installed — 2026-11-20
+
+With the game closed, the staged seven-file payload for `16f3c7f5847bc`
+replaced the World editor. The installed hashes matched the staged
+manifest, and Screen S1 matched its complete previous receipt.
+The preceding editor `fdb884248935` matched its full receipt after
+being moved outside the loader. The private installation receipt and
+pretest log snapshot are archived. Runtime verification pending.
