@@ -438,3 +438,14 @@ and repeat. The log should show `HOLD_CADENCE_ARMED` and, when the
 optimizer restored a positive interval, `HOLD_CADENCE` with before
 and after values. No NumPad 3 is needed for this check. Runtime
 ordering and visible cadence still require that run. Production BLOCKED.
+
+Prepared source `a688ddeef1c97ec050ef0376b407c271fe8b3c06`. Exact
+seven-file payload and rollback rehearsal verified on copies outside
+the loader. The focused Lua checks exercised cooldown reset, no-op at
+zero, unrelated widget and Screen exclusion, and a subsequent native
+overwrite in a mock CanShow callback. Local repository suites passed
+64/65. The only failure was the existing Windows path comparison in
+the archived Resident World suite, whose 17 hashes matched after
+normalization. The installed `738e4b6` candidate and Screen S1 matched
+their receipts before and after preparation. No installation in this
+step.
