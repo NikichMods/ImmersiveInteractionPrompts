@@ -84,6 +84,39 @@ function M.geometry(c)
     return scale,pos
 end
 
+function M.upright(c)
+    assert(is(c,COMPONENT) and c.Space==0 and c:GetCollisionEnabled()==0,"not original World")
+    local r=c:K2_GetComponentRotation()
+    local original={Pitch=r.Pitch,Yaw=r.Yaw,Roll=r.Roll}
+    for _,axis in ipairs({"Pitch","Yaw","Roll"}) do
+        local angle=original[axis]
+        assert(type(angle)=="number" and math.abs(angle)<=360,"invalid world rotation")
+    end
+    if close(original.Pitch,0,.1) and close(original.Roll,0,.1) then return false end
+
+    local function matches(expected)
+        local actual=c:K2_GetComponentRotation()
+        for _,axis in ipairs({"Pitch","Yaw","Roll"}) do
+            local delta=(actual[axis]-expected[axis]+180)%360-180
+            if not close(delta,0,.1) then return false end
+        end
+        return true
+    end
+    local upright={Pitch=0,Yaw=original.Yaw,Roll=0}
+    local ok,err=pcall(function()
+        c:K2_SetWorldRotation(upright,false,{},true)
+        assert(matches(upright),"world rotation readback")
+    end)
+    if not ok then
+        if not matches(original) then
+            c:K2_SetWorldRotation(original,false,{},true)
+            assert(matches(original),"original world rotation could not be restored")
+        end
+        error(err)
+    end
+    return true
+end
+
 local function child(tree,canvas,owned,k,name,y,w,h,x)
     local cls=StaticFindObject(k)
     assert(valid(cls) and cls:type()=="UClass" and cls:GetFullName()=="Class "..k,"UMG class unavailable")
@@ -151,6 +184,10 @@ function M.start(c,widget,resources,probe,log,tag)
         "original component/widget link unavailable")
     M.geometry(c)
     log("STYLE_GEOMETRY","scale=.400 lift=36 world_z=true native_draw_unchanged=true")
+    local upright_ok,changed=pcall(M.upright,c)
+    log(upright_ok and "STYLE_ORIENTATION" or "STYLE_ORIENTATION_REJECTED",
+        upright_ok and ("world_z=true yaw_preserved=true changed=%s"):format(tostring(changed))
+        or ("reason=%q"):format(tostring(changed):sub(1,170)))
     local tick_ok,before=pcall(probe.continuous_tick,c)
     log(tick_ok and "STYLE_TICK" or "STYLE_TICK_REJECTED",
         tick_ok and ("before=%.3f after=0"):format(before)

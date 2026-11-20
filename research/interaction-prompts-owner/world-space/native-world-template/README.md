@@ -430,3 +430,42 @@ jump. Press F5 while a relevant native prompt is visible and exit
 normally. The log identifies `center=measured` or `center=fallback`,
 the early token and any later token-only update. Runtime PENDING,
 production BLOCKED.
+
+## World Composition runtime and upright follow-up (2026-11-20)
+
+Installed `151c38e` matches all seven World manifest entries. Screen S1
+matches all five entries. The live log was copied while both game processes
+were running. The screenshot and log are retained privately. Log snapshot
+SHA-256: `43ab6e89f7464656253150ec81364b623e5be9c187c7a002409242de1a2a262f`.
+
+| User-tested object | Early decoration | F5 native World sample |
+| --- | --- | --- |
+| Chest | OPEN, fallback X 81 | RT present |
+| Note | CHECK, fallback X 93 | RT present |
+| Potion bag | TAKE, fallback X 70 | RT present |
+
+All three samples report World, NoCollision and no Screen insertion.
+On initialization the three components report `STYLE_TINT rgb=.45 mid=pending`.
+The session has five later `STYLE_TINT_VERIFIED rgb=.45` events. Verification
+compares both the original component and the World material's
+`TintColorAndOpacity` to the seeded baseline times 0.45 with the original
+alpha. Those events lack object IDs and establish no first-frame timing.
+The user reported little perceived brightness change. The run provides no
+matched image comparison, so perceived brightness remains open. The
+three measured branch outcomes were fallback positions, with centering
+against actual native text width still open.
+
+The potion screenshot shows the entire sign tilted. Composition changes
+scale and world-Z height and uses the native rotation. The source-only
+follow-up applies one `K2_SetWorldRotation` at existing BeginPlay styling
+on the original World component. It removes world Pitch/Roll and keeps
+the original Yaw, verifies the result, and attempts to restore the
+original rotation if the write fails verification. The native setter
+was previously exercised on a registered custom widget component in
+the [orientation experiment](../orientation/README.md). This use on the
+original attached component needs runtime verification. No new hook or
+camera update path. Parent rotation after initialization may still affect
+the sign. The remaining runtime check is a cold first approach to the
+sloped potion bag and control approaches to the chest and note. Check
+verticality, retained heading and normal prompt behavior. Active game
+files were left in place. Production BLOCKED.

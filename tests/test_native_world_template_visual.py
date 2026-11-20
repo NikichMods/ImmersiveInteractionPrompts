@@ -7,6 +7,8 @@ from test_ui_child import ROOT
 SRC=(ROOT/"research/interaction-prompts-owner/world-space/native-world-template/Scripts/IIPTemplateStyle.lua").read_text(encoding="utf8")
 FIXTURE=r"""
 S={loc={X=10,Y=20,Z=30},scale={X=2,Y=3,Z=4},collision=0,logs={},ticks=0}
+S.rotation={Pitch=-24,Yaw=172,Roll=13}
+S.rotation_writes=0
 local c={p="/Game/Test.World.ExtendedWidget",cls="/Script/Genesis.ExtendedWidgetComponent",
          Space=0}
 function c:IsValid()return true end
@@ -25,6 +27,15 @@ function c:K2_AddWorldOffset(v)
 end
 function c:K2_SetWorldLocation(p)
     S.loc={X=p.X,Y=p.Y,Z=p.Z}
+end
+function c:K2_GetComponentRotation()
+    return S.rotation
+end
+function c:K2_SetWorldRotation(r,sweep,hit,teleport)
+    assert(sweep==false and type(hit)=="table" and teleport==true)
+    S.rotation_writes=S.rotation_writes+1
+    S.rotation={Pitch=r.Pitch,Yaw=r.Yaw,Roll=r.Roll}
+    if S.reject_rotation and S.rotation_writes==1 then S.rotation.Yaw=88 end
 end
 setmetatable(c,{__index=function(_,k)if k=="RelativeScale3D"then return S.scale end end})
 S.component=c
@@ -66,6 +77,23 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(not pcall(M.geometry,S.component))
         assert(S.loc.Z==30)
         assert(S.scale.Y==3 and S.scale.Z==4)
+        """)
+
+    def test_upright_removes_world_tilt_without_changing_heading_or_other_geometry(self):
+        self.case("""
+        assert(M.upright(S.component))
+        assert(S.rotation.Pitch==0 and S.rotation.Roll==0 and S.rotation.Yaw==172)
+        assert(S.loc.X==10 and S.loc.Y==20 and S.loc.Z==30)
+        assert(S.scale.X==2 and S.scale.Y==3 and S.scale.Z==4)
+        assert(not M.upright(S.component) and S.rotation_writes==1)
+        """)
+
+    def test_failed_orientation_readback_restores_original_transform(self):
+        self.case("""
+        S.reject_rotation=true
+        assert(not pcall(M.upright,S.component))
+        assert(S.rotation_writes==2)
+        assert(S.rotation.Pitch==-24 and S.rotation.Roll==13 and S.rotation.Yaw==172)
         """)
 
     def test_canshow_restores_continuous_native_component_tick(self):
