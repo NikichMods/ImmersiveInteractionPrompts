@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — полное оформление установлено для визуального прогона (2026-11-20)
+
+При закрытой игре установлен точный `59cc569` с оформлением
+Квинтуса на исходных World-компонентах общей SCS-схемы.
+Семь файлов сверены, Screen S1 совпал с исходным манифестом.
+Полный предыдущий `5fd1f2f` сохранён вне загрузчика,
+восстановление проверено на копии. Runtime PENDING, production BLOCKED.
+[Хэши, откат и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#full-world-appearance-installed-2026-11-20).
+
 ## Native World — Quintus appearance successor source-only (2026-11-20)
 
 В исследовательском World-каталоге подготовлен полноценный визуальный
@@ -10,9 +19,8 @@
 остаётся без изменений. Нет второго World-виджета или отдельных
 вмешательств в native selection/show/hide. [Реализация и ограничения](../research/interaction-prompts-owner/world-space/native-world-template/README.md#full-quintus-appearance-successor--source-only-2026-11-20).
 
-**SOURCE ONLY / NOT INSTALLED / production BLOCKED.** Действующая
-локальная установка по последнему подтверждению — `5fd1f2f`;
-следующий кандидат пока не проходил игру. Связанные layout,
+**На этапе подготовки:** действовал `5fd1f2f`, полный кандидат
+оставался source-only. Связанные layout,
 input и gameplay сохраняются как рабочее предположение пользователя,
 но не как runtime PASS.
 

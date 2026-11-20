@@ -261,3 +261,50 @@ before release. Next meaningful handoff is one bounded, closed-game
 installed candidate with verified rollback and one user visual run
 on the three known objects, after separate permission. Do not
 install on a running host or reuse an immutable numbered artifact.
+
+## Full World appearance installed (2026-11-20)
+
+**INSTALLED**, exact source `59cc569de1cc1f4354658145c843c1efe9a62166`.
+The [last green CI](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44785806199)
+was on `592207d`. The only subsequent Lua delta isolates failure of
+initial native tick correction so decoration and tint still run.
+An exact-source mock confirmed that failure path. The other delta
+updates the repository entrypoint documentation.
+
+Seven Template and five visual tests passed. The standard local
+runner hit the existing Windows separator mismatch in the legacy
+World source-manifest test. Its three cases passed with only the path
+comparison normalized in memory. All 67 other suites passed on the
+exact checkout, for 645 unittest cases across 68 suites. Staged Lua
+compiled, the private TTF and PNG matched their known hashes, and
+resource preflight also passed against the actual installed config.
+
+The existing World loader slot was replaced with a seven-file payload
+while both game processes were closed. Manifest SHA-256
+`89b0256a1a9a00f62c8b8f8e55af7f86d16ce707ba3f2f5f466b7504c91983ac`.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `84cd2954e57926e804dfc2c18c14356df6edcbf5e9e2d6fab73135d1606c32e9` |
+| `Scripts/IIPTemplateProbe.lua` | `f32a663aa36a3490825d590a1d7a1c9da4d110e97e16a7e1fda636b4aa1f19af` |
+| `Scripts/IIPTemplateResources.lua` | `8f9502f29fb05b4c1f8e1d561a6e63a583b5afb010babf5802b7b92b511eb1cc` |
+| `Scripts/IIPTemplateStyle.lua` | `549a1ccc04c3824bbf2a53b155466c9b1c3042a004c5dc833a0b02d1762c1fab` |
+| `Assets/aphes_divider_256x32.png` | `b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969` |
+| `Scripts/IIPLiveConfig.lua` | `894f191e0d8d1beaaafd21c9e4265e2a623cd7b6028b979a2e67811d270d9978` |
+| `enabled.txt` | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+
+All five active Screen S1 files and neighboring mod, loader, pak,
+settings and save inventories matched preflight. The seven installed
+files and the two previous active `5fd1f2f` files were independently
+rehash-verified after deployment. The original `5fd1f2f` folder is
+archived outside the loader, and full active restoration was rehearsed
+on a copy. The private receipt holds the resolved archive location.
+Closed-game rollback uses `.local/install-native-world-visual-59cc569.py
+--rollback`.
+
+Ready for one user visual run on the known chest, note and potion.
+Check the complete original prompt, test header and divider in context,
+alignment, size and brightness. Press F5 while the relevant prompt
+is visible and exit normally to preserve the runtime log. Report any
+issue with native input, hide or hold encountered during the route.
+Runtime PENDING, production BLOCKED.
