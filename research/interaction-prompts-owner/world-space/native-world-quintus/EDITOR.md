@@ -241,3 +241,38 @@ manifest, and Screen S1 matched its complete previous receipt.
 The preceding editor `fdb884248935` matched its full receipt after
 being moved outside the loader. The private installation receipt and
 pretest log snapshot are archived. Runtime verification pending.
+
+### Hold and tint runtime result — 2026-11-20
+
+The user accepted the smoother ring with NumPad 3 and the dimmed prompt.
+At the last `EDITOR_CLOSED` the log records scale 0.300, lift +36, linear
+RGB multiplier 0.35, Native. The supplied still shows the original
+`Y Поговорить` with Aphes and divider at the dimmed appearance.
+
+The exact component reported `RedrawTime=0`, manual redraw false, enabled
+tick mode and **component tick interval 0.200 s**. NumPad 3 temporarily
+changed only the positive interval to zero, then restored it in both
+trials. With the original interval, at 555 ms into the recording the
+timer reported 0.6667 while material `t` still reported 0.0556. At 589 ms
+the material jumped to 0.7222. Across 14 positive-rate samples there
+were two distinct values of `t`. With zero interval, `t` matched the
+timer to logged precision in all 53 positive-rate samples across both
+trials. The user observed a smooth visible fill. This isolates the
+component tick interval as the effective lever for this run. It does
+not measure the exact presented frame for every sample.
+
+For the next Quintus iteration, validate `SetComponentTickInterval(0)`
+on the exact World component during normal use, outside the timed
+probe. Carry forward 0.35 RGB and 0.300 / +36 as the proven starting
+appearance. Keep live scale adjustment and explicitly test increasing
+it from 0.300. The installed source still binds NumPad +/− in the F5
+editor, but this log has no accepted scale change in the hold/tint run.
+
+Source `16f3c7f5847bc1917012129277582741b7fc7ee9`, UE4SS `83330635`.
+World and Screen S1 inventories matched their complete installed
+receipts after exit. No new payload was installed. Production BLOCKED.
+
+Archived log SHA-256
+`25154923773eee762535c6c1a239e046f2dd373cc43c6e59529610b7f5c29751`.
+Screenshot SHA-256
+`cb920f06547598b456a718b0b5fa87029d61a273af3240d30dc30812d9b4c227`.
