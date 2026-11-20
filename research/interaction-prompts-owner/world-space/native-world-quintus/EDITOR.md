@@ -292,3 +292,33 @@ One subsequent F5 at 08:16:52 encountered the existing
 applied scale value. The guard does not identify which object changed.
 The archived log SHA-256 is
 `1193ac03617a8294bcbb80b8729d9945c43b8bd0d28bce2b4c8bd1c9da822b2c`.
+
+## Normal-use defaults and hold cadence — source-only successor, 2026-11-20
+
+The selected research defaults for Quintus are **scale 0.375**, **lift +36**,
+**linear RGB multiplier 0.35** and native 1000×1000 DrawSize. NumPad 0 resets
+to the same values. The existing editor uses F5/F8 because StaffRebalanceDev
+already owns F4/F7 in this installation.
+
+The previous exact game run observed a component tick interval of **0.200 s**
+and jerky hold-ring updates. Temporarily setting that interval to zero aligned
+the native MID parameter with the game timer in 53 positive-rate samples and
+the user observed smooth filling. The successor applies the same
+SetComponentTickInterval(0) once at Quintus BeginPlayPost, checks readback and
+logs TICK_CONTINUOUS. It does not touch the native timer, input, material
+progress value, RetainerBox settings, interaction selection or show/hide.
+The ordinary-use result without the diagnostic interval override still
+requires game verification.
+
+After an F5 recurrence, the combined identity assertion reported a mismatch
+but did not identify the changed object. The successor retains each strict
+predicate in the same order while reporting the first failing condition
+(identity:component_* or identity:owner_*). This is a bounded diagnostic, not
+a lifecycle fix; no automatic owner or component rebinding is added.
+
+The change is **source-only**. No installation, game launch, saved-game or
+settings changes, other-mod edits or Screen S1 changes were made. One
+separately authorized normal-game run is sufficient to assess initial tint,
+size and continuous hold-ring behavior. If the identity failure recurs,
+preserve the first diagnostic rather than guessing the cause.
+Production BLOCKED.

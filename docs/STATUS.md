@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — готова source-only итерация Квинтуса (2026-11-20)
+
+Приняты defaults: scale=0.375, lift=36, RGB=0.35 и Native RenderTarget.
+Исследовательский исходник однократно снимает подтверждённый интервал
+тика 0.200 с при BeginPlayPost и проверяет readback. Для прежней
+ошибки идентичности разделены причины отказа без нового rebinding;
+корневая причина пока неизвестна. Ни установка, ни повторный игровой
+прогон не выполнены, Screen S1 не менялся. Production BLOCKED.
+[Узкий кандидат](../research/interaction-prompts-owner/world-space/native-world-quintus/EDITOR.md#normal-use-defaults-and-hold-cadence--source-only-successor-2026-11-20).
+
 ## Native World — Квинтус, итоговый масштаб 0,375 (2026-11-20)
 
 В повторном прогоне регулировка масштаба сработала. Последний успешный

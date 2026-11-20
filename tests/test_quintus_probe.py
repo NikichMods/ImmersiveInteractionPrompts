@@ -61,6 +61,15 @@ function component:IsComponentTickEnabled() return true end
 function component:SetRedrawTime(v) redraw=v end
 function component:SetManuallyRedraw(v) manual=v end
 function component:SetComponentTickInterval(v) interval=v end
+interval=.2
+assert(probe.continuous_tick(component)==.2 and interval==0)
+assert(probe.continuous_tick(component)==0 and interval==0)
+interval=.1
+local no_op_tick={
+    GetComponentTickInterval=function() return .2 end,
+    SetComponentTickInterval=function() end,
+}
+assert(not pcall(probe.continuous_tick,no_op_tick))
 local lines={}
 local function log(event,data) lines[#lines+1]=event.." "..data end
 local function resolve() return component,widget end
@@ -84,4 +93,4 @@ assert(lines[#lines-1]:find("changed=false",1,true))
 now=7.1; next_sample()
 assert(lines[#lines]:find("restore=unneeded",1,true))
 """)
-print("Quintus probe: tint, hold sampling, redraw trial, restoration and default no-op passed")
+print("Quintus probe: continuous tick, tint, hold sampling, redraw trial and restoration passed")

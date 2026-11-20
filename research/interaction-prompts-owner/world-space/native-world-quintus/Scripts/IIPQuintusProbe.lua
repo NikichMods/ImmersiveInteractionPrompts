@@ -38,6 +38,15 @@ function M.tint(component, baseline, factor)
     return baseline
 end
 
+-- Preserve the host timer and its MID: only remove the proven component tick limit.
+function M.continuous_tick(component)
+    local previous = component:GetComponentTickInterval()
+    assert(type(previous) == "number" and previous >= 0, "component tick interval unavailable")
+    if previous > 0 then component:SetComponentTickInterval(0) end
+    assert(component:GetComponentTickInterval() == 0, "continuous component tick not applied")
+    return previous
+end
+
 local function static(class, name)
     local path = class .. ":" .. name
     local fn = StaticFindObject(path)

@@ -5,8 +5,9 @@ local QUINTUS = "/Game/MainContent/Act/Character_BP/quintus_BP.quintus_BP_C"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
 local TIP = "/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
 local DEFAULT_SCALE, DEFAULT_LIFT = 0.375, 36
+local DEFAULT_RGB = 0.35
 local scale, lift = DEFAULT_SCALE, DEFAULT_LIFT
-local rgb = 1
+local rgb = DEFAULT_RGB
 local selected, stopped, editing
 local resources, probe, decorated
 local FIELD_LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
@@ -80,10 +81,14 @@ end
 
 local function inspect(event, actor)
     local component, owner = actor.ExtendedWidget, actor:GetOwner()
-    assert(is(component, COMPONENT) and path(component) == selected.component
-        and component:GetAddress() == selected.component_address and same(component:GetOwner(), actor)
-        and is(owner, QUINTUS) and path(owner) == selected.owner and owner:GetAddress() == selected.owner_address,
-        "component or Quintus identity changed")
+    -- Keep the original strict identity contract; identify the first failed predicate.
+    assert(is(component, COMPONENT), "identity:component_class")
+    assert(path(component) == selected.component, "identity:component_path")
+    assert(component:GetAddress() == selected.component_address, "identity:component_address")
+    assert(same(component:GetOwner(), actor), "identity:component_actor")
+    assert(is(owner, QUINTUS), "identity:owner_class")
+    assert(path(owner) == selected.owner, "identity:owner_path")
+    assert(owner:GetAddress() == selected.owner_address, "identity:owner_address")
     local widget, rt = component:GetUserWidgetObject(), component:GetRenderTarget()
     if not event then return component, widget end
     local draw, current = component:GetDrawSize(), component:GetCurrentDrawSize()
@@ -205,6 +210,9 @@ local function on_begin(context)
             "native World TipHUD unavailable")
         selected.widget = path(widget)
         place_world(component, scale, lift)
+        local previous_interval = probe.continuous_tick(component)
+        log("TICK_CONTINUOUS", ("before=%.3f after=%.3f"):format(
+            previous_interval, component:GetComponentTickInterval()))
         local ok, reason = pcall(add_decoration, widget)
         if not ok then log("DECORATION_FAILED", ("reason=%q"):format(tostring(reason):sub(1,180))) end
         if rgb ~= 1 then
@@ -292,7 +300,7 @@ local function register_editor()
         {"NUM_FOUR","NumPadFour",function() adjust_rgb(rgb-0.10) end},
         {"NUM_SIX","NumPadSix",function() adjust_rgb(rgb+0.10) end},
         {"NUM_FIVE","NumPadFive",function() report("VALUES") end},
-        {"NUM_ZERO","NumPadZero",function() adjust_rgb(1); adjust(DEFAULT_SCALE,DEFAULT_LIFT) end},
+        {"NUM_ZERO","NumPadZero",function() adjust_rgb(DEFAULT_RGB); adjust(DEFAULT_SCALE,DEFAULT_LIFT) end},
     }
     assert(EngineTickAvailable == true, "game thread unavailable")
     for _, entry in ipairs(bindings) do
