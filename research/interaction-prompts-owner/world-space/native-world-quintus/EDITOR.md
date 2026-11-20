@@ -338,3 +338,34 @@ The installed seven-file World candidate remains the earlier
 16f3c7f5847bc build as last reported; the newly committed source has
 not been installed. Screen S1 remains untouched. Runtime acceptance is
 still pending; production remains BLOCKED.
+
+### Normal-use successor installed — 2026-11-20
+
+Installed exact source `738e4b6a711d82fb5d0b12c2993fd602bf82d568` with the
+game closed. GitHub Actions confirmed success on `4ba754f2fa48`. The source
+and assets in the installed payload are identical to that checkout;
+the intervening commit changed this research note only.
+The local resource paths, module loading and Lua parsing passed offline.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| Scripts/main.lua | `68815283b151a6eb5b64018d6720bed3e32be503730158883e1ac052a8e4be16` |
+| Scripts/IIPQuintusProbe.lua | `e2c29f6b1d1ecb35925d25cf4efb4a70a09e4ea56c080f26df0805a57dd3f984` |
+| Scripts/IIPQuintusResources.lua | `c1a870f6ad21f724e72188914675d9743e84431050fb5a22a4e0f8f38567b814` |
+| Scripts/IIPQuintusKeyboardBindings.lua | `552895a3b7ed1091231f93f8f93e1f5d1ae5cc5b3e7518b53f72777977dbe8ef` |
+| Assets/aphes_divider_256x32.png | `b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969` |
+| Scripts/IIPLiveConfig.lua | `894f191e0d8d1beaaafd21c9e4265e2a623cd7b6028b979a2e67811d270d9978` |
+| enabled.txt | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+
+The seven-file predecessor `16f3c7f5847bc` matched its installed receipt
+before replacement and again in the rollback archive outside the
+loader. A replacement and rollback rehearsal on copies passed.
+The before/after hashes matched for Screen S1 and all other loader
+files, Win64 files, mod Paks, saves and config. The local receipt and
+pretest log are archived. Only one Quintus World copy is active.
+
+Load the same save and inspect Quintus before opening the editor.
+Hold Talk normally without NumPad 3. Check F5, a scale change, and
+F8. Walk away and approach again. If the editor rejects a subsequent
+operation, preserve the exact `identity:*` line. Runtime pending.
+Production BLOCKED.

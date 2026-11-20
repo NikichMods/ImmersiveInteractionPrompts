@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — итерация Квинтуса для обычного удержания установлена (2026-11-20)
+
+При закрытой игре установлен исходник `738e4b6` с масштабом 0,375,
+подъёмом +36, RGB 0,35 и Native. Кандидат применяет нулевой интервал
+тика при BeginPlayPost, подробная проверка `identity:*` сохранена.
+Семь файлов сверены, откат к `16f3c7f` подтверждён, Screen S1 и
+остальные файлы игры совпали по хэшам. Обычное удержание, редактор
+и повторный подход ждут пользовательского прогона. Production BLOCKED.
+[Манифест и запись установки](../research/interaction-prompts-owner/world-space/native-world-quintus/EDITOR.md#normal-use-successor-installed--2026-11-20).
+
 ## Native World — готова source-only итерация Квинтуса (2026-11-20)
 
 Приняты defaults: scale=0.375, lift=36, RGB=0.35 и Native RenderTarget.
