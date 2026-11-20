@@ -12,8 +12,11 @@ local selected, stopped, editing
 local resources, probe, decorated
 local arm_hold_cadence
 local FIELD_LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
+local OPEN_PATH = FIELD_LEVEL.."0-1_lootbox_01_mat_ST001"
+local OPEN_CLASS = "/Game/MainContent/Act/Discoveries_BP/common/item_lootbox02.item_lootbox02_C"
+local open_trial
 local PLACED = {
-    [FIELD_LEVEL.."0-1_lootbox_01_mat_ST001"]="Open",
+    [OPEN_PATH]="Open",
     [FIELD_LEVEL.."0-1_item_loot_bag_03_AP1_3"]="Take",
     [FIELD_LEVEL.."0-1_sosletter3_2"]="Check",
 }
@@ -50,6 +53,35 @@ local function on_created(component)
     if action then
         log("PLACED_OBJECT_NOTIFY", ("action=%s creation_method=%s space=%s widget_class=%s"):format(
             action, tostring(component.CreationMethod), tostring(component.Space), tostring(valid(component.WidgetClass))))
+        -- Bounded Open experiment. These signs suggest an early callback, not proof of pre-OnRegister.
+        if action ~= "Open" then return end
+        if not is(actor, OPEN_CLASS) or path(actor) ~= OPEN_PATH then
+            log("PLACED_OPEN_SKIP", "reason=actor_class")
+            return
+        end
+        if component.CreationMethod ~= 0 or component.Space ~= 1 or valid(component.WidgetClass) then
+            log("PLACED_OPEN_SKIP", "reason=construction_state")
+            return
+        end
+        local previous_collision = component:GetCollisionEnabled()
+        local ok, reason = pcall(function()
+            component:SetCollisionEnabled(0)
+            assert(component:GetCollisionEnabled() == 0, "NoCollision did not apply")
+            component.Space = 0
+            assert(component.Space == 0, "Space write failed")
+        end)
+        if not ok then
+            -- Isolate failure to the test Open, keeping the original Quintus path available.
+            if valid(component) then
+                if component.Space == 0 then component.Space = 1 end
+                if component:GetCollisionEnabled() == 0 then component:SetCollisionEnabled(previous_collision) end
+            end
+            log("PLACED_OPEN_REJECTED", ("reason=%q"):format(tostring(reason):sub(1,180)))
+            return
+        end
+        open_trial = {actor=path(actor), actor_address=actor:GetAddress(),
+            component=path(component), component_address=component:GetAddress()}
+        log("PLACED_OPEN_SET_WORLD", ("component=%q collision=0"):format(open_trial.component))
         return
     end
     if not in_level(actor, NPC, "NPCInteract_Bp_C_") or path(component) ~= path(actor) .. ".ExtendedWidget" then return end
@@ -192,6 +224,25 @@ local function add_decoration(widget)
     log("DECORATED", "native_canvas=CanvasPanel_6 own_children=2")
 end
 
+local function sample_placed_open(event, actor)
+    if not is(actor, OPEN_CLASS) or path(actor) ~= OPEN_PATH then return end
+    local component = actor.ExtendedWidget
+    if not is(component, COMPONENT) or not same(component:GetOuter(),actor)
+        or not same(component:GetOwner(),actor) then
+        log(event, "reason=component_identity_unconfirmed")
+        return
+    end
+    local widget, rt = component:GetUserWidgetObject(), component:GetRenderTarget()
+    local matched = open_trial ~= nil and path(actor) == open_trial.actor
+        and actor:GetAddress() == open_trial.actor_address
+        and path(component) == open_trial.component
+        and component:GetAddress() == open_trial.component_address
+    log(event, ("early_write=%s same_instance=%s space=%s collision=%s widget=%s rt=%s added_to_screen=%s"):format(
+        tostring(open_trial ~= nil), tostring(matched), tostring(component.Space),
+        tostring(component:GetCollisionEnabled()), tostring(is(widget,TIP)),
+        tostring(valid(rt)), tostring(component.bAddedToScreen)))
+end
+
 local function on_begin(context)
     local actor = context:get()
     if not valid(actor) then return end
@@ -200,6 +251,7 @@ local function on_begin(context)
         local component = actor.ExtendedWidget
         if is(component,COMPONENT) and same(component:GetOwner(),actor) then
             log("PLACED_OBJECT_BEGIN", ("action=%s space=%s"):format(action,tostring(component.Space)))
+            if action == "Open" then sample_placed_open("PLACED_OPEN_BEGIN",actor) end
         end
         return
     end
@@ -241,6 +293,9 @@ local function report(event)
     log(event, ("scale=%.3f lift=%.1f resolution=Native rgb=%.2f"):format(scale,lift,rgb))
     local actor = resolve_actor()
     if actor then inspect("SAMPLE", actor) end
+    -- A manual F5/F8/NumPad5 readback, after the World RT may have been drawn.
+    local open_actor = StaticFindObject(OPEN_PATH)
+    if valid(open_actor) then sample_placed_open("PLACED_OPEN_SAMPLE",open_actor) end
 end
 
 local function resolve_world()

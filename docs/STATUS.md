@@ -1,5 +1,17 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — ранняя точечная проба Open подготовлена (2026-11-20)
+
+В исследовательском исходнике добавлена одна проверяемая ветка
+`NotifyOnNewObject` для `0-1_lootbox_01_mat_ST001.ExtendedWidget`.
+Только при ранних признаках состояния она пробует
+`NoCollision + Space=World`, остальные Open/Take/Check и
+путь Квинтуса не меняет. При BeginPlay и ручном F5/NumPad5
+фиксируются идентичность, Space, RT и Screen-membership.
+Без нового World-компонента, Tick и визуальной переделки.
+**Source-only; установки, игрового прогона и World-приёмки нет.
+Production BLOCKED.** [Подробный критерий проверки](../research/interaction-prompts-owner/world-space/event-driven/NATIVE_WORLD_PREREGISTRATION.md#минимальная-ранняя-проба-для-одного-open--source-only-2026-11-20).
+
 ## Native World — размещённый Open пока BLOCKED (2026-11-20)
 
 Для исходного компонента сундука подтверждён путь загрузки экспорта
