@@ -387,3 +387,46 @@ and geometry require one real-game visual check before acceptance.
 In particular `style.start` and `style.can_show` receive only a
 read-only tag from the original TipHUDArgument owner; if unavailable,
 native behavior is unaffected and visual test glyphs remain neutral.
+
+## World Composition installed (2026-11-20)
+
+**INSTALLED**, exact source `151c38eaaef3b91f36fd2390c99cea68aa3a15bb`.
+The confirmed seven-file active `59cc569` package was replaced
+in the existing World loader slot with both game processes closed.
+Only `main.lua` and `IIPTemplateStyle.lua` changed. The authored PNG
+and private TTF/config were verified against their known hashes.
+All four authored Lua modules and the private config compiled.
+Resource validation passed again using the installed config.
+Seven Template and nine visual tests passed locally.
+[Full CI PASS on the exact source](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44804483529).
+
+Installed manifest SHA-256
+`9fb741f968f6fadf265e2f238ca65bbd8c293e5e407133fca8b1dd4d6f780dcd`.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `0f46837ee12e8c5ab6b5e2e645a57d2a0fa87353bd47ead64281c6df4729cd86` |
+| `Scripts/IIPTemplateStyle.lua` | `a6711908466312b848acb2a23dcbdf6e2ff1ec214d8853f9fb70e4fb8b6643ff` |
+| `Scripts/IIPTemplateProbe.lua` | `f32a663aa36a3490825d590a1d7a1c9da4d110e97e16a7e1fda636b4aa1f19af` |
+| `Scripts/IIPTemplateResources.lua` | `8f9502f29fb05b4c1f8e1d561a6e63a583b5afb010babf5802b7b92b511eb1cc` |
+| `Assets/aphes_divider_256x32.png` | `b56cc7741c794594eb300db63d2bbe67b0db1eaba217ccceae7c23ef829f1969` |
+| `Scripts/IIPLiveConfig.lua` | `894f191e0d8d1beaaafd21c9e4265e2a623cd7b6028b979a2e67811d270d9978` |
+| `enabled.txt` | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+
+All five Screen S1 files and neighboring file inventories matched,
+including 12,548 other ue4ss files, 26 Win64 root files, 11 pak-mod
+files, 16 save files and 53 config files. The full original `59cc569`
+directory was archived outside the loader. The seven predecessor
+files and seven newly installed files were independently rehashed
+after installation. Full active restoration was rehearsed on a copy.
+The private deployment receipt records the resolved archive location.
+Closed-game rollback uses `.local/install-native-world-composition-151c38e.py
+--rollback`.
+
+Ready for a user visual run. Compare brightness, alignment and
+action-specific upper words on the known chest, note, potion and
+optionally Talk. Observe first appearance for delay or a horizontal
+jump. Press F5 while a relevant native prompt is visible and exit
+normally. The log identifies `center=measured` or `center=fallback`,
+the early token and any later token-only update. Runtime PENDING,
+production BLOCKED.

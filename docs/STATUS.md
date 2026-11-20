@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — Composition установлен для визуального прогона (2026-11-20)
+
+При закрытой игре `151c38e` заменил `59cc569`. Новый
+кандидат проверяет RGB ×0,45, центрирование с мгновенным
+запасным X и разные тестовые слова по штатному тегу действия.
+Семь файлов World и пять файлов Screen S1 сверены. Полный прежний
+World сохранён вне загрузчика, восстановление проверено на копии.
+Runtime PENDING, production BLOCKED.
+[Манифест, откат и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#world-composition-installed-2026-11-20).
+
 ## Native World — исправление композиции для следующего игрового прогона (2026-11-20)
 
 Новый исследовательский source-only кандидат после runtime-прогона
@@ -11,8 +21,8 @@ World/NoCollision остаются за игрой. Никаких задерж�
 позднего измерения текста и последующего смещения нет.
 [Точная граница и критерий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#world-composition-follow-up--source-only-candidate-2026-11-20).
 
-**SOURCE ONLY / NOT INSTALLED.** В игре по последнему отчёту
-остаётся `59cc569`. Ещё не доказано, что native ширина
+**На этапе подготовки:** действовал `59cc569`, новый кандидат
+оставался source-only. Ещё не доказано, что native ширина
 доступна при BeginPlay; резервные X — пробные, зависят от
 RU-тестового маршрута. Production BLOCKED.
 
