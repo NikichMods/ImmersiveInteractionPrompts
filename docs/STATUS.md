@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — установка опыта SCS-шаблона остановлена (2026-11-20)
+
+`40b4939` не установлен. Asterigos работала. Независимо от этого,
+запасная ветка холодной загрузки передаёт в `LoadAsset` имя пакета,
+которого нет среди `ObjectPath` в Asset Registry данного билда.
+Действующие World `52c6035` и Screen S1 совпали с прежними
+манифестами и остались активны. Production BLOCKED.
+[Preflight и доказательство](../research/interaction-prompts-owner/world-space/native-world-template/README.md#installation-preflight--blocked-2026-11-20).
+
 ## Native World — source-only опыт общего SCS-шаблона (2026-11-20)
 
 Подготовлен отдельный исследовательский кандидат: только ранняя

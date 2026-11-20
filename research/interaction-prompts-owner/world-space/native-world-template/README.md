@@ -68,3 +68,38 @@ for a closed-game installation, but must not launch/terminate the
 host or hot reload absent separate authorization. Exact source
 and rollback manifests, observed game build, loader and installed
 file checks are required before any runtime acceptance.
+
+## Installation preflight — BLOCKED (2026-11-20)
+
+Exact source `40b4939ed64e969a3d308ab2e2f2b99ca4599d99`, candidate
+`Scripts/main.lua` SHA-256
+`99af00acd55bc5cc1b85f4aa2cf59c89527a438d428a1c90c9d65a97f40a42ee`.
+Six focused local mock tests passed.
+[Full CI PASS](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44769783016).
+
+Asterigos and its Shipping process were running at the installation
+check. The additional cold-load issue is independent of process state.
+The candidate passes the package name
+`/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP`
+to `LoadAsset` if the template is not resident. Pinned UE4SS 83330635
+passes that string to `GetAssetByObjectPath` with no package-name
+conversion. The stock build 12996889 Asset Registry
+(SHA-256 `9ba7a655f82877869145de2bc62c2fa76b392fd3d8e7ec67b6b9667784f1ac92`)
+lists the corresponding object paths with suffixes
+`.BaseGameEventObject_BP` and `.BaseGameEventObject_BP_C`.
+The bare package string occurs as `PackageName`. There is no matching
+`ObjectPath` for the current fallback argument. The mock accepts
+that argument without modeling the real registry lookup.
+[Pinned LoadAsset implementation](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/Mod/LuaMod.cpp#L3288).
+
+The already-resident `StaticFindObject(TEMPLATE)` branch is separate.
+Neither template lookup nor property inheritance was exercised in the
+game. Before a cold trial, use a registry-verified generated-class
+object path in a new exact candidate and exercise a mock with the
+two distinct lookups. The exact candidate above was left untouched.
+
+World `52c6035` and Screen S1 `8f1231d` matched all seven and five
+files respectively and remain active. The external staged copy of
+`52c6035` also matches its seven-file manifest. No replacement
+transaction took place, so a rollback of this attempted deployment
+was unnecessary. The game session and installed files were untouched.
