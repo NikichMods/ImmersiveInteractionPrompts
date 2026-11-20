@@ -29,6 +29,85 @@ local function same(a,b)
     return valid(a) and valid(b) and a:GetAddress() == b:GetAddress()
 end
 
+-- Styling is a visual addition to the ORIGINAL World component / TipHUD.
+-- World selection itself still comes only from the one SCS-template write.
+local style,resources,probe,style_available
+local styled,can_show_armed={},false
+local function prepare_style()
+    local ok_r,r=pcall(require,"IIPTemplateResources")
+    local ok_p,p=pcall(require,"IIPTemplateProbe")
+    local ok_s,s=pcall(require,"IIPTemplateStyle")
+    if not (ok_r and ok_p and ok_s) then
+        log("STYLE_UNAVAILABLE","reason=missing_style_module")
+        return
+    end
+    local ok,err=pcall(r.prepare)
+    if not ok then
+        log("STYLE_UNAVAILABLE",("reason=%q"):format(tostring(err):sub(1,170)))
+        return
+    end
+    resources,probe,style,style_available=r,p,s,true
+    log("STYLE_ARMED","quintus_scale=.400 world_lift=36 rgb=.35 native_draw=1000x1000")
+end
+
+local function on_can_show(context)
+    if not style_available then return end
+    local widget=context:get()
+    if not valid(widget) then return end
+    local info=styled[widget:GetAddress()]
+    if not info or not info.state or path(widget)~=info.widget then return end
+    local component=StaticFindObject(info.component)
+    if not is(component,COMPONENT) or component:GetAddress()~=info.component_address
+        or not same(component:GetUserWidgetObject(),widget)
+        or component.Space~=WORLD then return end
+    local ok,err=pcall(style.can_show,component,widget,info.state,probe,log)
+    if not ok then log("STYLE_CADENCE_REJECTED",("reason=%q"):format(tostring(err):sub(1,170))) end
+end
+local function arm_can_show()
+    if can_show_armed then return end
+    local fn=StaticFindObject(TIP..":CanShow")
+    if not valid(fn) or fn:type()~="UFunction" then
+        log("STYLE_HOOK_UNAVAILABLE","reason=CanShow_function_unavailable")
+        return
+    end
+    local ok,pre,post=pcall(RegisterHook,TIP..":CanShow",on_can_show)
+    if ok and type(pre)=="number" and pre>0 and pre==post then
+        can_show_armed=true
+        log("STYLE_HOOK_ARMED","source=TipHUD:CanShow")
+    else log("STYLE_HOOK_UNAVAILABLE","reason=registration") end
+end
+
+local function try_style_actor(actor)
+    if not style_available then return end
+    local got,component=pcall(function()return actor.ExtendedWidget end)
+    if not got or not is(component,COMPONENT) then return end
+    if path(component)~=path(actor)..".ExtendedWidget"
+        or not same(component:GetOwner(),actor) or not same(component:GetOuter(),actor)
+        or component.Space~=WORLD or component:GetCollisionEnabled()~=NO_COLLISION then return end
+    local widget=component:GetUserWidgetObject()
+    if not is(widget,TIP) then return end
+    local id=widget:GetAddress()
+    if styled[id] then
+        local old=styled[id]
+        if old.widget==path(widget) and old.component==path(component)
+            and old.component_address==component:GetAddress() then return end
+        styled[id]=nil -- Stale address from another actor cannot inherit style state.
+    end
+    local record={component=path(component),component_address=component:GetAddress(),
+        widget=path(widget),widget_address=id,actor=path(actor)}
+    -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
+    styled[id]=record
+    local ok,result=pcall(style.start,component,widget,resources,probe,log)
+    if not ok then
+        log("STYLE_REJECTED",("actor=%q reason=%q"):format(path(actor),tostring(result):sub(1,170)))
+        return
+    end
+    record.state=result
+    log("STYLE_READY",("actor=%q decorated=%s"):format(path(actor),tostring(result.decorated)))
+    arm_can_show()
+end
+
+
 local function install_template_trial()
     if status ~= "UNATTEMPTED" then return end
     status = "STOPPED"
@@ -93,6 +172,7 @@ end
 local function on_begin(context)
     local actor = context:get()
     if not valid(actor) then return end
+    try_style_actor(actor)
     if not OBJECTS[path(actor)] then return end
     local ok, reason=pcall(sample,"PLACED_BEGIN",actor)
     if not ok then log("READ_REJECTED",("reason=%q"):format(tostring(reason):sub(1,180))) end
@@ -112,6 +192,7 @@ end
 if EngineTickAvailable ~= true or not EGameThreadMethod or not EGameThreadMethod.EngineTick then
     log("SKIP","reason=engine_thread_unavailable")
 else
+    prepare_style()
     RegisterBeginPlayPostHook(on_begin)
     ExecuteInGameThread(function()
         local ok,reason=pcall(install_template_trial)
