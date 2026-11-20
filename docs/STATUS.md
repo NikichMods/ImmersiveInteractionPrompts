@@ -1,5 +1,19 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — source-only опыт общего SCS-шаблона (2026-11-20)
+
+Подготовлен отдельный исследовательский кандидат: только ранняя
+однократная запись `Space=World` и `NoCollision` на
+`BaseGameEventObject_BP_C:ExtendedWidget_GEN_VARIABLE`.
+`LoadAsset` выполняется через игровой поток; если конкретный
+`Open` уже загружен, кандидат не меняет шаблон. Оригинальные
+`Open/Take/Check` не патчатся, есть только BeginPlay и ручной F5
+readback. Отдельный кандидат **не установлен**, находящийся в игре
+предыдущий `52c6035` не менялся. Наследование от шаблона
+и полный World RenderTarget для размещённых объектов пока НЕ доказаны.
+[Протокол](../research/interaction-prompts-owner/world-space/native-world-template/README.md).
+Production BLOCKED.
+
 ## Native World — размещённый Open остался Screen в первом прогоне (2026-11-20)
 
 На `52c6035` уведомление для сундука пришло с уже заполненным
