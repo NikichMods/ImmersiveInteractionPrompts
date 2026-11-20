@@ -4,7 +4,7 @@ local NPC = "/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract
 local QUINTUS = "/Game/MainContent/Act/Character_BP/quintus_BP.quintus_BP_C"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
 local TIP = "/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
-local DEFAULT_SCALE, DEFAULT_LIFT = 0.30, 36
+local DEFAULT_SCALE, DEFAULT_LIFT = 0.375, 36
 local scale, lift = DEFAULT_SCALE, DEFAULT_LIFT
 local rgb = 1
 local selected, stopped, editing

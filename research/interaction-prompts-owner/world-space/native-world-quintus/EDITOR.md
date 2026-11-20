@@ -276,3 +276,19 @@ Archived log SHA-256
 `25154923773eee762535c6c1a239e046f2dd373cc43c6e59529610b7f5c29751`.
 Screenshot SHA-256
 `cb920f06547598b456a718b0b5fa87029d61a273af3240d30dc30812d9b4c227`.
+
+### Final scale selected — 2026-11-20
+
+The repeat run on installed source `16f3c7f5847bc` confirmed live scale
+adjustment. At 08:16:10 the transform read back scale 0.375 and zero
+height delta. The last successful F8 close at 08:16:16 logged **0.375**,
+lift +36, RGB 0.35 and Native, with the original visible World TipHUD
+and 1000×1000 RT. The user selected this scale for the next iteration.
+The source default and editor reset now use 0.375. The installed payload
+was left as it was.
+
+One subsequent F5 at 08:16:52 encountered the existing
+`component or Quintus identity changed` guard. There was no later
+applied scale value. The guard does not identify which object changed.
+The archived log SHA-256 is
+`1193ac03617a8294bcbb80b8729d9945c43b8bd0d28bce2b4c8bd1c9da822b2c`.
