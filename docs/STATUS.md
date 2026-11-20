@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — размещённый Open остался Screen в первом прогоне (2026-11-20)
+
+На `52c6035` уведомление для сундука пришло с уже заполненным
+`WidgetClass` и `CreationMethod=SimpleConstructionScript`.
+Ранняя ветка остановилась на `PLACED_OPEN_SKIP`. В BeginPlay
+исходный TipHUD сохранил Screen, а F5 подтвердил Screen-вставку
+и отсутствие World RenderTarget. Проба остаётся установленной.
+Production BLOCKED. [Журнал и предел вывода](../research/interaction-prompts-owner/world-space/event-driven/NATIVE_WORLD_PREREGISTRATION.md#игровой-результат-точной-пробы-open-2026-11-20).
+
 ## Native World — проба одного размещённого Open установлена (2026-11-20)
 
 При закрытой игре установлен точный `52c6035`. Пользователь отдельно

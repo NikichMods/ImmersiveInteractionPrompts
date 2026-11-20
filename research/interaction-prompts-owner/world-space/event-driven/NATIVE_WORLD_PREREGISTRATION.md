@@ -391,3 +391,33 @@ Lua при подготовке прошли. [Полный CI PASS](https://git
 исходного компонента, сохранившийся World, оригинальный RT,
 визуальная подсказка и штатное взаимодействие. Установочный прогон
 игру не запускал. Runtime PENDING, production BLOCKED.
+
+### Игровой результат точной пробы Open (2026-11-20)
+
+Один пользовательский сеанс на `52c6035793cf4a3d24d4cf615ec28cfbe32f70b8`
+с ручным F5 и штатным выходом. Архивный UE4SS 83330635 log SHA-256
+`6a77af295244e810539193775df230e9d5a10f75ef2d672622a8f76cacfd5fad`.
+После выхода совпали установленные манифесты World (7 файлов)
+и Screen S1 (5 файлов).
+
+| Событие | Время | Наблюдение |
+| --- | --- | --- |
+| `PLACED_OBJECT_NOTIFY action=Open` | 18:34:31.9578803 | `creation_method=1 space=1 widget_class=true` |
+| `PLACED_OPEN_SKIP` | 18:34:31.9579120 | `reason=construction_state`, запись World и NoCollision не выполнялась |
+| `PLACED_OPEN_BEGIN` | 18:34:31.9771747 | `early_write=false space=1 collision=1 widget=true rt=false added_to_screen=false` |
+| `PLACED_OPEN_SAMPLE` после F5 | 18:34:58.7346341 | `early_write=false space=1 collision=1 widget=true rt=false added_to_screen=true` |
+
+Нативный компонент в BeginPlay и ручной выборке прошёл проверку
+владельца и Outer. `same_instance=false` означает отсутствие записи
+об изменённом экземпляре для сравнения. В сеансе нет `PLACED_OPEN_SET_WORLD`,
+поэтому тест не наблюдал сброс World при десериализации.
+Результат подтверждает, что на этой загрузке guard
+`NotifyOnNewObject` пропустил запись, а оригинальный TipHUD
+сработал по Screen-пути. По журналу невозможно определить,
+прошёл ли уже первый `OnRegister` в момент уведомления или
+что определило момент его доставки. `Take` и `Check`
+также записали Screen в BeginPlay.
+
+Повтор того же прогона без нового способа наблюдения не проверит
+сохранность World. Узкий Open-механизм остаётся BLOCKED.
+Кандидат оставлен установленным. Production BLOCKED.
