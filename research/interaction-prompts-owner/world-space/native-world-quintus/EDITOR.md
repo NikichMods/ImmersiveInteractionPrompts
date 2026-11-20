@@ -322,3 +322,19 @@ separately authorized normal-game run is sufficient to assess initial tint,
 size and continuous hold-ring behavior. If the identity failure recurs,
 preserve the first diagnostic rather than guessing the cause.
 Production BLOCKED.
+
+### Offline verification of normal-use successor — 2026-11-20
+
+Source change [dacdc71](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/dacdc714ffb97a37204d68ea718284510e4e5430)
+and CI trigger change [4ba754f](https://github.com/NikichMods/ImmersiveInteractionPrompts/commit/4ba754f2fa48d95f14f8aba9a616c0c0ee70559a)
+were tested together at the latter exact checkout.
+[GitHub Actions run 44681343019](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44681343019)
+**PASS**: repository offline tests, including test_quintus_probe.py with
+continuous-tick success/idempotence/rejected setter and unchanged tint/hold
+probe checks. This establishes source parsing and mock behavior, not actual
+UE4 rendering or hold-ring smoothness in ordinary gameplay.
+
+The installed seven-file World candidate remains the earlier
+16f3c7f5847bc build as last reported; the newly committed source has
+not been installed. Screen S1 remains untouched. Runtime acceptance is
+still pending; production remains BLOCKED.
