@@ -629,5 +629,35 @@ findings apply to the named samples.
 `BeginPlayPost` and `CanShow` on the original component. The
 three-object diagnostic list does not gate styling. The code change
 is limited to the word lookup. Accepted dimensions, RGB, elevation,
-orientation and fixed X values remain those of `cb6fc43`, which
-remains installed. Production BLOCKED.
+orientation and fixed X values remain those of the previously
+installed `cb6fc43` baseline. Production BLOCKED.
+
+## Fictive vocabulary installed (2026-11-21)
+
+**INSTALLED**, source `0ddec340d15944e10178cec478c2161f3c5e0db8`.
+Both game processes were closed. The existing World loader slot was
+reused. Six entries match the previous installed manifest byte for byte.
+The sole change is `Scripts/IIPTemplateStyle.lua`, SHA-256
+`928e248ac26eb1b60560e2fe20c623a71d1e0ece3cc8db2d85f3ef6b5befc146`.
+See the [previous manifest](#fixed-placement-and-rgb-050-installed-2026-11-20)
+for the other six hashes. All seven installed files were rehashed.
+The new manifest SHA-256 is
+`f64a8194296049f0d770f8ead00a10e5f9c0739dcc24604be33823a2aa682758`.
+
+The four authored Lua modules and local config compiled. Private font
+and divider validation passed. Nineteen targeted tests passed, and
+[full CI passed on this exact source](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44817344307).
+All five Screen S1 files matched. Before/after snapshots also matched
+12,548 other loader files, 26 Win64 files, 11 pak-mod files, 16 saves and
+52 config files.
+
+The full previous World folder was archived outside the loader.
+Its seven files match `cb6fc43` and were restored successfully on a copy.
+The private receipt records the archive location. For closed-game
+rollback use `.local/install-native-world-vocabulary-0ddec34.py --rollback`.
+
+On the next user run, check the chest, note and potion bag for
+`ANOKE`, `SKERA` and `LAVO` above the original localized action.
+If the same merchant or an eligible door is on the route, note whether
+the new header appears there. Press F5 near the placed controls and keep
+the UE4SS log. Runtime PENDING. Production BLOCKED.

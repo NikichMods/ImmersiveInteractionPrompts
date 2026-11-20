@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — кандидат со словарём установлен (2026-11-21)
+
+При закрытой игре `0ddec34` заменил `cb6fc43` в существующем
+World-каталоге. Сверены семь файлов World и пять файлов Screen S1.
+Полный откат к `cb6fc43` сохранён вне загрузчика и проверен на копии.
+Новые слова готовы к пользовательскому прогону. Production BLOCKED.
+[Манифест и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#fictive-vocabulary-installed-2026-11-21).
+
 ## Словарь Aphes и проверка охвата Native World (2026-11-21)
 
 В исходниках заполнены 18 из 18 проверенных тегов
@@ -10,7 +18,7 @@
 подтверждена общая родословная SCS. Лестничный переключатель
 создаёт отдельный компонент для `TipHUD_C`.
 Игровая проверка новых слов, выбранных объектов и движения открыта.
-Установлен `cb6fc43`. Production BLOCKED.
+На этапе исследования был установлен `cb6fc43`. Production BLOCKED.
 [Словарь и классификация](../research/interaction-prompts-owner/world-space/native-world-template/README.md#native-coverage-and-fictive-aphes-vocabulary--source-only-2026-11-20).
 
 ## Native World — визуальная приёмка трёх размещённых подсказок (2026-11-20)
