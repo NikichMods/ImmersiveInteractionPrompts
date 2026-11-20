@@ -23,6 +23,7 @@ local function obj(path,class,id)
         GetFullName=function()return "Class "..self.c end}end
     return x
 end
+S.make=obj
 COMP="/Script/Genesis.ExtendedWidgetComponent"
 S.template=obj(TEMPLATE,COMP,1)
 function S.template:GetCollisionEnabled()return S.coll end
@@ -80,6 +81,59 @@ class TemplateWorldTrial(unittest.TestCase):
         flush()
         assert(S.load==0 and S.template.Space==0 and S.coll==0)
         assert(has("TEMPLATE_WORLD"))
+        """)
+
+    def test_styling_accepts_native_world_outside_diagnostic_allowlist(self):
+        self.run_case("""
+        local npc=S.make("/Game/Test.Level:NPC","/Game/Test.NPC_C",9)
+        local native=S.make(npc.p..".ExtendedWidget",COMP,10)
+        local argument=S.make(npc.p..".TipHUDArgument","/Script/Genesis.TipHUDArgumentComponent",11)
+        local tag="Interact"
+        argument.msgTag={ToString=function()return tag end}
+        function argument:GetOwner()return npc end
+        npc.ExtendedWidget=native
+        npc.TipHUDArgument=argument
+        function native:GetOwner()return npc end
+        function native:GetOuter()return npc end
+        function native:GetCollisionEnabled()return 0 end
+        function native:GetUserWidgetObject()return S.widget end
+        S.objects[native.p]=native
+        local can_show=S.widget.c..":CanShow"
+        S.objects[can_show]={IsValid=function()return true end,type=function()return "UFunction" end}
+        local starts,hooks=0,0
+        function RegisterHook(path,callback)
+            assert(path==can_show)
+            hooks=hooks+1
+            S.can_show=callback
+            return 1,1
+        end
+        package.preload.IIPTemplateResources=function()return {prepare=function()end} end
+        package.preload.IIPTemplateProbe=function()return {} end
+        package.preload.IIPTemplateStyle=function()return {
+            RGB=.50,
+            start=function(component,widget,_,_,_,action)
+                assert(component==native and widget==S.widget and action=="Interact")
+                starts=starts+1
+                return {decorated=true}
+            end,
+            can_show=function(component,widget,_,_,_,action)
+                assert(component==native and widget==S.widget and action=="Talk")
+                S.refreshed=true
+            end}
+        end
+        {{LOAD_SOURCE}}
+        flush()
+        assert(S.template.Space==0 and native.Space==1)
+        local context={get=function()return npc end}
+        S.begin(context)
+        assert(starts==0 and hooks==0)
+        native.Space=0 -- Simulates the original World component created by the host.
+        S.begin(context)
+        S.begin(context)
+        assert(starts==1 and hooks==1 and not has("PLACED_BEGIN"))
+        tag="Talk"
+        S.can_show({get=function()return S.widget end})
+        assert(S.refreshed and argument.msgTag:ToString()=="Talk" and S.comp.Space==1)
         """)
 
     def test_cold_load_rejects_package_name_and_leaves_template_untouched(self):

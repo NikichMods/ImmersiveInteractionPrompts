@@ -560,33 +560,74 @@ for compatible descendants. The previously observed 164 successful
 style starts are evidence of scope beyond the three exact objects,
 not proof of every interaction class or simultaneous prompts.
 
-The first source-only vocabulary edit replaces the four known testing
-headers with four fixed, authored, Greek-flavored **invented** words:
+### Verified row inventory and authored vocabulary (2026-11-21)
 
-| Native msgTag | Authored glyph input | Status |
+CUE4Parse 1.2.2 read stock Steam build 12996889 with UE4.27 from
+`/Game/MainContent/Tables/UMG/InteractTipToText`. The new export
+matched the retained export byte-for-byte (SHA-256
+`768d62913e90c1d3df2734bb2a8e76038421c0bbec1723d1d07dbb0337869b8a`).
+All 18 exact row names are listed below, in export order. The one
+lookup in `IIPTemplateStyle.lua` maps each to a fictional word.
+The private stock font's cmap was independently checked for all
+26 uppercase ASCII letters. The authored words have no official
+Aphes or Greek translation status. The lower label remains game-owned.
+
+| RowName / msgTag | Invented word |
+| --- | --- |
+| `Climb` | `ORTHA` |
+| `Restart` | `PALINO` |
+| `Interact` | `NEMARO` |
+| `Open` | `ANOKE` |
+| `Talk` | `LETHO` |
+| `Gossip` | `PSYRA` |
+| `Knock` | `KROTA` |
+| `Heal` | `IATHE` |
+| `Insert` | `EMVORA` |
+| `Remove` | `EKLON` |
+| `Press` | `PIEZA` |
+| `Take` | `LAVO` |
+| `Break` | `THRAKO` |
+| `Enter` | `EISORA` |
+| `Check` | `SKERA` |
+| `Activate` | `KINERA` |
+| `Pray` | `EUKRA` |
+| `UILoadTest` | `DOKIRA` |
+
+Retained selected-native and World logs contain `Break`, `Check`,
+`Gossip`, `Interact`, `Knock`, `Open`, `Press`, `Pray`, `Take`
+and `Talk`. The battery-switch template also serializes `Remove`.
+The other rows, including `UILoadTest`, establish a lookup key and
+leave its actual gameplay use open. The NPC's cooked `SetNPCTip`
+copies a caller-supplied name into `msgTag`. The selected merchant
+sample saw `Talk`, which is already a row. No action tag outside
+the table was confirmed in the reviewed exports and prompt logs.
+`None` was observed as an unset name. `Descend` is absent from the
+table and lacks a confirmed `msgTag` observation. On initial
+decoration, missing or unmapped tags use `ACTION`. The existing
+`CanShow` path updates the owned header on a recognised change
+and retains it during unrecognised or missing reads. Wider game
+routes or dynamic writers could still supply other tags.
+
+### Shared component coverage (2026-11-21)
+
+Inheritance was checked against the cooked parent chain, local
+SCS nodes and inherited component overrides. Stock
+`BaseGameEventObject_BP_C` owns the shared
+`ExtendedWidget_GEN_VARIABLE` and gives it `TipHUD_C`. These
+findings apply to the named samples.
+
+| Family | Confirmed evidence | Runtime boundary |
 | --- | --- | --- |
-| `Open` | `ANOKE` | known native tag; invented word |
-| `Take` | `LAVO` | known native tag; invented word |
-| `Check` | `SKERA` | known native tag; invented word |
-| `Talk` | `LETHO` | known native tag; invented word |
+| Chest, pickup, document | Shared ancestor and component; World RT and visual acceptance on the three named instances | Baseline `cb6fc43`; new words await a run |
+| Dynamic NPC | `NPCInteract_Bp_C` → `BaseNPCInteract_BP_C` → shared base. No replacement widget in the two exports. Selected merchant evidence has original Screen `TipHUD_C` and `Talk` | Expected to inherit World with the shared patch. No World rendering or timing proof for this dynamic NPC route |
+| Doors and gates | `Base1SideDoor_BP_C`, `Base2SideDoor_BP_C`, `BaseTeleportDoor_BP_C` and `BaseGate_BP_C` descend from the shared base. Cooked aqueduct door resolves through `Base1SideDoor_BP_C`. Its original World component reached `STYLE_READY` as `Open` in the `cb6fc43` log | No F5 RT sample or visual/door interaction acceptance for that actor. Other door variants require their own ancestry or observation |
+| Levers and switches | The sampled heavy wooden lever, battery switch and crystal switch descend through `BaseGear_BP_C` from the shared base. The two switch exports set `Remove` and `Press` respectively | Likely native World coverage for these descendants. Visible state changes and actual runtime tag transitions remain open |
+| Moving objects | The sampled B01, round A01 and water lifts descend through `BaseElevator_BP_C` from the shared base. The base has move-to-start/end functions. A separate elevator script actor follows `BaseGameScriptObject_BP_C` | Likely shared coverage on those lift actors. Component tracking and heading during movement, and any prompt on the separate script path, are unverified |
+| Ladders | `Ladder_BP_C` and the sampled A01 route lead to native `BaseClimbObject`. The sampled B01 via `BaseSwitchLadder_BP_C` has its own SCS `ExtendedWidget_GEN_VARIABLE` pointed at `TipHUD_C`, with a separate `Interact` argument | The shared write does not reach that separate template. The stock prompt mechanism for ordinary climbing/descent and the switch ladder's live behaviour remain open |
 
-The private stock Aphes TTF is an ASCII-mapped font, so the source
-passes Latin letters to the existing owned font renderer. No Greek
-Unicode or official Aphes lexicon is asserted. No action label or
-native input is modified. Unknown tags still display the obvious
-`ACTION` diagnostics until a bounded stock-tag inventory is complete.
-
-**Missing independent evidence:** The existing game-data research
-reports 18 rows in `InteractTipToText` but did not publish all
-row names in the repo. A user-started local Codex can reuse the
-verified ignored reader and mounted stock data to extract **only**
-row names (and private hashes), then complete the dictionary and
-class ancestry inventory. Do not publish proprietary table/locres
-content or assume an interaction family inherits the SCS just from
-its English description. In particular, previously examined ladder
-is a separate `Genesis.BaseClimbObject` path without verified
-`TipHUDArgument/TipHUD` inheritance.
-
-**Status:** source-only, no changed installed bytes. Runtime visual
-approval applies to `cb6fc43` with the previous OPEN/TAKE/CHECK
-headers, NOT yet to this invented word replacement. Production BLOCKED.
+**Source only.** Keep the existing single SCS write and reuse
+`BeginPlayPost` and `CanShow` on the original component. The
+three-object diagnostic list does not gate styling. The code change
+is limited to the word lookup. Accepted dimensions, RGB, elevation,
+orientation and fixed X values remain those of `cb6fc43`, which
+remains installed. Production BLOCKED.

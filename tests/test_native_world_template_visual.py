@@ -113,17 +113,28 @@ class NativeTemplateVisual(unittest.TestCase):
 
     def test_invented_aphes_words_are_stable_distinct_ascii_per_verified_tag(self):
         self.case("""
-        local known={Open="ANOKE",Take="LAVO",Check="SKERA",Talk="LETHO"}
+        -- Stock InteractTipToText row names verified by the offline reader.
+        local rows={"Climb","Restart","Interact","Open","Talk","Gossip","Knock",
+                    "Heal","Insert","Remove","Press","Take","Break","Enter",
+                    "Check","Activate","Pray","UILoadTest"}
         local used={}
-        for tag,wanted in pairs(known) do
+        for _,tag in ipairs(rows) do
             local actual=M.token_for(tag)
-            assert(actual==wanted and actual:match("^[A-Z]+$"))
+            assert(actual~="ACTION" and actual:match("^[A-Z]+$"),tag)
             assert(#actual>=4 and #actual<=8)
-            assert(not used[actual])
+            assert(not used[actual],actual)
             used[actual]=true
         end
-        assert(M.token_for("Interact")=="ACTION" and M.token_for(nil)=="ACTION")
-        assert(M.token_for("UNKNOWN_UNMAPPED")=="ACTION")
+        assert(M.token_for("Open")=="ANOKE" and M.token_for("Take")=="LAVO")
+        assert(M.token_for("Check")=="SKERA" and M.token_for("Talk")=="LETHO")
+        """)
+
+    def test_unknown_tags_get_the_neutral_header(self):
+        self.case("""
+        assert(M.token_for(nil)=="ACTION")
+        for _,tag in ipairs({"","None","Descend","talk","UNKNOWN_UNMAPPED"}) do
+            assert(M.token_for(tag)=="ACTION",tag)
+        end
         """)
 
     def test_fixed_placement_uses_only_the_action_tag(self):

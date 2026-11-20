@@ -9,12 +9,28 @@ local function path(o)return assert(o:GetFullName():match("^[^ ]+ (.+)$"))end
 local function is(o,k)return valid(o) and valid(o:GetClass()) and path(o:GetClass())==k end
 local function same(a,b)return valid(a) and valid(b) and a:GetAddress()==b:GetAddress()end
 local function close(a,b,tol)return math.abs(a-b)<(tol or .001)end
--- Proposed authored, invented Aphes-facing words: stable per native msgTag.
--- ASCII U+0041..005A is covered by the verified Aphes.ttf cmap.
--- These are NOT actual Greek translations nor verified Asterigos lore.
--- Complete the one-time inventory against the 18 stock InteractTipToText
--- rows before claiming full coverage; preserve known tag spellings.
-local TOKENS={Open="ANOKE",Take="LAVO",Check="SKERA",Talk="LETHO"}
+-- Authored words for the 18 verified InteractTipToText row names.
+-- Aphes.ttf maps uppercase ASCII; these words are fictional.
+local TOKENS={
+    Climb="ORTHA",
+    Restart="PALINO",
+    Interact="NEMARO",
+    Open="ANOKE",
+    Talk="LETHO",
+    Gossip="PSYRA",
+    Knock="KROTA",
+    Heal="IATHE",
+    Insert="EMVORA",
+    Remove="EKLON",
+    Press="PIEZA",
+    Take="LAVO",
+    Break="THRAKO",
+    Enter="EISORA",
+    Check="SKERA",
+    Activate="KINERA",
+    Pray="EUKRA",
+    UILoadTest="DOKIRA",
+}
 -- Fixed placements selected by native action tag at construction.
 local PLACEMENT_X={Open=81,Take=70,Check=93,Talk=121.75,Interact=121.75}
 local DEFAULT_X=80
