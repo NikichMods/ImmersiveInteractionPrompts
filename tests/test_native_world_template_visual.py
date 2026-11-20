@@ -79,6 +79,69 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(S.has("STYLE_TINT_VERIFIED") and S.has("STYLE_CADENCE source=CanShow"))
         """)
 
+
+    def test_action_tokens_are_provisional_and_tag_based(self):
+        self.case("""
+        assert(M.token_for("Open")=="OPEN" and M.token_for("Take")=="TAKE")
+        assert(M.token_for("Check")=="CHECK" and M.token_for("Talk")=="TALK")
+        assert(M.token_for("Interact")=="ACTION" and M.token_for(nil)=="ACTION")
+        """)
+
+    def test_early_measured_native_center_without_changing_stock_slot(self):
+        self.case("""
+        local slot={
+            Content={GetAddress=function() return 222 end, IsValid=function() return true end},
+            GetAutoSize=function() return true end,
+            GetPosition=function()return {X=38,Y=0} end,
+            GetAlignment=function()return {X=0,Y=.5} end,
+            GetAnchors=function()return {Minimum={X=0},Maximum={X=0}} end,
+            GetClass=function()return {IsValid=function() return true end,
+                GetFullName=function()return "Class /Script/UMG.CanvasPanelSlot" end}end,
+            IsValid=function()return true end
+        }
+        local stock={Slot=slot,
+            Text={ToString=function()return "Взять" end},
+            GetDesiredSize=function()return {X=72,Y=37} end,
+            GetAddress=function()return 222 end,IsValid=function()return true end}
+        local x,mode=M.center_for(stock,"Take")
+        assert(x==74 and mode=="measured")
+        """)
+
+    def test_unready_or_placeholder_geometry_uses_immediate_tag_fallback(self):
+        self.case("""
+        local stock={Text={ToString=function()return "???" end}}
+        local x,mode=M.center_for(stock,"Take")
+        assert(x==70 and mode=="fallback")
+        x,mode=M.center_for(stock,"Talk")
+        assert(x==121.75 and mode=="fallback")
+        x,mode=M.center_for(stock,"Open")
+        assert(x==81 and mode=="fallback")
+        x,mode=M.center_for(stock,"Check")
+        assert(x==93 and mode=="fallback")
+        x,mode=M.center_for(stock,"Other")
+        assert(x==80 and mode=="fallback")
+        """)
+
+    def test_action_refresh_updates_only_owned_label_once(self):
+        self.case("""
+        local label={p="/Game/Test.WidgetTree.IIP_WQ_Aphes",txt="ACTION"}
+        function label:IsValid()return true end
+        function label:GetAddress()return 888 end
+        function label:GetFullName()return "TextBlock "..self.p end
+        function label:GetClass()return {
+            IsValid=function()return true end,
+            GetFullName=function()return "Class /Script/UMG.TextBlock" end}end
+        function label:SetText(v)self.txt=v end
+        StaticFindObject=function(p)if p==label.p then return label end end
+        FText=function(v)return v end
+        local state={decorated=true,header=label.p,header_address=888,tag="Interact"}
+        M.refresh_action(state,"Talk",S.log)
+        assert(label.txt=="TALK" and state.tag=="Talk" and S.has("STYLE_ACTION_UPDATED"))
+        M.refresh_action(state,"Talk",S.log)
+        M.refresh_action(state,"Bad",S.log)
+        assert(label.txt=="TALK" and state.tag=="Talk")
+        """)
+
     def test_rendering_decoration_needs_actual_native_tiphud(self):
         self.case("""
         assert(not pcall(M.decorate,S.component,{}))

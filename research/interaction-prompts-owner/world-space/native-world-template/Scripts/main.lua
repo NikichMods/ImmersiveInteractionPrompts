@@ -28,6 +28,15 @@ end
 local function same(a,b)
     return valid(a) and valid(b) and a:GetAddress() == b:GetAddress()
 end
+local ARGUMENT="/Script/Genesis.TipHUDArgumentComponent"
+local function action_tag(actor)
+    if not valid(actor) then return nil end
+    local ok,arg=pcall(function()return actor.TipHUDArgument end)
+    if not ok or not is(arg,ARGUMENT) or not same(arg:GetOwner(),actor) then return nil end
+    local read,tag=pcall(function()return arg.msgTag:ToString() end)
+    if read and type(tag)=="string" and #tag>0 and #tag<=48 then return tag end
+    return nil
+end
 
 -- Styling is a visual addition to the ORIGINAL World component / TipHUD.
 -- World selection itself still comes only from the one SCS-template write.
@@ -47,7 +56,7 @@ local function prepare_style()
         return
     end
     resources,probe,style,style_available=r,p,s,true
-    log("STYLE_ARMED","quintus_scale=.400 world_lift=36 rgb=.35 native_draw=1000x1000")
+    log("STYLE_ARMED","quintus_scale=.400 world_lift=36 rgb=.45 native_draw=1000x1000")
 end
 
 local function on_can_show(context)
@@ -60,7 +69,8 @@ local function on_can_show(context)
     if not is(component,COMPONENT) or component:GetAddress()~=info.component_address
         or not same(component:GetUserWidgetObject(),widget)
         or component.Space~=WORLD then return end
-    local ok,err=pcall(style.can_show,component,widget,info.state,probe,log)
+    local ok,err=pcall(style.can_show,component,widget,info.state,probe,log,
+        action_tag(component:GetOwner()))
     if not ok then log("STYLE_CADENCE_REJECTED",("reason=%q"):format(tostring(err):sub(1,170))) end
 end
 local function arm_can_show()
@@ -97,7 +107,7 @@ local function try_style_actor(actor)
         widget=path(widget),widget_address=id,actor=path(actor)}
     -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
     styled[id]=record
-    local ok,result=pcall(style.start,component,widget,resources,probe,log)
+    local ok,result=pcall(style.start,component,widget,resources,probe,log,action_tag(actor))
     if not ok then
         log("STYLE_REJECTED",("actor=%q reason=%q"):format(path(actor),tostring(result):sub(1,170)))
         return

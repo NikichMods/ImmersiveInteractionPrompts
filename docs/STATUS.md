@@ -1,5 +1,21 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — исправление композиции для следующего игрового прогона (2026-11-20)
+
+Новый исследовательский source-only кандидат после runtime-прогона
+`59cc569` содержит **RGB ×0.45**, проверку ранней native геометрии
+`TextBlock_89` с мгновенным резервным X и тестовые Aphes-font строки
+по штатному `TipHUDArgument.msgTag` для `Open/Take/Check/Talk`.
+Оригинальное действие, кнопки, `CanShow`, Show/Hide и SCS
+World/NoCollision остаются за игрой. Никаких задержек для
+позднего измерения текста и последующего смещения нет.
+[Точная граница и критерий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#world-composition-follow-up--source-only-candidate-2026-11-20).
+
+**SOURCE ONLY / NOT INSTALLED.** В игре по последнему отчёту
+остаётся `59cc569`. Ещё не доказано, что native ширина
+доступна при BeginPlay; резервные X — пробные, зависят от
+RU-тестового маршрута. Production BLOCKED.
+
 ## Native World — полный визуальный прогон и правки композиции (2026-11-20)
 
 На `59cc569` журнал подтвердил оформление и штатный World RT у

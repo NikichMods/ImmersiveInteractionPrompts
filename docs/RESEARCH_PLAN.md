@@ -1,5 +1,24 @@
 # План исследования — contextual prompts и письменность
 
+## Native World — source-only композиция после 71141fb (2026-11-20)
+
+На установленном `59cc569` подтверждено полноценное оформление
+на `Open/Take/Check`, 164 успешных старта визуала, оригинальные
+World RT и пример штатного взаимодействия. Исправляем только:
+`RGB×0.45`, позицию верхней строки и разделителя по
+ранней проверенной геометрии native `TextBlock_89` с мгновенным
+резервным X, и верхние пробные символы по native
+`TipHUDArgument.msgTag`. Время до первого появления
+не ухудшать ожиданием позднего Slate layout, как в прежней S1.
+Ориентация остаётся следующей отдельной задачей после
+визуального сравнения.
+
+Source-only кандидат и его tests: 
+[Native World Template](../research/interaction-prompts-owner/world-space/native-world-template/README.md#world-composition-follow-up--source-only-candidate-2026-11-20).
+Только после source/CI проверки и отдельного разрешения возможна
+закрытая установка и визуальный прогон `Open/Take/Check`.
+Production BLOCKED.
+
 ## Приоритет: полный Quintus-style на штатном общем World (2026-11-20)
 
 Прежний план искать ранний callback для отдельных \`Open/Take/Check\`

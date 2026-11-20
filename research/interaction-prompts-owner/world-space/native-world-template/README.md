@@ -346,3 +346,44 @@ visible correction. Exact brightness and action lettering remain open.
 The user noted that retaining the native orientation can look odd
 from some angles and may suit a door plane. No door or camera-facing
 change was exercised. Candidate remains installed. Production BLOCKED.
+
+## World composition follow-up — source-only candidate (2026-11-20)
+
+**RESEARCH ONLY — NOT INSTALLED — production BLOCKED.** Following game
+feedback on installed `59cc569`, a bounded successor changes only
+native visual composition in `IIPTemplateStyle.lua` and reads the
+original actor's `TipHUDArgument.msgTag` in `main.lua`. The single
+SCS-template World/NoCollision write, original World components,
+native action, hints, input selection, visibility, interactions, world
+scale 0.400, +36 world Z, 1000×1000 RT and hold cadence are unchanged.
+
+- Native component RGB tint multiplier rises **0.35 → 0.45**,
+  preserving alpha and the existing MID verification.
+- Original stock `TextBlock_89` and its autosized `CanvasPanelSlot`
+  are read once at decoration. Only if current text is not a
+  placeholder and `GetDesiredSize` / anchors / alignment are valid
+  does the upper line/divider center at
+  `slotX + width * (0.5 - slotAlignmentX)`.
+  Neither the stock slot nor the native text is changed.
+- When that geometry is not available at BeginPlay, use **instant
+  provisional RU-route X positions**: Take 70, Open 81, Check 93,
+  Talk/Interact 121.75, unknown 80. Divider remains constant width
+  142.375. These are **not universal widths** and do not prove
+  center alignment on other languages. No timer, forced prepass,
+  frame pump or late position correction.
+- Render test-only font tokens `OPEN`, `TAKE`, `CHECK`, `TALK`
+  by the original `TipHUDArgument.msgTag`, not actor class or
+  hard-coded localized string. Other/missing tags use `ACTION`.
+  These are **not translations into Aphes lore**. A known tag
+  transition in native `CanShow` updates only the owned upper text
+  once if it changed; its horizontal position is never moved late.
+
+**Evidence boundary:** The prior S1 merchant had zero desired size
+at first CanShow and a nonzero value ~200 ms later. The newer World
+candidate has not recorded whether the valid native text width
+exists at BeginPlay. A fallback is intentional to preserve prompt
+latency and avoid a post-reveal jump. Provisional token mapping
+and geometry require one real-game visual check before acceptance.
+In particular `style.start` and `style.can_show` receive only a
+read-only tag from the original TipHUDArgument owner; if unavailable,
+native behavior is unaffected and visual test glyphs remain neutral.
