@@ -970,3 +970,43 @@ Compare the first recorded native prompt and own elements, alignment
 and hide. Collect fresh UE4SS.log for `TEMPLATE_PREPARED`,
 `TEMPLATE_FIRST_CANSHOW`, `TEMPLATE_SHOWN` and manual cleanup.
 Runtime PENDING, production BLOCKED.
+
+## Fixed Talk template tag-based runtime result (2026-11-20)
+
+One first approach and withdrawal at the same merchant on source
+`8f1231d4bca04e8c2f73d4ab9903ceac67809c72`. Installed entry hash
+matched after exit. Archived UE4SS 83330635 log SHA-256
+`94a90ab7e3c7fd839d0c74e6f78bf8b7f2c4a8c4da9c9decf61f0fb964849e6d`.
+External video SHA-256
+`f46f581b670c51d3928b1ceccbccdd21e1b8999060ee734ffe0d5fd2fcc36cf9`.
+
+| Event | Zero-based recorded frame | PTS |
+| --- | ---: | ---: |
+| No visible prompt | 348 | 6.288378 s |
+| First visible native action/button, Aphes and divider | 349 | 6.304967 s |
+| Last clear full prompt on withdrawal | 431 | 7.671767 s |
+| Distorted partial prompt on withdrawal | 432 | 7.688389 s |
+| Entire prompt absent | 433 | 7.705144 s |
+
+The Aphes line and divider had zero recorded-frame lag. All three
+elements were in their expected relative positions at first appearance.
+At withdrawal frame 432 includes partial native text and divider traces.
+No intact or persistent ornament remained after prompt disappearance.
+The source of that single-frame distortion is unknown. The video
+measures recorded frames. It does not resolve render timing within a
+single frame or establish a common clock with the log.
+
+`TEMPLATE_PREPARED` recorded two Collapsed children at 05:32:48.9045558,
+14.998 s before the first CanShow at 05:33:03.9028785. That first
+callback logged `eligible=true reason=ready`. `TEMPLATE_SHOWN
+geometry_reads=0` followed 0.084 ms later. STOP logged `CLEANED
+reason=user_stop own_widgets=0` before normal exit. There were no new
+attachment or cleanup errors in the S1 log.
+
+The observed first-frame gate passes for this merchant. On the previous
+fixed-template run the exact-caption gate inserted 204 ms between
+first CanShow and showing, with 12 clean-reference recorded frames
+of visible lag. Removing that gate in this bounded case removed
+the recorded delay. The candidate remains installed. Other owners,
+localized layouts, device changes, repeat exposure and production
+acceptance remain outside this run. Production BLOCKED.
