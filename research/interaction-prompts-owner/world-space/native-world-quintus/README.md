@@ -132,3 +132,36 @@ The experiment was removed from the loader with the game closed and moved
 to the separate research archive. Both candidate files matched their
 installed hashes after the move. Screen S1 matched its complete installed
 receipt and is again the only active IIP mod. Production BLOCKED.
+
+## Compact decorated successor
+
+The same Quintus owner and early World/NoCollision gate select the native
+component. At BeginPlayPost, once the owner and TipHUD are verified, scale
+the existing plane to 65% of its original linear dimensions and move it
+up by 38 Unreal world units. These are first-pass values for this camera
+distance. Keep the stock draw size and pivot so the native text and input
+glyph keep their authored layout and render-target resolution.
+
+The successor adds two transient children to the stock text and hint's
+own `CanvasPanel_6`. It reuses the fixed Talk slot positions and authored
+braided PNG from S1. The Aphes line uses the same `ACTION` test glyphs.
+The children inherit native WidgetComponent and widget visibility. The
+candidate does not replay the stock text, input glyph or show/hide events.
+The first run should check that the decorations disappear with the native
+prompt on withdrawal. A failed partial attachment collapses and detaches
+only the candidate's own children.
+
+Assemble exact committed `Scripts/main.lua` with the unchanged
+[shared research font and PNG binder](../world-reuse/Scripts/IIPResources.lua)
+under the local name `Scripts/IIPQuintusResources.lua`. Put the approved
+`aphes_divider_256x32.png` into the candidate's `Assets` directory and
+create the private `Scripts/IIPLiveConfig.lua` with the verified local
+Aphes TTF and candidate PNG paths. Screen S1 remains a separate active mod.
+
+Load the same save, approach once and press **Ctrl+Alt+F5** while the
+prompt is visible. Note scale, spacing and clearance over Quintus. Step
+away until the native prompt disappears and check that the upper line and
+divider disappear together with it. Exit normally. `PLACED` and
+`DECORATED` report the component transform and owned children;
+`SAMPLE` records the original native widget, render-target presence and
+Screen-layer exclusion. The picture and withdrawal are user observations.
