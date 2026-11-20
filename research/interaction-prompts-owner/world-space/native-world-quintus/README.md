@@ -165,3 +165,21 @@ divider disappear together with it. Exit normally. `PLACED` and
 `DECORATED` report the component transform and owned children;
 `SAMPLE` records the original native widget, render-target presence and
 Screen-layer exclusion. The picture and withdrawal are user observations.
+
+### Compact successor installed — 2026-11-20
+
+Installed source `f0c9ca3491d5c6e41e4703708dff4c909eb29ba1` with the game
+closed. Installed entry SHA-256
+`e8122cbdf053e8380cb5976ff8ed78fd558e2d36d4a2b86e93b927ba0c12d13d`.
+The five-file installed manifest, local font and PNG paths, and Lua
+syntax were checked. Screen S1 matched its full prior installed receipt.
+Existing loader files, other mods, settings and saves matched before and
+after. The pretest log, exact payload, and receipt are archived outside
+the loader. Removal of the candidate folder passed on a copy.
+
+Seven focused Lua mock scenarios passed, including transform rollback,
+partial attachment cleanup and target guards. 63 of 64 repository suites
+passed on Windows. The archived Resident Auto World manifest test compares
+backslash paths against slash keys. The same 17 files matched the manifest
+hashes after path normalization. Host rendering and withdrawal remain
+pending. Production BLOCKED.

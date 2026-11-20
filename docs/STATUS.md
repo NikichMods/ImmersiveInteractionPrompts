@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — компактный кандидат для Квинтуса установлен (2026-11-20)
+
+Штатная плоскость масштабируется до 65% и поднимается на 38 единиц.
+Aphes и разделитель добавляются в тот же Canvas штатного World TipHUD.
+Screen S1 оставлен активным, его хэши сверены. Читаемость, перекрытие и
+исчезновение декора ожидают игрового прогона. Production BLOCKED.
+[Сценарий и запись установки](../research/interaction-prompts-owner/world-space/native-world-quintus/README.md#compact-decorated-successor).
+
 ## Native World — штатный TipHUD Квинтуса отрисовался (2026-11-20)
 
 Для одного NPC ранняя запись `Space=World` пережила штатную регистрацию.
