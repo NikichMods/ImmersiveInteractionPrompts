@@ -111,11 +111,19 @@ class NativeTemplateVisual(unittest.TestCase):
         """)
 
 
-    def test_action_tokens_are_provisional_and_tag_based(self):
+    def test_invented_aphes_words_are_stable_distinct_ascii_per_verified_tag(self):
         self.case("""
-        assert(M.token_for("Open")=="OPEN" and M.token_for("Take")=="TAKE")
-        assert(M.token_for("Check")=="CHECK" and M.token_for("Talk")=="TALK")
+        local known={Open="ANOKE",Take="LAVO",Check="SKERA",Talk="LETHO"}
+        local used={}
+        for tag,wanted in pairs(known) do
+            local actual=M.token_for(tag)
+            assert(actual==wanted and actual:match("^[A-Z]+$"))
+            assert(#actual>=4 and #actual<=8)
+            assert(not used[actual])
+            used[actual]=true
+        end
         assert(M.token_for("Interact")=="ACTION" and M.token_for(nil)=="ACTION")
+        assert(M.token_for("UNKNOWN_UNMAPPED")=="ACTION")
         """)
 
     def test_fixed_placement_uses_only_the_action_tag(self):
@@ -140,10 +148,10 @@ class NativeTemplateVisual(unittest.TestCase):
         FText=function(v)return v end
         local state={decorated=true,header=label.p,header_address=888,tag="Interact"}
         M.refresh_action(state,"Talk",S.log)
-        assert(label.txt=="TALK" and state.tag=="Talk" and S.has("STYLE_ACTION_UPDATED"))
+        assert(label.txt=="LETHO" and state.tag=="Talk" and S.has("STYLE_ACTION_UPDATED"))
         M.refresh_action(state,"Talk",S.log)
         M.refresh_action(state,"Bad",S.log)
-        assert(label.txt=="TALK" and state.tag=="Talk")
+        assert(label.txt=="LETHO" and state.tag=="Talk")
         """)
 
     def test_rendering_decoration_needs_actual_native_tiphud(self):

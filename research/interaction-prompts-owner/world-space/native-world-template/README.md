@@ -549,3 +549,44 @@ material readbacks confirmed RGB ×0.50 with source alpha during the
 session. Those entries omit actor IDs and do not establish first-frame
 tint. The visual acceptance covers these three placed prompts. Moving
 parents, doors, other action routes and production acceptance remain open.
+
+## Native coverage and fictive Aphes vocabulary — source-only (2026-11-20)
+
+The accepted `cb6fc43` World visuals remain frozen on chest, note and
+sloped potion bag. Broad coverage is first sought through the SAME
+`BaseGameEventObject_BP_C:ExtendedWidget_GEN_VARIABLE` SCS template:
+there is no reason to add separate per-actor selection/show/hide code
+for compatible descendants. The previously observed 164 successful
+style starts are evidence of scope beyond the three exact objects,
+not proof of every interaction class or simultaneous prompts.
+
+The first source-only vocabulary edit replaces the four known testing
+headers with four fixed, authored, Greek-flavored **invented** words:
+
+| Native msgTag | Authored glyph input | Status |
+| --- | --- | --- |
+| `Open` | `ANOKE` | known native tag; invented word |
+| `Take` | `LAVO` | known native tag; invented word |
+| `Check` | `SKERA` | known native tag; invented word |
+| `Talk` | `LETHO` | known native tag; invented word |
+
+The private stock Aphes TTF is an ASCII-mapped font, so the source
+passes Latin letters to the existing owned font renderer. No Greek
+Unicode or official Aphes lexicon is asserted. No action label or
+native input is modified. Unknown tags still display the obvious
+`ACTION` diagnostics until a bounded stock-tag inventory is complete.
+
+**Missing independent evidence:** The existing game-data research
+reports 18 rows in `InteractTipToText` but did not publish all
+row names in the repo. A user-started local Codex can reuse the
+verified ignored reader and mounted stock data to extract **only**
+row names (and private hashes), then complete the dictionary and
+class ancestry inventory. Do not publish proprietary table/locres
+content or assume an interaction family inherits the SCS just from
+its English description. In particular, previously examined ladder
+is a separate `Genesis.BaseClimbObject` path without verified
+`TipHUDArgument/TipHUD` inheritance.
+
+**Status:** source-only, no changed installed bytes. Runtime visual
+approval applies to `cb6fc43` with the previous OPEN/TAKE/CHECK
+headers, NOT yet to this invented word replacement. Production BLOCKED.
