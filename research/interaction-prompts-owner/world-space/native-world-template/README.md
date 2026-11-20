@@ -179,3 +179,16 @@ classified by the log. Frame-level latency, collision with gameplay
 traces, actual interaction outcomes and broad shared-template coverage
 were not verified by this handoff. Size and position may need adjustment.
 The installed experiment was retained. Production BLOCKED.
+
+## Adopted direction: full Quintus visuals on shared native World (2026-11-20)
+
+After the positive inheritance run, the user adopted this original
+SCS-template mechanism for the ongoing visual integration. The next
+candidate is to reproduce Quintus's accepted 0.400 scale, +36 UE global
+Z lift, RGB×0.35, native 1000×1000 resolution, native hold cadence and
+original TipHUD decorations. Separate gameplay/selection/hide preflight
+is intentionally skipped as a development assumption, not marked tested.
+Do not conflate general placement with Quintus's one verified anchor:
+parent/WidgetLocator orientation and per-instance transform may vary.
+Preserve original action text and input hint, and leave game show/hide
+in control. This is not authorization for installation or release.

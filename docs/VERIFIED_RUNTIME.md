@@ -1,5 +1,28 @@
 # Verified Runtime — Interaction Prompts
 
+## Placed prompts: SCS-template World inheritance — bounded PASS (2026-11-20)
+
+Asterigos Steam 1.09/build12996889, pinned UE4SS 83330635,
+installed \`5fd1f2fb1ccc3459d315c992d4ff074eeff0c035\`.
+Once on the game thread, modifying the original
+\`BaseGameEventObject_BP_C:ExtendedWidget_GEN_VARIABLE\` template
+to \`Space=World\` and \`NoCollision\` preceded loading the known
+placed \`Open/Take/Check\` objects. All three exact actors had
+World/NoCollision in BeginPlay and original native \`TipHUD_C\`
+with a World RenderTarget on manual F5 readback; all reported
+\`added_to_screen=false\`.
+
+User visually observed prompt appearances without noticeable delay
+on chest, note, potion and conduit. This is game observation,
+**not** a frame-level timing bound. Conduit was not in the technical
+actor allowlist. No claim of universal template coverage, native
+interaction success, input switching, hide correctness or style
+acceptance follows from this run. Source/report:
+[template trial](../research/interaction-prompts-owner/world-space/native-world-template/README.md#placed-world-inheritance-runtime-result-2026-11-20).
+This positive result supersedes older blocked hypotheses about
+placed Open's early NotifyOnNewObject path without disproving that
+older callback limitation.
+
 ## First approach + fast World UI — three bounded modes, 2026-11-09
 
 Source candidate `7b2dbc4d0d33` (three modes), reporting commits
