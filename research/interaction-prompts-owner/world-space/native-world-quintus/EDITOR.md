@@ -124,3 +124,67 @@ hashes matched the preparation receipt. The compact predecessor
 directory outside the loader. The pretest UE4SS log and private installation
 receipt were archived. Screen S1 remained active and matched its previous
 five-file manifest. Runtime pending. Production BLOCKED.
+
+## Runtime result and follow-up — 2026-11-20
+
+Quintus, same save, UE4SS `83330635`, editor source `fdb8842`.
+The log confirms two open/close cycles and preserved settings on resume.
+The final `EDITOR_CLOSED` at 07:42:08.5521249 records **scale 0.300,
+lift +36**, Native. The matching sample has DrawSize, CurrentDrawSize
+and RT all 1000×1000, desired size false, filter enum 3, World,
+NoCollision, visible, decorated, and no Screen-layer insertion. The
+user accepted the appearance at the reduced scale and closed the
+pixelation question. Keep these values for the next comparison. The
+log has no preset refusal or placed-object events in this run.
+
+The user reported that a held Talk input reached the dialogue but its
+ring appeared late, jumped to about two-thirds and completed abruptly.
+No time series was captured during the hold. The attached still confirms
+a visible halo around the native action and the added Aphes line.
+Source candidate and Screen S1 each matched their installed receipts
+after exit and remain active.
+
+Archived log SHA-256
+`5c536de6cddf582b88d33a7fe942000859a8a83bdfc3e8091f4032758b9565e8`.
+Screenshot SHA-256
+`d5f93d9f13bf0e0ba115fbefffa9cb0d8e62907320ae27dbd6e54a687c9b20bf`.
+
+### Hold-ring cadence
+
+The shipped TipHUD Tick enters the ubergraph at 972. In its hold path,
+`CanHoldPress` gates reading `GameGlobal:GetToDoInteractActionPressTimer`.
+Offsets 497 and 534 transfer the timer's `outTimerRate` to parameter
+`t` on `RetainerBox_0`'s effect MID. The final ring is a material effect
+over the cached icon. UE4.27's Retainer phase schedules the cached
+**child texture**. The final effect brush is emitted separately on outer
+paint, so a phase tweak alone is an unsupported fix for a changing MID.
+
+World additionally gates outer paint in `ShouldDrawWidget` by component
+visibility, recent rendering, RedrawTime and manual redraw; the component
+also has its own TickMode and tick interval. The engine and dumped class
+defaults are RedrawTime=0, manual redraw false. The run did not capture
+live values or cadence. 120 displayed FPS is a separate measurement.
+First measure a bounded hold on the exact TipHUD: component redraw/tick
+settings once, timestamps and native `t` during the hold, plus video of
+the ring. If `t` itself arrives in steps, trace native Tick/timer delivery.
+If `t` progresses smoothly while pixels lag, focus on World paint/RT
+delivery and compare against the same Screen S1 input. Keep the hold
+threshold, input and dialogue logic intact.
+[UE4.27 World draw gate](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L1240)
+· [Slate Retainer paint](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Slate/SRetainerWidget.cpp#L550).
+
+### Halo
+
+Scene bloom is consistent with the screenshot and the stock unlit,
+emissive World material path. The still does not isolate bloom, exposure
+or the native glyph/material contributions. The narrow reversible
+experiment is a same-camera A/B on this component: read the effective
+World MID and current tint, reduce only linear tint RGB through
+`SetTintColorAndOpacity`, preserve alpha and restore the saved tint.
+In UE4.27 the setter updates the component MID parameters in place. Test
+whether the halo contracts while the button, caption and hold ring stay
+readable. Keep the layout, material, Retainer and global post-processing
+fixed for that comparison. This tests a local mitigation and does not
+establish the halo's unique cause.
+[UE4.27 component tint setter](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L2071)
+· [Epic bloom documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/bloom?application_version=4.27).
