@@ -1,5 +1,16 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — наследование SCS подтверждено у трёх размещённых объектов (2026-11-20)
+
+В одном прогоне `5fd1f2f` исходные `Open/Take/Check` были
+`World/NoCollision` в BeginPlay. В ручной выборке F5 у всех
+трёх были родной TipHUD и World RT без вставки на Screen.
+Пользователь видел подсказки у сундука, записки, зелья и кондуита
+без заметной задержки. Кондуит подтверждён визуально, точный
+объект в выборку журнала не входил. Размер и позиция остаются
+открыты. Кандидат оставлен установленным. Production BLOCKED.
+[Журнал и границы наблюдения](../research/interaction-prompts-owner/world-space/native-world-template/README.md#placed-world-inheritance-runtime-result-2026-11-20).
+
 ## Native World — исправленный опыт SCS-шаблона установлен (2026-11-20)
 
 `5fd1f2f` использует подтверждённый ObjectPath сгенерированного

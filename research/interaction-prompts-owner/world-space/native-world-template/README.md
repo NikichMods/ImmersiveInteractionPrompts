@@ -141,3 +141,41 @@ or `SKIP`, then compare `PLACED_BEGIN` and `PLACED_SAMPLE` for
 `Open/Take/Check`. Exact template lookup, inheritance and native
 World RT remain runtime questions. No launch, hot reload or runtime
 write was made during installation. Production BLOCKED.
+
+## Placed World inheritance runtime result (2026-11-20)
+
+One user-run session on `5fd1f2fb1ccc3459d315c992d4ff074eeff0c035`.
+The installed Template (2 files) and Screen S1 (5 files) matched
+their manifests after normal exit. The archived UE4SS 83330635 log
+SHA-256 is `3c1eaa1a55c4488417155ceee403a6273e780b23ee7d04256fb4a592307ba3b8`.
+The user's chest frame SHA-256 is
+`0636bdcc18d5949d0bba9013756b510d4161378ad7147a6023ea4c2ac3478e4e`.
+Both are retained privately.
+
+`TEMPLATE_FOUND space=1 collision=1` at 20:07:25.2377030
+was followed by `TEMPLATE_WORLD space=0 collision=0 write=one_shot`
+at 20:07:25.2377531. The logs do not distinguish the already-resident
+template path from the class-loading fallback. A successful template
+lookup and write were observed.
+
+| Exact placed action | BeginPlay space / collision / RT | F5 space / collision / RT |
+| --- | --- | --- |
+| Check | World / NoCollision / absent | World / NoCollision / present |
+| Open | World / NoCollision / absent | World / NoCollision / present |
+| Take | World / NoCollision / absent | World / NoCollision / present |
+
+All samples passed the original component owner/path checks,
+reported the native TipHUD, and had `added_to_screen=false`.
+BeginPlay samples were at 20:13:48.692–.696, F5 at
+20:14:41.672. With the single-template write and no per-instance
+mutation, this is positive inheritance evidence for all three exact
+placed objects and native World RenderTarget evidence at F5.
+
+The user reports visible action prompts at the conduit, chest, note
+and potion, appearing without noticeable delay. The chest screenshot
+shows the native `F Открыть` in perspective. The conduit was outside
+the three-object log allowlist, so its Space and RenderTarget are not
+classified by the log. Frame-level latency, collision with gameplay
+traces, actual interaction outcomes and broad shared-template coverage
+were not verified by this handoff. Size and position may need adjustment.
+The installed experiment was retained. Production BLOCKED.
