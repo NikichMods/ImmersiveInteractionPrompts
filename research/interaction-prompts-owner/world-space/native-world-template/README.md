@@ -103,3 +103,41 @@ files respectively and remain active. The external staged copy of
 `52c6035` also matches its seven-file manifest. No replacement
 transaction took place, so a rollback of this attempted deployment
 was unnecessary. The game session and installed files were untouched.
+
+## Corrected cold-load candidate installed (2026-11-20)
+
+**INSTALLED**, source `5fd1f2fb1ccc3459d315c992d4ff074eeff0c035`.
+The fallback now passes the registry-verified generated-class ObjectPath:
+`/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP.BaseGameEventObject_BP_C`.
+The exact SCS subobject lookup remains in place after loading. The mock
+accepts the class ObjectPath and models a lookup miss for the bare package
+name, including the resulting skip without a template or actor write.
+Seven local tests, staged Lua compilation and
+[full CI](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44776623175)
+passed.
+
+With both Asterigos processes closed, the two-file Template payload
+replaced the entire prior World directory in the existing loader slot.
+Its SHA-256 manifest is
+`334f26727e0deb4d0f8e0a9a6662981bbde9836ab182d5995f1d19a1a43e31bf`.
+
+| Installed file | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `826e79f2a6b3e26b1aa16d71890a33c3ecd86ef61694afa7053d1e7872abba21` |
+| `enabled.txt` | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+
+The active Screen S1 inventory (5 files) and other mod, loader, pak,
+save and settings inventories matched the preflight. The original
+seven-file active `52c6035` directory was archived intact outside the
+loader. The complete restoration was rehearsed on a copy and the
+archived files rechecked after installation. The private deployment
+receipt stores the resolved archive path. Closed-game rollback uses
+`.local/install-native-world-template.py --rollback`.
+
+For a single controlled run, start the game fresh and load the save with
+the three selected placed objects. Press F5 with the relevant prompt
+visible and exit normally. Collect `TEMPLATE_FOUND` and `TEMPLATE_WORLD`
+or `SKIP`, then compare `PLACED_BEGIN` and `PLACED_SAMPLE` for
+`Open/Take/Check`. Exact template lookup, inheritance and native
+World RT remain runtime questions. No launch, hot reload or runtime
+write was made during installation. Production BLOCKED.

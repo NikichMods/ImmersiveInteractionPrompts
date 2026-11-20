@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — исправленный опыт SCS-шаблона установлен (2026-11-20)
+
+`5fd1f2f` использует подтверждённый ObjectPath сгенерированного
+класса. Локальные тесты и CI прошли. При закрытой игре отдельный
+двухфайловый Template заменил World `52c6035`. Screen S1 совпал
+по хэшам, полный откат размещён вне загрузчика и проверен на копии.
+Поиск шаблона и наследование в игре ожидают холодного прогона.
+Production BLOCKED. [Установка и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#corrected-cold-load-candidate-installed-2026-11-20).
+
 ## Native World — установка опыта SCS-шаблона остановлена (2026-11-20)
 
 `40b4939` не установлен. Asterigos работала. Независимо от этого,
