@@ -398,3 +398,43 @@ manifests matched after exit.
 
 Archived log SHA-256
 `514a75625ed1bac79d9d36edfcfc411d0feffb5f736c47e9701a18cd9f7c3d2d`.
+
+## Distance optimization and hold cadence — source-only candidate
+
+The interval comes from Genesis's native `BaseSceneObject` distance
+optimization. The shipped `BaseNPCInteract_BP` default overrides
+`TickIntervalNear` to 0.2 s, inherited by the Quintus interaction
+actor. The installed build's `GetComponentTickInterval` reads
+component `+0x3c`, and the native setter at RVA `0x121D2A0` writes
+that field. The distance update starting at `0x10BD670` compares the
+computed section against the cached section (`0x10BD832`), selects
+the actor's near/middle/far rates, then iterates components. Skeletal
+mesh and particle components take the animation rate branch. Other
+components, including ExtendedWidget, take the ordinary rate at
+`0x10BDBF0` and the direct native setter call at `0x10BDBF7`.
+The Tick wrapper at `0x10BD653` invokes that distance update after
+its countdown expires. This explains the late 0.200 readback after
+the early 0.000 value found in the previous run. The evidence is
+cooked defaults plus executable control flow, with no live stack
+capture of the earlier transition.
+
+Leave the actor optimizer intact. In addition to the early adjustment,
+register a post-hook on the already observed native TipHUD Blueprint
+`CanShow` path. Only the selected Quintus World widget can enter the
+repair. Check the original component and owner identity, World and
+NoCollision, then apply `SetComponentTickIntervalAndCooldown(0)`
+only when the interval has become positive. The reflected setter
+updates both the interval and its pending cooldown. The hook leaves
+the CanShow result, native input, materials, other components and
+actor tick settings in the game's hands. It does not add a scheduler.
+An unavailable hook or failed readback leaves the ordinary prompt
+path available. [UE4.27 component setter](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/Components/ActorComponent.cpp#L1087).
+
+Defaults are 0.400 / +36 / RGB 0.35 / Native 1000×1000. After separate
+installation approval, load the same save, approach Quintus and hold
+Talk normally before opening the editor. Check that the ring fills
+smoothly. Walk far enough away for distance optimization, then return
+and repeat. The log should show `HOLD_CADENCE_ARMED` and, when the
+optimizer restored a positive interval, `HOLD_CADENCE` with before
+and after values. No NumPad 3 is needed for this check. Runtime
+ordering and visible cadence still require that run. Production BLOCKED.

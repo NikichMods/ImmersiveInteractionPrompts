@@ -62,12 +62,19 @@ function component:SetRedrawTime(v) redraw=v end
 function component:SetManuallyRedraw(v) manual=v end
 function component:SetComponentTickInterval(v) interval=v end
 interval=.2
+local cooldown_resets=0
+function component:SetComponentTickIntervalAndCooldown(v)
+    assert(v==0)
+    cooldown_resets=cooldown_resets+1
+    interval=v
+end
 assert(probe.continuous_tick(component)==.2 and interval==0)
 assert(probe.continuous_tick(component)==0 and interval==0)
+assert(cooldown_resets==1)
 interval=.1
 local no_op_tick={
     GetComponentTickInterval=function() return .2 end,
-    SetComponentTickInterval=function() end,
+    SetComponentTickIntervalAndCooldown=function() end,
 }
 assert(not pcall(probe.continuous_tick,no_op_tick))
 local lines={}

@@ -10,6 +10,7 @@ local scale, lift = DEFAULT_SCALE, DEFAULT_LIFT
 local rgb = DEFAULT_RGB
 local selected, stopped, editing
 local resources, probe, decorated
+local arm_hold_cadence
 local FIELD_LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
 local PLACED = {
     [FIELD_LEVEL.."0-1_lootbox_01_mat_ST001"]="Open",
@@ -209,6 +210,7 @@ local function on_begin(context)
         assert(component.Space == 0 and component:GetCollisionEnabled() == 0 and is(widget,TIP),
             "native World TipHUD unavailable")
         selected.widget = path(widget)
+        selected.widget_address = widget:GetAddress()
         place_world(component, scale, lift)
         local previous_interval = probe.continuous_tick(component)
         log("TICK_CONTINUOUS", ("before=%.3f after=%.3f"):format(
@@ -219,6 +221,8 @@ local function on_begin(context)
             local applied, result = pcall(probe.tint,component,nil,rgb)
             if applied then selected.tint = result else log("TINT_REJECTED",tostring(result)) end
         end
+        local armed, hook_reason = pcall(arm_hold_cadence)
+        if not armed then log("HOLD_CADENCE_REJECTED", ("reason=%q"):format(tostring(hook_reason):sub(1,180))) end
     end
 end
 
@@ -240,6 +244,35 @@ local function resolve_world()
     local component, widget = inspect(nil,actor)
     if component.Space == 0 and component:GetCollisionEnabled() == 0
         and is(widget,TIP) and path(widget) == selected.widget then return component,widget end
+end
+
+local hold_hook_registered
+arm_hold_cadence = function()
+    if hold_hook_registered then return end
+    local name = TIP..":CanShow"
+    local fn = StaticFindObject(name)
+    assert(valid(fn) and fn:type() == "UFunction" and fn:GetFullName() == "Function "..name
+        and (fn:GetFunctionFlags() & 0x400) == 0, "native TipHUD CanShow hook unavailable")
+    local pre, post = RegisterHook(name,function(context)
+        if stopped or not selected or selected.cadence_failed then return end
+        local widget = context:get()
+        if not valid(widget) or widget:GetAddress() ~= selected.widget_address then return end
+        local ok, reason = pcall(function()
+            local component, current = resolve_world()
+            if not component or not same(current,widget) then return end
+            local previous = probe.continuous_tick(component)
+            if previous > 0 then
+                log("HOLD_CADENCE", ("source=CanShow before=%.3f after=0.000"):format(previous))
+            end
+        end)
+        if not ok then
+            selected.cadence_failed = true
+            log("HOLD_CADENCE_REJECTED", ("reason=%q"):format(tostring(reason):sub(1,180)))
+        end
+    end)
+    assert(type(pre) == "number" and pre > 0 and pre == post, "CanShow hook registration failed")
+    hold_hook_registered = true
+    log("HOLD_CADENCE_ARMED", "source=CanShow")
 end
 
 local function adjust_rgb(value)

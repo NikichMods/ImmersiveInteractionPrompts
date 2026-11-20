@@ -42,7 +42,7 @@ end
 function M.continuous_tick(component)
     local previous = component:GetComponentTickInterval()
     assert(type(previous) == "number" and previous >= 0, "component tick interval unavailable")
-    if previous > 0 then component:SetComponentTickInterval(0) end
+    if previous > 0 then component:SetComponentTickIntervalAndCooldown(0) end
     assert(component:GetComponentTickInterval() == 0, "continuous component tick not applied")
     return previous
 end
