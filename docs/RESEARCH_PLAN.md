@@ -55,6 +55,7 @@ show/hide, collision и выбор цели сохранять.
 объектов](../research/interaction-prompts-owner/world-space/native-world-quintus/EDITOR.md#object-scope),
 [UE4.27 и пределы Lua](../research/interaction-prompts-owner/world-space/event-driven/NATIVE_WORLD_PREREGISTRATION.md),
 [принятые требования](REQUIREMENTS.md#native-world--принятая-визуальная-база-квинтуса-и-начало-расширения-2026-11-20).
+
 ## Native TipHUD S1 — ближайший этап после завершения общего World checkpoint (2026-11-10)
 
 **Checkpoint 2026-11-17:** единый source-only S1 candidate опубликован;
