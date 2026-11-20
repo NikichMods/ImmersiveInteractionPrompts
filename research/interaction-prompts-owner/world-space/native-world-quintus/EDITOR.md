@@ -449,3 +449,18 @@ the archived Resident World suite, whose 17 hashes matched after
 normalization. The installed `738e4b6` candidate and Screen S1 matched
 their receipts before and after preparation. No installation in this
 step.
+
+### CanShow cadence candidate installed — 2026-11-20
+
+Installed the seven-file payload from `a688ddeef1c97ec050ef0376b407c271fe8b3c06`
+with the game closed. Entry SHA-256
+`2c2a9b843f34b13637bee0352746ea178c3d60020a4ff5789f95c5217b68dbce`.
+Probe SHA-256
+`e1272e53fb7f6d61aacefdbb73d8b8c8c539a2275e1541ea9e55d94ae37864c7`.
+The other five files matched both the preparation receipt and the previous
+payload. Rehearsed rollback on copies and verified the exact predecessor
+`738e4b6a711d` in the archive outside the loader. Screen S1, the remaining
+loader and Win64 files, mod Paks, saves, and config matched before and after.
+The pretest log and complete private receipt are archived. Runtime pending:
+ordinary Talk hold on first approach, then again after leaving and returning,
+without NumPad 3. Production BLOCKED.

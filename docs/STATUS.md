@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — кандидат с коррекцией интервала на CanShow установлен (2026-11-20)
+
+Установлен `a688dde` с defaults `0,400 / +36 / RGB 0,35` и Native.
+На штатном CanShow нулевой интервал и cooldown восстанавливаются у
+точного World-компонента Квинтуса, когда оптимизатор вернул ненулевое
+значение. Установка и откат к `738e4b6` сверены по хэшам. Screen S1
+остаётся активным. Обычное удержание при первом и повторном подходе
+ждёт игрового прогона. Production BLOCKED.
+[Запись установки](../research/interaction-prompts-owner/world-space/native-world-quintus/EDITOR.md#canshow-cadence-candidate-installed--2026-11-20).
+
 ## Native World — Квинтус принят по виду и редактору, масштаб 0,400 (2026-11-20)
 
 Пользователь принял установленный исследовательский кандидат `738e4b6`
