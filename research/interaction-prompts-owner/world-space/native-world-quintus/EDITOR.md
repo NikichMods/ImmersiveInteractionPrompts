@@ -91,3 +91,26 @@ session reaches the three exact objects above, observe their normal
 Screen prompts, then exit. The goal is adjust/reset/close/resume and
 retained native behavior, plus one renderer measurement. Screen S1
 and the current compact World installation remain active on disk.
+
+## Prepared handoff — 2026-11-20
+
+Source `fdb8842489356ad86380e3a426e28e10667297e6`. Local six-file
+payload staged outside the loader. Entry SHA-256
+`f1d8314f3535e5729c76a727ee62cad9a5aa6186b9928942e5ec5290861ff6e5`.
+The extra dependency is the existing `world-reuse/Scripts/IIPKeyboardBindings.lua`
+copied unchanged as `Scripts/IIPQuintusKeyboardBindings.lua`.
+Lua compilation, loading both required modules and opening the verified
+resource files passed. The predecessor and Screen S1 each matched
+their full installed receipt before and after preparation. Rehearsed
+replacement and rollback of the existing World folder on copies; both
+manifests matched. Actual deployment still requires the closed-game
+check and separate authorization.
+
+Nine focused Lua mock scenarios passed, including entry/resume, ignored
+keys while closed, preset refusal, reset, transform rollback, gameplay
+and UE4SS key conflicts, tuning before spawn, read-only placed control,
+and partial decoration cleanup. 63/64 repository suites passed. The
+unchanged archived Resident World manifest test compares Windows path
+separators to slash keys. All 17 entries and hashes matched after path
+normalization. Game rendering, hotkey delivery and native RT dimensions
+at sample remain pending. Production BLOCKED.
