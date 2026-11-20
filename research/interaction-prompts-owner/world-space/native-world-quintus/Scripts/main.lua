@@ -4,10 +4,11 @@ local NPC = "/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract
 local QUINTUS = "/Game/MainContent/Act/Character_BP/quintus_BP.quintus_BP_C"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
 local TIP = "/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
-local DEFAULT_SCALE, DEFAULT_LIFT = 0.65, 38
+local DEFAULT_SCALE, DEFAULT_LIFT = 0.30, 36
 local scale, lift = DEFAULT_SCALE, DEFAULT_LIFT
+local rgb = 1
 local selected, stopped, editing
-local resources, decorated
+local resources, probe, decorated
 local FIELD_LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
 local PLACED = {
     [FIELD_LEVEL.."0-1_lootbox_01_mat_ST001"]="Open",
@@ -84,6 +85,7 @@ local function inspect(event, actor)
         and is(owner, QUINTUS) and path(owner) == selected.owner and owner:GetAddress() == selected.owner_address,
         "component or Quintus identity changed")
     local widget, rt = component:GetUserWidgetObject(), component:GetRenderTarget()
+    if not event then return component, widget end
     local draw, current = component:GetDrawSize(), component:GetCurrentDrawSize()
     log(event, ("space=%s creation_method=%s collision=%s widget=%q render_target=%s added_to_screen=%s visible=%s decorated=%s draw=%sx%s current=%sx%s desired_size=%s rt=%s filter=%s"):format(
         tostring(component.Space), tostring(component.CreationMethod), tostring(component:GetCollisionEnabled()),
@@ -205,6 +207,10 @@ local function on_begin(context)
         place_world(component, scale, lift)
         local ok, reason = pcall(add_decoration, widget)
         if not ok then log("DECORATION_FAILED", ("reason=%q"):format(tostring(reason):sub(1,180))) end
+        if rgb ~= 1 then
+            local applied, result = pcall(probe.tint,component,nil,rgb)
+            if applied then selected.tint = result else log("TINT_REJECTED",tostring(result)) end
+        end
     end
 end
 
@@ -215,9 +221,26 @@ local function resolve_actor()
 end
 
 local function report(event)
-    log(event, ("scale=%.3f lift=%.1f resolution=Native"):format(scale,lift))
+    log(event, ("scale=%.3f lift=%.1f resolution=Native rgb=%.2f"):format(scale,lift,rgb))
     local actor = resolve_actor()
     if actor then inspect("SAMPLE", actor) end
+end
+
+local function resolve_world()
+    local actor = resolve_actor()
+    if not actor then return end
+    local component, widget = inspect(nil,actor)
+    if component.Space == 0 and component:GetCollisionEnabled() == 0
+        and is(widget,TIP) and path(widget) == selected.widget then return component,widget end
+end
+
+local function adjust_rgb(value)
+    value = math.max(0.25,math.min(1,value))
+    if math.abs(rgb-value) < 0.001 then return end
+    local component = assert(resolve_world(),"World TipHUD unavailable")
+    selected.tint = probe.tint(component,selected.tint,value)
+    rgb = value
+    report("TINT")
 end
 
 local function adjust(factor, height)
@@ -264,8 +287,12 @@ local function register_editor()
         {"SUBTRACT","Subtract",function() adjust(scale-0.025,lift) end},
         {"NUM_SEVEN","NumPadSeven",reject_preset},
         {"NUM_NINE","NumPadNine",reject_preset},
+        {"NUM_ONE","NumPadOne",function() probe.hold(resolve_world,log,false) end},
+        {"NUM_THREE","NumPadThree",function() probe.hold(resolve_world,log,true) end},
+        {"NUM_FOUR","NumPadFour",function() adjust_rgb(rgb-0.10) end},
+        {"NUM_SIX","NumPadSix",function() adjust_rgb(rgb+0.10) end},
         {"NUM_FIVE","NumPadFive",function() report("VALUES") end},
-        {"NUM_ZERO","NumPadZero",function() adjust(DEFAULT_SCALE,DEFAULT_LIFT) end},
+        {"NUM_ZERO","NumPadZero",function() adjust_rgb(1); adjust(DEFAULT_SCALE,DEFAULT_LIFT) end},
     }
     assert(EngineTickAvailable == true, "game thread unavailable")
     for _, entry in ipairs(bindings) do
@@ -290,6 +317,7 @@ end
 
 guarded(function()
     resources = require("IIPQuintusResources")
+    probe = require("IIPQuintusProbe")
     resources.prepare()
     RegisterBeginPlayPostHook(function(context) guarded(on_begin, context) end)
     NotifyOnNewObject(COMPONENT, function(component)

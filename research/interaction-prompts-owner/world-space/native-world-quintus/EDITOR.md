@@ -188,3 +188,32 @@ fixed for that comparison. This tests a local mitigation and does not
 establish the halo's unique cause.
 [UE4.27 component tint setter](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L2071)
 · [Epic bloom documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/bloom?application_version=4.27).
+
+## Hold and tint successor — source-only
+
+The successor starts at the accepted 0.300 / +36 / Native. Inside the
+F5 editor, NumPad 4/6 decreases/increases the component's linear RGB
+multiplier by 0.10 (range 0.25–1.00). Alpha is preserved. The change
+is verified against the component and its live World MID. A rejected
+write restores the preceding tint. NumPad 0 restores tint and placement.
+F8 logs the values and closes editing for the session.
+
+Record a short video from the same camera angle. With the visible Talk
+prompt, press NumPad 1 and immediately hold the native action. It samples
+the game's timer rate and native MID parameter `t` every requested 16 ms
+for at most 3.5 seconds or 180 samples, ending early when the prompt hides.
+The log timestamps use world real time. A second hold with NumPad 3
+temporarily removes positive component redraw/tick intervals and manual
+redraw, if present. The original values are restored on completion or
+failure if the same component is still available and the temporary values
+are still in place. If the existing settings are already continuous,
+`changed=false` means this trial made no timing change. It does not override
+visibility or the game's input, progress material or hold threshold.
+Compare both holds with the same RGB and position. Then try RGB 0.8 and
+0.6 from the reference camera, watching both the halo and ring contrast.
+
+The diagnostic reads the exact Quintus widget and retainer MID. It logs
+changes and periodic heartbeats rather than generating an independent
+progress value. UE4SS scalar out parameters use their property names as
+table keys in this pinned build.
+[Pinned UE4SS out-parameter binding](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/LuaType/LuaUObject.cpp#L288).
