@@ -56,6 +56,7 @@ class TemplateWorldTrial(unittest.TestCase):
         lua.execute(s.replace("{{LOAD_SOURCE}}",SRC))
     def test_single_template_write_and_subsequent_sampling_no_actor_write(self):
         self.run_case("""
+        S.objects[TEMPLATE]=nil
         {{LOAD_SOURCE}}
         flush()
         assert(S.load==1 and S.template.Space==0 and S.coll==0)
@@ -67,6 +68,14 @@ class TemplateWorldTrial(unittest.TestCase):
         S.keys[5]();flush()
         assert(has("PLACED_SAMPLE action=Open template_status=WRITTEN space=1"))
         """)
+    def test_existing_shared_template_does_not_load_asset_again(self):
+        self.run_case("""
+        {{LOAD_SOURCE}}
+        flush()
+        assert(S.load==0 and S.template.Space==0 and S.coll==0)
+        assert(has("TEMPLATE_WORLD"))
+        """)
+
     def test_preexisting_target_never_writes_template(self):
         self.run_case("""
         S.objects[OPEN]=S.actor
