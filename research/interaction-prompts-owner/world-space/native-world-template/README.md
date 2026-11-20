@@ -703,3 +703,36 @@ behind first. Record initial readability and whether the game allows
 Talk. Then compare interaction from the front, and verify one non-NPC
 control such as the chest. Collect the `NPC_TALK_ORIENTATION` or
 `NPC_TALK_ORIENTATION_SKIPPED` result with the recording. Production BLOCKED.
+
+## NPC Talk first facing installed (2026-11-21)
+
+**INSTALLED**, source `10fa4f0448c14c1b0db49156498baabb5baf5cbd`.
+Both game processes were closed. The existing World loader slot was
+reused. Five entries are byte-identical to the
+[vocabulary manifest](#fictive-vocabulary-installed-2026-11-21).
+The changed files were rehashed after installation:
+
+| File | SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | `a8c64b264f8417201f35ee1458fcab4f36034a548ae19255ffd3b5ab34f60d02` |
+| `Scripts/IIPTemplateStyle.lua` | `3368a95c0ec9e964d9dfb78fd40d3f42d52be06fad3f099e07efb5f4bff0e47a` |
+
+Seven-file manifest SHA-256
+`fabb5035d6b8bf2e879d3eb0182b5b844be75f14c5babd865980b7d0df3833a4`.
+All seven World files and all five Screen S1 files matched.
+Before/after snapshots matched 12,549 other loader files, 26 Win64
+files, 11 pak-mod files, 16 saves and 47 config files. The Lua modules
+and local config compiled. Private resources passed verification.
+Twenty targeted tests and [full CI](https://github.com/NikichMods/ImmersiveInteractionPrompts/actions/runs/44820429113) passed.
+
+The full previous `0ddec34` World folder was archived outside the
+loader. Its seven files matched the previous manifest. Restoration
+was rehearsed on a copy. The private receipt records the folder.
+With the game closed, use
+`.local/install-native-world-npc-facing-10fa4f0.py --rollback`.
+
+The user will approach the same NPC from behind first and check the
+first readable frame and whether the native Talk action starts.
+Retain the recording and UE4SS log for correlation with the
+`NPC_TALK_ORIENTATION` or `NPC_TALK_ORIENTATION_SKIPPED` marker.
+Runtime PENDING. Production BLOCKED.

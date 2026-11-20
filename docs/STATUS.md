@@ -1,5 +1,13 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — кандидат с поворотом Talk установлен (2026-11-21)
+
+При закрытой игре `10fa4f0` заменил `0ddec34` в существующем
+World-каталоге. Сверены семь файлов World и пять файлов Screen S1.
+Полный откат к `0ddec34` сохранён вне загрузчика и проверен на копии.
+Ожидается первый подход к тому же NPC со спины. Production BLOCKED.
+[Манифест и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#npc-talk-first-facing-installed-2026-11-21).
+
 ## Native World — первый поворот подсказки Talk (2026-11-21)
 
 На установленном `0ddec34` журнал подтвердил World-декорирование
@@ -8,7 +16,7 @@
 а взаимодействие не сработало. Причина отказа остаётся открытой.
 Пробный исходник выравнивает исходную World-подсказку к камере
 один раз для поддержанного NPC с тегом `Talk`.
-В игре остаётся `0ddec34`. Production BLOCKED.
+На этапе подготовки был установлен `0ddec34`. Production BLOCKED.
 [Границы эксперимента](../research/interaction-prompts-owner/world-space/native-world-template/README.md#npc-talk-first-facing-2026-11-21).
 
 ## Native World — кандидат со словарём установлен (2026-11-21)
