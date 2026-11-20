@@ -96,6 +96,19 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(S.rotation.Pitch==-24 and S.rotation.Roll==13 and S.rotation.Yaw==172)
         """)
 
+    def test_face_camera_keeps_world_up_and_turns_toward_the_approach_side(self):
+        self.case("""
+        local camera={X=10,Y=-100,Z=300}
+        local manager={IsValid=function()return true end,GetCameraLocation=function()return camera end}
+        local widget={GetOwningPlayerCameraManager=function()return manager end}
+        assert(M.face_camera(S.component,widget))
+        assert(S.rotation.Pitch==0 and S.rotation.Roll==0 and S.rotation.Yaw==-90)
+        assert(S.loc.X==10 and S.loc.Y==20 and S.loc.Z==30)
+        assert(S.scale.X==2 and S.scale.Y==3 and S.scale.Z==4)
+        camera={X=10,Y=20,Z=300}
+        assert(not pcall(M.face_camera,S.component,widget) and S.rotation_writes==1)
+        """)
+
     def test_canshow_restores_continuous_native_component_tick(self):
         self.case("""
         local state={tint_pending=true,tint={R=.8,G=.6,B=.4,A=.7}}

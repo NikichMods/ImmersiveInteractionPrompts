@@ -84,8 +84,8 @@ class TemplateWorldTrial(unittest.TestCase):
         """)
 
     def test_styling_accepts_native_world_outside_diagnostic_allowlist(self):
-        self.run_case("""
-        local npc=S.make("/Game/Test.Level:NPC","/Game/Test.NPC_C",9)
+        case="""
+        local npc=S.make("/Game/Test.Level:NPC","{{CLASS}}",9)
         local native=S.make(npc.p..".ExtendedWidget",COMP,10)
         local argument=S.make(npc.p..".TipHUDArgument","/Script/Genesis.TipHUDArgumentComponent",11)
         local tag="Interact"
@@ -100,7 +100,7 @@ class TemplateWorldTrial(unittest.TestCase):
         S.objects[native.p]=native
         local can_show=S.widget.c..":CanShow"
         S.objects[can_show]={IsValid=function()return true end,type=function()return "UFunction" end}
-        local starts,hooks=0,0
+        local starts,hooks,facings=0,0,0
         function RegisterHook(path,callback)
             assert(path==can_show)
             hooks=hooks+1
@@ -116,9 +116,14 @@ class TemplateWorldTrial(unittest.TestCase):
                 starts=starts+1
                 return {decorated=true}
             end,
+            face_camera=function(component,widget)
+                assert(component==native and widget==S.widget and component.bVisible and tag=="Talk")
+                facings=facings+1
+                return true
+            end,
             can_show=function(component,widget,_,_,_,action)
-                assert(component==native and widget==S.widget and action=="Talk")
-                S.refreshed=true
+                assert(component==native and widget==S.widget and action==tag)
+                S.refreshed=action
             end}
         end
         {{LOAD_SOURCE}}
@@ -131,10 +136,27 @@ class TemplateWorldTrial(unittest.TestCase):
         S.begin(context)
         S.begin(context)
         assert(starts==1 and hooks==1 and not has("PLACED_BEGIN"))
+        local widget_context={get=function()return S.widget end}
+        native.bVisible=true
+        S.can_show(widget_context)
+        assert(facings==0)
         tag="Talk"
+        native.bVisible=false
+        S.can_show(widget_context)
+        assert(facings==0)
+        native.bVisible=true
+        assert(S.can_show(widget_context)==nil)
         S.can_show({get=function()return S.widget end})
-        assert(S.refreshed and argument.msgTag:ToString()=="Talk" and S.comp.Space==1)
-        """)
+        assert(facings=={{FACINGS}} and S.refreshed=="Talk")
+        assert(argument.msgTag:ToString()=="Talk" and S.comp.Space==1)
+        """
+        for actor_class, facings in (
+            ("/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C", 1),
+            ("/Game/Test.NonNPC_C", 0),
+        ):
+            with self.subTest(actor_class=actor_class):
+                self.run_case(case.replace("{{CLASS}}", actor_class)
+                                  .replace("{{FACINGS}}", str(facings)))
 
     def test_cold_load_rejects_package_name_and_leaves_template_untouched(self):
         self.run_case("""

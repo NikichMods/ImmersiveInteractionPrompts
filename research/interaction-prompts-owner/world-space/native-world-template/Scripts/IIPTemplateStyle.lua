@@ -77,7 +77,7 @@ function M.geometry(c)
     return scale,pos
 end
 
-function M.upright(c)
+function M.upright(c,yaw)
     assert(is(c,COMPONENT) and c.Space==0 and c:GetCollisionEnabled()==0,"not original World")
     local r=c:K2_GetComponentRotation()
     local original={Pitch=r.Pitch,Yaw=r.Yaw,Roll=r.Roll}
@@ -85,29 +85,40 @@ function M.upright(c)
         local angle=original[axis]
         assert(type(angle)=="number" and math.abs(angle)<=360,"invalid world rotation")
     end
-    if close(original.Pitch,0,.1) and close(original.Roll,0,.1) then return false end
-
-    local function matches(expected)
-        local actual=c:K2_GetComponentRotation()
+    local function matches(actual,expected)
         for _,axis in ipairs({"Pitch","Yaw","Roll"}) do
             local delta=(actual[axis]-expected[axis]+180)%360-180
             if not close(delta,0,.1) then return false end
         end
         return true
     end
-    local upright={Pitch=0,Yaw=original.Yaw,Roll=0}
+    local upright={Pitch=0,Yaw=yaw or original.Yaw,Roll=0}
+    if matches(original,upright) then return false end
+
     local ok,err=pcall(function()
         c:K2_SetWorldRotation(upright,false,{},true)
-        assert(matches(upright),"world rotation readback")
+        assert(matches(c:K2_GetComponentRotation(),upright),"world rotation readback")
     end)
     if not ok then
-        if not matches(original) then
+        if not matches(c:K2_GetComponentRotation(),original) then
             c:K2_SetWorldRotation(original,false,{},true)
-            assert(matches(original),"original world rotation could not be restored")
+            assert(matches(c:K2_GetComponentRotation(),original),"original world rotation could not be restored")
         end
         error(err)
     end
     return true
+end
+
+function M.face_camera(c,widget)
+    local manager=widget:GetOwningPlayerCameraManager()
+    assert(valid(manager),"camera manager unavailable")
+    local camera=manager:GetCameraLocation()
+    local origin=c:K2_GetComponentLocation()
+    local dx,dy=camera.X-origin.X,camera.Y-origin.Y
+    local distance_squared=dx*dx+dy*dy
+    assert(distance_squared>=1 and distance_squared<math.huge,"camera has no horizontal direction")
+    -- The front of the stock widget plane is local +X.
+    return M.upright(c,math.deg(math.atan(dy,dx)))
 end
 
 local function child(tree,canvas,owned,k,name,y,w,h,x)

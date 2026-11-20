@@ -661,3 +661,45 @@ On the next user run, check the chest, note and potion bag for
 If the same merchant or an eligible door is on the route, note whether
 the new header appears there. Press F5 near the placed controls and keep
 the UE4SS log. Runtime PENDING. Production BLOCKED.
+
+## NPC Talk first facing (2026-11-21)
+
+The user reported that the installed vocabulary worked generally.
+One NPC approached from behind had a World prompt facing away, and
+interaction did not work from that side. The session's private log
+snapshot SHA-256 is
+`02ca9f60a1e9aab98630bb4da0d26ab615110819893fa42bf865e2c1403d8445`.
+On `0ddec34`, eight `NPCInteract_Bp_C` actors reached `STYLE_READY`
+and five `Talk → LETHO` updates were logged. The update events omit
+actor IDs. The log contains neither the failed actor's eligibility
+decision nor a video measurement of its first rendered frame.
+The retained NPC graph contains separate native `SetIsCanInteract`
+calls. The report alone cannot link a rear approach to an interaction
+gate or show that rotating the widget restores interaction.
+
+The source-only experiment reuses the original component's existing
+post-`CanShow` path and the existing world rotation setter/readback.
+It runs once per styled widget identity for exact `NPCInteract_Bp_C`,
+native tag `Talk` and `ExtendedWidget.bVisible == true`. It uses the
+widget's owning camera manager. The plane's local +X points to the
+camera's horizontal position while world pitch and roll remain zero.
+An unavailable camera or degenerate horizontal displacement skips
+the attempt. Setter/readback failure uses the existing restoration
+path. The existing tag refresh and hold cadence still run.
+
+The setter was verified on the original component for world upright.
+The +X geometry and owning-camera route were used in the prior
+[vertical-yaw experiment](../vertical-yaw/README.md#geometry-and-edge-cases).
+The first World frame and owning camera on this exact NPC route
+still need user-run evidence. `CanShow` is a post-callback with
+widget context. It supplies no native return or selected-owner
+decision. The experiment adds no hook or polling and leaves native
+action availability, visibility, selection and input to the game.
+The heading is initialized once, so approaching an already-styled
+widget from the other side is outside this first test.
+
+For the next authorized install/run, approach the reported NPC from
+behind first. Record initial readability and whether the game allows
+Talk. Then compare interaction from the front, and verify one non-NPC
+control such as the chest. Collect the `NPC_TALK_ORIENTATION` or
+`NPC_TALK_ORIENTATION_SKIPPED` result with the recording. Production BLOCKED.

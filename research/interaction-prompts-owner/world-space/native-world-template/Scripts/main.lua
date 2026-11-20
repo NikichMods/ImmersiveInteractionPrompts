@@ -5,6 +5,7 @@ local GENERATED_CLASS = "/Game/MainContent/Template/BaseBlueprint/BaseGameEventO
 local TEMPLATE = GENERATED_CLASS..":ExtendedWidget_GEN_VARIABLE"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
 local TIP = "/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
+local NPC = "/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C"
 local LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
 local OBJECTS = {
     [LEVEL.."0-1_lootbox_01_mat_ST001"]="Open",
@@ -69,8 +70,17 @@ local function on_can_show(context)
     if not is(component,COMPONENT) or component:GetAddress()~=info.component_address
         or not same(component:GetUserWidgetObject(),widget)
         or component.Space~=WORLD then return end
-    local ok,err=pcall(style.can_show,component,widget,info.state,probe,log,
-        action_tag(component:GetOwner()))
+    local actor=component:GetOwner()
+    local tag=action_tag(actor)
+    if info.npc and info.state.decorated and not info.facing_attempted
+        and tag=="Talk" and component.bVisible==true and valid(actor) and path(actor)==info.actor then
+        info.facing_attempted=true
+        local faced,changed=pcall(style.face_camera,component,widget)
+        log(faced and "NPC_TALK_ORIENTATION" or "NPC_TALK_ORIENTATION_SKIPPED",
+            faced and ("actor=%q changed=%s"):format(info.actor,tostring(changed))
+            or ("actor=%q reason=%q"):format(info.actor,tostring(changed):sub(1,170)))
+    end
+    local ok,err=pcall(style.can_show,component,widget,info.state,probe,log,tag)
     if not ok then log("STYLE_CADENCE_REJECTED",("reason=%q"):format(tostring(err):sub(1,170))) end
 end
 local function arm_can_show()
@@ -104,7 +114,7 @@ local function try_style_actor(actor)
         styled[id]=nil -- Stale address from another actor cannot inherit style state.
     end
     local record={component=path(component),component_address=component:GetAddress(),
-        widget=path(widget),widget_address=id,actor=path(actor)}
+        widget=path(widget),widget_address=id,actor=path(actor),npc=is(actor,NPC)}
     -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
     styled[id]=record
     local ok,result=pcall(style.start,component,widget,resources,probe,log,action_tag(actor))
