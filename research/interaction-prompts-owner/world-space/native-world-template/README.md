@@ -469,3 +469,18 @@ the sign. The remaining runtime check is a cold first approach to the
 sloped potion bag and control approaches to the chest and note. Check
 verticality, retained heading and normal prompt behavior. Active game
 files were left in place. Production BLOCKED.
+
+## Fixed placement and RGB 0.50 (2026-11-20)
+
+The next source-only candidate applies RGB ×0.50 with the original alpha.
+The existing per-tag positions now provide the only placement path for
+both owned elements: Open 81, Take 70, Check 93, Talk/Interact 121.75,
+and other or missing tags 80. They are selected once during decoration.
+The chest, note and potion used these positions in the Composition run.
+The text measurement branch has been removed. The divider remains
+142.375 wide, and the upright orientation change is included.
+
+On the next authorized gameplay run, check brightness and placement at
+the chest, note and sloped potion bag. Expected diagnostics include
+`STYLE_ARMED rgb=0.50`, `STYLE_DECORATED placement=fixed` and material
+verification at `rgb=0.50`. Runtime acceptance pending. Production BLOCKED.

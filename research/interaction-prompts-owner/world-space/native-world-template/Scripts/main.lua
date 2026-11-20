@@ -56,7 +56,7 @@ local function prepare_style()
         return
     end
     resources,probe,style,style_available=r,p,s,true
-    log("STYLE_ARMED","quintus_scale=.400 world_lift=36 rgb=.45 native_draw=1000x1000")
+    log("STYLE_ARMED",("quintus_scale=.400 world_lift=36 rgb=%.2f native_draw=1000x1000"):format(style.RGB))
 end
 
 local function on_can_show(context)

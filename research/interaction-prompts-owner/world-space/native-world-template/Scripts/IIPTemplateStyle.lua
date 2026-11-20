@@ -1,7 +1,7 @@
 -- SPDX-License-Identifier: MPL-2.0
 -- Visual adaptation of ORIGINAL World UWidgetComponent; native action/show/hide untouched.
-local M={}
-local SCALE,LIFT,RGB=.400,36,.45
+local M={RGB=.50}
+local SCALE,LIFT=.400,36
 local COMPONENT="/Script/Genesis.ExtendedWidgetComponent"
 local TIP="/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
 local function valid(o)return o~=nil and o:IsValid()end
@@ -12,42 +12,16 @@ local function close(a,b,tol)return math.abs(a-b)<(tol or .001)end
 -- Provisional visual tokens only. Aphes font renders their glyphs;
 -- these are NOT lore translations and the native localized action is untouched.
 local TOKENS={Open="OPEN",Take="TAKE",Check="CHECK",Talk="TALK"}
--- One-shot safe placements for the known Russian test route if the host
--- has not measured its text by BeginPlay. Talk preserves the accepted baseline.
--- These are NOT measured widths or generic localization guarantees.
-local FALLBACK_X={Open=81,Take=70,Check=93,Talk=121.75,Interact=121.75}
+-- Fixed placements selected by native action tag at construction.
+local PLACEMENT_X={Open=81,Take=70,Check=93,Talk=121.75,Interact=121.75}
 local DEFAULT_X=80
-local CANVAS_SLOT="/Script/UMG.CanvasPanelSlot"
 
 function M.token_for(tag)
     return TOKENS[tag] or "ACTION"
 end
 
-function M.center_for(stock,tag)
-    local fallback=FALLBACK_X[tag] or DEFAULT_X
-    -- The native text's final slot/desired width can be unavailable before
-    -- the first Slate prepass. Do not wait or update the geometry after reveal.
-    local ok,x=pcall(function()
-        local slot=stock.Slot
-        assert(is(slot,CANVAS_SLOT) and same(slot.Content,stock)
-            and slot:GetAutoSize(),"original text slot unavailable")
-        local raw=stock.Text:ToString()
-        assert(type(raw)=="string" and #raw>0 and raw~="???"
-            and not raw:match("^%?+$"),"placeholder or empty native text")
-        local size,pos,alignment=stock:GetDesiredSize(),slot:GetPosition(),slot:GetAlignment()
-        local anchors=slot:GetAnchors()
-        assert(type(size.X)=="number" and size.X>=20 and size.X<=600
-            and type(size.Y)=="number" and size.Y>0 and size.Y<=150
-            and type(pos.X)=="number" and type(alignment.X)=="number"
-            and alignment.X>=0 and alignment.X<=1
-            and anchors.Minimum.X==anchors.Maximum.X
-            and anchors.Minimum.X==0,"unready native layout")
-        local center=pos.X+size.X*(.5-alignment.X)
-        assert(center>=20 and center<=400,"measured center outside bounds")
-        return center
-    end)
-    if ok then return x,"measured" end
-    return fallback,"fallback"
+function M.placement_x(tag)
+    return PLACEMENT_X[tag] or DEFAULT_X
 end
 
 function M.refresh_action(state,tag,log)
@@ -148,7 +122,7 @@ function M.decorate(widget,resources,tag)
     local hint=StaticFindObject(path(tree)..".RetainerBox_0")
     assert(is(hint,"/Script/UMG.RetainerBox") and same(hint:GetParent(),canvas),"native hint changed")
     local owned={}
-    local x,mode=M.center_for(stock,tag)
+    local x=M.placement_x(tag)
     local label
     local ok,err=pcall(function()
         label=child(tree,canvas,owned,"/Script/UMG.TextBlock","IIP_WQ_Aphes",-54.1484375,176,37,x)
@@ -176,7 +150,7 @@ function M.decorate(widget,resources,tag)
         error(err)
     end
     return {header=path(label),header_address=label:GetAddress(),
-            center_x=x,center_mode=mode,tag=tag}
+            x=x}
 end
 
 function M.start(c,widget,resources,probe,log,tag)
@@ -194,12 +168,12 @@ function M.start(c,widget,resources,probe,log,tag)
         or ("reason=%q"):format(tostring(before):sub(1,170)))
     local decorated,info=pcall(M.decorate,widget,resources,tag)
     log(decorated and "STYLE_DECORATED" or "STYLE_DECORATION_REJECTED",
-        decorated and ("own_children=2 tag=%s token=%s x=%.2f center=%s"):format(
-            tostring(tag),M.token_for(tag),info.center_x,info.center_mode)
+        decorated and ("own_children=2 tag=%s token=%s x=%.2f placement=fixed"):format(
+            tostring(tag),M.token_for(tag),info.x)
             or ("reason=%q"):format(tostring(info):sub(1,170)))
-    local ok,base,live=pcall(probe.tint,c,nil,RGB,true)
+    local ok,base,live=pcall(probe.tint,c,nil,M.RGB,true)
     log(ok and "STYLE_TINT" or "STYLE_TINT_REJECTED",
-        ok and ("rgb=.45 mid=%s"):format(live and "verified" or "pending")
+        ok and ("rgb=%.2f mid=%s"):format(M.RGB,live and "verified" or "pending")
         or ("reason=%q"):format(tostring(base):sub(1,170)))
     return {decorated=decorated,tint=ok and base or nil,tint_pending=ok and not live,
         header=decorated and info.header or nil,
@@ -209,13 +183,13 @@ end
 function M.can_show(c,widget,state,probe,log,tag)
     M.refresh_action(state,tag,log)
     if state.tint_pending then
-        local ok,result=pcall(probe.verify_tint,c,state.tint,RGB)
+        local ok,result=pcall(probe.verify_tint,c,state.tint,M.RGB)
         if not ok then
             state.tint_pending=false
             log("STYLE_TINT_UNVERIFIED",("reason=%q"):format(tostring(result):sub(1,170)))
         elseif result then
             state.tint_pending=false
-            log("STYLE_TINT_VERIFIED","rgb=.45")
+            log("STYLE_TINT_VERIFIED",("rgb=%.2f"):format(M.RGB))
         end
     end
     local ok,before=pcall(probe.continuous_tick,c)

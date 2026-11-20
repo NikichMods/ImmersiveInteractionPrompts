@@ -100,11 +100,14 @@ class NativeTemplateVisual(unittest.TestCase):
         self.case("""
         local state={tint_pending=true,tint={R=.8,G=.6,B=.4,A=.7}}
         local probe={
-            verify_tint=function()return true end,
+            verify_tint=function(_,baseline,factor)
+                assert(baseline.A==.7 and factor==.50)
+                return true
+            end,
             continuous_tick=function()S.ticks=S.ticks+1;return .2 end}
         M.can_show(S.component,{},state,probe,S.log)
         assert(S.ticks==1 and not state.tint_pending)
-        assert(S.has("STYLE_TINT_VERIFIED") and S.has("STYLE_CADENCE source=CanShow"))
+        assert(S.has("STYLE_TINT_VERIFIED rgb=0.50") and S.has("STYLE_CADENCE source=CanShow"))
         """)
 
 
@@ -115,39 +118,12 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(M.token_for("Interact")=="ACTION" and M.token_for(nil)=="ACTION")
         """)
 
-    def test_early_measured_native_center_without_changing_stock_slot(self):
+    def test_fixed_placement_uses_only_the_action_tag(self):
         self.case("""
-        local slot={
-            Content={GetAddress=function() return 222 end, IsValid=function() return true end},
-            GetAutoSize=function() return true end,
-            GetPosition=function()return {X=38,Y=0} end,
-            GetAlignment=function()return {X=0,Y=.5} end,
-            GetAnchors=function()return {Minimum={X=0},Maximum={X=0}} end,
-            GetClass=function()return {IsValid=function() return true end,
-                GetFullName=function()return "Class /Script/UMG.CanvasPanelSlot" end}end,
-            IsValid=function()return true end
-        }
-        local stock={Slot=slot,
-            Text={ToString=function()return "Взять" end},
-            GetDesiredSize=function()return {X=72,Y=37} end,
-            GetAddress=function()return 222 end,IsValid=function()return true end}
-        local x,mode=M.center_for(stock,"Take")
-        assert(x==74 and mode=="measured")
-        """)
-
-    def test_unready_or_placeholder_geometry_uses_immediate_tag_fallback(self):
-        self.case("""
-        local stock={Text={ToString=function()return "???" end}}
-        local x,mode=M.center_for(stock,"Take")
-        assert(x==70 and mode=="fallback")
-        x,mode=M.center_for(stock,"Talk")
-        assert(x==121.75 and mode=="fallback")
-        x,mode=M.center_for(stock,"Open")
-        assert(x==81 and mode=="fallback")
-        x,mode=M.center_for(stock,"Check")
-        assert(x==93 and mode=="fallback")
-        x,mode=M.center_for(stock,"Other")
-        assert(x==80 and mode=="fallback")
+        assert(M.placement_x("Take")==70 and M.placement_x("Open")==81)
+        assert(M.placement_x("Check")==93)
+        assert(M.placement_x("Talk")==121.75 and M.placement_x("Interact")==121.75)
+        assert(M.placement_x("Other")==80 and M.placement_x(nil)==80)
         """)
 
     def test_action_refresh_updates_only_owned_label_once(self):
