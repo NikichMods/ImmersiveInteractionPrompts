@@ -369,3 +369,32 @@ Hold Talk normally without NumPad 3. Check F5, a scale change, and
 F8. Walk away and approach again. If the editor rejects a subsequent
 operation, preserve the exact `identity:*` line. Runtime pending.
 Production BLOCKED.
+
+### Quintus normal-use acceptance — 2026-11-20
+
+The user accepted the installed research candidate
+`738e4b6a711d82fb5d0b12c2993fd602bf82d568` for Quintus's appearance and
+editor behavior. The first F8 sample showed the native World prompt
+hidden (08:43:52). A later reopening showed the same decorated
+`TipHUD_C` visible (08:45:04). The user reported that the modded
+prompt continued to work. No `identity:*` or `EDITOR_REJECTED`
+events occurred in this log.
+
+The final F8 at 08:45:12.4685305 logged **scale 0.400, lift +36, RGB
+0.35**, Native. The following sample verified a visible native World
+widget, NoCollision, no Screen-layer insertion and a 1000×1000 RT.
+These are the adopted defaults for Quintus. The source default and
+NumPad 0 reset now use 0.400. The exact installed payload remains
+the same and starts at its original 0.375.
+
+The user confirmed that normal hold-ring rendering requires a zero
+component tick interval. At 08:41:46 BeginPlayPost logged
+`TICK_CONTINUOUS before=0 after=0`. At 08:42:21, the NumPad 3 trial
+read **interval=0.2000** before applying its temporary override. The
+log establishes a later change in the interval. Its writer and
+smoothness without the trial are unverified in this run. This result
+gives no basis for production promotion. Installed World and Screen S1
+manifests matched after exit.
+
+Archived log SHA-256
+`514a75625ed1bac79d9d36edfcfc411d0feffb5f736c47e9701a18cd9f7c3d2d`.
