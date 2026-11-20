@@ -1,8 +1,8 @@
 -- SPDX-License-Identifier: MPL-2.0
 -- RESEARCH ONLY. Run INSTEAD of the old native-world-quintus experiment.
 -- No component/actor hooks or new renderers: write one specific SCS template once.
-local ASSET = "/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP"
-local TEMPLATE = ASSET..".BaseGameEventObject_BP_C:ExtendedWidget_GEN_VARIABLE"
+local GENERATED_CLASS = "/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP.BaseGameEventObject_BP_C"
+local TEMPLATE = GENERATED_CLASS..":ExtendedWidget_GEN_VARIABLE"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
 local TIP = "/Game/MainContent/Template/UMG/TipHUD.TipHUD_C"
 local LEVEL = "/Game/MainContent/Maps/sublevel_plot/0-1/0-1_plot_outerRimA_interact1.0-1_plot_outerRimA_interact1:PersistentLevel."
@@ -39,8 +39,8 @@ local function install_template_trial()
     end
     local template = StaticFindObject(TEMPLATE)
     if not valid(template) then
-        -- Only the Blueprint asset is loaded; never create a replacement component.
-        local ok, reason = pcall(LoadAsset, ASSET)
+        -- UE4SS resolves an Asset Registry ObjectPath, including the object name.
+        local ok, reason = pcall(LoadAsset, GENERATED_CLASS)
         if not ok then log("SKIP",("reason=load_asset_failed detail=%q"):format(tostring(reason):sub(1,120)));return end
         template = StaticFindObject(TEMPLATE)
     end
