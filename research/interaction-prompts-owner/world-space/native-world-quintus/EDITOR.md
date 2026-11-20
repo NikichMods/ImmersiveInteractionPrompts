@@ -217,3 +217,18 @@ changes and periodic heartbeats rather than generating an independent
 progress value. UE4SS scalar out parameters use their property names as
 table keys in this pinned build.
 [Pinned UE4SS out-parameter binding](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/LuaType/LuaUObject.cpp#L288).
+
+Prepared source `16f3c7f5847bc1917012129277582741b7fc7ee9`. The local
+seven-file payload and verified predecessor were exercised on copies
+outside the loader, including rollback. Main Lua SHA-256
+`9bf6a2074e3c651c8b4d91fea3ea91f67fe697967bc888a682db002ed87f0071`;
+probe Lua SHA-256
+`7d0ac685e7bc9f3566916b6e5db8a199799e452be80158617404fc050d5bf6d1`.
+The focused probe passed with mocked timer/MID reads, RGB/alpha,
+baseline recording, temporary redraw settings, restoration and
+default no-op. All other suites except the unchanged Windows path
+issue in the archived Resident World test passed, 64/65 overall.
+All 17 archived hashes matched after path normalization.
+The existing editor and Screen S1 installed receipts still match.
+Separate installation authorization is pending, followed by runtime
+verification of both hypotheses. Production BLOCKED.
