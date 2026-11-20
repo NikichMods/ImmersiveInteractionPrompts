@@ -9,7 +9,7 @@ local function path(o)return assert(o:GetFullName():match("^[^ ]+ (.+)$"))end
 local function is(o,k)return valid(o) and valid(o:GetClass()) and path(o:GetClass())==k end
 local function same(a,b)return valid(a) and valid(b) and a:GetAddress()==b:GetAddress()end
 local function close(a,b,tol)return math.abs(a-b)<(tol or .001)end
--- User-chosen, invented Aphes-facing words: stable per native msgTag.
+-- Proposed authored, invented Aphes-facing words: stable per native msgTag.
 -- ASCII U+0041..005A is covered by the verified Aphes.ttf cmap.
 -- These are NOT actual Greek translations nor verified Asterigos lore.
 -- Complete the one-time inventory against the 18 stock InteractTipToText
