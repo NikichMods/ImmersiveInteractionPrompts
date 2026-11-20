@@ -1,5 +1,15 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — компактный TipHUD Квинтуса показан с Aphes (2026-11-20)
+
+В одном подходе на том же сохранении штатные `F Поговорить`, Aphes и
+разделитель видны вместе над моделью Квинтуса. Журнал подтвердил масштаб
+65%, подъём на 38 единиц, два дочерних элемента того же TipHUD и World
+RenderTarget. Пользователь подтвердил совместное исчезновение при отходе.
+World-кандидат и Screen S1 остаются активны, установленные хэши совпали.
+Production BLOCKED.
+[Запись прогона](../research/interaction-prompts-owner/world-space/native-world-quintus/README.md#compact-successor-passed-the-bounded-run--2026-11-20).
+
 ## Native World — компактный кандидат для Квинтуса установлен (2026-11-20)
 
 Штатная плоскость масштабируется до 65% и поднимается на 38 единиц.

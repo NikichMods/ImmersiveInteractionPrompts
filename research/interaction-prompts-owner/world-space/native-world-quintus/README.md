@@ -183,3 +183,31 @@ passed on Windows. The archived Resident Auto World manifest test compares
 backslash paths against slash keys. The same 17 files matched the manifest
 hashes after path normalization. Host rendering and withdrawal remain
 pending. Production BLOCKED.
+
+### Compact successor passed the bounded run — 2026-11-20
+
+One approach and withdrawal at Quintus in the same save, using source
+`f0c9ca3491d5c6e41e4703708dff4c909eb29ba1` with UE4SS `83330635`.
+The supplied screenshot shows Aphes, the braided divider and the native
+`F Поговорить` together, clear of Quintus's model at the captured angle.
+The user reported that the decoration disappeared with the stock line on
+withdrawal. This is a user observation of the transition. The screenshot
+and one hotkey sample provide no frame-level timing for withdrawal.
+
+| Log line / event | Time (local) | Observation |
+| --- | --- | --- |
+| 701 / SET_WORLD | 06:57:06.8004085 | The stock ExtendedWidget on the Quintus-owned interact actor selected once. |
+| 710 / PLACED | 06:57:06.8313626 | Scale factor 0.65 and +38.0 world Z read back. |
+| 717 / DECORATED | 06:57:06.8605604 | Two children in native CanvasPanel_6. Font donor matched after private copy configuration, divider texture bound. |
+| 741 / SAMPLE | 06:57:44.5062540 | Same native TipHUD_C as BEGIN. World, NoCollision, visible and decorated, RenderTarget present, added_to_screen=false. |
+
+The bounded placement, rendering and withdrawal criterion passed. The run
+does not establish clearance from all camera angles or behavior on other
+objects, input devices or loads. World candidate and Screen S1 both remain
+active and each matched its complete five-file installed receipt after
+exit. Production BLOCKED.
+
+Archived log SHA-256
+`dc6b5c6160c5cc75ec0e5b861b47adba751f7614999ed0d99c197b21ee87bc59`.
+User screenshot SHA-256
+`16e68979febdc52219a9a418b713d1750788311ca920f1220675f4e9f2ae503a`.
