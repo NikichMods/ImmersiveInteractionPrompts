@@ -114,3 +114,13 @@ unchanged archived Resident World manifest test compares Windows path
 separators to slash keys. All 17 entries and hashes matched after path
 normalization. Game rendering, hotkey delivery and native RT dimensions
 at sample remain pending. Production BLOCKED.
+
+## Installed — 2026-11-20
+
+The staged six-file payload for `fdb8842489356ad86380e3a426e28e10667297e6`
+replaced the compact World candidate with the game closed. All installed
+hashes matched the preparation receipt. The compact predecessor
+`f0c9ca3491d5c6e41e4703708dff4c909eb29ba1` was moved to a verified rollback
+directory outside the loader. The pretest UE4SS log and private installation
+receipt were archived. Screen S1 remained active and matched its previous
+five-file manifest. Runtime pending. Production BLOCKED.
