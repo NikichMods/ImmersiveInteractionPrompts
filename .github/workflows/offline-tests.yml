@@ -25,6 +25,7 @@ on:
       - research/shadow-warmup-ab-01
       - research/shadow-screen-translation-01
       - research/native-tiphud-s1-01
+      - research/native-world-tiphud-01
     paths:
       - 'tests/**'
       - 'research/interaction-prompts-owner/world-space/auto-target/**'
@@ -39,6 +40,7 @@ on:
       - 'research/interaction-prompts-owner/world-space/selected-owner-world/**'
       - 'research/interaction-prompts-owner/world-space/tiphud-render-suppression/**'
       - 'research/interaction-prompts-owner/native-tiphud-s1/**'
+      - 'research/interaction-prompts-owner/world-space/native-world-quintus/**'
       - '.github/workflows/offline-tests.yml'
   workflow_dispatch:
 
