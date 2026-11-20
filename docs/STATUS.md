@@ -1,5 +1,14 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — обычное удержание Квинтуса подтверждено (2026-11-20)
+
+На установленном `a688dde` кольцо заполнялось плавно без NumPad 3 при
+первом и повторном подходе. Журнал подтвердил коррекцию с 0,200 с до 0 на
+CanShow. Стартовое приглушение было отклонено, потому что World MID ещё
+не существовал. Исходник преемника задаёт RGB на компоненте заранее и
+сверяет его с MID после создания. Новая правка не установлена.
+[Результат прогона и правка](../research/interaction-prompts-owner/world-space/native-world-quintus/EDITOR.md#canshow-cadence-pass-and-initial-tint-follow-up--2026-11-20).
+
 ## Native World — кандидат с коррекцией интервала на CanShow установлен (2026-11-20)
 
 Установлен `a688dde` с defaults `0,400 / +36 / RGB 0,35` и Native.

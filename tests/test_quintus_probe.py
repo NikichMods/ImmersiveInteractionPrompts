@@ -21,16 +21,31 @@ component.bVisible=true
 widget.CanHoldPress=true
 widget.WidgetTree={GetFullName=function() return "WidgetTree tree" end}
 component.TintColorAndOpacity={R=.8,G=.6,B=.4,A=.7}
+local material_tint=component.TintColorAndOpacity
 function component:GetMaterialInstance() return mid end
-function component:SetTintColorAndOpacity(v) self.TintColorAndOpacity=v end
+function component:SetTintColorAndOpacity(v)
+    self.TintColorAndOpacity=v
+    if self:GetMaterialInstance() then material_tint=v end
+end
 function mid:K2_GetVectorParameterValue(k)
     assert(k=="TintColorAndOpacity")
-    return component.TintColorAndOpacity
+    return material_tint
 end
 local base=probe.tint(component,nil,.5)
 assert(component.TintColorAndOpacity.R==.4 and component.TintColorAndOpacity.A==.7)
 probe.tint(component,base,1)
 assert(component.TintColorAndOpacity.R==.8)
+component.GetMaterialInstance=function() return nil end
+assert(not pcall(probe.tint,component,base,.35))
+local pending,live=probe.tint(component,base,.35,true)
+assert(pending==base and not live and math.abs(component.TintColorAndOpacity.R-.28)<.001)
+assert(component.TintColorAndOpacity.A==.7 and not probe.verify_tint(component,base,.35))
+component.GetMaterialInstance=function() return mid end
+assert(not pcall(probe.verify_tint,component,base,.35))
+material_tint=component.TintColorAndOpacity
+assert(probe.verify_tint(component,base,.35))
+assert(not pcall(probe.verify_tint,component,base,1))
+probe.tint(component,base,1)
 
 local now, rate, t=0,0,0
 function mid:K2_GetScalarParameterValue(k) assert(k=="t"); return t end

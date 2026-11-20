@@ -218,8 +218,13 @@ local function on_begin(context)
         local ok, reason = pcall(add_decoration, widget)
         if not ok then log("DECORATION_FAILED", ("reason=%q"):format(tostring(reason):sub(1,180))) end
         if rgb ~= 1 then
-            local applied, result = pcall(probe.tint,component,nil,rgb)
-            if applied then selected.tint = result else log("TINT_REJECTED",tostring(result)) end
+            local applied, result, live = pcall(probe.tint,component,nil,rgb,true)
+            if applied then
+                selected.tint, selected.tint_pending = result, not live
+                log("TINT_INITIAL", ("rgb=%.2f mid=%s"):format(rgb,live and "verified" or "pending"))
+            else
+                log("TINT_REJECTED",tostring(result))
+            end
         end
         local armed, hook_reason = pcall(arm_hold_cadence)
         if not armed then log("HOLD_CADENCE_REJECTED", ("reason=%q"):format(tostring(hook_reason):sub(1,180))) end
@@ -254,15 +259,25 @@ arm_hold_cadence = function()
     assert(valid(fn) and fn:type() == "UFunction" and fn:GetFullName() == "Function "..name
         and (fn:GetFunctionFlags() & 0x400) == 0, "native TipHUD CanShow hook unavailable")
     local pre, post = RegisterHook(name,function(context)
-        if stopped or not selected or selected.cadence_failed then return end
+        if stopped or not selected or (selected.cadence_failed and not selected.tint_pending) then return end
         local widget = context:get()
         if not valid(widget) or widget:GetAddress() ~= selected.widget_address then return end
         local ok, reason = pcall(function()
             local component, current = resolve_world()
             if not component or not same(current,widget) then return end
-            local previous = probe.continuous_tick(component)
-            if previous > 0 then
-                log("HOLD_CADENCE", ("source=CanShow before=%.3f after=0.000"):format(previous))
+            if selected.tint_pending then
+                local verified, result = pcall(probe.verify_tint,component,selected.tint,rgb)
+                if not verified or result then
+                    selected.tint_pending = false
+                    if verified then log("TINT_MID_VERIFIED", ("rgb=%.2f"):format(rgb))
+                    else log("TINT_REJECTED",tostring(result)) end
+                end
+            end
+            if not selected.cadence_failed then
+                local previous = probe.continuous_tick(component)
+                if previous > 0 then
+                    log("HOLD_CADENCE", ("source=CanShow before=%.3f after=0.000"):format(previous))
+                end
             end
         end)
         if not ok then
@@ -280,6 +295,7 @@ local function adjust_rgb(value)
     if math.abs(rgb-value) < 0.001 then return end
     local component = assert(resolve_world(),"World TipHUD unavailable")
     selected.tint = probe.tint(component,selected.tint,value)
+    selected.tint_pending = false
     rgb = value
     report("TINT")
 end

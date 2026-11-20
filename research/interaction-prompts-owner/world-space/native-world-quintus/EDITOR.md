@@ -464,3 +464,36 @@ loader and Win64 files, mod Paks, saves, and config matched before and after.
 The pretest log and complete private receipt are archived. Runtime pending:
 ordinary Talk hold on first approach, then again after leaving and returning,
 without NumPad 3. Production BLOCKED.
+
+### CanShow cadence pass and initial tint follow-up — 2026-11-20
+
+On installed `a688dde`, the user observed smooth ordinary hold-ring fill
+on both first and repeat approach without NumPad 3. The log at 09:04:40
+records `HOLD_CADENCE source=CanShow before=0.200 after=0.000`.
+The installed payload and Screen S1 matched their manifests after exit.
+
+The user also reported bright glyphs. The log establishes why the default
+RGB 0.35 did not take effect in this run. At BeginPlayPost the native World
+RT was still absent, and the startup tint setter was refused at 09:04:33
+with `World MID unavailable`. This is a missed initial write. The log
+contains no evidence of a successful tint followed by an overwrite.
+
+The source-only follow-up writes scaled RGB to the component at
+BeginPlayPost even with no MID, preserving its alpha. UE4.27's
+`SetTintColorAndOpacity` stores the value, and later `UpdateMaterialInstance`
+copies that field into the new material instance. The existing scoped
+CanShow hook checks the stored value and the effective MID once available.
+`TINT_INITIAL mid=pending` followed by `TINT_MID_VERIFIED rgb=0.35` is the
+expected evidence. Live editor changes still require an existing MID.
+The hold correction and chosen 0.400 / +36 / RGB 0.35 defaults are retained.
+The focused offline test covers absent MID, seeded component color,
+stale MID rejection, inheritance readback, alpha and the existing hold
+probe. Actual startup tint and readability still need game verification.
+No new installation. Production BLOCKED.
+[UE4.27 material initialization](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L714)
+· [Component tint setter](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/UMG/Private/Components/WidgetComponent.cpp#L2071).
+
+Archived log SHA-256
+`d783be3cf469629770ae4c689b1f6553fbc06e080afc7c6a8ddd16bc3c1e7bd3`.
+Screenshot SHA-256
+`8c57920124ee9d2b6f3169f2970e2f88071207740300ec5fea9b8450f6d11835`.

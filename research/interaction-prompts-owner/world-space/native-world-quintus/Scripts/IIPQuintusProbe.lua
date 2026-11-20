@@ -17,25 +17,41 @@ local function equal(a,b)
         and math.abs(a.B-b.B) < 0.001 and math.abs(a.A-b.A) < 0.001
 end
 
-function M.tint(component, baseline, factor)
+local function scaled_color(baseline, factor)
+    return {R=baseline.R*factor,G=baseline.G*factor,B=baseline.B*factor,A=baseline.A}
+end
+
+function M.tint(component, baseline, factor, allow_pending)
     local material = component:GetMaterialInstance()
-    assert(is(material,MID),"World MID unavailable")
+    local live = is(material,MID)
+    assert(live or (allow_pending and not valid(material)),"World MID unavailable")
     local previous = color(component.TintColorAndOpacity)
-    assert(equal(previous,material:K2_GetVectorParameterValue(FName("TintColorAndOpacity"))),
+    assert(not live or equal(previous,material:K2_GetVectorParameterValue(FName("TintColorAndOpacity"))),
         "component tint differs from World MID")
     baseline = baseline or previous
-    local next_color = {R=baseline.R*factor,G=baseline.G*factor,B=baseline.B*factor,A=baseline.A}
+    local next_color = scaled_color(baseline,factor)
     local ok, reason = pcall(function()
         component:SetTintColorAndOpacity(next_color)
         assert(equal(next_color,component.TintColorAndOpacity)
-            and equal(next_color,material:K2_GetVectorParameterValue(FName("TintColorAndOpacity"))),
+            and (not live or equal(next_color,material:K2_GetVectorParameterValue(FName("TintColorAndOpacity")))),
             "World tint readback differs")
     end)
     if not ok then
         component:SetTintColorAndOpacity(previous)
         error(reason)
     end
-    return baseline
+    return baseline,live
+end
+
+function M.verify_tint(component, baseline, factor)
+    local material = component:GetMaterialInstance()
+    if not valid(material) then return false end
+    assert(is(material,MID),"unexpected World material class")
+    local expected = scaled_color(baseline,factor)
+    assert(equal(expected,component.TintColorAndOpacity),"component tint changed after seeding")
+    assert(equal(expected,material:K2_GetVectorParameterValue(FName("TintColorAndOpacity"))),
+        "World MID did not inherit component tint")
+    return true
 end
 
 -- Preserve the host timer and its MID: only remove the proven component tick limit.
