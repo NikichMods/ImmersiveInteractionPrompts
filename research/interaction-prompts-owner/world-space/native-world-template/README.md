@@ -192,3 +192,72 @@ Do not conflate general placement with Quintus's one verified anchor:
 parent/WidgetLocator orientation and per-instance transform may vary.
 Preserve original action text and input hint, and leave game show/hide
 in control. This is not authorization for installation or release.
+
+## Full Quintus appearance successor — SOURCE ONLY (2026-11-20)
+
+**Source-only research candidate. NOT INSTALLED. NOT runtime-accepted.
+Production BLOCKED.** The installed experiment remains the verified
+two-file \`5fd1f2f\`, with Screen S1 unchanged. This entry supersedes
+earlier assertions that the template inheritance mechanism is unproven;
+they remain historical records of previous trials.
+
+The successor retains the single cold-start SCS-template write for
+\`Space=World\` and \`NoCollision\`, unchanged. For each **original**
+World \`ExtendedWidget\` with reciprocal actor ownership and genuine
+\`TipHUD_C\` at BeginPlay, it applies the *accepted Quintus appearance*
+exactly once to that native component:
+
+- Relative scale ×0.400 from the component's own current scale;
+  world-space Z lift +36 UE from its native anchor. No change to
+  anchor selection, world-space orientation, DrawSize or pivot.
+- RGB linear ×0.35 to the original component tint, preserving alpha;
+  prefer the verified component pre-MID seed and verify the original
+  MID when naturally available on \`CanShow\`.
+- Native \`1000×1000\` draw size/RT retained; no new World renderer.
+- Native component interval zero at BeginPlay, and a guarded
+  reset to zero on the native \`TipHUD_C:CanShow\` when Genesis
+  has restored a positive interval, preserving the native hold timer.
+- Two **transient children in the original TipHUD WidgetTree**,
+  using the approved Quintus placement and font/asset binder:
+  a test upper \`ACTION\` Aphes-font line and the authored braided
+  divider. \`ACTION\` is NOT a verified Aphes translation.
+  Both become HitTestInvisible; original localized action, button
+  and hold RetainerBox are not copied, hidden or replaced.
+
+There is **no separate rendered prompt, collision shape,
+per-frame search, own input/visibility selection, or replicated
+localization**. On unrelated actors, non-World/Screen components
+or invalid native identity the style helper does nothing.
+The general BeginPlayPost observation is event-driven; its
+unproven blast radius is all original \`World/NoCollision\`
+\`ExtendedWidget/TipHUD_C\` actor pairs, not just the three
+known objects. This is explicitly research-only and not
+production-safe without coverage checks.
+
+The Aphes TTF is private and must remain outside public Git.
+The authored PNG is \`assets/dividers/aphes_divider_256x32.png\`.
+The committed \`IIPTemplateResources.lua\` is based on the earlier
+proven local-resource binder and supports a single shared
+transient PNG texture across several *original* TipHUD widgets;
+font copies remain private per label. Installation must supply
+\`Scripts/IIPLiveConfig.lua\` through the verified local path and
+hash checks. Configuration failure must not create a custom UI
+or fall back to unverified fonts. Screen S1 may still be active,
+but this separate original-World visual hook must not act on
+Screen-only TipHUDs.
+
+**Not established by offline tests:** whether those visual edits
+survive native placement/initialization for each placed actor,
+whether +36 world Z is a good placement for chest/note/potion,
+correct startup RGB in the MID, lifetime of shared imported
+texture across changing maps, or smooth hold for every type.
+The existing \`5fd1f2f\` runtime result establishes only World
+inheritance; it does not establish these additional properties.
+
+The user explicitly chooses to **assume** interaction, switching
+and native show/hide are fine during this visual iteration, without
+claiming a tested PASS. Full gameplay acceptance still applies
+before release. Next meaningful handoff is one bounded, closed-game
+installed candidate with verified rollback and one user visual run
+on the three known objects, after separate permission. Do not
+install on a running host or reuse an immutable numbered artifact.

@@ -1,5 +1,21 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — Quintus appearance successor source-only (2026-11-20)
+
+В исследовательском World-каталоге подготовлен полноценный визуальный
+преемник общей схемы: `0.400` исходного масштаба, `+36` мировой Z,
+`RGB×0.35`, Native `1000×1000`, исходный hold с коррекцией
+`CanShow`, временная строка Aphes `ACTION` и авторский разделитель
+в **оригинальном TipHUD_C**. Одна SCS-запись `World/NoCollision`
+остаётся без изменений. Нет второго World-виджета или отдельных
+вмешательств в native selection/show/hide. [Реализация и ограничения](../research/interaction-prompts-owner/world-space/native-world-template/README.md#full-quintus-appearance-successor--source-only-2026-11-20).
+
+**SOURCE ONLY / NOT INSTALLED / production BLOCKED.** Действующая
+локальная установка по последнему подтверждению — `5fd1f2f`;
+следующий кандидат пока не проходил игру. Связанные layout,
+input и gameplay сохраняются как рабочее предположение пользователя,
+но не как runtime PASS.
+
 ## Native World — новый канонический статус и визуальная интеграция (2026-11-20)
 
 **Доказан и установлен** исследовательский шаблонный World
