@@ -1,12 +1,22 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — визуальная приёмка трёх размещённых подсказок (2026-11-20)
+
+Пользователь принял оформление установленного `cb6fc43` у сундука,
+записки и сумки на склоне. Журнал подтвердил RGB ×0,50 в материале,
+фиксированные X для Open/Check/Take и штатные World RenderTarget на F5.
+Наклон компонента сумки снят с сохранением Yaw. Сундук и записка
+уже были вертикальны.
+[Границы приёмки](../research/interaction-prompts-owner/world-space/native-world-template/README.md#fixed-placement-and-rgb-050-accepted-on-three-placed-prompts-2026-11-20).
+Production BLOCKED.
+
 ## Native World — RGB ×0,50 и фиксированное размещение установлены (2026-11-20)
 
 При закрытой игре `cb6fc43` заменил `151c38e` в единственном
 активном World-каталоге. Сверены семь файлов World и пять файлов
 Screen S1. Полный откат к `151c38e` сохранён вне загрузчика
-и проверен на копии. Ожидается пользовательский прогон у
-сундука, записки и сумки на склоне. Production BLOCKED.
+и проверен на копии. На момент установки пользовательский прогон
+оставался впереди. Production BLOCKED.
 [Манифест и сценарий](../research/interaction-prompts-owner/world-space/native-world-template/README.md#fixed-placement-and-rgb-050-installed-2026-11-20).
 
 ## Native World — RGB ×0,50 и фиксированное размещение в исходниках (2026-11-20)

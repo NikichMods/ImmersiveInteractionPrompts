@@ -1,5 +1,16 @@
 # Verified Runtime — Interaction Prompts
 
+## Native World appearance on chest, note and sloped bag — bounded PASS (2026-11-20)
+
+The user accepted the installed `cb6fc43` appearance on these three
+objects. Logs confirm fixed placement and stock World RenderTargets on
+F5 for Open, Check and Take. The sloped bag's World component passed
+orientation readback after pitch/roll correction with yaw preserved.
+The chest and note passed the already-upright check. Material readbacks
+confirmed RGB ×0.50 with the source alpha in this session. Their log
+entries lack actor IDs and first-frame timing.
+[Exact candidate, run evidence and scope](../research/interaction-prompts-owner/world-space/native-world-template/README.md#fixed-placement-and-rgb-050-accepted-on-three-placed-prompts-2026-11-20).
+
 ## Placed prompts: SCS-template World inheritance — bounded PASS (2026-11-20)
 
 Asterigos Steam 1.09/build12996889, pinned UE4SS 83330635,

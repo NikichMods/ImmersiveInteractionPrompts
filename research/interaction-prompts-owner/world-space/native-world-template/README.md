@@ -527,3 +527,25 @@ bag from a cold launch. Observe brightness, fixed placement and a
 world-upright prompt whose heading stays fixed as the camera moves.
 Use F5 while a native prompt is visible and retain the UE4SS log.
 Runtime PENDING. Production BLOCKED.
+
+## Fixed placement and RGB 0.50 accepted on three placed prompts (2026-11-20)
+
+The user explicitly accepted the appearance and behavior seen on the
+chest, note and same potion bag on a slope. The session used installed
+`cb6fc4390d61a613d9eca36a30817e9c4a6f1cc2` with the manifest above.
+The live log was copied at 23:36 Moscow time while the game was still
+running. Snapshot SHA-256
+`7dda04ba9ede9d79b6c20b06504e7e2258a71c27db437b56255ac0c31fa73363`.
+
+| Object | Fixed placement | World orientation at initialization | F5 |
+| --- | --- | --- | --- |
+| Chest | OPEN, X 81 | Already upright | Native RT present |
+| Note | CHECK, X 93 | Already upright | Native RT present |
+| Sloped potion bag | TAKE, X 70 | Tilt removed, yaw retained | Native RT present |
+
+Orientation readback precedes the bag's `STYLE_READY`. All three F5
+records report World/NoCollision and no Screen insertion. Five later
+material readbacks confirmed RGB ×0.50 with source alpha during the
+session. Those entries omit actor IDs and do not establish first-frame
+tint. The visual acceptance covers these three placed prompts. Moving
+parents, doors, other action routes and production acceptance remain open.
