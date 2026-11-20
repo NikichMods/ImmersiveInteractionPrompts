@@ -308,3 +308,41 @@ alignment, size and brightness. Press F5 while the relevant prompt
 is visible and exit normally to preserve the runtime log. Report any
 issue with native input, hide or hold encountered during the route.
 Runtime PENDING, production BLOCKED.
+
+## Full World appearance runtime feedback (2026-11-20)
+
+One user-run session on `59cc569de1cc1f4354658145c843c1efe9a62166`.
+World (7 files) and Screen S1 (5 files) matched the installation
+receipt after exit. Archived UE4SS 83330635 log SHA-256
+`f9daa7a74903f2466762eb49613577353169509037cdb3d0f962ba08a3b4753b`.
+User Take screenshot SHA-256
+`73bdfc5876bd77c1e1964af098f238cf3503ea81257e03a0851f56ea09964510`.
+Both artifacts are private.
+
+The template write ran once. The three known actors each logged
+`STYLE_READY decorated=true` and World/NoCollision in BeginPlay.
+Three F5 snapshots each captured all three original TipHUDs with
+World RTs and `added_to_screen=false`. The session logged 164
+successful decoration starts, including actors outside those three,
+and five native MID tint verifications. The tint verification
+markers carry no actor identity. The user saw the styled prompts
+and confirmed normal interaction, including successfully picking up
+an item. That observation is bounded to this route. Hold cadence
+under a sustained hold and wider gameplay coverage were not measured.
+
+The user found RGB ×0.35 too dim, wants the upper line and divider
+centered on the current stock word, and wants upper text to vary by
+action. In the Take frame the upper pair is visibly to the right of
+the word «Взять». `IIPTemplateStyle.lua` sets X=121.75 for both owned
+children with center alignment. That was the center of the measured
+Russian merchant Talk layout and is now reused for every word.
+Prefer deriving the word center from its verified text slot and
+measured width in the same canvas while keeping divider width fixed.
+The earliest usable World measurement still needs evidence. Prior
+Screen evidence had a late desired size. A smaller fixed X is the
+fallback if dynamic centering would delay the prompt or cause a
+visible correction. Exact brightness and action lettering remain open.
+
+The user noted that retaining the native orientation can look odd
+from some angles and may suit a door plane. No door or camera-facing
+change was exercised. Candidate remains installed. Production BLOCKED.
