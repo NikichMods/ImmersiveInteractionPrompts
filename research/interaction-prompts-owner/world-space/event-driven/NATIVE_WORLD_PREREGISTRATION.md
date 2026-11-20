@@ -143,3 +143,117 @@ SCS до регистрации для этого создания и покаж
 на наблюдавшейся загрузке. Даже ранняя доставка оставит сохранность
 изменённого `Space` отдельным вопросом. В этом отчёте ни один запуск
 или запись в свойства игры не выполнялись.
+
+## Размещённый Open — граница окна (2026-11-20)
+
+**BLOCKED для узкого кандидата.** Изучен существующий cooked-экспорт
+`0-1_plot_outerRimA_interact1`, SHA-256
+`c8fca3bfee13de734a0f8189a07c284cee584ec46f7729719d72c4a4b9a17b97`,
+без повторного извлечения. Актор `0-1_lootbox_01_mat_ST001` класса
+`item_lootbox02_C` находится в `PersistentLevel`. Его поле
+`ExtendedWidget` указывает на экспорт 130. У компонента
+`/Script/Genesis.ExtendedWidgetComponent` Outer — этот актор,
+`RF_WasLoaded`, `CreationMethod=SimpleConstructionScript`, шаблон
+`BaseGameEventObject_BP_C:ExtendedWidget_GEN_VARIABLE`, AttachParent —
+собственный `WidgetLocator`. `CurrentDrawSize=1000×1000`; явного
+`Space` в экспортированных свойствах экземпляра нет. Архивный
+[Open join](../../../../docs/VERIFIED_RUNTIME.md#natural-open-join-and-component-world-pose--bounded-pass-2026-10-29)
+подтверждает ту же цепочку до живого TipHUD при показе. В просмотренных
+журналах раннего World-кандидата нет `PLACED_OBJECT_NOTIFY` или
+`PLACED_OBJECT_BEGIN` для этого сундука. Участие подуровня в тех
+сеансах не установлено, поэтому отсутствие строк ничего не доказывает
+о доставке при его загрузке.
+
+### Загрузка и первое потребление Space
+
+На свежем загруженном экземпляре исходный путь UE4.27 создаёт
+экспорт с Outer и флагами загрузки. В linker path за созданием
+следует `FLinkerLoad::Preload` с десериализацией, а в асинхронной
+ветке загрузка экспортов и `ConditionalPostLoad` предшествуют
+доставке готового пакета. Для конкретной холодной загрузки сундука
+точный загрузочный поток и выбранную ветку ранее не измеряли.
+В игровом streaming path `UWorld::AddToWorld` вызывает
+`ULevel::IncrementalUpdateComponents`, затем
+`AActor::PreRegisterAllComponents` и `IncrementalRegisterComponents`.
+Последний регистрирует родителя перед ребёнком и вызывает
+`RegisterComponentWithWorld` для исходного компонента. Его
+`ExecuteRegisterEvents` вызывает виртуальный `OnRegister`.
+`UWidgetComponent::OnRegister` потребляет `Space` для создания
+рендерера World. Это порядок из закреплённого исходника, а не
+непосредственная запись первой регистрации сундука.
+[LinkerLoad](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L4779),
+[AsyncLoading](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/CoreUObject/Private/Serialization/AsyncLoading.cpp#L6371),
+[World](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/World.cpp#L2570),
+[Level](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/Level.cpp#L1093).
+
+В нормальной ветке `ULevelStreaming::AsyncLevelLoadComplete`
+`SetLoadedLevel` предшествует синхронному `OnLevelLoaded.Broadcast()`.
+Видимость добавляет подуровень в мир позднее через `AddToWorld`.
+Поэтому для свежего экземпляра `OnLevelLoaded` — подходящий штатный
+сигнал **после десериализации**, с доступным `GetLoadedLevel()`.
+Путь уже загруженного пакета также может выдать `OnLevelLoaded`;
+само событие не доказывает, что конкретный экземпляр ещё ни разу
+не регистрировался. В нужном свежем level identity можно проверять по
+точному пути актора, классу, имени компонента, Outer и обратному
+`actor.ExtendedWidget`, без числовых адресов между сессиями.
+[SetLoadedLevel](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/LevelStreaming.cpp#L795),
+[ветка async](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/LevelStreaming.cpp#L1139),
+[добавление в мир](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/LevelStreaming.cpp#L573).
+
+### Почему пока нет кандидата
+
+- `NotifyOnNewObject` на игровом потоке срабатывает при создании
+  экспорта до чтения его свойств, на другом потоке может быть
+  отложен. Outer и имя могут быть уже доступны, тогда как поле
+  актора, flags и данные компонента ещё не дают годной точки
+  записи. Для одного linker path `RF_NeedLoad` очищается ещё
+  **до** `Serialize`. Отсутствие `Space` в JSON и немедленный
+  readback не исключают копирование default/template или
+  последующую native-запись. Сохранность до `OnRegister` не доказана.
+- `OnLevelLoaded` отражён как multicast, а `GetLoadedLevel` и
+  `GetStreamingLevel` присутствуют в сохранённом UHT. У UE4SS
+  `83330635` метод `Add` принимает UObject и имя UFunction и
+  создаёт `FScriptDelegate` через `BindUFunction`. Приёма Lua
+  closure нет. `RegisterCustomEvent` регистрирует наблюдателя по
+  имени, а не создаёт вызываемую UFunction. В сохранённых графах
+  не найден подходящий штатный обработчик этого делегата.
+  Не подтверждены безопасный receiver и момент подключения к
+  точному `ULevelStreaming` до сигнала. Произвольный вызов
+  чужой функции как переходника не имеет доказательства безопасности.
+  [UE4SS multicast Add](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/LuaType/LuaXDelegateProperty.cpp#L154),
+  [RegisterCustomEvent](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/Mod/LuaMod.cpp#L2369).
+- `PreRegisterAllComponents`, `OnRegister` и `PostLoad` —
+  native virtual, вне обычного `RegisterHook` по UFunction.
+  `LoadMapPre` относится к загрузке карты, до появления
+  целевого экспорта, а `LoadMapPost` не даёт этой границы для
+  отдельно загружаемого подуровня. `BeginPlayPre/Post`,
+  `OnLevelShown` и `CanShow` приходят после регистрации;
+  поздний `SetWidgetSpace` не создаёт отсутствующий рендерер.
+  Штатный instance override `Space` в cooked-экспорте мог бы
+  сделать запись частью десериализации, но безопасный узкий
+  путь поставки такого изменения и его сохранность не установлены.
+  Общие CDO/SCS и перерегистрация остаются вне задачи.
+
+**Один следующий шаг.** Подтвердить на одном холодном входе
+read-only доставку `OnLevelLoaded` через штатный, совместимый
+receiver, привязанный к точному подуровню до запроса загрузки.
+Достаточное наблюдение — на игровом потоке уже доступна
+взаимно подтверждённая пара actor/ExtendedWidget с завершённой
+загрузкой и компонент входит в свою первую регистрацию только
+после этой отметки. Пока receiver не подтверждён, не готовить
+пробу с подменой. Положительный результат откроет отдельно
+согласованную проверку одного World/NoCollision без второго
+компонента, с проверкой сохранности `Space` на штатном рендерере.
+
+**Динамический Talk вне Квинтуса.** Подтверждённый общий
+`CharacterSetCanInteract → SpawnObject` остаётся применимым
+направлением, если доказан конкретный owner с тем же порядком.
+В сохранённом Quintus sublevel ближайший именованный сосед
+`1-1_QB_Decimus_creator` с `CharacterName=m003` не имеет
+явного `InitialCanInteract=true` и наблюдения reciprocal
+owner → новый компонент → `Talk`. Расширять фильтр по
+одному классу `NPCInteract_Bp_C` оснований нет. Другой
+доказанный Talk в этой узкой сверке не найден.
+
+Source-only кандидат для Open не создан. Игровой сеанс,
+установка и запись в игровые ресурсы не выполнялись.
