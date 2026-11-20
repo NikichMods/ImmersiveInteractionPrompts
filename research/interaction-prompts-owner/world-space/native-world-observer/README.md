@@ -35,4 +35,17 @@ Read `IIP_NATIVE_WORLD` in order:
   leaves the result inconclusive. The probe observes neither the actual
   `OnRegister` entry nor survival of a hypothetical Space write.
 
-Runtime observation pending. Production BLOCKED.
+## Installed for one run — 2026-11-20
+
+Installed with the game closed from source
+`a1bdfc278f8c9b30cc797e46c2df2cb4eeeae3a7`. Installed `Scripts/main.lua`
+SHA-256 `14024868ce313c836de050c82b4b9164579573f7876b89e5dc423349341fbd5d`.
+Screen S1 source `8f1231d4bca04e8c2f73d4ab9903ceac67809c72` stayed active
+and matched its complete prior installed inventory. Existing loader files,
+neighbor mods, game configuration, and saves matched before and after.
+The pretest log and installed receipt are archived outside the loader.
+Removal of the observer's two files was rehearsed on a copy.
+
+Six offline Lua scenarios passed with mocked UE4SS delivery and lookup:
+early, missing, delayed, duplicate, unrelated notification and callback
+signature mismatch. Runtime observation pending. Production BLOCKED.
