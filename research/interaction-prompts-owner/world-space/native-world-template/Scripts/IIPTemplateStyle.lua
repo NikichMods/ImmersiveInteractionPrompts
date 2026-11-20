@@ -97,8 +97,10 @@ function M.start(c,widget,resources,probe,log)
         "original component/widget link unavailable")
     M.geometry(c)
     log("STYLE_GEOMETRY","scale=.400 lift=36 world_z=true native_draw_unchanged=true")
-    local before=probe.continuous_tick(c)
-    log("STYLE_TICK",("before=%.3f after=0"):format(before))
+    local tick_ok,before=pcall(probe.continuous_tick,c)
+    log(tick_ok and "STYLE_TICK" or "STYLE_TICK_REJECTED",
+        tick_ok and ("before=%.3f after=0"):format(before)
+        or ("reason=%q"):format(tostring(before):sub(1,170)))
     local decorated,reason=pcall(M.decorate,widget,resources)
     log(decorated and "STYLE_DECORATED" or "STYLE_DECORATION_REJECTED",
         decorated and "own_children=2" or ("reason=%q"):format(tostring(reason):sub(1,170)))
