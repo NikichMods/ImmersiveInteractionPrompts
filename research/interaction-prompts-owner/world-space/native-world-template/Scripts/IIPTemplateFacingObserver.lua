@@ -20,6 +20,29 @@ local function camera_pose(c,w)
     return direction,yaw
 end
 
+local function layout_sample(c,w)
+    local controller=w:GetOwningPlayer()
+    local owner=c:GetOwner()
+    local locator=c:GetAttachParent()
+    assert(valid(controller) and valid(owner) and valid(locator),"layout player/owner/locator missing")
+    local origin=c:K2_GetComponentLocation()
+    local parent=locator:K2_GetComponentLocation()
+    local actor=owner:K2_GetActorLocation()
+    local function screen_x(p)
+        local out={}
+        assert(controller:ProjectWorldLocationToScreen(p,out,false)==true
+            and type(out.X)=="number" and math.abs(out.X)<math.huge,"layout projection unavailable")
+        return out.X
+    end
+    local pivot,draw=c:GetPivot(),c:GetCurrentDrawSize()
+    assert(draw.X>0 and draw.Y>0 and pivot.X>=0 and pivot.X<=1,"layout target not ready")
+    -- Project each horizontal anchor at the same elevation to isolate its
+    -- lateral contribution. Screenshot coordinates use the full viewport.
+    return ("actor_at_tip_x=%.1f parent_at_tip_x=%.1f component_x=%.1f pivot_u=%.1f draw_w=%.0f"):format(
+        screen_x({X=actor.X,Y=actor.Y,Z=origin.Z}),
+        screen_x({X=parent.X,Y=parent.Y,Z=origin.Z}),screen_x(origin),pivot.X*draw.X,draw.X)
+end
+
 function M.new(log)
     assert(type(log)=="function","logger unavailable")
     return setmetatable({log=log,active=false,items={},order={},dropped=0},M)
@@ -50,6 +73,12 @@ function M:sample(info,component,widget)
         if opacity<=0.01 then item.opacity_zero=item.opacity_zero+1
         else item.opacity_positive=item.opacity_positive+1 end
     end
+    if info.orientation=="billboard" and flag==true and ok_opacity
+        and type(opacity)=="number" and opacity>.01 and not item.layout_checked then
+        item.layout_checked=true
+        local ok,result=pcall(layout_sample,component,widget)
+        item.layout=ok and result or ("reason=%q"):format(tostring(result):sub(1,140))
+    end
     if item.poses>=MAX_POSES or (item.calls~=1 and (item.calls-1)%POSE_EVERY~=0) then return end
     local ok,bearing,yaw=pcall(camera_pose,component,widget)
     if not ok then item.pose_errors=item.pose_errors+1;return end
@@ -77,6 +106,9 @@ function M:toggle()
             v.kind,v.actor,v.calls,v.shown,v.hidden,v.flips,v.opacity_zero,v.opacity_positive,
             v.poses,v.moves,v.widget_moves,v.largest_step,
             v.first_bearing or -999,v.last_bearing or -999,v.last_yaw or -999,v.pose_errors))
+        if v.layout then
+            self.log("FACING_OBS_LAYOUT",("actor=%q %s"):format(v.actor,v.layout))
+        end
     end
     return false
 end

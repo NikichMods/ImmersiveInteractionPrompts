@@ -109,5 +109,39 @@ class FacingObserverTests(unittest.TestCase):
         self.assertNotIn("SetShow(", SOURCE)
         self.assertNotIn("RegisterHook(", SOURCE)
 
+    def test_billboard_layout_projects_anchors_once_at_the_same_height(self):
+        self.run_lua("""
+            local m=M.new(log)
+            local calls=0
+            local function valid()return true end
+            local ctrl={IsValid=valid,ProjectWorldLocationToScreen=function(_,p,out,relative)
+                assert(p.Z==100 and relative==false)
+                out.X=p.X*2
+                calls=calls+1
+                return true
+            end}
+            S.widget.GetOwningPlayer=function()return ctrl end
+            S.component.GetOwner=function()
+                return {IsValid=valid,K2_GetActorLocation=function()return {X=100,Y=0,Z=0} end}
+            end
+            S.component.GetAttachParent=function()
+                return {IsValid=valid,K2_GetComponentLocation=function()return {X=95,Y=0,Z=60} end}
+            end
+            S.component.K2_GetComponentLocation=function()return {X=90,Y=0,Z=100} end
+            S.component.GetPivot=function()return {X=.5,Y=.5} end
+            S.component.GetCurrentDrawSize=function()return {X=1000,Y=1000} end
+            S.info.orientation="billboard"
+            m:toggle()
+            S.component.bVisible=false
+            m:sample(S.info,S.component,S.widget)
+            assert(calls==0)
+            S.component.bVisible=true
+            for i=1,10 do m:sample(S.info,S.component,S.widget) end
+            m:toggle()
+            assert(calls==3 and S.setter_calls==0)
+            assert(has("actor_at_tip_x=200.0 parent_at_tip_x=190.0 component_x=180.0"))
+            assert(has("pivot_u=500.0 draw_w=1000"))
+        """)
+
 if __name__ == "__main__":
     unittest.main()

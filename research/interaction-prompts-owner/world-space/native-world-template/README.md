@@ -1162,6 +1162,39 @@ Private UE4SS snapshot SHA-256
 Source correction only; installed World remains `942439f`.
 Production BLOCKED.
 
+## Runtime acceptance of the sewer grille and horizontal measurement (2026-11-21)
+
+On installed `e45978f`, `1-1_slumpass_door_bp1` reached
+`DOOR_PLANE_ROUTE enabled=true`, then `ORIENTATION_APPLIED mode=door
+side=1`. The next callback reported `already_placed`. The user
+confirmed the text cleared the bars and selected the existing 24 cm
+offset. This accepts the observed approach side of that grille.
+No other door profile or opposite-side runtime clearance was observed.
+Private session SHA-256
+`df69cb5ffe3d7856ca8b9f8b619fc0d567e0f46b528d76db7b31c3ae4c64761e`.
+
+The 24 cm is measured from the sewer root plane. Another door can have
+a thick leaf, a displaced hinge origin, two moving leaves or vertical
+motion. A generic profile needs the closed leaf plane and its toward-player
+surface at the prompt height before choosing a clearance. As the next
+family, use a representative `Base2SideDoor_BP_C` descendant and compare
+its opposing alignment axis against the closed mesh. Other recognized
+families retain their existing placement.
+
+For the reported common left shift, the F5 observer now attempts one
+read-only projection per visible Billboard actor per capture.
+`FACING_OBS_LAYOUT` reports the owning actor and attachment parent
+projected at the component's elevation, the component origin, and
+the horizontal pivot in render-target units. A screenshot taken while
+holding the camera still supplies the painted block center. Compare
+the three projected positions with the screenshot in the same game
+viewport. An offset already present between the anchors suggests a
+world attachment change. An offset appearing between the component
+origin and the painted block suggests a correction in widget layout.
+An unavailable read is recorded with its reason. The candidate adds
+no horizontal write and keeps the accepted sewer behavior.
+Runtime acceptance of this measurement is pending.
+
 ## Door Plane skip trace — source-only (2026-11-21)
 
 The `27b095d` runtime report confirms a visible grille occlusion but
