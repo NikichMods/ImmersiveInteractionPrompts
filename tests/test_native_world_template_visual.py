@@ -285,4 +285,43 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(not pcall(M.decorate,S.component,{}))
         """)
 
+    def test_shift_moves_the_shared_native_canvas_once_and_restores_a_failed_write(self):
+        self.case("""
+        local function obj(path,class,id,outer)
+            return {IsValid=function()return true end,GetAddress=function()return id end,
+                GetFullName=function()return "Object "..path end,GetOuter=function()return outer end,
+                GetClass=function()return {IsValid=function()return true end,
+                    GetFullName=function()return "Class "..class end} end}
+        end
+        local w=obj("/Transient.TipHUD","/Game/MainContent/Template/UMG/TipHUD.TipHUD_C",1)
+        local tree=obj("/Transient.TipHUD.WidgetTree","/Script/UMG.WidgetTree",2,w)
+        local canvas=obj("/Transient.TipHUD.WidgetTree.CanvasPanel_6","/Script/UMG.CanvasPanel",3,tree)
+        local text=obj("/Transient.TipHUD.WidgetTree.TextBlock_89","/Script/UMG.TextBlock",4,tree)
+        local hint=obj("/Transient.TipHUD.WidgetTree.RetainerBox_0","/Script/UMG.RetainerBox",5,tree)
+        function text:GetParent()return canvas end
+        function hint:GetParent()return canvas end
+        function StaticFindObject(path)
+            assert(path=="/Transient.TipHUD.WidgetTree.RetainerBox_0")
+            return hint
+        end
+        w.WidgetTree,w.TextBlock_89=tree,text
+        canvas.RenderTransform={Translation={X=0,Y=7}}
+        local writes=0
+        local bad_readback=false
+        function canvas:SetRenderTranslation(v)
+            writes=writes+1
+            self.RenderTransform.Translation={X=bad_readback and 45 or v.X,Y=v.Y}
+            bad_readback=false
+        end
+        assert(M.shift_block(w))
+        assert(canvas.RenderTransform.Translation.X==50 and canvas.RenderTransform.Translation.Y==7)
+        assert(not M.shift_block(w) and writes==1)
+        canvas.RenderTransform.Translation.X=9
+        assert(not pcall(M.shift_block,w) and writes==1)
+        canvas.RenderTransform.Translation.X=0
+        bad_readback=true
+        assert(not pcall(M.shift_block,w) and writes==3)
+        assert(canvas.RenderTransform.Translation.X==0 and canvas.RenderTransform.Translation.Y==7)
+        """)
+
 if __name__=="__main__": unittest.main()

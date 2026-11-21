@@ -1244,6 +1244,28 @@ None of these additional families inherits the single-leaf offsets.
 Source candidate only. Installed `1056bfa` remains in its loader slot.
 Production BLOCKED.
 
+## Shared World prompt translation (2026-11-22)
+
+The completed `8085e60` F5 capture reported actor, attachment parent
+and component at the same screen X (1105.9), with pivot U=500 of 1000.
+The camera stayed still across the sampled window. The matching
+2560×1440 user frame places the action word, divider and title near
+X=1074 and the whole visible row including the button near X=1052.
+This supports moving the content inside the existing widget.
+Private log SHA-256
+`2982b78e0ad57b13349cd5e133d2645e62bfcd4dc6e5f1f5fe9f1e367030f046`.
+
+The user chose a uniform local X=+50 texture units for the full
+World prompt. The source candidate applies the translation once to
+the verified `CanvasPanel_6` inside each acquired native World TipHUD,
+independently of action and decoration success. That canvas contains
+the native label, key hint/hold visuals and the added decorations.
+The write preserves Y, treats an existing +50 as already applied,
+and leaves any other unexpected initial X alone. The anchor and
+World orientation remain independent. Runtime visual acceptance
+across different prompt widths is pending. Screen S1 is outside the
+candidate. Production BLOCKED.
+
 ## Door Plane skip trace — source-only (2026-11-21)
 
 The `27b095d` runtime report confirms a visible grille occlusion but

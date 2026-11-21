@@ -234,7 +234,7 @@ local function child(tree,canvas,owned,k,name,y,w,h,x)
     return o
 end
 
-function M.decorate(widget,resources,tag)
+local function native_canvas(widget)
     assert(is(widget,TIP),"not native TipHUD")
     local stock,tree=widget.TextBlock_89,widget.WidgetTree
     assert(is(stock,"/Script/UMG.TextBlock") and is(tree,"/Script/UMG.WidgetTree")
@@ -244,6 +244,32 @@ function M.decorate(widget,resources,tag)
         and path(canvas):match("%.CanvasPanel_6$"),"native canvas changed")
     local hint=StaticFindObject(path(tree)..".RetainerBox_0")
     assert(is(hint,"/Script/UMG.RetainerBox") and same(hint:GetParent(),canvas),"native hint changed")
+    return canvas,tree,stock
+end
+
+function M.shift_block(widget)
+    local canvas=native_canvas(widget)
+    local translation=canvas.RenderTransform.Translation
+    local x,y=translation.X,translation.Y
+    assert(type(x)=="number" and type(y)=="number" and math.abs(y)<math.huge,"invalid native canvas translation")
+    if close(x,50) then return false end
+    assert(close(x,0),"unexpected native canvas X")
+    local function move(expected_x)
+        canvas:SetRenderTranslation({X=expected_x,Y=y})
+        local actual=canvas.RenderTransform.Translation
+        assert(close(actual.X,expected_x) and close(actual.Y,y),"canvas translation readback")
+    end
+    local ok,reason=pcall(move,50)
+    if not ok then
+        local actual=canvas.RenderTransform.Translation
+        if not (close(actual.X,x) and close(actual.Y,y)) then move(x) end
+        error(reason)
+    end
+    return true
+end
+
+function M.decorate(widget,resources,tag)
+    local canvas,tree,stock=native_canvas(widget)
     local owned={}
     local x=M.placement_x(tag)
     local label
@@ -289,6 +315,10 @@ function M.start(c,widget,resources,probe,log,tag)
     log(tick_ok and "STYLE_TICK" or "STYLE_TICK_REJECTED",
         tick_ok and ("before=%.3f after=0"):format(before)
         or ("reason=%q"):format(tostring(before):sub(1,170)))
+    local shift_ok,shifted=pcall(M.shift_block,widget)
+    log(shift_ok and "STYLE_BLOCK_SHIFT" or "STYLE_BLOCK_SHIFT_REJECTED",
+        shift_ok and ("x=50 changed=%s"):format(tostring(shifted))
+        or ("reason=%q"):format(tostring(shifted):sub(1,170)))
     local decorated,info=pcall(M.decorate,widget,resources,tag)
     log(decorated and "STYLE_DECORATED" or "STYLE_DECORATION_REJECTED",
         decorated and ("own_children=2 tag=%s token=%s x=%.2f placement=fixed"):format(
