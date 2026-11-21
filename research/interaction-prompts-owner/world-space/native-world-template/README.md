@@ -776,5 +776,20 @@ forward axis can be tested for a known one-sided door with a verified
 axis and side. A global `Open` offset and through-wall drawing
 would also affect prompts outside the reported case.
 
-These are source-design options. The installation and runtime code
-remain as tested. Production BLOCKED.
+**Chest readability around the full circle, proposed.** The user
+reports that the fixed chest prompt disappears when viewed from
+behind. The stock World widget is a plane with one UV layout. Its
+two-sided setting would expose that image in reverse from behind,
+and the plane would still be edge-on from the side. Two readable
+faces would share the same side-view limit. To keep text readable
+through a full walk around the chest, consider turning the existing
+World plane toward the camera in yaw while visible, with world Z
+up and the anchor kept in place. The one-shot NPC turn only serves
+the start of an appearance. A yaw-following plane can still be
+occluded by intervening geometry, so door clearance remains its
+own placement issue. Runtime cost, smoothness, scope and the
+visibility boundary for this option remain open.
+[Prior yaw geometry trial](../vertical-yaw/README.md#geometry-and-edge-cases).
+
+These are design options under discussion. The installation and
+runtime code remain as tested. Production BLOCKED.
