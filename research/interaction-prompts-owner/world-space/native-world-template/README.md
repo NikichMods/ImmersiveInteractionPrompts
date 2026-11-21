@@ -831,10 +831,165 @@ called by this new module; no second hook or separate scheduler.
   hidden-edge reset but not native hide by other events.
 - Record native Talk success/failure separately from the visual
   rotation; existing NPC `SetIsCanInteract` can gate Talk.
-- On the reported grille door, F5 for diagnostic names only; the
-  exact actor/leaf normal/front/rear alignment still needs local
-  private cooked level inspection before writing door offsets.
+- At the reported grille, start F5 before approaching, move into view of
+  the prompt, then stop F5. Compare the candidate actors' observations and
+  the visible prompt in the same interval. The static match and its limits
+  are below.
 
-**Current state:** source-only, NOT INSTALLED. No claims about real
-CanShow cadence, native hidden-event delivery, door geometry or rear
-Talk gating. Installed bytes remain `10fa4f0`. Production BLOCKED.
+## Static closure — sewer grille, NPC Talk and observer payload (2026-11-21)
+
+### Door Plane
+
+The best-supported match for the photographed grille is
+`0-2_plot_shelterA_main2:PersistentLevel.1-1_slumpass_door_bp1`
+with actor tag `1-1_slumpass_door`. The image shows the Black Streets
+objective to meet Quintus at the sewer entrance. The cooked level places
+the slum passage and the separate Arges route in the same sublevel,
+and the Slums export also contains a passage-specific
+`1-1_slumpass_door_insurance` overlap actor. The recorded session styles
+both doors at load with `Open`. Both use `item_door_sewer_a01_bp_C`
+and the same skeletal mesh and material override. Consequently the
+match rests on the quest and route, and the captured log cannot prove
+which actor displayed the photographed prompt. `STYLE_READY` is an
+acquisition record. The door class also differs from the nearby
+`2-1_routearges_door_hint` overlap actor.
+
+The matching placed actor owns both components. The attachment chain is
+`RootArrow → WidgetLocator → ExtendedWidget`; the terminal component
+hosts `TipHUD_C`. The inherited locator is `(0, 0, 180)` in root space.
+The mesh is a separate child of the root. The level export gives the
+slum root yaw as approximately +90°, with zero pitch and roll.
+The archetype chain `item_door_sewer_a01_bp_C → Base1SideDoor_BP_C →
+BaseGameEventObject_BP_C` gives the following root-local geometry
+(Unreal units, rounded):
+
+| Component or axis | Relative to its parent | In root space |
+| --- | --- | --- |
+| Front trigger | `(55, 0, 35)` | `(55, 0, 35)` |
+| Front alignment under front trigger | `(0, 0, -35)`, yaw 180° | `(55, 0, 0)`, faces −X |
+| Rear trigger | `(-50, 0, 35)` | `(-50, 0, 35)` |
+| Rear alignment under rear trigger | `(-10, 0, -35)`, yaw ~0° | `(-60, 0, 0)`, faces +X |
+| Skeletal mesh component | yaw −90° | world yaw ~0° on the slum instance |
+| Closed-leaf plane inferred from the opposing alignments | spans root Y/Z, front normal root +X | spans world X/Z, front normal world +Y |
+
+The opposed alignments establish the passage axis and a well-supported
+closed-leaf normal. The retained exports do not measure the actual
+rendered bars' depth or animation pose. The locator sits at root X=0.
+For a closed leaf, let `N` be the normalized horizontal rear-to-front
+vector, `O` a verified point on the closed-leaf plane, and `A` the
+unmodified prompt anchor with the existing height adjustment.
+Use `s = sign(dot(playerPawnLocation - O, N))`, then project `A` onto
+the plane and add a side-specific clearance:
+`P = A + (s * clearance - dot(A - O, N)) * N`.
+Choose clearance beyond the nearest outer bar surface on that side,
+keeping the tangential coordinate and height. Use the original World
+component's location setter and yaw its local +X toward `s * N`,
+with pitch and roll zero. One component suffices geometrically.
+Use a small dead zone around the plane and require a valid closed-leaf
+reference before applying any move. Confirm the selected actor at the
+reported doorway and measure the plane offset and clearance before
+implementing it. The other sewer instance has root yaw ~−180°, which
+would put its front normal near world −X. A fixed world-axis move
+would fail to generalize. The calculation says nothing about whether
+the game permits interaction from either side.
+
+Evidence retained locally for reproduction: the screenshot and the
+`4707d8aa…` session above, the `0-2_plot_shelterA_main2` and
+`1-1_plot_slumB1_main1` level exports, and the cooked sewer door,
+`Base1SideDoor_BP` and `BaseGameEventObject_BP` archetypes.
+
+### NPC Talk availability
+
+The retained `CharacterSetCanInteract` Blueprint can create
+`NPCInteract_Bp_C` with the character as owner. The base NPC graph
+resolves the owner as `GenesisCharacter`, attaches the interaction
+actor, sizes its box from character capsule dimensions and positions
+the widget locator. `BaseNPCInteract_BP.ExecuteAction` dispatches the
+named plot actions `CanInteract` and `CanNotInteract` to the native
+`BaseGameEventObject:SetIsCanInteract(true/false)` calls (cooked
+ubergraph offsets 1156 and 1172). The battle availability branches
+write their own `IsCanInteractInBattle` flag. The `SetNPCTip` branch
+handles the tip tag separately. The derived `InteractBeginEvent`
+delegates to the base event and uses NPC interaction metadata and the
+native plot/touch path. These are distinct routes from the Lua
+one-shot presentation turn.
+
+In this exported availability branch the setter receives a literal
+boolean selected by action name. The graph has no approach-direction
+test on that path. Native selector conditions and the runtime plot,
+overlap and availability state for the reported failed attempt are
+unobserved. The archived log identifies several dynamic NPC interaction
+actors and visual turns, so it cannot correlate the failed attempt to
+an exact NPC, a disabling call, or a particular native gate. Whether
+a directional check elsewhere or another condition blocked Talk remains
+unknown.
+
+Evidence retained locally: the cooked `CharacterSetCanInteract`
+function, the `BaseNPCInteract_BP` and `NPCInteract_Bp` ubergraphs,
+and the reflected `BaseGameEventObject` declaration.
+
+### Observer audit and pending installation
+
+`04265a1b5b7a82207c8f1dac75970e449a1909e6` loads the observer optionally.
+It starts inactive and reuses the post-`TipHUD:CanShow` hook. The
+existing hook first joins the styled widget and its original World
+component by path/address and verifies the current widget binding.
+The diagnostic is reached after the existing first NPC turn and before
+the existing cadence routine. F5 schedules the toggle on the same game
+thread queue and retains the earlier placed-object sample. A second F5
+stops observation and prints the summary. F5 requires the existing
+engine tick entry point and an unclaimed key bind. The observer makes
+getter calls and updates Lua counters only. It adds no native setters,
+hook or polling loop. The inherited style path still performs its
+previous presentation writes.
+
+Each window retains up to 24 actor paths and 12,000 tracked callbacks
+per actor. Pose attempts start on callback 1 and repeat every eight,
+with up to 450 successful poses per actor. Failed poses count separately
+and may be retried on the sampled cadence up to the callback cap. The
+summary emits at most 24 actor lines plus a stop line. The overflow
+counter counts rejected callbacks, rather than unique actor paths.
+An unexpected sample error disables observer sampling for that styled
+record and the usual style handler still runs. Only already-styled
+actors that match the NPC class, known chest or name heuristic enter
+the observer. The report aggregates by actor path and has no per-sample
+timestamp or device/input outcome. Read one target per F5 interval.
+Counts and bearing changes can show recurring delivery during a sweep;
+they cannot prove frame-aligned updates, reliable identity across
+widget recreation, or a native hidden edge from opacity alone.
+
+Eight-file payload prepared outside the loader. Compare all entries
+with the private `prepared.json` alongside `candidate/` and
+`rollback-10fa4f0/` under the ignored
+`native-world-template/04265a1b5b7a/facing-observer-offline/` stage.
+Relative to the verified installed seven-file manifest
+`fabb5035d6b8bf2e879d3eb0182b5b844be75f14c5babd865980b7d0df3833a4`:
+
+| File | Candidate action and SHA-256 |
+| --- | --- |
+| `Scripts/main.lua` | Replace with source bytes. `a74cab50e6a64def93a2bcf15e8eca1e8ea6f128cbcb61e606fe97d85c12911f` |
+| `Scripts/IIPTemplateFacingObserver.lua` | Add from source. `3008b77db4502fe94b700acd9af6113b06f1fa33b8dfad6ed4e985702cf2dd20` |
+| `Scripts/IIPTemplateProbe.lua`, `Scripts/IIPTemplateStyle.lua`, `Scripts/IIPTemplateResources.lua`, `Scripts/IIPLiveConfig.lua`, `Assets/aphes_divider_256x32.png`, `enabled.txt` | Copy the six byte-identical entries from the installed manifest |
+
+The private config continues to point at the existing external TTF and
+at the same installed divider location. The World and Screen S1
+inventories matched their last verified receipts. The staged Lua files
+compiled and rollback restored all seven predecessor hashes in a local
+copy rehearsal. For a future separately approved install, verify game
+closure and both current manifests, replace the single World slot as a
+folder and compare all eight hashes. For rollback, move the trial out of
+the loader, restore the verified `10fa4f0` folder and check that all
+seven hashes match and the observer is absent. The older rollback under
+the `10fa4f0` deployment record would restore its own predecessor;
+use the new local rollback copy for this trial.
+
+Offline validation covered all 69 test files, including six facing
+observer tests. The stock runner stops on Windows at the archived
+resident-world manifest's slash comparison. That test and the rest of
+the suite passed with that one comparison normalized in memory, with
+the archived test file unchanged. The staged resource check also
+verified the external TTF hash and the divider.
+
+**State:** source prepared, runtime pending. The installed World remains
+`10fa4f0`. Billboard Yaw and Door Plane remain design policies.
+Production BLOCKED.
