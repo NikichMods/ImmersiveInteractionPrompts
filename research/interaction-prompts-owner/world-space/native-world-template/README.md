@@ -1044,3 +1044,35 @@ At the identified grille check native Open, parallel placement, the
 side and clearance from the bars, and behavior on opening. The F5
 observer remains available. Local source and staged payload, no install.
 Production BLOCKED.
+
+## Runtime result — orientation successor 27b095d (2026-11-21)
+
+Installed source `27b095d2f40a27a27fac3eeef2473523d449c997`.
+All eight World files matched the prepared manifest after installation.
+The eight-file `04265a1` rollback was verified outside the loader;
+Screen S1 matched its pre-install manifest.
+
+- **NPC Billboard Yaw:** the user confirmed readable NPC orientation.
+  The session logged `ORIENTATION_APPLIED mode=billboard` on four
+  distinct NPC instances. The user clarified that the chest was not
+  visually checked. NPC success cannot establish chest behavior.
+- **Divider:** the user reported seeing the divider after traveling
+  into the Shelter. The session logged one successful texture bind
+  and successful decoration in the Shelter. No replacement import
+  (`replaces_invalid=true`) or divider-import rejection was logged.
+  The appearance passed on the tested route. The invalid-texture
+  recovery branch remains unconfirmed in the game.
+- **Grille:** the user screenshot shows bars still occluding both
+  the ornament and the native Open row. The confirmed actor
+  `1-1_slumpass_door_bp1` reached `STYLE_READY decorated=true`, but
+  has no `ORIENTATION_APPLIED` or `ORIENTATION_REJECTED` record.
+  The session ended with an F5 arm and no completed summary. There
+  is no readback showing that the 24 cm shift ran. The current path
+  can quietly return on action/state, visibility, pawn availability
+  or the near-plane dead zone. The next useful measurement is the
+  eligibility and pose readback for this exact owner before changing
+  the clearance. Occlusion failure is confirmed, and its cause remains open.
+
+Private UE4SS session snapshot SHA-256
+`fdcf76e22344a72c6c204beeabf42169559f1321c307f97414e313c2c8fcc5c8`.
+Production BLOCKED.
