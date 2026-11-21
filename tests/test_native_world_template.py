@@ -170,8 +170,13 @@ class TemplateWorldTrial(unittest.TestCase):
         package.preload.IIPTemplateProbe=function()return {} end
         package.preload.IIPTemplateStyle=function()return {
             RGB=.5,start=function()return {} end,can_show=function()end,
-            door_plane=function(_,_,_,_,tag)
+            door_plane=function(_,_,actor,_,tag,profile)
                 assert(tag=="Knock" or tag=="Gossip")
+                if actor.p=="/Game/Test.Level:Minerva" then
+                    assert(profile.front==28 and profile.rear==24 and profile.mesh:find("bazaar",1,true))
+                else
+                    assert(profile.front==24 and profile.rear==24 and profile.mesh==nil)
+                end
                 placements=placements+1
                 return false,nil,"inactive_state=close"
             end,
@@ -218,6 +223,9 @@ class TemplateWorldTrial(unittest.TestCase):
         assert(has("family=rock") and placements==2 and billboards==0)
         run(OPEN,"/Game/Test.DoorShapedChest",generic:GetClass(),56,"Open")
         assert(billboards==1 and placements==2)
+        local bazaar="/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_bazaar_a01_bp.item_door_bazaar_a01_bp_C"
+        run("/Game/Test.Level:Minerva",bazaar,root("Base1SideDoor_BP"),57,"Knock")
+        assert(billboards==1 and placements==3)
         """)
 
     def test_cold_load_rejects_package_name_and_leaves_template_untouched(self):

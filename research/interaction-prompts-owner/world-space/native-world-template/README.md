@@ -1195,6 +1195,55 @@ An unavailable read is recorded with its reason. The candidate adds
 no horizontal write and keeps the accepted sewer behavior.
 Runtime acceptance of this measurement is pending.
 
+## Cooked door surfaces and first horizontal capture (2026-11-21)
+
+The installed `1056bfa` session recorded F5 arm, stop, then arm.
+The completed first window reported owner, parent and component at
+the same screen X (875.4), with render-target pivot U=500 of 1000.
+The user designated the second and third presses. They straddle
+the inactive interval, so the log cannot match those projections to
+the screenshot. The screenshot itself shows the button extending to
+the left of the aligned action word, divider and title. This is
+consistent with the earlier sample, but no horizontal correction
+is selected from that unmatched evidence. The observer now emits
+`FACING_OBS_LAYOUT` when it takes the sample, so an open capture
+retains the measurement on exit. Private log SHA-256
+`b42e8433db238c9fc3649bea8772a5369abc64b238566666c7c69d7e22a88f77`.
+
+A read-only cooked inventory of the interactive and passive door
+directories recovered 29 class exports, including objects outside the
+door hierarchies. The Minerva room door is an observed
+`Base1SideDoor_BP_C` descendant. Its placed root, widget attachment
+and opposing alignment pair match the existing geometry contract.
+Its mesh inherits the same -90° yaw as the sewer model. Mesh +Y
+therefore points along the front passage normal. Four single-leaf
+models have the same verified archetype structure and a dedicated
+closed idle animation. Use the cooked imported bound in each signed
+normal direction, add 2 cm and round outwards.
+
+| Blueprint | Imported mesh Y span, cm | Front/rear depth from root, cm |
+| --- | ---: | ---: |
+| `item_door_sewer_a01_bp_C` | −18.95 to +22.48 | 24 / 24, retained from accepted grille |
+| `item_door_bazaar_a01_bp_C` | −21.81 to +25.04 | 28 / 24 |
+| `item_door_phalan_a01_bp_C` | −19.90 to +19.90 | 22 / 22 |
+| `item_door_phalan_b01_bp_C` | −19.29 to +19.04 | 22 / 22 |
+| `item_door_town_a01_bp_C` | −22.75 to +22.98 | 25 / 25 |
+
+New profiles check the original attachment, both alignment points,
+the exact skeletal mesh and a unit-scale mesh pose aligned to the
+passage. A mismatched instance keeps its previous placement. Imported
+bounds describe the reference mesh. Exact deformed closed animation
+surfaces and in-game clearance of the new profiles remain unverified.
+The inventory also includes multi-leaf doors, vertical gates,
+teleporters, rock doors and a horizontal hatch. Their surfaces and
+state transitions require separate profiles. For example, one vertical
+gate's imported mesh extends about 165 cm along local Y, so treating
+the full box as a thin swinging leaf would give an unjustified offset.
+None of these additional families inherits the single-leaf offsets.
+
+Source candidate only. Installed `1056bfa` remains in its loader slot.
+Production BLOCKED.
+
 ## Door Plane skip trace — source-only (2026-11-21)
 
 The `27b095d` runtime report confirms a visible grille occlusion but

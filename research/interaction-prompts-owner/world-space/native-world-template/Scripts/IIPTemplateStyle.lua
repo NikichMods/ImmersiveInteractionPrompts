@@ -150,9 +150,8 @@ local function place(c,position,yaw)
     return moved or result
 end
 
--- Closed sewer-door geometry only. The root plane is a static estimate. The 24 cm
--- trial offset needs visual verification against the actual bars on both sides.
-function M.door_plane(c,widget,actor,state,tag)
+-- Profiles use the root plane and the paired alignment axis.
+function M.door_plane(c,widget,actor,state,tag,profile)
     local prior=state.door_pose
     local native_state=actor.CurrentState:ToString()
     -- FName display casing can differ from the cooked spelling.
@@ -185,6 +184,21 @@ function M.door_plane(c,widget,actor,state,tag)
     end
     assert(depth(a)>40 and depth(b)<-40 and math.abs(depth(point(locator:K2_GetComponentLocation())))<2,
         "door plane reference mismatch")
+    if profile.mesh then
+        local mesh=actor.SkeletalMesh
+        assert(is(mesh,"/Script/Engine.SkeletalMeshComponent") and same(mesh:GetOwner(),actor)
+            and same(mesh:GetAttachParent(),root),"door mesh attachment mismatch")
+        local asset=mesh.SkeletalMesh
+        assert(valid(asset) and path(asset)==profile.mesh,"door mesh asset mismatch")
+        local scale=mesh:K2_GetComponentScale()
+        local rotation=mesh:K2_GetComponentRotation()
+        local yaw=math.rad(rotation.Yaw)
+        local mx,my=-math.sin(yaw),math.cos(yaw) -- Mesh local +Y faces front.
+        assert(close(scale.X,1,.001) and close(scale.Y,1,.001) and close(scale.Z,1,.001)
+            and close(rotation.Pitch,0,.01) and close(rotation.Roll,0,.01)
+            and nx*mx+ny*my>.999 and math.abs(nx*my-ny*mx)<.001
+            and math.abs(depth(point(mesh:K2_GetComponentLocation())))<.25,"door mesh pose mismatch")
+    end
     local pawn=widget:GetOwningPlayerPawn()
     if not valid(pawn) then return false,nil,"pawn_unavailable" end
     local player_depth=depth(point(pawn:K2_GetActorLocation()))
@@ -192,7 +206,8 @@ function M.door_plane(c,widget,actor,state,tag)
     local side=player_depth>0 and 1 or -1
     local anchor=prior and prior.anchor or point(c:K2_GetComponentLocation())
     local yaw=prior and prior.yaw or c:K2_GetComponentRotation().Yaw
-    local offset=side*24-depth(anchor)
+    local clearance=side>0 and profile.front or profile.rear
+    local offset=side*clearance-depth(anchor)
     local changed=place(c,{X=anchor.X+nx*offset,Y=anchor.Y+ny*offset,Z=anchor.Z},
         math.deg(math.atan(side*ny,side*nx)))
     if not prior then state.door_pose={anchor=anchor,yaw=yaw} end

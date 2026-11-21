@@ -13,7 +13,20 @@ local OBJECTS = {
     [LEVEL.."0-1_sosletter3_2"]="Check",
 }
 local OPEN = LEVEL.."0-1_lootbox_01_mat_ST001"
-local SEWER_DOOR = "/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_sewer_a01_bp.item_door_sewer_a01_bp_C"
+local DOOR_PATH = "/Game/MainContent/Act/Scene_BP/objectInteract/doors/"
+local DOOR_PROFILES = {}
+local function register_door_profile(asset,front,rear,check_mesh)
+    local name=asset.."_bp"
+    local mesh=check_mesh and "/Game/MainContent/Assets/scene/00_item/interactable/"..
+        asset.."/"..asset.."_mesh."..asset.."_mesh" or nil
+    DOOR_PROFILES[DOOR_PATH..name.."."..name.."_C"]={front=front,rear=rear,mesh=mesh}
+end
+register_door_profile("item_door_sewer_a01",24,24)
+-- Imported mesh bounds along local Y plus at least 2 cm, rounded up.
+register_door_profile("item_door_bazaar_a01",28,24,true)
+register_door_profile("item_door_phalan_a01",22,22,true)
+register_door_profile("item_door_phalan_b01",22,22,true)
+register_door_profile("item_door_town_a01",25,25,true)
 local DOOR_FAMILIES = {
     ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/Base1SideDoor_BP.Base1SideDoor_BP_C"]="one_side",
     ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/Base2SideDoor_BP.Base2SideDoor_BP_C"]="two_side",
@@ -104,7 +117,7 @@ local function on_can_show(context)
         local ok,changed,side,why=true,false,nil,nil
         if info.orientation=="door" then
             if info.door_geometry then
-                ok,changed,side,why=pcall(style.door_plane,component,widget,actor,info.state,tag)
+                ok,changed,side,why=pcall(style.door_plane,component,widget,actor,info.state,tag,info.door_geometry)
             else
                 why="geometry_unverified"
             end
@@ -184,10 +197,10 @@ local function try_style_actor(actor)
             record.actor,class_path,tostring(family):sub(1,150)))
     elseif family then
         record.orientation="door"
-        record.door_geometry=class_path==SEWER_DOOR
+        record.door_geometry=DOOR_PROFILES[class_path]
         record.observer_kind="door"
         log("DOOR_PLANE_ROUTE",("actor=%q enabled=%s class=%q family=%s"):format(
-            record.actor,tostring(record.door_geometry),class_path,family))
+            record.actor,tostring(record.door_geometry~=nil),class_path,family))
     elseif class_path==NPC or record.actor==OPEN then
         record.orientation="billboard"
         record.observer_kind=class_path==NPC and "npc" or "known_chest"

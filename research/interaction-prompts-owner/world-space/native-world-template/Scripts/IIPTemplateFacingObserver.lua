@@ -77,7 +77,8 @@ function M:sample(info,component,widget)
         and type(opacity)=="number" and opacity>.01 and not item.layout_checked then
         item.layout_checked=true
         local ok,result=pcall(layout_sample,component,widget)
-        item.layout=ok and result or ("reason=%q"):format(tostring(result):sub(1,140))
+        local detail=ok and result or ("reason=%q"):format(tostring(result):sub(1,140))
+        self.log("FACING_OBS_LAYOUT",("actor=%q %s"):format(name,detail))
     end
     if item.poses>=MAX_POSES or (item.calls~=1 and (item.calls-1)%POSE_EVERY~=0) then return end
     local ok,bearing,yaw=pcall(camera_pose,component,widget)
@@ -106,9 +107,6 @@ function M:toggle()
             v.kind,v.actor,v.calls,v.shown,v.hidden,v.flips,v.opacity_zero,v.opacity_positive,
             v.poses,v.moves,v.widget_moves,v.largest_step,
             v.first_bearing or -999,v.last_bearing or -999,v.last_yaw or -999,v.pose_errors))
-        if v.layout then
-            self.log("FACING_OBS_LAYOUT",("actor=%q %s"):format(v.actor,v.layout))
-        end
     end
     return false
 end

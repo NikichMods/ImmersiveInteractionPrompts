@@ -137,10 +137,10 @@ class FacingObserverTests(unittest.TestCase):
             assert(calls==0)
             S.component.bVisible=true
             for i=1,10 do m:sample(S.info,S.component,S.widget) end
-            m:toggle()
             assert(calls==3 and S.setter_calls==0)
             assert(has("actor_at_tip_x=200.0 parent_at_tip_x=190.0 component_x=180.0"))
             assert(has("pivot_u=500.0 draw_w=1000"))
+            m:toggle()
         """)
 
 if __name__ == "__main__":

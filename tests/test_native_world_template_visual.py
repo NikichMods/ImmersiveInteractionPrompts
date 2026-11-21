@@ -147,22 +147,48 @@ class NativeTemplateVisual(unittest.TestCase):
         local pawn={IsValid=function()return true end,K2_GetActorLocation=function()return player end}
         local w={RenderOpacity=1,GetOwningPlayerPawn=function()return pawn end}
         local state={}
-        assert(not M.door_plane(c,w,actor,state,"Open") and S.loc.Y==20)
+        local sewer={front=24,rear=24}
+        assert(not M.door_plane(c,w,actor,state,"Open",sewer) and S.loc.Y==20)
         player.Y=70
-        local changed,side=M.door_plane(c,w,actor,state,"Open")
+        local changed,side=M.door_plane(c,w,actor,state,"Open",sewer)
         assert(changed and side==1 and S.loc.Y==24 and S.rotation.Yaw==90)
-        assert(not M.door_plane(c,w,actor,state,"Open"))
+        assert(not M.door_plane(c,w,actor,state,"Open",sewer))
         player.Y=-70
-        changed,side=M.door_plane(c,w,actor,state,"Open")
+        changed,side=M.door_plane(c,w,actor,state,"Open",sewer)
         assert(changed and side==-1 and S.loc.Y==-24 and S.rotation.Yaw==-90)
         assert(S.loc.X==10 and S.loc.Z==30)
         status="open"
-        assert(M.door_plane(c,w,actor,state,"Open"))
+        assert(M.door_plane(c,w,actor,state,"Open",sewer))
         assert(S.loc.Y==20 and S.rotation.Yaw==90 and state.door_pose==nil)
+        status="close"
+        local mesh=part(5,0,0,0,actor.RootComponent)
+        function mesh:GetClass()
+            return {IsValid=function()return true end,GetFullName=function()
+                return "Class /Script/Engine.SkeletalMeshComponent" end}
+        end
+        local mesh_path="/Game/Test.DoorMesh"
+        mesh.SkeletalMesh={IsValid=function()return true end,GetFullName=function()
+            return "SkeletalMesh "..mesh_path end}
+        local mesh_scale=1
+        function mesh:K2_GetComponentScale()return {X=1,Y=mesh_scale,Z=1} end
+        function mesh:K2_GetComponentRotation()return {Yaw=0,Pitch=0,Roll=0} end
+        actor.SkeletalMesh=mesh
+        local bazaar={front=28,rear=24,mesh=mesh_path}
+        player.Y=70
+        mesh_scale=1.5
+        assert(not pcall(M.door_plane,c,w,actor,state,"Open",bazaar) and S.loc.Y==20)
+        mesh_scale=1
+        changed,side=M.door_plane(c,w,actor,state,"Open",bazaar)
+        assert(changed and side==1 and S.loc.Y==28)
+        player.Y=-70
+        changed,side=M.door_plane(c,w,actor,state,"Open",bazaar)
+        assert(changed and side==-1 and S.loc.Y==-24)
+        status="open"
+        assert(M.door_plane(c,w,actor,state,"Open",bazaar))
         status="close"
         actor.rear_CharacterAlign=nil
         local writes=S.rotation_writes
-        local ok,reason=pcall(M.door_plane,c,w,actor,state,"Open")
+        local ok,reason=pcall(M.door_plane,c,w,actor,state,"Open",sewer)
         assert(not ok and reason:find("door geometry owner mismatch",1,true))
         assert(S.loc.Y==20 and S.rotation_writes==writes and state.door_pose==nil)
         """)
