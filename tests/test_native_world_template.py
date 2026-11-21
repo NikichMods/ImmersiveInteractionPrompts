@@ -117,7 +117,7 @@ class TemplateWorldTrial(unittest.TestCase):
                 return {decorated=true}
             end,
             face_camera=function(component,widget)
-                assert(component==native and widget==S.widget and component.bVisible and tag=="Talk")
+                assert(component==native and widget==S.widget and component.bVisible)
                 facings=facings+1
                 return true
             end,
@@ -137,13 +137,14 @@ class TemplateWorldTrial(unittest.TestCase):
         S.begin(context)
         assert(starts==1 and hooks==1 and not has("PLACED_BEGIN"))
         local widget_context={get=function()return S.widget end}
+        S.widget.RenderOpacity=1
         native.bVisible=true
         S.can_show(widget_context)
-        assert(facings==0)
+        local first=facings
         tag="Talk"
         native.bVisible=false
         S.can_show(widget_context)
-        assert(facings==0)
+        assert(facings==first)
         native.bVisible=true
         assert(S.can_show(widget_context)==nil)
         S.can_show({get=function()return S.widget end})
@@ -151,7 +152,7 @@ class TemplateWorldTrial(unittest.TestCase):
         assert(argument.msgTag:ToString()=="Talk" and S.comp.Space==1)
         """
         for actor_class, facings in (
-            ("/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C", 1),
+            ("/Game/MainContent/Template/BaseBlueprint/NPCInteract_Bp.NPCInteract_Bp_C", 3),
             ("/Game/Test.NonNPC_C", 0),
         ):
             with self.subTest(actor_class=actor_class):

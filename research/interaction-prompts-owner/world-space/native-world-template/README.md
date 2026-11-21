@@ -993,3 +993,54 @@ verified the external TTF hash and the divider.
 **State:** source prepared, runtime pending. The installed World remains
 `10fa4f0`. Billboard Yaw and Door Plane remain design policies.
 Production BLOCKED.
+
+## Installed observer results and orientation successor (2026-11-21)
+
+The user-run `04265a1` session had four completed F5 windows. The chest
+had 271 callbacks, 34 poses and changing camera bearing with fixed widget
+yaw. One NPC had 935 callbacks and 117 poses across the approach route.
+It had zero sampled visibility or opacity drops. The inactive grille
+window sampled another NPC only. The active grille window sampled
+`1-1_slumpass_door_bp1` exclusively (241 callbacks, 31 poses, yaw 90°).
+This pins the doorway identity. `CanShow` supplies repeat pose reads
+while the prompt is available. These aggregates do not measure the
+distribution between frames or provide a hidden-edge signal.
+
+The user independently confirmed that Talk succeeded from behind when
+the interaction button was held. Preserve the native hold and the
+localized row. Earlier single-press failure is not evidence of a
+directional interaction gate.
+
+The first divider import succeeded and was bound to its own image brush.
+After travel, the resource module persisted but its cached transient
+texture failed the validity check. An earlier successful import had
+latched `import_attempted`, causing `second import refused` before
+decoration could finish. The trace establishes loss of the valid
+reference and a stale guard, while the exact engine destruction point
+is unobserved. The successor shares the valid texture and permits one
+replacement when a previously bound texture is no longer valid. Failed
+import/bind attempts remain latched. Brushes retain the texture as
+before. No map-wide hook, forced GC or native root is added.
+
+The successor updates Billboard Yaw in the existing `CanShow` callback
+for the exact observed chest and `NPCInteract_Bp_C` owners with a visible,
+nontransparent native tip. It follows the camera around the existing
+anchor independent of decoration state. Door Plane is restricted to the
+confirmed placed grille of the exact sewer-door class. It reads the
+owner's root, locator and front/rear alignments, and chooses the side
+from the owning player pawn. With the door closed and native `Open`
+visible, it puts the original component 24 cm from the root plane,
+preserving height and lateral placement. A pawn within 8 cm of the plane
+causes no side change. The previous pose is restored on an observed
+callback outside the closed Open state. These distances are trial values.
+The actual outer surface of the bars and coverage of the restoration
+callback need runtime checks. Other door instances and shared Open tags
+do not acquire this placement.
+
+Verification on an authorized later run: start at the known chest,
+circle it, travel into the Shelter, check the divider on a new prompt,
+approach the NPC with full withdrawal between sides and hold to Talk.
+At the identified grille check native Open, parallel placement, the
+side and clearance from the bars, and behavior on opening. The F5
+observer remains available. Local source and staged payload, no install.
+Production BLOCKED.

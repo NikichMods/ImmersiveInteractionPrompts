@@ -36,7 +36,9 @@ local function configure_line(image, widget)
         assert(same(image.Brush.ResourceObject,shared_texture),"shared divider brush unavailable")
         return
     end
-    assert(not import_attempted, "second import refused")
+    -- Replace a formerly bound texture once it is invalid. A failed import or
+    -- failed initial bind keeps the attempt consumed to avoid repeated imports.
+    assert(not import_attempted or shared_texture~=nil, "divider import failed earlier")
     validate_png() -- Bounded read only; the native importer still validates/decodes the file.
     local function_path = "/Script/Engine.KismetRenderingLibrary:ImportFileAsTexture2D"
     local fn = StaticFindObject(function_path)
@@ -54,8 +56,10 @@ local function configure_line(image, widget)
     assert(brush.DrawAs == 3 and not valid(brush.ResourceObject)
         and brush.ResourceName:ToString() == "None", "unexpected fresh header brush")
     brush.TintColor = {SpecifiedColor={R=1,G=1,B=1,A=1},ColorUseRule=0}
-    import_attempted = true -- Never retry even on null result, binding failure or cleanup retry.
-    log("IMPORT_BEGIN", "size=256x32 once=true")
+    local replacing=shared_texture~=nil
+    shared_texture=nil
+    import_attempted = true
+    log("IMPORT_BEGIN", "size=256x32 replaces_invalid="..tostring(replacing))
     -- StaticFindObject yields an unbound UFunction. First argument is its explicit calling CDO.
     local texture = fn(cdo,widget,png_filename)
     assert(valid(texture) and cls(texture) == "/Script/Engine.Texture2D", "import returned no Texture2D")
@@ -69,7 +73,8 @@ local function configure_line(image, widget)
            "texture brush reference not established")
     shared_texture = texture
     log("TEXTURE_BOUND", "size=256x32 brush_ref=true transient=true")
-    -- UImage.Brush.ResourceObject retains the texture. No raw wrapper or extra GC root escapes.
+    -- UImage.Brush.ResourceObject retains the texture. The cached Lua wrapper
+    -- does not add a native GC root.
 end
 local function address(n)
     assert(math.type(n) == "integer" and n > 0, "address unavailable")
@@ -198,16 +203,6 @@ function M.prepare()
  end
  ttf_filename,png_filename=c.filename,c.separator_filename
  check_file();validate_png()
-end
--- Each new own image owns its imported transient PNG until its Brush is
--- cleared. Do not reset import_attempted while an own tree is alive.
-function M.has_live_lease()return import_attempted==true end
-function M.cycle_cleaned()
-    -- Called only by World after full verified child/component/host cleanup.
-    -- Native GC lifetime cannot be inferred from dropping Lua references.
-    import_attempted=false
-    shared_texture=nil
-    log("LEASE_RELEASED","ornament_reimport_allowed_on_next_owner=true")
 end
 M.font=configure_font
 M.ornament=configure_line

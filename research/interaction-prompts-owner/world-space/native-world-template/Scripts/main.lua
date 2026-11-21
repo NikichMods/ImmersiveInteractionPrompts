@@ -1,6 +1,6 @@
 -- SPDX-License-Identifier: MPL-2.0
 -- RESEARCH ONLY. Run INSTEAD of the old native-world-quintus experiment.
--- No component/actor hooks or new renderers: write one specific SCS template once.
+-- Reuse the existing native component, TipHUD and CanShow callback.
 local GENERATED_CLASS = "/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP.BaseGameEventObject_BP_C"
 local TEMPLATE = GENERATED_CLASS..":ExtendedWidget_GEN_VARIABLE"
 local COMPONENT = "/Script/Genesis.ExtendedWidgetComponent"
@@ -13,6 +13,8 @@ local OBJECTS = {
     [LEVEL.."0-1_sosletter3_2"]="Check",
 }
 local OPEN = LEVEL.."0-1_lootbox_01_mat_ST001"
+local GRILLE = "/Game/MainContent/Maps/sublevel_plot/0-2/0-2_plot_shelterA_main2.0-2_plot_shelterA_main2:PersistentLevel.1-1_slumpass_door_bp1"
+local GRILLE_CLASS = "/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_sewer_a01_bp.item_door_sewer_a01_bp_C"
 local WORLD, SCREEN, NO_COLLISION = 0, 1, 0
 local status = "UNATTEMPTED"
 
@@ -43,8 +45,7 @@ end
 -- World selection itself still comes only from the one SCS-template write.
 local style,resources,probe,style_available
 local styled,can_show_armed={},false
--- Separate opt-in, read-only diagnostic. The shipped seven-file candidate remains
--- unchanged; missing research module simply disables observer functionality.
+-- Separate opt-in diagnostic. Missing module only disables observation.
 local facing_observer
 do
     local ok,mod=pcall(require,"IIPTemplateFacingObserver")
@@ -94,13 +95,20 @@ local function on_can_show(context)
         or component.Space~=WORLD then return end
     local actor=component:GetOwner()
     local tag=action_tag(actor)
-    if info.npc and info.state.decorated and not info.facing_attempted
-        and tag=="Talk" and component.bVisible==true and valid(actor) and path(actor)==info.actor then
-        info.facing_attempted=true
-        local faced,changed=pcall(style.face_camera,component,widget)
-        log(faced and "NPC_TALK_ORIENTATION" or "NPC_TALK_ORIENTATION_SKIPPED",
-            faced and ("actor=%q changed=%s"):format(info.actor,tostring(changed))
-            or ("actor=%q reason=%q"):format(info.actor,tostring(changed):sub(1,170)))
+    if info.orientation and not info.orientation_failed and valid(actor) and path(actor)==info.actor then
+        local ok,changed,side=true,false
+        if info.orientation=="door" then
+            ok,changed,side=pcall(style.door_plane,component,widget,actor,info.state,tag)
+        elseif component.bVisible==true and (widget.RenderOpacity or 0)>.01 then
+            ok,changed=pcall(style.face_camera,component,widget)
+        end
+        if not ok then
+            info.orientation_failed=true
+            log("ORIENTATION_REJECTED",("actor=%q reason=%q"):format(info.actor,tostring(changed):sub(1,170)))
+        elseif changed and (not info.orientation_logged or side~=info.logged_side) then
+            info.orientation_logged,info.logged_side=true,side
+            log("ORIENTATION_APPLIED",("mode=%s actor=%q side=%s"):format(info.orientation,info.actor,tostring(side)))
+        end
     end
     if facing_observer and info.observer_kind and not info.observer_error then
         local tracked,problem=pcall(facing_observer.sample,facing_observer,info,component,widget)
@@ -145,6 +153,11 @@ local function try_style_actor(actor)
     end
     local record={component=path(component),component_address=component:GetAddress(),
         widget=path(widget),widget_address=id,actor=path(actor),npc=is(actor,NPC)}
+    if record.npc or record.actor==OPEN then
+        record.orientation="billboard"
+    elseif record.actor==GRILLE and is(actor,GRILLE_CLASS) then
+        record.orientation="door"
+    end
     -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
     styled[id]=record
     local ok,result=pcall(style.start,component,widget,resources,probe,log,action_tag(actor))

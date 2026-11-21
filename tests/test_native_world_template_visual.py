@@ -106,7 +106,7 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(S.loc.X==10 and S.loc.Y==20 and S.loc.Z==30)
         assert(S.scale.X==2 and S.scale.Y==3 and S.scale.Z==4)
         camera={X=10,Y=20,Z=300}
-        assert(not pcall(M.face_camera,S.component,widget) and S.rotation_writes==1)
+        assert(not M.face_camera(S.component,widget) and S.rotation_writes==1)
         """)
 
     def test_canshow_restores_continuous_native_component_tick(self):
@@ -121,6 +121,44 @@ class NativeTemplateVisual(unittest.TestCase):
         M.can_show(S.component,{},state,probe,S.log)
         assert(S.ticks==1 and not state.tint_pending)
         assert(S.has("STYLE_TINT_VERIFIED rgb=0.50") and S.has("STYLE_CADENCE source=CanShow"))
+        """)
+
+    def test_door_plane_uses_player_side_and_restores_original_pose(self):
+        self.case("""
+        local c=S.component
+        local actor={IsValid=function()return true end,GetAddress=function()return 99 end}
+        local function part(id,x,y,z,parent)
+            return {
+                IsValid=function()return true end,GetOwner=function()return actor end,
+                GetAddress=function()return id end,GetAttachParent=function()return parent end,
+                K2_GetComponentLocation=function()return {X=x,Y=y,Z=z} end
+            }
+        end
+        actor.RootComponent=part(1,0,0,0)
+        actor.WidgetLocator=part(2,0,0,180,actor.RootComponent)
+        actor.front_CharacterAlign=part(3,0,55,0)
+        actor.rear_CharacterAlign=part(4,0,-60,0)
+        local status="close"
+        actor.CurrentState={ToString=function()return status end}
+        function c:GetAttachParent()return actor.WidgetLocator end
+        c.bVisible=true
+        S.rotation={Yaw=90,Pitch=0,Roll=0}
+        local player={X=0,Y=2,Z=0}
+        local pawn={IsValid=function()return true end,K2_GetActorLocation=function()return player end}
+        local w={RenderOpacity=1,GetOwningPlayerPawn=function()return pawn end}
+        local state={}
+        assert(not M.door_plane(c,w,actor,state,"Open") and S.loc.Y==20)
+        player.Y=70
+        local changed,side=M.door_plane(c,w,actor,state,"Open")
+        assert(changed and side==1 and S.loc.Y==24 and S.rotation.Yaw==90)
+        assert(not M.door_plane(c,w,actor,state,"Open"))
+        player.Y=-70
+        changed,side=M.door_plane(c,w,actor,state,"Open")
+        assert(changed and side==-1 and S.loc.Y==-24 and S.rotation.Yaw==-90)
+        assert(S.loc.X==10 and S.loc.Z==30)
+        status="open"
+        assert(M.door_plane(c,w,actor,state,"Open"))
+        assert(S.loc.Y==20 and S.rotation.Yaw==90 and state.door_pose==nil)
         """)
 
 

@@ -5,6 +5,7 @@ from test_ui_child import LuaRuntime, ROOT
 from test_composition import FIX, FONT, PNG, EXTRA
 
 SOURCE=(ROOT/'research/interaction-prompts-owner/world-space/live-editor/Scripts/IIPResources.lua').read_text(encoding='utf8')
+TEMPLATE_SOURCE=(ROOT/'research/interaction-prompts-owner/world-space/native-world-template/Scripts/IIPTemplateResources.lua').read_text(encoding='utf8')
 SETUP=r'''
 local req=require
 function require(n)
@@ -23,10 +24,14 @@ end
 '''
 
 class LiveResources(unittest.TestCase):
-    def case(self,code,setup=''):
+    def case(self,code,setup='',source=SOURCE):
         lua=LuaRuntime(unpack_returned_tuples=True)
-        lua.execute(FIX+FONT+PNG+EXTRA+SETUP)
-        lua.execute('Resources=(function()\n'+SOURCE+'\nend)()')
+        ornament=PNG+EXTRA
+        if source==TEMPLATE_SOURCE:
+            ornament=ornament.replace("570","256").replace("return 16 end","return 32 end")
+            ornament=ornament.replace(">I4I4\",256,16",">I4I4\",256,32")
+        lua.execute(FIX+FONT+ornament+SETUP)
+        lua.execute('Resources=(function()\n'+source+'\nend)()')
         lua.execute('S.game=true;'+setup)
         lua.execute(code)
 
@@ -47,5 +52,23 @@ class LiveResources(unittest.TestCase):
         self.case('assert(not pcall(Resources.prepare))','S.file_missing=true')
         self.case('Resources.prepare();local line=resource_line();assert(not pcall(Resources.ornament,line,S.test_widget));assert(S.imports==1)',
                   'S.import_null=true')
+
+    def test_template_replaces_invalid_successful_texture_then_stops_on_failed_import(self):
+        self.case("""
+            Resources.prepare()
+            local first,second,third=resource_line(),resource_line(),resource_line()
+            Resources.ornament(first,S.test_widget)
+            local original=S.texture
+            Resources.ornament(second,S.test_widget)
+            assert(S.imports==1 and second.Brush.ResourceObject==original)
+            original.IsValid=function()return false end
+            Resources.ornament(third,S.test_widget)
+            assert(S.imports==2 and third.Brush.ResourceObject==S.texture and S.texture~=original)
+            S.texture.IsValid=function()return false end
+            S.import_null=true
+            assert(not pcall(Resources.ornament,resource_line(),S.test_widget))
+            assert(not pcall(Resources.ornament,resource_line(),S.test_widget))
+            assert(S.imports==3)
+        """,source=TEMPLATE_SOURCE)
 
 if __name__=='__main__':unittest.main()
