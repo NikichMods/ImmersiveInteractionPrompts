@@ -736,3 +736,45 @@ first readable frame and whether the native Talk action starts.
 Retain the recording and UE4SS log for correlation with the
 `NPC_TALK_ORIENTATION` or `NPC_TALK_ORIENTATION_SKIPPED` marker.
 Runtime PENDING. Production BLOCKED.
+
+## NPC repeat facing and door occlusion (2026-11-21)
+
+The user confirmed the facing change on installed `10fa4f0`.
+The session has four `NPC_TALK_ORIENTATION changed=true` records
+on distinct NPC instances, each followed by the Talk header update.
+No orientation skip was recorded. The log and user confirmation
+establish the turn. First-pixel timing and successful rear-side
+Talk remain open. Log snapshot SHA-256
+`4707d8aadce5221ca687a39a7681a82ea17fa6c3194f3541b02155db6007312`.
+
+**Repeat facing, proposed.** Reuse the existing setter once on each
+native hidden-to-visible transition. Keep the heading fixed while
+the prompt is visible. The current `CanShow` callback confirms the
+visible side of this path. Its cadence while this NPC's World prompt
+is hidden is unverified. Prior reflected `SetShow` and base-class
+`ShowTipEvent` probes registered with no delivered callbacks.
+Start with one read-only trace on the existing callback for one NPC:
+approach, withdraw through a full hide, and approach from the other
+side. Record whether the same widget reports hidden state before the
+next visible state. A state reset in that callback is sufficient if
+the edge is observable. A missing hidden callback rules out that
+reset scheme. No elapsed-time heuristic is justified.
+[Prior notification evidence](../show-tip-event-observer/README.md#runtime-result--2026-11-07).
+
+**Door clearance, proposed.** The screenshot shows bars in front of
+both action lines and the ornament. The fresh log lists multiple
+eligible door owners in that area and does not identify the one in
+the screenshot. The corresponding cooked level export contains
+sewer-door instances with front and rear alignment points, a
+`WidgetLocator` and the native `ExtendedWidget`. Once the exact
+door is identified, use its approach-side sign along the door normal
+to put the existing World prompt just ahead of the closed leaf.
+Tune the smallest clearance in world units for that door. This
+preserves ordinary depth occlusion elsewhere and the shared `Open`
+presentation on chests. A fixed move along the current widget
+forward axis can be tested for a known one-sided door with a verified
+axis and side. A global `Open` offset and through-wall drawing
+would also affect prompts outside the reported case.
+
+These are source-design options. The installation and runtime code
+remain as tested. Production BLOCKED.
