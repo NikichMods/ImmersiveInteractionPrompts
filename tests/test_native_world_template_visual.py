@@ -159,6 +159,12 @@ class NativeTemplateVisual(unittest.TestCase):
         status="open"
         assert(M.door_plane(c,w,actor,state,"Open"))
         assert(S.loc.Y==20 and S.rotation.Yaw==90 and state.door_pose==nil)
+        status="close"
+        actor.rear_CharacterAlign=nil
+        local writes=S.rotation_writes
+        local ok,reason=pcall(M.door_plane,c,w,actor,state,"Open")
+        assert(not ok and reason:find("door geometry owner mismatch",1,true))
+        assert(S.loc.Y==20 and S.rotation_writes==writes and state.door_pose==nil)
         """)
 
 

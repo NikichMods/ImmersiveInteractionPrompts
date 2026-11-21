@@ -13,8 +13,14 @@ local OBJECTS = {
     [LEVEL.."0-1_sosletter3_2"]="Check",
 }
 local OPEN = LEVEL.."0-1_lootbox_01_mat_ST001"
-local GRILLE = "/Game/MainContent/Maps/sublevel_plot/0-2/0-2_plot_shelterA_main2.0-2_plot_shelterA_main2:PersistentLevel.1-1_slumpass_door_bp1"
-local GRILLE_CLASS = "/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_sewer_a01_bp.item_door_sewer_a01_bp_C"
+local SEWER_DOOR = "/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_sewer_a01_bp.item_door_sewer_a01_bp_C"
+local DOOR_FAMILIES = {
+    ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/Base1SideDoor_BP.Base1SideDoor_BP_C"]="one_side",
+    ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/Base2SideDoor_BP.Base2SideDoor_BP_C"]="two_side",
+    ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/BaseTeleportDoor_BP.BaseTeleportDoor_BP_C"]="teleport",
+    ["/Game/MainContent/Act/Scene_BP/BaseScene_BP/BaseGate_BP.BaseGate_BP_C"]="gate",
+    ["/Game/MainContent/Act/Scene_BP/objectPassive/doors/item_0-1rockdoor_a01_bp.item_0-1rockdoor_a01_bp_C"]="rock",
+}
 local WORLD, SCREEN, NO_COLLISION = 0, 1, 0
 local status = "UNATTEMPTED"
 
@@ -54,17 +60,16 @@ do
         if created then facing_observer=value end
     end
 end
-local function observer_kind(actor,record)
-    if record.npc then return "npc" end
-    if record.actor==OPEN then return "known_chest" end
-    -- Read-only discovery heuristic, NOT sufficient to enable door behavior.
-    local p=path(actor:GetClass()):lower()
-    local n=record.actor:lower()
-    if p:find("door",1,true) or p:find("gate",1,true)
-        or n:find("door",1,true) or n:find("gate",1,true) then
-        return "possible_door"
+local function door_family(class)
+    for _=1,32 do
+        if not valid(class) then return nil end
+        local class_path=path(class)
+        if class_path==GENERATED_CLASS then return nil end
+        local family=DOOR_FAMILIES[class_path]
+        if family then return family end
+        class=class:GetSuperStruct()
     end
-    return nil
+    error("door ancestry exceeds search bound")
 end
 local function prepare_style()
     local ok_r,r=pcall(require,"IIPTemplateResources")
@@ -98,7 +103,11 @@ local function on_can_show(context)
     if info.orientation and not info.orientation_failed and valid(actor) and path(actor)==info.actor then
         local ok,changed,side,why=true,false,nil,nil
         if info.orientation=="door" then
-            ok,changed,side,why=pcall(style.door_plane,component,widget,actor,info.state,tag)
+            if info.door_geometry then
+                ok,changed,side,why=pcall(style.door_plane,component,widget,actor,info.state,tag)
+            else
+                why="geometry_unverified"
+            end
         elseif component.bVisible==true and (widget.RenderOpacity or 0)>.01 then
             ok,changed=pcall(style.face_camera,component,widget)
         end
@@ -109,7 +118,7 @@ local function on_can_show(context)
             info.orientation_logged,info.logged_side=true,side
             log("ORIENTATION_APPLIED",("mode=%s actor=%q side=%s"):format(info.orientation,info.actor,tostring(side)))
         end
-        -- The precise closed grille may legally skip a placement without
+        -- A recognized door may skip placement without
         -- throwing. Report each distinct native skip outcome at most once,
         -- capped to avoid log spam. This does not change positioning.
         if info.orientation=="door" and ok and not changed and why then
@@ -165,17 +174,23 @@ local function try_style_actor(actor)
             and old.component_address==component:GetAddress() then return end
         styled[id]=nil -- Stale address from another actor cannot inherit style state.
     end
+    local class=actor:GetClass()
+    local class_path=path(class)
     local record={component=path(component),component_address=component:GetAddress(),
-        widget=path(widget),widget_address=id,actor=path(actor),npc=is(actor,NPC)}
-    if record.npc or record.actor==OPEN then
-        record.orientation="billboard"
-    elseif record.actor==GRILLE and is(actor,GRILLE_CLASS) then
+        widget=path(widget),widget_address=id,actor=path(actor)}
+    local classified,family=pcall(door_family,class)
+    if not classified then
+        log("DOOR_PLANE_ROUTE",("actor=%q enabled=false class=%q reason=%q"):format(
+            record.actor,class_path,tostring(family):sub(1,150)))
+    elseif family then
         record.orientation="door"
-    end
-    -- One eligibility audit at BeginPlay. Do not infer that CanShow fired.
-    if record.actor==GRILLE then
-        log("DOOR_PLANE_ROUTE",("actor=%q enabled=%s class=%q"):format(
-            record.actor,tostring(record.orientation=="door"),path(actor:GetClass())))
+        record.door_geometry=class_path==SEWER_DOOR
+        record.observer_kind="door"
+        log("DOOR_PLANE_ROUTE",("actor=%q enabled=%s class=%q family=%s"):format(
+            record.actor,tostring(record.door_geometry),class_path,family))
+    elseif class_path==NPC or record.actor==OPEN then
+        record.orientation="billboard"
+        record.observer_kind=class_path==NPC and "npc" or "known_chest"
     end
     -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
     styled[id]=record
@@ -185,7 +200,6 @@ local function try_style_actor(actor)
         return
     end
     record.state=result
-    record.observer_kind=observer_kind(actor,record)
     log("STYLE_READY",("actor=%q decorated=%s"):format(path(actor),tostring(result.decorated)))
     arm_can_show()
 end

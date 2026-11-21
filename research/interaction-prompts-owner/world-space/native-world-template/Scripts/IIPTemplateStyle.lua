@@ -150,7 +150,7 @@ local function place(c,position,yaw)
     return moved or result
 end
 
--- Closed slum grille only. The root plane is a static estimate. The 24 cm
+-- Closed sewer-door geometry only. The root plane is a static estimate. The 24 cm
 -- trial offset needs visual verification against the actual bars on both sides.
 function M.door_plane(c,widget,actor,state,tag)
     local prior=state.door_pose

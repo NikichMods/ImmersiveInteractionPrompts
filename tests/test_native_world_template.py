@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MPL-2.0
-"""Source-only mock for shared SCS template trial; no native inheritance is simulated."""
+"""Source-only mock for the shared SCS template and orientation routing."""
 import unittest
 from lupa import LuaRuntime
 from test_ui_child import ROOT
@@ -20,7 +20,8 @@ local function obj(path,class,id)
     function x:GetFullName()return "Object "..self.p end
     function x:GetAddress()return self.id end
     function x:GetClass()return {IsValid=function()return true end,
-        GetFullName=function()return "Class "..self.c end}end
+        GetFullName=function()return "Class "..self.c end,
+        GetSuperStruct=function()return self.super end}end
     return x
 end
 S.make=obj
@@ -158,6 +159,66 @@ class TemplateWorldTrial(unittest.TestCase):
             with self.subTest(actor_class=actor_class):
                 self.run_case(case.replace("{{CLASS}}", actor_class)
                                   .replace("{{FACINGS}}", str(facings)))
+
+    def test_door_family_routes_by_class_chain_independently_of_action(self):
+        self.run_case("""
+        local tip=S.widget.c..":CanShow"
+        S.objects[tip]={IsValid=function()return true end,type=function()return "UFunction" end}
+        function RegisterHook(name,callback)assert(name==tip);S.can_show=callback;return 1,1 end
+        local placements,billboards=0,0
+        package.preload.IIPTemplateResources=function()return {prepare=function()end} end
+        package.preload.IIPTemplateProbe=function()return {} end
+        package.preload.IIPTemplateStyle=function()return {
+            RGB=.5,start=function()return {} end,can_show=function()end,
+            door_plane=function(_,_,_,_,tag)
+                assert(tag=="Knock" or tag=="Gossip")
+                placements=placements+1
+                return false,nil,"inactive_state=close"
+            end,
+            face_camera=function()billboards=billboards+1;return true end
+        }end
+        {{LOAD_SOURCE}}
+        flush()
+        local generic=S.make("unused",GENERATED_CLASS,500)
+        local base="/Game/MainContent/Act/Scene_BP/BaseScene_BP/"
+        local function root(name)
+            return S.make("unused",base..name.."."..name.."_C",501):GetClass()
+        end
+        local function run(name,class,parent,id,tag)
+            local actor=S.make(name,class,id)
+            actor.super=parent
+            local component=S.make(name..".ExtendedWidget",COMP,id+100)
+            local widget=S.make("/Transient.TipHUD"..id,S.widget.c,id+200)
+            local arg=S.make(name..".TipHUDArgument","/Script/Genesis.TipHUDArgumentComponent",id+300)
+            actor.ExtendedWidget,actor.TipHUDArgument=component,arg
+            function arg:GetOwner()return actor end
+            arg.msgTag={ToString=function()return tag end}
+            function component:GetOwner()return actor end
+            function component:GetOuter()return actor end
+            function component:GetCollisionEnabled()return 0 end
+            function component:GetUserWidgetObject()return widget end
+            component.Space,component.bVisible,widget.RenderOpacity=0,true,1
+            S.objects[component.p]=component
+            S.begin({get=function()return actor end})
+            S.can_show({get=function()return widget end})
+        end
+        local door="/Game/MainContent/Act/Scene_BP/objectInteract/doors/item_door_sewer_a01_bp.item_door_sewer_a01_bp_C"
+        run("/Game/Test.Level:Passage",door,root("Base1SideDoor_BP"),21,"Knock")
+        run("/Game/Test.Level:OtherPassage",door,root("Base1SideDoor_BP"),22,"Gossip")
+        assert(placements==2 and billboards==0 and has("family=one_side"))
+        assert(has('reason="inactive_state=close" tag="Knock"'))
+        for i,name in ipairs({"Base1SideDoor_BP","Base2SideDoor_BP","BaseTeleportDoor_BP","BaseGate_BP"}) do
+            run("/Game/Test.Level:Parent"..i,base..name.."."..name.."_C",nil,30+i,"Knock")
+            run("/Game/Test.Level:Derived"..i,"/Game/Test.Obscure_"..i,root(name),40+i,"Open")
+        end
+        assert(has("family=two_side") and has("family=teleport") and has("family=gate"))
+        assert(has('reason="geometry_unverified"'))
+        local rock="/Game/MainContent/Act/Scene_BP/objectPassive/doors/item_0-1rockdoor_a01_bp.item_0-1rockdoor_a01_bp_C"
+        run("/Game/Test.Level:Trap",rock,generic:GetClass(),55,"Open")
+        assert(has("family=rock") and placements==2 and billboards==0)
+        run(OPEN,"/Game/Test.DoorShapedChest",generic:GetClass(),56,"Open")
+        assert(billboards==1 and placements==2)
+        """)
 
     def test_cold_load_rejects_package_name_and_leaves_template_untouched(self):
         self.run_case("""

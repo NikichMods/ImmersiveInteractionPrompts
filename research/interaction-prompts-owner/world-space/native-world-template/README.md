@@ -1077,6 +1077,59 @@ Private UE4SS session snapshot SHA-256
 `fdcf76e22344a72c6c204beeabf42169559f1321c307f97414e313c2c8fcc5c8`.
 Production BLOCKED.
 
+## Door family classification and placement limits (2026-11-21)
+
+The cooked class exports for Steam 1.09/build 12996889 make
+`Base1SideDoor_BP_C`, `Base2SideDoor_BP_C`, `BaseTeleportDoor_BP_C`
+and `BaseGate_BP_C` direct children of `BaseGameEventObject_BP_C`.
+That parent serves other interactables as well. The available class
+inventory also contains `item_0-1rockdoor_a01_bp_C`, a separate direct
+child with its own mesh and opening path. The placed Minerva room
+door has class `item_door_bazaar_a01_bp_C`. Its ancestry is absent
+from the retained exports, and its name alone does not establish
+membership in the known `item_2leaf_door_bazaar_a01_bp_C` family.
+The inventory supports an extensible classifier with known roots;
+it does not establish complete coverage of every game door.
+
+The central classifier walks exact Blueprint class paths via
+`GetSuperStruct()` once when the original widget is acquired.
+The pinned UE4SS `83330635` Lua binding exports that method, and the
+repository already uses it in the selected-owner and World reuse paths.
+The walk stops at the generic event-object class or at the end of the
+class chain. It classifies both the known roots and derived classes.
+`ExtendedWidget`, `WidgetLocator`, a skeletal mesh, trigger areas or
+`CurrentState` alone are shared or incomplete indicators. No name
+substring, prompt text or `msgTag` participates in classification.
+
+| Recognized family | Cooked geometry and lifecycle boundary | Placement in this candidate |
+| --- | --- | --- |
+| `Base1SideDoor_BP_C` | Front/rear trigger and alignment pairs face across root X. In the retained sewer instances both alignments, original widget/locator attachment and the root-plane estimate are available. The native graph controls open/close and interaction failure. | Existing 24 cm trial only for the exact sewer Blueprint, on any placed instance passing the existing geometry checks. Other descendants retain baseline placement. |
+| `Base2SideDoor_BP_C` | Opposing `Leftt_CharacterAlign` and `Right_CharacterAlign` with respective triggers give a plausible root-X passage axis. Native graph owns direction-dependent open/close. Closed leaf surface and locator/mesh placement across derivatives are unverified. | Baseline placement. |
+| `BaseTeleportDoor_BP_C` | Front alignment and blocking area are present. No rear alignment or generic rendered-leaf surface is established. Native open, close and transition behavior remain separate from placement. | Baseline placement. |
+| `BaseGate_BP_C` | No confirmed opposing alignment pair. The retained descendants include a two-leaf bazaar door and a vertical wooden gate, with different moving geometry. A common face cannot be inferred from their shared root or state machine. | Baseline placement. |
+| `item_0-1rockdoor_a01_bp_C` | Separate static mesh and effect arrangement; no verified opposing pair or leaf frame. | Baseline placement. |
+
+The families share inherited TipHUD infrastructure, and the original
+component remains authoritative. On acquisition, recognized doors pick
+Door Plane even with `Knock` or `Gossip`. Their placement profile is
+separate from that classification. The sewer experiment still moves only
+on the existing closed/visible native `Open` callback. Keep this gate
+until the reason for the failed `27b095d` approach is observed. On a
+later callback outside that state, the existing pose restoration can
+run. Callback delivery when a prompt hides is still pending.
+Unsupported geometry keeps the previous World placement and never
+falls through to Billboard. Chest and NPC Billboard behavior is unchanged.
+
+The candidate retains `DOOR_PLANE_ROUTE`, bounded `DOOR_PLANE_SKIP`
+and `ORIENTATION_APPLIED/REJECTED`. The smallest sufficient next game
+test is the original closed slum grille once it is interactive.
+Correlate its route record with the first recorded outcome and the
+visibility of the bars over the text. A skip identifies the gate to
+investigate; a verified apply with remaining occlusion supports measuring
+the mesh surface. No clearance or guard was loosened for this candidate.
+Source-only; installed `27b095d` remains the runtime baseline.
+Production BLOCKED.
+
 ## Door Plane skip trace — source-only (2026-11-21)
 
 The `27b095d` runtime report confirms a visible grille occlusion but
