@@ -216,6 +216,38 @@ class NativeTemplateVisual(unittest.TestCase):
         assert(label.txt=="LETHO" and state.tag=="Talk")
         """)
 
+
+    def test_grille_inactive_state_is_reported_without_any_world_write(self):
+        self.case("""
+        local actor={CurrentState={ToString=function()return "Close" end}}
+        local state={}
+        local changed,side,reason=M.door_plane(S.component,
+            {RenderOpacity=1},actor,state,"Open")
+        assert(changed==false and side==nil and reason=="inactive_state=Close")
+        assert(S.rotation_writes==0 and S.loc.Z==30 and state.door_pose==nil)
+        """)
+
+    def test_grille_native_visibility_skip_is_read_only(self):
+        self.case("""
+        local actor={CurrentState={ToString=function()return "close" end}}
+        local state={}
+        S.component.bVisible=false
+        local changed,side,reason=M.door_plane(S.component,
+            {RenderOpacity=1},actor,state,"Open")
+        assert(changed==false and side==nil and reason=="native_not_visible")
+        assert(S.rotation_writes==0 and S.loc.Z==30 and state.door_pose==nil)
+        """)
+
+    def test_grille_non_open_tag_does_not_touch_world_component(self):
+        self.case("""
+        local actor={CurrentState={ToString=function()return "close" end}}
+        local state={}
+        local changed,side,reason=M.door_plane(S.component,
+            {RenderOpacity=1},actor,state,"Check")
+        assert(changed==false and reason=="inactive_state=close")
+        assert(S.rotation_writes==0 and S.loc.Z==30 and state.door_pose==nil)
+        """)
+
     def test_rendering_decoration_needs_actual_native_tiphud(self):
         self.case("""
         assert(not pcall(M.decorate,S.component,{}))

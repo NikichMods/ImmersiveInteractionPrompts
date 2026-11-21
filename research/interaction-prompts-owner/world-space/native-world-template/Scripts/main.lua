@@ -96,9 +96,9 @@ local function on_can_show(context)
     local actor=component:GetOwner()
     local tag=action_tag(actor)
     if info.orientation and not info.orientation_failed and valid(actor) and path(actor)==info.actor then
-        local ok,changed,side=true,false
+        local ok,changed,side,why=true,false,nil,nil
         if info.orientation=="door" then
-            ok,changed,side=pcall(style.door_plane,component,widget,actor,info.state,tag)
+            ok,changed,side,why=pcall(style.door_plane,component,widget,actor,info.state,tag)
         elseif component.bVisible==true and (widget.RenderOpacity or 0)>.01 then
             ok,changed=pcall(style.face_camera,component,widget)
         end
@@ -108,6 +108,20 @@ local function on_can_show(context)
         elseif changed and (not info.orientation_logged or side~=info.logged_side) then
             info.orientation_logged,info.logged_side=true,side
             log("ORIENTATION_APPLIED",("mode=%s actor=%q side=%s"):format(info.orientation,info.actor,tostring(side)))
+        end
+        -- The precise closed grille may legally skip a placement without
+        -- throwing. Report each distinct native skip outcome at most once,
+        -- capped to avoid log spam. This does not change positioning.
+        if info.orientation=="door" and ok and not changed and why then
+            info.door_trace=info.door_trace or {count=0,seen={}}
+            local trace=info.door_trace
+            if trace.count<8 and not trace.seen[why] then
+                trace.count=trace.count+1
+                trace.seen[why]=true
+                log("DOOR_PLANE_SKIP",("actor=%q reason=%q tag=%q visible=%s opacity=%s"):format(
+                    info.actor,tostring(why),tostring(tag),
+                    tostring(component.bVisible),tostring(widget.RenderOpacity)))
+            end
         end
     end
     if facing_observer and info.observer_kind and not info.observer_error then
@@ -157,6 +171,11 @@ local function try_style_actor(actor)
         record.orientation="billboard"
     elseif record.actor==GRILLE and is(actor,GRILLE_CLASS) then
         record.orientation="door"
+    end
+    -- One eligibility audit at BeginPlay. Do not infer that CanShow fired.
+    if record.actor==GRILLE then
+        log("DOOR_PLANE_ROUTE",("actor=%q enabled=%s class=%q"):format(
+            record.actor,tostring(record.orientation=="door"),path(actor:GetClass())))
     end
     -- Mark before setters; do not double-lift on a repeated BeginPlay callback.
     styled[id]=record

@@ -1076,3 +1076,32 @@ Screen S1 matched its pre-install manifest.
 Private UE4SS session snapshot SHA-256
 `fdcf76e22344a72c6c204beeabf42169559f1321c307f97414e313c2c8fcc5c8`.
 Production BLOCKED.
+
+## Door Plane skip trace — source-only (2026-11-21)
+
+The `27b095d` runtime report confirms a visible grille occlusion but
+no evidence that the 24 cm offset executed. Do not alter clearance or
+native eligibility on that basis. The next source-only revision adds
+**diagnostics only** to the existing `CanShow`/Door Plane code path:
+
+- `DOOR_PLANE_ROUTE` logs once for the exact
+  `1-1_slumpass_door_bp1` on BeginPlay, showing whether the strict
+  original actor path and class selected `mode=door`.
+- The existing `door_plane` returns optional reason strings on
+  legitimate no-op paths: `inactive_state=<exact CurrentState>`,
+  `native_not_visible`, `pawn_unavailable`, `near_plane`,
+  `already_placed` (or `restored` when leaving a previously placed
+  state). No new state setter, hook, timer, or retry is introduced.
+- Main logs a `DOOR_PLANE_SKIP` once per **distinct** skip string,
+  at most 8 entries per original widget, with native tag, component
+  visibility and widget opacity. `ORIENTATION_APPLIED` and
+  `ORIENTATION_REJECTED` remain the definitive write/failure markers.
+
+The choice to return the exact native state string is intentional:
+a case/spelling mismatch such as `Close` versus hard-coded `close`
+is a **hypothesis**, not a diagnosed cause. The already-verified
+`NPC` Billboard and native interaction, GameState, rendering, font and
+hold logic are unchanged. Offline tests exercise early native no-write
+routes. **SOURCE ONLY; installed World stays `27b095d`.** New runtime
+correlation at the exact grille is required before changing the
+clearance or deciding how to generalize to other door classes.

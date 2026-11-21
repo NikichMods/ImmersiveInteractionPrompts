@@ -154,13 +154,16 @@ end
 -- trial offset needs visual verification against the actual bars on both sides.
 function M.door_plane(c,widget,actor,state,tag)
     local prior=state.door_pose
-    if tag~="Open" or actor.CurrentState:ToString()~="close" then
-        if not prior then return false end
+    local native_state=actor.CurrentState:ToString()
+    if tag~="Open" or native_state~="close" then
+        if not prior then return false,nil,"inactive_state="..tostring(native_state) end
         local changed=place(c,prior.anchor,prior.yaw)
         state.door_pose=nil
-        return changed
+        return changed,nil,"restored"
     end
-    if c.bVisible~=true or (widget.RenderOpacity or 0)<=.01 then return false end
+    if c.bVisible~=true or (widget.RenderOpacity or 0)<=.01 then
+        return false,nil,"native_not_visible"
+    end
 
     local locator,root=actor.WidgetLocator,actor.RootComponent
     local front,rear=actor.front_CharacterAlign,actor.rear_CharacterAlign
@@ -182,9 +185,9 @@ function M.door_plane(c,widget,actor,state,tag)
     assert(depth(a)>40 and depth(b)<-40 and math.abs(depth(point(locator:K2_GetComponentLocation())))<2,
         "door plane reference mismatch")
     local pawn=widget:GetOwningPlayerPawn()
-    if not valid(pawn) then return false end
+    if not valid(pawn) then return false,nil,"pawn_unavailable" end
     local player_depth=depth(point(pawn:K2_GetActorLocation()))
-    if math.abs(player_depth)<8 then return false end
+    if math.abs(player_depth)<8 then return false,nil,"near_plane" end
     local side=player_depth>0 and 1 or -1
     local anchor=prior and prior.anchor or point(c:K2_GetComponentLocation())
     local yaw=prior and prior.yaw or c:K2_GetComponentRotation().Yaw
@@ -192,7 +195,7 @@ function M.door_plane(c,widget,actor,state,tag)
     local changed=place(c,{X=anchor.X+nx*offset,Y=anchor.Y+ny*offset,Z=anchor.Z},
         math.deg(math.atan(side*ny,side*nx)))
     if not prior then state.door_pose={anchor=anchor,yaw=yaw} end
-    return changed,side
+    return changed,side,changed and "placed" or "already_placed"
 end
 
 local function child(tree,canvas,owned,k,name,y,w,h,x)

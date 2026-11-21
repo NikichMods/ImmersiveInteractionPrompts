@@ -1,5 +1,27 @@
 # Статус Immersive Interaction Prompts
 
+## Native World — диагностика пропуска Door Plane (2026-11-21)
+
+Игровой отчёт установленного `27b095d` подтвердил четыре
+`ORIENTATION_APPLIED mode=billboard` у NPC и отображение
+разделителя после перехода в Убежище. Сундук ещё не
+проверен. У подтверждённой решётки
+`1-1_slumpass_door_bp1` прутья перекрывают текст,
+а подтверждения применения Door Plane нет.
+
+**Следующий source-only шаг:** не менять вынос 24 см.
+В том же `CanShow` показать один раз каждую фактически
+встреченную причину обычного пропуска ветки `door_plane`:
+`inactive_state`, `native_not_visible`,
+`pawn_unavailable`, `near_plane`,
+`already_placed`. При `BeginPlay` однократно
+зафиксировать точное совпадение класса/пути этой решётки.
+Никаких новых хуков, циклов или изменений transforms
+по сравнению с `27b095d`. Тесты проверяют
+неизменность нативного компонента на ранних пропусках.
+**SOURCE ONLY / NOT INSTALLED. Production BLOCKED.**
+[Отчёт и интерпретация](../research/interaction-prompts-owner/world-space/native-world-template/README.md#door-plane-skip-trace--source-only-2026-11-21).
+
 ## Native World — игровой результат 27b095d (2026-11-21)
 
 Локально установлен `27b095d`. Пользователь подтвердил поворот подсказок
