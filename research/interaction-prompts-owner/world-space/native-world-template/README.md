@@ -793,3 +793,48 @@ visibility boundary for this option remain open.
 
 These are design options under discussion. The installation and
 runtime code remain as tested. Production BLOCKED.
+
+## Accepted Billboard Yaw / Door Plane — read-only CanShow cadence trial (2026-11-21)
+
+The user adopted two presentation policies without changing native actions:
+1. Non-door world owners (including chest/NPC): original World plane stays
+upright, yaw follows camera when the prompt is active; never fake a second
+renderer or change game selection, action text, input, hide or interaction.
+2. Door/gate: original World plane stays parallel to the closed leaf and
+is placed slightly ahead of the leaf on the **player's** side. Needs
+verified class/geometry/side, unlike the `Open` tag shared by chests.
+
+**Research-method checkpoint:** The shipped `10fa4f0` already has a
+working post-`TipHUD:CanShow` seam and a proven one-shot NPC camera-facing
+setter. Prior `vertical-yaw` proved the per-frame rotation math/setter
+on a separate World component, but not an active original-widget loop.
+Rather than add new hooks/timers or mutate world geometry speculatively,
+a source-only `IIPTemplateFacingObserver.lua` samples the existing
+CanShow event **only after the user presses F5** and prints a bounded
+summary on the next F5. Its observation groups are exact NPC class,
+exact known chest, and *potential* doors selected by class/actor-name
+substring only for diagnostics (never for policy). It records counts,
+`bVisible`, native widget `RenderOpacity`, and sampled camera bearing
+versus component yaw (one pose read per eight native callbacks, capped).
+No rotation, visibility, player state or native interaction setter is
+called by this new module; no second hook or separate scheduler.
+
+**When installed by separate approval, one short user-run:**
+- In front of the known chest, press F5 to arm; walk around it or
+  rotate the camera substantially while near the prompt; press F5
+  to stop. A camera bearing change across multiple callback samples
+  supports reusing CanShow for updates; only one call/pose does not.
+- On a known NPC, arm F5, approach/withdraw fully and reapproach
+  from the opposite side; stop F5. Interpret `visible_false` and
+  `opacity_zero` as sampled signals, *not* a definite native
+  hide event. Absence of hidden samples excludes a `CanShow`-only
+  hidden-edge reset but not native hide by other events.
+- Record native Talk success/failure separately from the visual
+  rotation; existing NPC `SetIsCanInteract` can gate Talk.
+- On the reported grille door, F5 for diagnostic names only; the
+  exact actor/leaf normal/front/rear alignment still needs local
+  private cooked level inspection before writing door offsets.
+
+**Current state:** source-only, NOT INSTALLED. No claims about real
+CanShow cadence, native hidden-event delivery, door geometry or rear
+Talk gating. Installed bytes remain `10fa4f0`. Production BLOCKED.

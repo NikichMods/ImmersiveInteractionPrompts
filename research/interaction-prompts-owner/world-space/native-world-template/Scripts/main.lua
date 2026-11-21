@@ -43,6 +43,28 @@ end
 -- World selection itself still comes only from the one SCS-template write.
 local style,resources,probe,style_available
 local styled,can_show_armed={},false
+-- Separate opt-in, read-only diagnostic. The shipped seven-file candidate remains
+-- unchanged; missing research module simply disables observer functionality.
+local facing_observer
+do
+    local ok,mod=pcall(require,"IIPTemplateFacingObserver")
+    if ok and type(mod)=="table" and type(mod.new)=="function" then
+        local created,value=pcall(mod.new,log)
+        if created then facing_observer=value end
+    end
+end
+local function observer_kind(actor,record)
+    if record.npc then return "npc" end
+    if record.actor==OPEN then return "known_chest" end
+    -- Read-only discovery heuristic, NOT sufficient to enable door behavior.
+    local p=path(actor:GetClass()):lower()
+    local n=record.actor:lower()
+    if p:find("door",1,true) or p:find("gate",1,true)
+        or n:find("door",1,true) or n:find("gate",1,true) then
+        return "possible_door"
+    end
+    return nil
+end
 local function prepare_style()
     local ok_r,r=pcall(require,"IIPTemplateResources")
     local ok_p,p=pcall(require,"IIPTemplateProbe")
@@ -79,6 +101,14 @@ local function on_can_show(context)
         log(faced and "NPC_TALK_ORIENTATION" or "NPC_TALK_ORIENTATION_SKIPPED",
             faced and ("actor=%q changed=%s"):format(info.actor,tostring(changed))
             or ("actor=%q reason=%q"):format(info.actor,tostring(changed):sub(1,170)))
+    end
+    if facing_observer and info.observer_kind and not info.observer_error then
+        local tracked,problem=pcall(facing_observer.sample,facing_observer,info,component,widget)
+        if not tracked then
+            info.observer_error=true
+            log("FACING_OBS_REJECTED",("actor=%q reason=%q"):format(
+                info.actor,tostring(problem):sub(1,120)))
+        end
     end
     local ok,err=pcall(style.can_show,component,widget,info.state,probe,log,tag)
     if not ok then log("STYLE_CADENCE_REJECTED",("reason=%q"):format(tostring(err):sub(1,170))) end
@@ -123,6 +153,7 @@ local function try_style_actor(actor)
         return
     end
     record.state=result
+    record.observer_kind=observer_kind(actor,record)
     log("STYLE_READY",("actor=%q decorated=%s"):format(path(actor),tostring(result.decorated)))
     arm_can_show()
 end
@@ -220,7 +251,16 @@ else
     end,EGameThreadMethod.EngineTick)
     if Key and type(Key.F5)=="number" and not IsKeyBindRegistered(Key.F5) then
         RegisterKeyBind(Key.F5,function()
-            ExecuteInGameThread(manual_sample,EGameThreadMethod.EngineTick)
+            ExecuteInGameThread(function()
+                if facing_observer then
+                    local ok,err=pcall(facing_observer.toggle,facing_observer)
+                    if not ok then
+                        log("FACING_OBS_REJECTED",("reason=%q"):format(tostring(err):sub(1,120)))
+                        facing_observer=nil
+                    end
+                end
+                manual_sample()
+            end,EGameThreadMethod.EngineTick)
         end)
         log("SAMPLE_KEY","key=F5")
     else
