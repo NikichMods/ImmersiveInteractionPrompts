@@ -155,7 +155,8 @@ end
 function M.door_plane(c,widget,actor,state,tag)
     local prior=state.door_pose
     local native_state=actor.CurrentState:ToString()
-    if tag~="Open" or native_state~="close" then
+    -- FName display casing can differ from the cooked spelling.
+    if tag~="Open" or native_state:lower()~="close" then
         if not prior then return false,nil,"inactive_state="..tostring(native_state) end
         local changed=place(c,prior.anchor,prior.yaw)
         state.door_pose=nil

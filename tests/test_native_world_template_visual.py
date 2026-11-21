@@ -138,7 +138,7 @@ class NativeTemplateVisual(unittest.TestCase):
         actor.WidgetLocator=part(2,0,0,180,actor.RootComponent)
         actor.front_CharacterAlign=part(3,0,55,0)
         actor.rear_CharacterAlign=part(4,0,-60,0)
-        local status="close"
+        local status="Close"
         actor.CurrentState={ToString=function()return status end}
         function c:GetAttachParent()return actor.WidgetLocator end
         c.bVisible=true
@@ -225,11 +225,11 @@ class NativeTemplateVisual(unittest.TestCase):
 
     def test_grille_inactive_state_is_reported_without_any_world_write(self):
         self.case("""
-        local actor={CurrentState={ToString=function()return "Close" end}}
+        local actor={CurrentState={ToString=function()return "Opened" end}}
         local state={}
         local changed,side,reason=M.door_plane(S.component,
             {RenderOpacity=1},actor,state,"Open")
-        assert(changed==false and side==nil and reason=="inactive_state=Close")
+        assert(changed==false and side==nil and reason=="inactive_state=Opened")
         assert(S.rotation_writes==0 and S.loc.Z==30 and state.door_pose==nil)
         """)
 

@@ -1130,6 +1130,38 @@ the mesh surface. No clearance or guard was loosened for this candidate.
 Source-only; installed `27b095d` remains the runtime baseline.
 Production BLOCKED.
 
+## Runtime result — grille state casing and lateral offset (2026-11-21)
+
+Installed `942439f` recognized the slum grille with
+`DOOR_PLANE_ROUTE enabled=true family=one_side`. At the visible
+prompt, `DOOR_PLANE_SKIP reason="inactive_state=Close"` recorded
+`tag="Open"`, `visible=true` and `opacity=1.0`. The callback reached
+the state guard and returned before the geometry or position read.
+The cooked spelling is `close`. Normalize the FName display string
+before comparison. The regression fixture now uses the observed
+`Close` and verifies front/rear placement and restoration after
+opening. The Open tag guard, 24 cm trial offset and the rejection
+diagnostics remain in place. Geometry and clearance still require
+an in-game test of the corrected candidate.
+
+The user also reported a possible common left shift. The screenshot
+shows the NPC's composed block left of the head. The authored
+header and divider use a fixed canvas X, and the native icon occupies
+space to the left of the localized action. Billboard Yaw writes
+only rotation. The common startup lift is vertical, and the retained
+base NPC graph constructs a locator offset with X=Y=0. These facts
+leave the painted content's center relative to the rotated component
+pivot and camera projection as distinct possibilities. This frame
+does not establish a shared X correction across actions or owners.
+Leave horizontal placement unchanged until a controlled capture
+compares the active component pivot, original action row and painted
+block from more than one camera angle.
+
+Private UE4SS snapshot SHA-256
+`2e4e069434e3322cc738d8f3063139d7016cd9ace4f27d02801bfbcaf44de9e4`.
+Source correction only; installed World remains `942439f`.
+Production BLOCKED.
+
 ## Door Plane skip trace — source-only (2026-11-21)
 
 The `27b095d` runtime report confirms a visible grille occlusion but
